@@ -1,0 +1,31 @@
+{
+  "name": "elenaNew",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "parcel build index.html",
+    "clean": "rm -r .cache dist",
+    "serve": "npm run clean && parcel index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "animejs": "^3.2.1",
+    "assets": "^3.0.1",
+    "fonts": "0.0.2",
+    "imagesloaded": "^4.1.4",
+    "locomotive-scroll": "^4.0.6",
+    "mithril": "^2.0.4",
+    "regenerator-runtime": "^0.13.7",
+    "splitting": "^1.0.6",
+    "src": "^1.1.2"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.0.0-beta.2",
+    "cssnano": "^5.0.1",
+    "postcss": "^8.2.10",
+    "sass": "^1.32.0"
+  }
+}

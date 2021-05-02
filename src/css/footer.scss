@@ -1,0 +1,122 @@
+$easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
+
+
+.footer {
+  display: grid;
+  font-family: Saol;
+  height: 100vh;
+  width: 100vw;
+  padding: 8vw 8vw 4vw 8vw;
+  margin-top: 5rem;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  grid-template-rows: 1fr 1fr 1fr .3fr;
+
+  & > * > * {
+    opacity: 0;
+    transform: translateY(50px) rotate(-10deg);
+    transition: .5s $easeQuintic;
+    // overflow: hidden;
+  }
+  & > * > *:nth-child(2n) {
+    transform: translateX(50px) rotate(10deg);
+
+  }
+  //
+  // & > * > *:nth-child(3n) {
+  //   transition-delay: .6s;
+  // }
+  & > *.is-inview * {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  .location {
+      align-self: center;
+  }
+  .contacts {
+    justify-content: space-between;
+    flex-wrap:wrap;
+    align-self: center;
+    .link-mail {
+      &:hover a:after {
+        transform: scaleX(.4)
+      }
+      a {
+        text-decoration: none;
+        color: #530202;
+        position: relative;
+        &:after {
+          content: '';
+          position: absolute;
+          transform: scaleX(1);
+          transform-origin: left;
+          left: 0;
+          bottom: 0;
+          display: inline-block;
+          border-radius: 10px;
+          height: 1px;
+          width: 100%;
+          background-color: black;
+          transition: transform .3s $easeQuintic;
+        }
+      }
+      &-text {
+        text-align: right;
+      }
+    }
+    .socials {
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      .link-text {
+        padding-left: 1rem;
+      }
+    }
+  }
+  &-nav {
+    font-size: 3.5rem;
+    width: max-content;
+    align-self: center;
+    &.is-inview:hover a{
+        opacity:0.5;
+    }
+    a {
+      width: max-content;
+      position: relative;
+      cursor: pointer;
+      margin-left: auto;
+
+     & span:after {
+       content: '';
+       position: absolute;
+       right: -7.5%;
+       bottom: 20%;
+       transform-origin: bottom;
+       display: inline-block;
+       width: 1px;
+       height: 70%;
+       background-color: black;
+       transition: transform .3s $easeQuintic;
+       transform: rotate(22.5deg) scale(1, 0);
+     }
+     &.is-inview:hover {
+       opacity: 1;
+     }
+     &:hover span:after {
+       transform: rotate(22.5deg) scale(1, 1);
+
+     }
+    }
+  }
+  .credits {
+    text-align: right;
+    // margin-top: 50%;
+    opacity: .8;
+    font-family: JosefineBold;
+    font-size: .9rem;
+    font-weight: bold;
+    letter-spacing: -.8px;
+  }
+
+}
