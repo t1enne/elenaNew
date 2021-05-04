@@ -1,5 +1,5 @@
 import imagesLoaded from "imagesloaded";
-import regeneratorRuntime from 'regenerator-runtime';
+import regeneratorRuntime from "regenerator-runtime";
 // import 'src/assets/img/*'
 import m from "mithril";
 // import anime from 'animejs'
@@ -19,11 +19,19 @@ import Project from "./src/js/Project";
 let main = document.querySelector("main");
 
 let projects = {};
+let allSources = [];
 
 for (const key in pics) {
     //array of images
     projects[key] = Object.values(pics[key]);
+    allSources = allSources.concat(Object.values(pics[key]));
 }
+
+let allImages = allSources.map((src) => {
+    let img = document.createElement("img");
+    img.src = src;
+    return img;
+});
 
 let projectNames = Object.keys(projects);
 let scroll, cursor;
@@ -99,13 +107,17 @@ let Home = {
     //   }, 1000);
     // },
     oncreate(vnode) {
-        // Splitting()
-
         // if (scroll != null) scroll.init()
-        imagesLoaded(".img-wrapper img", () => {
+        const imgLoad = imagesLoaded(allImages);
 
-            console.log(scroll);
-            //initialize smoothscroll
+        imgLoad.on("progress", (instance) => {
+            const len = instance.elements.length;
+            const count = instance.progressedCount;
+            const perc = Math.round((count * 100) / len);
+            document.querySelector(".loader__text").textContent = `${perc}%`;
+        });
+
+        imgLoad.on("done", () => {
             if (scroll) {
                 scroll.destroy();
             }
@@ -122,6 +134,8 @@ let Home = {
                 const { limit, scroll } = args;
                 vnode.state.scrolled = Math.round((scroll.y * 100) / limit.y);
             });
+            const loader = document.querySelector(".loader");
+            loader.classList.add("loaded");
         });
 
         // initialize custom cursor
@@ -157,61 +171,61 @@ let Home = {
                         //
 
                         // m('.slides-wrapper',
-                          // m('.work-selector-wrapper.grid', [
-                            // m('.preview[data-scroll][data-scroll-speed=2]',
-                              // [
-                                // m('.project-index', `${vnode.state.slidesIndex+1} / ${vnode.state.slidesLength}`),
-                                // m('.preview-slides',
-                                  // projectNames.map((name, i) => {
-                                    // return m(`.preview-slide.${i == 0 ? '.active' : '' }`, {
-                                      // style: `background-image: url(${pics[name][name + '1']});`
-                                    // })
-                                  // })),
-                                // m('.buttons.space-between', [
-                                  // m('.button.flex.prev', {
-                                      // onclick: () => {
-                                        // vnode.state.prev(vnode)
-                                      // }
-                                    // },
-                                    // m("svg.arrows.arrow-left[xmlns='http://www.w3.org/2000/svg'][width='24'][height='24'][viewBox='0 0 24 24'][fill='none'][stroke='currentColor'][stroke-width='2'][stroke-linecap='round'][stroke-linejoin='round']",
-                                      // [
-                                        // m("line[x1='19'][y1='12'][x2='5'][y2='12']"),
-                                        // m("polyline[points='12 19 5 12 12 5']")
-                                      // ]
-                                    // ), m('.text', 'prev')),
-                                  // m('.button.flex.next', {
-                                      // onclick(e) {
-                                        // vnode.state.next(vnode)
-                                      // }
-                                    // },
-                                    // m('.text', 'next'),
-                                    // m("svg.arrows.arrow-right[xmlns='http://www.w3.org/2000/svg'][width='24'][height='24'][viewBox='0 0 24 24'][fill='none'][stroke='currentColor'][stroke-width='2'][stroke-linecap='round'][stroke-linejoin='round']",
-                                      // [
-                                        // m("line[x1='5'][y1='12'][x2='19'][y2='12']"),
-                                        // m("polyline[points='12 5 19 12 12 19']")
-                                      // ]
-                                    // )
-                                  // )
-                                // ])
-                              // ],
-                              // [
-                                // m('.project-titles.flex-column', projectNames.map((name, i) => {
-                                  // return m(`h1.project-title.project-${name}[index=${i}]`, projectNames[i])
-                                // }))
-                              // ]
-                            // )
-                          // ]),
-                          // m('.slides',
-                            // m('.work-title-wrapper', [
-                              // m('p.work-title', `- tbd -`),
-                              // m('p.explore-project', 'explore')
-                            // ]),
-                            // projectNames.map((name, i) => {
-                              // return m(`.slide${i == 0 ? '.active' : ''}`, m('img', {
-                                // src: projects[name][0]
-                              // }))
-                            // })
-                          // )
+                        // m('.work-selector-wrapper.grid', [
+                        // m('.preview[data-scroll][data-scroll-speed=2]',
+                        // [
+                        // m('.project-index', `${vnode.state.slidesIndex+1} / ${vnode.state.slidesLength}`),
+                        // m('.preview-slides',
+                        // projectNames.map((name, i) => {
+                        // return m(`.preview-slide.${i == 0 ? '.active' : '' }`, {
+                        // style: `background-image: url(${pics[name][name + '1']});`
+                        // })
+                        // })),
+                        // m('.buttons.space-between', [
+                        // m('.button.flex.prev', {
+                        // onclick: () => {
+                        // vnode.state.prev(vnode)
+                        // }
+                        // },
+                        // m("svg.arrows.arrow-left[xmlns='http://www.w3.org/2000/svg'][width='24'][height='24'][viewBox='0 0 24 24'][fill='none'][stroke='currentColor'][stroke-width='2'][stroke-linecap='round'][stroke-linejoin='round']",
+                        // [
+                        // m("line[x1='19'][y1='12'][x2='5'][y2='12']"),
+                        // m("polyline[points='12 19 5 12 12 5']")
+                        // ]
+                        // ), m('.text', 'prev')),
+                        // m('.button.flex.next', {
+                        // onclick(e) {
+                        // vnode.state.next(vnode)
+                        // }
+                        // },
+                        // m('.text', 'next'),
+                        // m("svg.arrows.arrow-right[xmlns='http://www.w3.org/2000/svg'][width='24'][height='24'][viewBox='0 0 24 24'][fill='none'][stroke='currentColor'][stroke-width='2'][stroke-linecap='round'][stroke-linejoin='round']",
+                        // [
+                        // m("line[x1='5'][y1='12'][x2='19'][y2='12']"),
+                        // m("polyline[points='12 5 19 12 12 19']")
+                        // ]
+                        // )
+                        // )
+                        // ])
+                        // ],
+                        // [
+                        // m('.project-titles.flex-column', projectNames.map((name, i) => {
+                        // return m(`h1.project-title.project-${name}[index=${i}]`, projectNames[i])
+                        // }))
+                        // ]
+                        // )
+                        // ]),
+                        // m('.slides',
+                        // m('.work-title-wrapper', [
+                        // m('p.work-title', `- tbd -`),
+                        // m('p.explore-project', 'explore')
+                        // ]),
+                        // projectNames.map((name, i) => {
+                        // return m(`.slide${i == 0 ? '.active' : ''}`, m('img', {
+                        // src: projects[name][0]
+                        // }))
+                        // })
+                        // )
                         // ),
 
                         //

@@ -58,7 +58,7 @@ export default class Project {
         if (scroll) {
             scroll.destroy();
         }
-        imagesLoaded(".img-wrapper img", () => {
+        let imgLoad = imagesLoaded(".img-wrapper img", () => {
             scroll = new LocomotiveScroll({
                 el: document.querySelector(".project-page-wrapper"),
                 smooth: true,
@@ -67,6 +67,13 @@ export default class Project {
                     smooth: true,
                 },
             });
+
+        imgLoad.on('progress', (instance, image) => {
+            const len = instance.elements
+            const count = instance.progressedCount
+            const perc = Math.round(count*100/len)
+            console.log(perc)
+        })
 
             // uncover the shards found in Roller.js
 

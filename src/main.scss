@@ -8,8 +8,9 @@
 // importing fonts
 $text-color: #282828;
 $bg-color: #d7cca1;
+$bg-dark: #1e1e1e;
 $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
-@mixin center-self {
+@mixin center-self {    
     align-self: center;
     justify-self: center;
 }
@@ -29,7 +30,7 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
 }
 @font-face {
     font-family: "Goldenbook";
-    src: url("fonts/Goldenbook Regular.otf") format("truetype");
+    src: url("fonts/GoldenbookRegular.otf") format("truetype");
 }
 
 *,
@@ -86,7 +87,29 @@ body {
     overflow-y: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-
+    & .loader {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        background: $bg-dark;
+        align-items: center;
+        justify-content: center;
+        transition: 0.4s $easeQuintic;
+        &.loaded {
+            height: 0%;
+            opacity: 0;
+            z-index: 0;
+        }
+        &__text {
+            color: white;
+            font-size: 13rem;
+            font-family: Goldenbook;
+        }
+    }
     .nav {
         font-weight: 700;
         font-family: "JosefineBold", serif;
