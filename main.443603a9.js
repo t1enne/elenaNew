@@ -189,7 +189,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./fonts/SaolDisplay-Regular.woff2":[["SaolDisplay-Regular.fb5bdb49.woff2","src/fonts/SaolDisplay-Regular.woff2"],"src/fonts/SaolDisplay-Regular.woff2"],"./fonts/JosefinSans-Light.ttf":[["JosefinSans-Light.fe2afea3.ttf","src/fonts/JosefinSans-Light.ttf"],"src/fonts/JosefinSans-Light.ttf"],"./fonts/JosefinSans-Bold.ttf":[["JosefinSans-Bold.53bdebfe.ttf","src/fonts/JosefinSans-Bold.ttf"],"src/fonts/JosefinSans-Bold.ttf"],"./fonts/Goldenbook Regular.otf":[["Goldenbook Regular.fce16dea.otf","src/fonts/Goldenbook Regular.otf"],"src/fonts/Goldenbook Regular.otf"],"_css_loader":"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./fonts/SaolDisplay-Regular.woff2":[["SaolDisplay-Regular.fb5bdb49.woff2","src/fonts/SaolDisplay-Regular.woff2"],"src/fonts/SaolDisplay-Regular.woff2"],"./fonts/JosefinSans-Light.ttf":[["JosefinSans-Light.fe2afea3.ttf","src/fonts/JosefinSans-Light.ttf"],"src/fonts/JosefinSans-Light.ttf"],"./fonts/JosefinSans-Bold.ttf":[["JosefinSans-Bold.53bdebfe.ttf","src/fonts/JosefinSans-Bold.ttf"],"src/fonts/JosefinSans-Bold.ttf"],"./fonts/GoldenbookRegular.otf":[["GoldenbookRegular.8449a864.otf","src/fonts/GoldenbookRegular.otf"],"src/fonts/GoldenbookRegular.otf"],"_css_loader":"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -217,7 +217,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35647" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36119" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

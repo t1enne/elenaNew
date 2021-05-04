@@ -9723,7 +9723,7 @@ var Project = /*#__PURE__*/function () {
         scroll.destroy();
       }
 
-      (0, _imagesloaded.default)(".img-wrapper img", function () {
+      var imgLoad = (0, _imagesloaded.default)(".img-wrapper img", function () {
         scroll = new _locomotiveScroll.default({
           el: document.querySelector(".project-page-wrapper"),
           smooth: true,
@@ -9731,6 +9731,12 @@ var Project = /*#__PURE__*/function () {
           smartphone: {
             smooth: true
           }
+        });
+        imgLoad.on('progress', function (instance, image) {
+          var len = instance.elements;
+          var count = instance.progressedCount;
+          var perc = Math.round(count * 100 / len);
+          console.log(perc);
         }); // uncover the shards found in Roller.js
 
         scroll.on("call", function (func) {
@@ -9820,12 +9826,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // } from './src/js/utils'
 var main = document.querySelector("main");
 var projects = {};
+var allSources = [];
 
 for (var key in _.default) {
   //array of images
   projects[key] = Object.values(_.default[key]);
+  allSources = allSources.concat(Object.values(_.default[key]));
 }
 
+var allImages = allSources.map(function (src) {
+  var img = document.createElement("img");
+  img.src = src;
+  return img;
+});
 var projectNames = Object.keys(projects);
 var scroll, cursor;
 var Home = {
@@ -9899,11 +9912,15 @@ var Home = {
   //   }, 1000);
   // },
   oncreate: function oncreate(vnode) {
-    // Splitting()
     // if (scroll != null) scroll.init()
-    (0, _imagesloaded.default)(".img-wrapper img", function () {
-      console.log(scroll); //initialize smoothscroll
-
+    var imgLoad = (0, _imagesloaded.default)(allImages);
+    imgLoad.on("progress", function (instance) {
+      var len = instance.elements.length;
+      var count = instance.progressedCount;
+      var perc = Math.round(count * 100 / len);
+      document.querySelector(".loader__text").textContent = "".concat(perc, "%");
+    });
+    imgLoad.on("done", function () {
       if (scroll) {
         scroll.destroy();
       }
@@ -9920,6 +9937,8 @@ var Home = {
             scroll = args.scroll;
         vnode.state.scrolled = Math.round(scroll.y * 100 / limit.y);
       });
+      var loader = document.querySelector(".loader");
+      loader.classList.add("loaded");
     }); // initialize custom cursor
 
     cursor = new _cursor.default(document.querySelector("svg.cursor")); // back to top listener
@@ -10071,7 +10090,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35647" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36119" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
