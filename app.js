@@ -15,23 +15,24 @@ import Nav from "./src/js/Nav";
 import Works from "./src/js/Works";
 import Footer from "./src/js/Footer";
 import Project from "./src/js/Project";
+import Loader from "./src/js/Loader";
 
 let main = document.querySelector("main");
 
 let projects = {};
-let allSources = [];
+// let allSources = [];
 
 for (const key in pics) {
     //array of images
     projects[key] = Object.values(pics[key]);
-    allSources = allSources.concat(Object.values(pics[key]));
+    // allSources = allSources.concat(Object.values(pics[key]));
 }
 
-let allImages = allSources.map((src) => {
-    let img = document.createElement("img");
-    img.src = src;
-    return img;
-});
+// let allImages = allSources.map((src) => {
+    // let img = document.createElement("img");
+    // img.src = src;
+    // return img;
+// });
 
 let projectNames = Object.keys(projects);
 let scroll, cursor;
@@ -108,35 +109,8 @@ let Home = {
     // },
     oncreate(vnode) {
         // if (scroll != null) scroll.init()
-        const imgLoad = imagesLoaded(allImages);
-
-        imgLoad.on("progress", (instance) => {
-            const len = instance.elements.length;
-            const count = instance.progressedCount;
-            const perc = Math.round((count * 100) / len);
-            document.querySelector(".loader__text").textContent = `${perc}%`;
-        });
-
-        imgLoad.on("done", () => {
-            if (scroll) {
-                scroll.destroy();
-            }
-
-            scroll = new LocomotiveScroll({
-                el: document.querySelector(".home-page-wrapper"),
-                smooth: true,
-                smartphone: {
-                    smooth: true,
-                },
-            });
-
-            scroll.on("scroll", (args) => {
-                const { limit, scroll } = args;
-                vnode.state.scrolled = Math.round((scroll.y * 100) / limit.y);
-            });
-            const loader = document.querySelector(".loader");
-            loader.classList.add("loaded");
-        });
+        const loader = Loader(vnode, scroll)
+        scroll = loader.scroll
 
         // initialize custom cursor
         cursor = new Cursor(document.querySelector("svg.cursor"));
@@ -286,7 +260,10 @@ function transition() {
     document.querySelectorAll(".is-inview").forEach((item) => {
         item.classList.remove("is-inview");
     });
-    document.querySelector("body").style.backgroundColor = "#d7cca1";
+    // document.querySelector("body").style.backgroundColor = "#d7cca1";
+    const body = document.querySelector('body')
+
+    body.classList.remove('dark')
 }
 
 function query(sel) {

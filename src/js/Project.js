@@ -6,6 +6,7 @@ import { transition, cursor } from "../../app.js";
 import LocomotiveScroll from "locomotive-scroll";
 import Cursor from "./cursor";
 import Roller from "./Roller";
+import Loader from "./Loader";
 import pics from "../assets/img/*/*.jpg";
 
 let projectNames = [];
@@ -13,12 +14,6 @@ for (let key in pics) {
     projectNames.push(key);
 }
 let scroll;
-
-function applyToArray(arr, func) {
-    arr.forEach((elem) => {
-        func(elem);
-    });
-}
 
 function handleScroll(scroll) {
     const body = document.querySelector("body");
@@ -28,17 +23,12 @@ function handleScroll(scroll) {
     const bgLight = "#d7cca1";
 
     if (scroll > 85) {
-        body.style.backgroundColor = bgDark;
-        nav.style.color = "#ddd";
-        // applyToArray(shards, (elem) => {
-            // elem.style.backgroundColor = bgDark
-        // });
+        body.classList.add('dark')
+        // nav.style.color = "#ddd";
     } else {
-        body.style.backgroundColor = bgLight;
-        nav.style.color = "#282828";
-        // applyToArray(shards, (elem) => {
-            // elem.style.backgroundColor = bgLight
-        // });
+        body.classList.remove('dark')
+        // body.style.backgroundColor = bgLight;
+        // nav.style.color = "#282828";
     }
 }
 
@@ -54,43 +44,26 @@ export default class Project {
     }
     oncreate(vnode) {
         // initialize smoothscroll
-        document.querySelector("body").style.backgroundColor = "#d7cca1";
-        if (scroll) {
-            scroll.destroy();
-        }
-        let imgLoad = imagesLoaded(".img-wrapper img", () => {
-            scroll = new LocomotiveScroll({
-                el: document.querySelector(".project-page-wrapper"),
-                smooth: true,
-                multiplier: 2,
-                smartphone: {
-                    smooth: true,
-                },
-            });
+        const loader = Loader(vnode, scroll, 2);
+        scroll = loader.scroll;
+        // uncover the shards found in Roller.js
 
-        imgLoad.on('progress', (instance, image) => {
-            const len = instance.elements
-            const count = instance.progressedCount
-            const perc = Math.round(count*100/len)
-            console.log(perc)
-        })
-
-            // uncover the shards found in Roller.js
-
-            scroll.on("call", (func) => {
-                if (func === 'uncover') {
-                    document.querySelectorAll('.bg-shard').forEach(e => e.classList.add('uncover'))
-                }
-            })
-
-
-            scroll.on("scroll", (args) => {
-                const { limit, scroll } = args;
-                vnode.state.scrolled = Math.round((scroll.y * 100) / limit.y);
-
-                handleScroll(vnode.state.scrolled);
-            });
+        loader.scroll.on("call", (func) => {
+            if (func === "uncover") {
+                document.querySelectorAll(".bg-shard").forEach((e) => e.classList.add("uncover"));
+            }
         });
+
+        loader.scroll.on("scroll", (args) => {
+            const { limit, scroll } = args;
+            vnode.state.scrolled = Math.round((scroll.y * 100) / limit.y);
+            handleScroll(vnode.state.scrolled);
+        });
+
+        setTimeout(() => {
+            loader.scroll.update();
+        }, 1000);
+
         if (!cursor) {
             new Cursor(document.querySelector("svg.cursor"));
         }

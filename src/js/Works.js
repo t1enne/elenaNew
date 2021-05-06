@@ -8,7 +8,7 @@ import { transition, cursor } from "../../app.js";
 import { lerp, getMousePos, map, clamp } from "./utils";
 import pics from "../assets/img/*/*.jpg";
 import Nav from "./Nav";
-
+import Loader from "./Loader";
 import MenuItem from "./menuItem";
 
 let projects = {};
@@ -65,7 +65,7 @@ export default class Works {
             delay: anime.stagger(70),
         });
     }
-    oncreate() {
+    oncreate(vnode) {
         if (!cursor) {
             new Cursor(document.querySelector("svg.cursor"));
         }
@@ -74,19 +74,8 @@ export default class Works {
 
         this.showMenuItems();
 
-        imagesLoaded(".img-wrapper img", () => {
-            //initialize smoothscroll
-            if (scroll) {
-                scroll.destroy();
-            }
-            scroll = new LocomotiveScroll({
-                el: document.querySelector(".works-page-wrapper"),
-                smooth: true,
-                smartphone: {
-                    smooth: true,
-                },
-            });
-        });
+        const loader = Loader(vnode)
+        scroll = loader.scroll
     }
     onremove() {
         scroll.destroy();
