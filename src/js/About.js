@@ -9,10 +9,10 @@ import Loader from "./Loader";
 let scroll;
 
 module.exports = {
-    oncreate(vnode) {
+    async oncreate(vnode) {
         // initialize smoothscroll
         //
-        const loader = Loader(vnode, scroll);
+        const loader = await Loader(vnode, scroll);
         scroll = loader.scroll;
 
         document.querySelector(".footer-nav .btt").onclick = () => {

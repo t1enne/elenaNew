@@ -65,17 +65,19 @@ export default class Works {
             delay: anime.stagger(70),
         });
     }
-    oncreate(vnode) {
+    async oncreate(vnode) {
         if (!cursor) {
             new Cursor(document.querySelector("svg.cursor"));
         }
 
         //show menu items
 
-        this.showMenuItems();
 
-        const loader = Loader(vnode)
+        const loader = await Loader(vnode)
+
         scroll = loader.scroll
+
+        this.showMenuItems();
     }
     onbeforeremove() {
         scroll.destroy()

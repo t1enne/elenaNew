@@ -42,9 +42,9 @@ export default class Project {
     onremove() {
         scroll.destroy();
     }
-    oncreate(vnode) {
+    async oncreate(vnode) {
         // initialize smoothscroll
-        const loader = Loader(vnode, scroll, 2);
+        const loader = await Loader(vnode, scroll, 2);
         scroll = loader.scroll;
         // uncover the shards found in Roller.js
 

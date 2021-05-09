@@ -103,14 +103,11 @@ let Home = {
     //     activePreview.classList.toggle("behind");
     //   }, 1000);
     // },
-    oncreate(vnode) {
+    async oncreate(vnode) {
         // if (scroll != null) scroll.init()
-        const loader = Loader(vnode, scroll)
+        const loader = await Loader(vnode, scroll)
 
-        console.log(loader)
-
-        scroll = loader.scroll
-
+        scroll = loader.scroll;
 
         // initialize custom cursor
         cursor = new Cursor(document.querySelector("svg.cursor"));
@@ -261,9 +258,9 @@ function transition() {
         item.classList.remove("is-inview");
     });
     // document.querySelector("body").style.backgroundColor = "#d7cca1";
-    const body = document.querySelector('body')
+    const body = document.querySelector("body");
 
-    body.classList.remove('dark')
+    body.classList.remove("dark");
 }
 
 function query(sel) {
