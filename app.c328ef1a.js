@@ -8867,7 +8867,7 @@ module.exports = {
     // })
   },
   view: function view(vnode) {
-    return (0, _mithril.default)('.footer[data-scroll]', (0, _mithril.default)('.location.flex-column[data-scroll][data-scroll-speed=2]', (0, _mithril.default)('.name', 'Elena Kustova'), (0, _mithril.default)('.place', 'Perugia - Italy')), (0, _mithril.default)('.contacts.flex[data-scroll][data-scroll-speed=1]', (0, _mithril.default)('.link-mail', (0, _mithril.default)('.link-mail-text', 'Contact me at: '), (0, _mithril.default)('a.mail[href=mailto:kuslena@rambler.ru]', 'kuslena@rambler.ru')), (0, _mithril.default)('.socials', (0, _mithril.default)('.socials-title', 'find me also on:'), (0, _mithril.default)('.links', (0, _mithril.default)('.insta-link.flex', (0, _mithril.default)("svg.css-i6dzq1[viewBox='0 0 24 24'][width='24'][height='24'][stroke='currentColor'][stroke-width='2'][fill='none'][stroke-linecap='round'][stroke-linejoin='round']", [(0, _mithril.default)("rect[x='2'][y='2'][width='20'][height='20'][rx='5'][ry='5']"), (0, _mithril.default)("path[d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z']"), (0, _mithril.default)("line[x1='17.5'][y1='6.5'][x2='17.51'][y2='6.5']")]), (0, _mithril.default)('.link-text.insta-link-text', ' @misskustova')), (0, _mithril.default)('.vk-link.flex', (0, _mithril.default)(vkSvg), (0, _mithril.default)('.link-text.vk-link-text', ' Lena Kustova'))))), (0, _mithril.default)(".footer-nav.flex-column[data-scroll][data-scroll-speed=1][data-scroll-call=hide]", {
+    return (0, _mithril.default)('.footer[data-scroll]', (0, _mithril.default)('.location.flex-column[data-scroll][data-scroll-speed=2]', (0, _mithril.default)('.name', 'Elena Kustova'), (0, _mithril.default)('.place', 'Perugia - Italy')), (0, _mithril.default)('.contacts.flex[data-scroll][data-scroll-speed=1]', (0, _mithril.default)('.link-mail', (0, _mithril.default)('.link-mail-text', 'Contact me at: '), (0, _mithril.default)('a.mail[href=mailto:kuslena@rambler.ru]', 'kuslena@rambler.ru')), (0, _mithril.default)('.socials', (0, _mithril.default)('.socials-title', 'find me also on:'), (0, _mithril.default)('.links', (0, _mithril.default)('a.insta-link.flex[href=https://instagram.com/misskustova][target=_blank]', (0, _mithril.default)("svg.css-i6dzq1[viewBox='0 0 24 24'][width='24'][height='24'][stroke='currentColor'][stroke-width='2'][fill='none'][stroke-linecap='round'][stroke-linejoin='round']", [(0, _mithril.default)("rect[x='2'][y='2'][width='20'][height='20'][rx='5'][ry='5']"), (0, _mithril.default)("path[d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z']"), (0, _mithril.default)("line[x1='17.5'][y1='6.5'][x2='17.51'][y2='6.5']")]), (0, _mithril.default)('.link-text.insta-link-text', ' @misskustova')), (0, _mithril.default)('a.vk-link.flex[href=https://vk.com/id17282149][target=_blank]', (0, _mithril.default)(vkSvg), (0, _mithril.default)('.link-text.vk-link-text', ' Lena Kustova'))))), (0, _mithril.default)(".footer-nav.flex-column[data-scroll][data-scroll-speed=1][data-scroll-call=hide]", {
       oncreate: function oncreate(vnode) {
         vnode.dom.addEventListener('hide', function () {
           console.log('hiding nav');
@@ -8927,6 +8927,19 @@ var allImages = allSources.map(function (src) {
 
 function Loader(vnode, scroll, mult) {
   var images = (0, _imagesloaded.default)(allImages);
+
+  if (scroll) {
+    scroll.destroy();
+  }
+
+  scroll = new _locomotiveScroll.default({
+    el: document.querySelector("main > div"),
+    multiplier: mult ? mult : 1,
+    smooth: true,
+    smartphone: {
+      smooth: true
+    }
+  });
   images.on("progress", function (instance) {
     var len = instance.elements.length;
     var count = instance.progressedCount;
@@ -8937,28 +8950,12 @@ function Loader(vnode, scroll, mult) {
     var loader = document.querySelector(".loader");
     loader.classList.add("loaded");
     scroll.on("scroll", function (args) {
-      var limit = args.limit,
-          scroll = args.scroll;
-      vnode.state.scrolled = Math.round(scroll.y * 100 / limit.y);
-
-      if (vnode.state.scrolled > 50) {
-        scroll.update();
-      }
+      var limit = args.limit;
+      vnode.state.scrolled = Math.round(args.scroll.y * 100 / limit.y); // if (vnode.state.scrolled > 50) {
+      // scroll.update();
+      // }
     });
     scroll.update();
-  });
-
-  if (scroll) {
-    scroll.destroy;
-  }
-
-  scroll = new _locomotiveScroll.default({
-    el: document.querySelector("main > div"),
-    multiplier: mult ? mult : 1,
-    smooth: true,
-    smartphone: {
-      smooth: true
-    }
   });
   return {
     images: images,
@@ -9115,8 +9112,8 @@ var MenuItem = /*#__PURE__*/function () {
         begin: function begin(anim) {
           anim.animatables.forEach(function (item) {
             return item.target.style.opacity = '1';
-          });
-          menuItem.style.zIndex = '10';
+          }); // menuItem.style.zIndex = '10'
+
           reveal.style.opacity = '1';
         }
       });
@@ -9124,8 +9121,8 @@ var MenuItem = /*#__PURE__*/function () {
   }, {
     key: "hideImage",
     value: function hideImage() {
-      var menuItem = this.vnode.dom;
-      menuItem.style.zIndex = '1';
+      var menuItem = this.vnode.dom; // menuItem.style.zIndex = '1'
+
       this.hiding = (0, _animejs.default)({
         targets: [this.revealInner, this.revealImage],
         complete: function complete(anim) {
@@ -9139,7 +9136,7 @@ var MenuItem = /*#__PURE__*/function () {
         // opacity: 0,
         duration: 250,
         easing: 'easeOutSine',
-        zIndex: 1,
+        // zIndex: 1,
         translateX: ['0%', direction.x < 0 ? '100%' : '-100%']
       });
     } // calculate the position/size of both the menu item and reveal element
@@ -9213,7 +9210,7 @@ var MenuItem = /*#__PURE__*/function () {
   }, {
     key: "view",
     value: function view() {
-      return (0, _mithril.default)('.link', {
+      return (0, _mithril.default)('.link[data-scroll]', {
         href: "project/".concat(this.index),
         class: 'menu__item',
         onclick: function onclick(e) {
@@ -9225,7 +9222,7 @@ var MenuItem = /*#__PURE__*/function () {
             _mithril.default.route.set("/".concat(_this3.getAttribute('href')));
           }, 1000);
         }
-      }, (0, _mithril.default)('span.menu__item-text[data-scroll]', (0, _mithril.default)('span.menu__item-textinner', this.menuItem)), (0, _mithril.default)('span.menu__item-sub', ''), (0, _mithril.default)('.hover-reveal[style=opacity: 0]', (0, _mithril.default)('.hover-reveal__inner[style=overflow:hidden]', (0, _mithril.default)('.hover-reveal__img', {
+      }, (0, _mithril.default)('span.menu__item-text', (0, _mithril.default)('span.menu__item-textinner', this.menuItem)), (0, _mithril.default)('span.menu__item-sub', ''), (0, _mithril.default)('.hover-reveal[style=opacity: 0]', (0, _mithril.default)('.hover-reveal__inner[style=overflow:hidden]', (0, _mithril.default)('.hover-reveal__img', {
         style: "background-image: url(".concat(this.url, ")")
       }))));
     }
@@ -9350,9 +9347,16 @@ var Works = /*#__PURE__*/function () {
       scroll = loader.scroll;
     }
   }, {
-    key: "onremove",
-    value: function onremove() {
+    key: "onbeforeremove",
+    value: function onbeforeremove() {
       scroll.destroy();
+      (0, _animejs.default)({
+        targets: ".menu__item-textinner",
+        translateY: [0, 100],
+        easing: "easeInOutQuad",
+        duration: 300,
+        delay: _animejs.default.stagger(30)
+      });
     }
   }, {
     key: "view",
@@ -9829,15 +9833,11 @@ var projects = {}; // let allSources = [];
 for (var key in _.default) {
   //array of images
   projects[key] = Object.values(_.default[key]); // allSources = allSources.concat(Object.values(pics[key]));
-} // let allImages = allSources.map((src) => {
-// let img = document.createElement("img");
-// img.src = src;
-// return img;
-// });
-
+}
 
 var projectNames = Object.keys(projects);
 var scroll, cursor;
+window.onhashchange = transition;
 var Home = {
   activeTitle: "",
   slidesIndex: 0,
@@ -10065,7 +10065,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42149" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38437" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
