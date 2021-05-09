@@ -8926,41 +8926,44 @@ var allImages = allSources.map(function (src) {
 });
 
 function Loader(vnode, scroll, mult) {
-  var images = (0, _imagesloaded.default)(allImages);
+  var imagesPromise = new Promise(function (resolve) {
+    var images = (0, _imagesloaded.default)(allImages);
 
-  if (scroll) {
-    scroll.destroy();
-  }
-
-  scroll = new _locomotiveScroll.default({
-    el: document.querySelector("main > div"),
-    multiplier: mult ? mult : 1,
-    smooth: true,
-    smartphone: {
-      smooth: true
+    if (scroll) {
+      scroll.destroy();
     }
-  });
-  images.on("progress", function (instance) {
-    var len = instance.elements.length;
-    var count = instance.progressedCount;
-    var perc = Math.round(count * 100 / len);
-    document.querySelector(".loader__text").textContent = "".concat(perc, "%");
-  });
-  images.on("done", function () {
-    var loader = document.querySelector(".loader");
-    loader.classList.add("loaded");
-    scroll.on("scroll", function (args) {
-      var limit = args.limit;
-      vnode.state.scrolled = Math.round(args.scroll.y * 100 / limit.y); // if (vnode.state.scrolled > 50) {
-      // scroll.update();
-      // }
+
+    images.on("progress", function (instance) {
+      var len = instance.elements.length;
+      var count = instance.progressedCount;
+      var perc = Math.round(count * 100 / len);
+      document.querySelector(".loader__text").textContent = "".concat(perc, "%");
     });
-    scroll.update();
+    images.on("done", function () {
+      var loader = document.querySelector(".loader");
+      loader.classList.add("loaded");
+      scroll = new _locomotiveScroll.default({
+        el: document.querySelector("main > div"),
+        multiplier: mult ? mult : 1,
+        smooth: true,
+        smartphone: {
+          smooth: true
+        }
+      });
+      scroll.on("scroll", function (args) {
+        var limit = args.limit;
+        vnode.state.scrolled = Math.round(args.scroll.y * 100 / limit.y); // if (vnode.state.scrolled > 50) {
+        // scroll.update();
+        // }
+      });
+      scroll.update();
+      return resolve({
+        images: images,
+        scroll: scroll
+      });
+    });
   });
-  return {
-    images: images,
-    scroll: scroll
-  };
+  return imagesPromise;
 }
 },{"imagesloaded":"node_modules/imagesloaded/imagesloaded.js","locomotive-scroll":"node_modules/locomotive-scroll/dist/locomotive-scroll.esm.js","../assets/img/*/*.jpg":"src/assets/img/*/*.jpg"}],"src/js/About.js":[function(require,module,exports) {
 "use strict";
@@ -8983,21 +8986,41 @@ var _Loader = _interopRequireDefault(require("./Loader"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 var scroll;
 module.exports = {
   oncreate: function oncreate(vnode) {
-    // initialize smoothscroll
-    //
-    var loader = (0, _Loader.default)(vnode, scroll);
-    scroll = loader.scroll;
+    return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+      var loader;
+      return regeneratorRuntime.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return (0, _Loader.default)(vnode, scroll);
 
-    document.querySelector(".footer-nav .btt").onclick = function () {
-      scroll.scrollTo("top");
-    };
+            case 2:
+              loader = _context.sent;
+              scroll = loader.scroll;
 
-    if (!_app.cursor) {
-      new _cursor.default(document.querySelector("svg.cursor"));
-    }
+              document.querySelector(".footer-nav .btt").onclick = function () {
+                scroll.scrollTo("top");
+              };
+
+              if (!_app.cursor) {
+                new _cursor.default(document.querySelector("svg.cursor"));
+              }
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   },
   onremove: function onremove() {
     scroll.destroy();
@@ -9270,6 +9293,10 @@ var _menuItem = _interopRequireDefault(require("./menuItem"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -9336,16 +9363,40 @@ var Works = /*#__PURE__*/function () {
     }
   }, {
     key: "oncreate",
-    value: function oncreate(vnode) {
-      if (!_app.cursor) {
-        new _cursor.default(document.querySelector("svg.cursor"));
-      } //show menu items
+    value: function () {
+      var _oncreate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(vnode) {
+        var loader;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!_app.cursor) {
+                  new _cursor.default(document.querySelector("svg.cursor"));
+                } //show menu items
 
 
-      this.showMenuItems();
-      var loader = (0, _Loader.default)(vnode);
-      scroll = loader.scroll;
-    }
+                _context.next = 3;
+                return (0, _Loader.default)(vnode);
+
+              case 3:
+                loader = _context.sent;
+                scroll = loader.scroll;
+                this.showMenuItems();
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function oncreate(_x) {
+        return _oncreate.apply(this, arguments);
+      }
+
+      return oncreate;
+    }()
   }, {
     key: "onbeforeremove",
     value: function onbeforeremove() {
@@ -9685,6 +9736,10 @@ var _ = _interopRequireDefault(require("../assets/img/*/*.jpg"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -9733,32 +9788,55 @@ var Project = /*#__PURE__*/function () {
     }
   }, {
     key: "oncreate",
-    value: function oncreate(vnode) {
-      // initialize smoothscroll
-      var loader = (0, _Loader.default)(vnode, scroll, 2);
-      scroll = loader.scroll; // uncover the shards found in Roller.js
+    value: function () {
+      var _oncreate = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(vnode) {
+        var loader;
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return (0, _Loader.default)(vnode, scroll, 2);
 
-      loader.scroll.on("call", function (func) {
-        if (func === "uncover") {
-          document.querySelectorAll(".bg-shard").forEach(function (e) {
-            return e.classList.add("uncover");
-          });
-        }
-      });
-      loader.scroll.on("scroll", function (args) {
-        var limit = args.limit,
-            scroll = args.scroll;
-        vnode.state.scrolled = Math.round(scroll.y * 100 / limit.y);
-        handleScroll(vnode.state.scrolled);
-      });
-      setTimeout(function () {
-        loader.scroll.update();
-      }, 1000);
+              case 2:
+                loader = _context.sent;
+                scroll = loader.scroll; // uncover the shards found in Roller.js
 
-      if (!_app.cursor) {
-        new _cursor.default(document.querySelector("svg.cursor"));
+                loader.scroll.on("call", function (func) {
+                  if (func === "uncover") {
+                    document.querySelectorAll(".bg-shard").forEach(function (e) {
+                      return e.classList.add("uncover");
+                    });
+                  }
+                });
+                loader.scroll.on("scroll", function (args) {
+                  var limit = args.limit,
+                      scroll = args.scroll;
+                  vnode.state.scrolled = Math.round(scroll.y * 100 / limit.y);
+                  handleScroll(vnode.state.scrolled);
+                });
+                setTimeout(function () {
+                  loader.scroll.update();
+                }, 1000);
+
+                if (!_app.cursor) {
+                  new _cursor.default(document.querySelector("svg.cursor"));
+                }
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function oncreate(_x) {
+        return _oncreate.apply(this, arguments);
       }
-    }
+
+      return oncreate;
+    }()
   }, {
     key: "view",
     value: function view(vnode) {
@@ -9821,12 +9899,10 @@ var _Loader = _interopRequireDefault(require("./src/js/Loader"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import 'src/assets/img/*'
-// import anime from 'animejs'
-// import {
-// lerp,
-// getMousePos
-// } from './src/js/utils'
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 var main = document.querySelector("main");
 var projects = {}; // let allSources = [];
 
@@ -9909,16 +9985,32 @@ var Home = {
   //   }, 1000);
   // },
   oncreate: function oncreate(vnode) {
-    // if (scroll != null) scroll.init()
-    var loader = (0, _Loader.default)(vnode, scroll);
-    console.log(loader);
-    scroll = loader.scroll; // initialize custom cursor
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.default.mark(function _callee() {
+      var loader;
+      return _regeneratorRuntime.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return (0, _Loader.default)(vnode, scroll);
 
-    cursor = new _cursor.default(document.querySelector("svg.cursor")); // back to top listener
+            case 2:
+              loader = _context.sent;
+              scroll = loader.scroll; // initialize custom cursor
 
-    document.querySelector(".footer-nav .btt").onclick = function () {
-      scroll.scrollTo("top");
-    };
+              cursor = new _cursor.default(document.querySelector("svg.cursor")); // back to top listener
+
+              document.querySelector(".footer-nav .btt").onclick = function () {
+                scroll.scrollTo("top");
+              };
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   },
   onremove: function onremove() {
     scroll.destroy();
@@ -10024,8 +10116,8 @@ function transition() {
     item.classList.remove("is-inview");
   }); // document.querySelector("body").style.backgroundColor = "#d7cca1";
 
-  var body = document.querySelector('body');
-  body.classList.remove('dark');
+  var body = document.querySelector("body");
+  body.classList.remove("dark");
 }
 
 function query(sel) {
@@ -10065,7 +10157,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38437" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46451" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
