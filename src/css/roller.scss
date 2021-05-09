@@ -15,12 +15,12 @@ $bg-dark: #1e1e1e;
         opacity: 1 !important;
     }
     &.is-inview .next-section__project-text { 
-        opacity: 1;
+        opacity: 1 ;
     }
     & .bg-shard-sides,
     & .low-text,
     & .next-section__project-text {
-        opacity: 0;
+        opacity: 0 ;
     }
     & .bg-shard:nth-child(1) .bg-shard-sides {
         transform: translateY(-10vh);

@@ -6606,22 +6606,22 @@ var Native = /*#__PURE__*/function () {
 exports.Native = Native;
 var _default2 = Smooth;
 exports.default = _default2;
-},{}],"src/assets/img/Anastasia Davletshina/DSC01812.jpg":[function(require,module,exports) {
-module.exports = "/DSC01812.48a58029.jpg";
-},{}],"src/assets/img/Anastasia Davletshina/DSC01910.jpg":[function(require,module,exports) {
-module.exports = "/DSC01910.1d25da15.jpg";
-},{}],"src/assets/img/Anastasia Davletshina/DSC02013.jpg":[function(require,module,exports) {
-module.exports = "/DSC02013.66ab1be3.jpg";
-},{}],"src/assets/img/Anastasia Davletshina/DSC02154.jpg":[function(require,module,exports) {
-module.exports = "/DSC02154.ee20b5e8.jpg";
-},{}],"src/assets/img/Anastasia Davletshina/DSC02205.jpg":[function(require,module,exports) {
-module.exports = "/DSC02205.1a511bf5.jpg";
-},{}],"src/assets/img/Anastasia Davletshina/DSC02276.jpg":[function(require,module,exports) {
-module.exports = "/DSC02276.c2614db6.jpg";
-},{}],"src/assets/img/Anastasia Davletshina/DSC02278.jpg":[function(require,module,exports) {
-module.exports = "/DSC02278.005be23f.jpg";
-},{}],"src/assets/img/Anastasia Davletshina/NastiaDavletshina1.jpg":[function(require,module,exports) {
-module.exports = "/NastiaDavletshina1.52609946.jpg";
+},{}],"src/assets/img/Anastasia/DSC01812.jpg":[function(require,module,exports) {
+module.exports = "/DSC01812.ec63bcb4.jpg";
+},{}],"src/assets/img/Anastasia/DSC01910.jpg":[function(require,module,exports) {
+module.exports = "/DSC01910.798e4ed6.jpg";
+},{}],"src/assets/img/Anastasia/DSC02013.jpg":[function(require,module,exports) {
+module.exports = "/DSC02013.e3a28f53.jpg";
+},{}],"src/assets/img/Anastasia/DSC02154.jpg":[function(require,module,exports) {
+module.exports = "/DSC02154.96f1e47a.jpg";
+},{}],"src/assets/img/Anastasia/DSC02205.jpg":[function(require,module,exports) {
+module.exports = "/DSC02205.dbd77410.jpg";
+},{}],"src/assets/img/Anastasia/DSC02276.jpg":[function(require,module,exports) {
+module.exports = "/DSC02276.0f1a6736.jpg";
+},{}],"src/assets/img/Anastasia/DSC02278.jpg":[function(require,module,exports) {
+module.exports = "/DSC02278.1253e14d.jpg";
+},{}],"src/assets/img/Anastasia/NastiaDavletshina1.jpg":[function(require,module,exports) {
+module.exports = "/NastiaDavletshina1.8cb4a143.jpg";
 },{}],"src/assets/img/Andrea/DSC01328.jpg":[function(require,module,exports) {
 module.exports = "/DSC01328.a22abe05.jpg";
 },{}],"src/assets/img/Andrea/DSC01521.jpg":[function(require,module,exports) {
@@ -6642,26 +6642,6 @@ module.exports = "/pic_14.0ecb9a07.jpg";
 module.exports = "/pic_15.e3f6dea4.jpg";
 },{}],"src/assets/img/Andrea/pic_9.jpg":[function(require,module,exports) {
 module.exports = "/pic_9.8d389419.jpg";
-},{}],"src/assets/img/Andrea Lago/1.jpg":[function(require,module,exports) {
-module.exports = "/1.b535aca7.jpg";
-},{}],"src/assets/img/Andrea Lago/10.jpg":[function(require,module,exports) {
-module.exports = "/10.c7adeef3.jpg";
-},{}],"src/assets/img/Andrea Lago/2.jpg":[function(require,module,exports) {
-module.exports = "/2.077b60db.jpg";
-},{}],"src/assets/img/Andrea Lago/3.jpg":[function(require,module,exports) {
-module.exports = "/3.aab59440.jpg";
-},{}],"src/assets/img/Andrea Lago/4.jpg":[function(require,module,exports) {
-module.exports = "/4.88a5b8b8.jpg";
-},{}],"src/assets/img/Andrea Lago/5.jpg":[function(require,module,exports) {
-module.exports = "/5.73340058.jpg";
-},{}],"src/assets/img/Andrea Lago/6.jpg":[function(require,module,exports) {
-module.exports = "/6.cf318a29.jpg";
-},{}],"src/assets/img/Andrea Lago/7.jpg":[function(require,module,exports) {
-module.exports = "/7.0d6355e4.jpg";
-},{}],"src/assets/img/Andrea Lago/8.jpg":[function(require,module,exports) {
-module.exports = "/8.80744368.jpg";
-},{}],"src/assets/img/Andrea Lago/9.jpg":[function(require,module,exports) {
-module.exports = "/9.68998300.jpg";
 },{}],"src/assets/img/Arianna/pic_0.jpg":[function(require,module,exports) {
 module.exports = "/pic_0.07630ab2.jpg";
 },{}],"src/assets/img/Arianna/pic_1.jpg":[function(require,module,exports) {
@@ -6686,6 +6666,26 @@ module.exports = "/pic_7.d1c4417c.jpg";
 module.exports = "/pic_8.b7df574d.jpg";
 },{}],"src/assets/img/Arianna/pic_9.jpg":[function(require,module,exports) {
 module.exports = "/pic_9.546cab8a.jpg";
+},{}],"src/assets/img/Inganno/1.jpg":[function(require,module,exports) {
+module.exports = "/1.5c8d68f1.jpg";
+},{}],"src/assets/img/Inganno/10.jpg":[function(require,module,exports) {
+module.exports = "/10.87d704e8.jpg";
+},{}],"src/assets/img/Inganno/2.jpg":[function(require,module,exports) {
+module.exports = "/2.eac5c5ee.jpg";
+},{}],"src/assets/img/Inganno/3.jpg":[function(require,module,exports) {
+module.exports = "/3.6826bd89.jpg";
+},{}],"src/assets/img/Inganno/4.jpg":[function(require,module,exports) {
+module.exports = "/4.7b405e1d.jpg";
+},{}],"src/assets/img/Inganno/5.jpg":[function(require,module,exports) {
+module.exports = "/5.0d9b69ad.jpg";
+},{}],"src/assets/img/Inganno/6.jpg":[function(require,module,exports) {
+module.exports = "/6.28b37b42.jpg";
+},{}],"src/assets/img/Inganno/7.jpg":[function(require,module,exports) {
+module.exports = "/7.0b16a884.jpg";
+},{}],"src/assets/img/Inganno/8.jpg":[function(require,module,exports) {
+module.exports = "/8.9de04b85.jpg";
+},{}],"src/assets/img/Inganno/9.jpg":[function(require,module,exports) {
+module.exports = "/9.468270da.jpg";
 },{}],"src/assets/img/Katia/pic_0.jpg":[function(require,module,exports) {
 module.exports = "/pic_0.c5291bc8.jpg";
 },{}],"src/assets/img/Katia/pic_1.jpg":[function(require,module,exports) {
@@ -6702,85 +6702,81 @@ module.exports = "/pic_5.1555461b.jpg";
 module.exports = "/pic_6.10f8dbe7.jpg";
 },{}],"src/assets/img/Katia/pic_7.jpg":[function(require,module,exports) {
 module.exports = "/pic_7.302be1ae.jpg";
-},{}],"src/assets/img/Nastia Glebik/DSC07826.jpg":[function(require,module,exports) {
-module.exports = "/DSC07826.924cb60b.jpg";
-},{}],"src/assets/img/Nastia Glebik/DSC07836.jpg":[function(require,module,exports) {
-module.exports = "/DSC07836.e807d18a.jpg";
-},{}],"src/assets/img/Nastia Glebik/DSC08026.jpg":[function(require,module,exports) {
-module.exports = "/DSC08026.cf7cee22.jpg";
-},{}],"src/assets/img/Nastia Glebik/DSC08077.jpg":[function(require,module,exports) {
-module.exports = "/DSC08077.88638fa9.jpg";
-},{}],"src/assets/img/Nastia Glebik/DSC08167.jpg":[function(require,module,exports) {
-module.exports = "/DSC08167.a607dfb3.jpg";
-},{}],"src/assets/img/Nastia Glebik/DSC08191.jpg":[function(require,module,exports) {
-module.exports = "/DSC08191.60c86c15.jpg";
-},{}],"src/assets/img/Nastia Glebik/DSC08386.jpg":[function(require,module,exports) {
-module.exports = "/DSC08386.2bb98ae0.jpg";
-},{}],"src/assets/img/matteo/pic_0.jpg":[function(require,module,exports) {
-module.exports = "/pic_0.b0bb72b1.jpg";
-},{}],"src/assets/img/matteo/pic_1.jpg":[function(require,module,exports) {
-module.exports = "/pic_1.ecc6a113.jpg";
-},{}],"src/assets/img/matteo/pic_2.jpg":[function(require,module,exports) {
-module.exports = "/pic_2.340a3989.jpg";
-},{}],"src/assets/img/matteo/pic_3.jpg":[function(require,module,exports) {
-module.exports = "/pic_3.031abd02.jpg";
-},{}],"src/assets/img/matteo/pic_4.jpg":[function(require,module,exports) {
-module.exports = "/pic_4.b47ef47c.jpg";
-},{}],"src/assets/img/matteo/pic_5.jpg":[function(require,module,exports) {
-module.exports = "/pic_5.4a813a9c.jpg";
-},{}],"src/assets/img/matteo/pic_6.jpg":[function(require,module,exports) {
-module.exports = "/pic_6.8a3421ad.jpg";
-},{}],"src/assets/img/matteo/pic_7.jpg":[function(require,module,exports) {
-module.exports = "/pic_7.87465f05.jpg";
-},{}],"src/assets/img/matteo/pic_8.jpg":[function(require,module,exports) {
-module.exports = "/pic_8.4b747743.jpg";
-},{}],"src/assets/img/matteo/pic_9.jpg":[function(require,module,exports) {
-module.exports = "/pic_9.f9721cc9.jpg";
-},{}],"src/assets/img/motodeva/pic_0.jpg":[function(require,module,exports) {
-module.exports = "/pic_0.d044004b.jpg";
-},{}],"src/assets/img/motodeva/pic_1.jpg":[function(require,module,exports) {
-module.exports = "/pic_1.ff140fc5.jpg";
-},{}],"src/assets/img/roberta/pic_0.jpg":[function(require,module,exports) {
-module.exports = "/pic_0.9ebff8e6.jpg";
-},{}],"src/assets/img/roberta/pic_1.jpg":[function(require,module,exports) {
-module.exports = "/pic_1.c7007f7d.jpg";
-},{}],"src/assets/img/roberta/pic_10.jpg":[function(require,module,exports) {
-module.exports = "/pic_10.52400b43.jpg";
-},{}],"src/assets/img/roberta/pic_11.jpg":[function(require,module,exports) {
-module.exports = "/pic_11.ab08b2ea.jpg";
-},{}],"src/assets/img/roberta/pic_12.jpg":[function(require,module,exports) {
-module.exports = "/pic_12.dedb88f8.jpg";
-},{}],"src/assets/img/roberta/pic_13.jpg":[function(require,module,exports) {
-module.exports = "/pic_13.c16ff764.jpg";
-},{}],"src/assets/img/roberta/pic_14.jpg":[function(require,module,exports) {
-module.exports = "/pic_14.9eb56fff.jpg";
-},{}],"src/assets/img/roberta/pic_2.jpg":[function(require,module,exports) {
-module.exports = "/pic_2.108362da.jpg";
-},{}],"src/assets/img/roberta/pic_3.jpg":[function(require,module,exports) {
-module.exports = "/pic_3.d187e990.jpg";
-},{}],"src/assets/img/roberta/pic_4.jpg":[function(require,module,exports) {
-module.exports = "/pic_4.2a76a9de.jpg";
-},{}],"src/assets/img/roberta/pic_5.jpg":[function(require,module,exports) {
-module.exports = "/pic_5.9b2e89d5.jpg";
-},{}],"src/assets/img/roberta/pic_6.jpg":[function(require,module,exports) {
-module.exports = "/pic_6.1a1c8402.jpg";
-},{}],"src/assets/img/roberta/pic_7.jpg":[function(require,module,exports) {
-module.exports = "/pic_7.e08fab4c.jpg";
-},{}],"src/assets/img/roberta/pic_8.jpg":[function(require,module,exports) {
-module.exports = "/pic_8.3d59ed25.jpg";
-},{}],"src/assets/img/roberta/pic_9.jpg":[function(require,module,exports) {
-module.exports = "/pic_9.e660dbc9.jpg";
+},{}],"src/assets/img/Matteo/pic_0.jpg":[function(require,module,exports) {
+module.exports = "/pic_0.68f19c33.jpg";
+},{}],"src/assets/img/Matteo/pic_1.jpg":[function(require,module,exports) {
+module.exports = "/pic_1.a63879b4.jpg";
+},{}],"src/assets/img/Matteo/pic_2.jpg":[function(require,module,exports) {
+module.exports = "/pic_2.0dce5160.jpg";
+},{}],"src/assets/img/Matteo/pic_3.jpg":[function(require,module,exports) {
+module.exports = "/pic_3.543845f7.jpg";
+},{}],"src/assets/img/Matteo/pic_4.jpg":[function(require,module,exports) {
+module.exports = "/pic_4.bd05cd3f.jpg";
+},{}],"src/assets/img/Matteo/pic_5.jpg":[function(require,module,exports) {
+module.exports = "/pic_5.a437a5ad.jpg";
+},{}],"src/assets/img/Matteo/pic_6.jpg":[function(require,module,exports) {
+module.exports = "/pic_6.9392b820.jpg";
+},{}],"src/assets/img/Matteo/pic_7.jpg":[function(require,module,exports) {
+module.exports = "/pic_7.53bde89e.jpg";
+},{}],"src/assets/img/Matteo/pic_8.jpg":[function(require,module,exports) {
+module.exports = "/pic_8.a6a33677.jpg";
+},{}],"src/assets/img/Matteo/pic_9.jpg":[function(require,module,exports) {
+module.exports = "/pic_9.f6e1e696.jpg";
+},{}],"src/assets/img/Nastia/DSC07826.jpg":[function(require,module,exports) {
+module.exports = "/DSC07826.2a5bc238.jpg";
+},{}],"src/assets/img/Nastia/DSC07836.jpg":[function(require,module,exports) {
+module.exports = "/DSC07836.26ff510f.jpg";
+},{}],"src/assets/img/Nastia/DSC08026.jpg":[function(require,module,exports) {
+module.exports = "/DSC08026.27c7d996.jpg";
+},{}],"src/assets/img/Nastia/DSC08077.jpg":[function(require,module,exports) {
+module.exports = "/DSC08077.93466464.jpg";
+},{}],"src/assets/img/Nastia/DSC08167.jpg":[function(require,module,exports) {
+module.exports = "/DSC08167.bc6574fb.jpg";
+},{}],"src/assets/img/Nastia/DSC08191.jpg":[function(require,module,exports) {
+module.exports = "/DSC08191.3257ad9b.jpg";
+},{}],"src/assets/img/Nastia/DSC08386.jpg":[function(require,module,exports) {
+module.exports = "/DSC08386.eaddda0f.jpg";
+},{}],"src/assets/img/Roberta/pic_0.jpg":[function(require,module,exports) {
+module.exports = "/pic_0.8f9403ca.jpg";
+},{}],"src/assets/img/Roberta/pic_1.jpg":[function(require,module,exports) {
+module.exports = "/pic_1.2bc46ba8.jpg";
+},{}],"src/assets/img/Roberta/pic_10.jpg":[function(require,module,exports) {
+module.exports = "/pic_10.6836cd9d.jpg";
+},{}],"src/assets/img/Roberta/pic_11.jpg":[function(require,module,exports) {
+module.exports = "/pic_11.7d56ec5c.jpg";
+},{}],"src/assets/img/Roberta/pic_12.jpg":[function(require,module,exports) {
+module.exports = "/pic_12.346ccbc7.jpg";
+},{}],"src/assets/img/Roberta/pic_13.jpg":[function(require,module,exports) {
+module.exports = "/pic_13.41d5db21.jpg";
+},{}],"src/assets/img/Roberta/pic_14.jpg":[function(require,module,exports) {
+module.exports = "/pic_14.59408553.jpg";
+},{}],"src/assets/img/Roberta/pic_2.jpg":[function(require,module,exports) {
+module.exports = "/pic_2.a52cd097.jpg";
+},{}],"src/assets/img/Roberta/pic_3.jpg":[function(require,module,exports) {
+module.exports = "/pic_3.c6a1514a.jpg";
+},{}],"src/assets/img/Roberta/pic_4.jpg":[function(require,module,exports) {
+module.exports = "/pic_4.0dd69406.jpg";
+},{}],"src/assets/img/Roberta/pic_5.jpg":[function(require,module,exports) {
+module.exports = "/pic_5.a818223f.jpg";
+},{}],"src/assets/img/Roberta/pic_6.jpg":[function(require,module,exports) {
+module.exports = "/pic_6.3452ff10.jpg";
+},{}],"src/assets/img/Roberta/pic_7.jpg":[function(require,module,exports) {
+module.exports = "/pic_7.cdbcc025.jpg";
+},{}],"src/assets/img/Roberta/pic_8.jpg":[function(require,module,exports) {
+module.exports = "/pic_8.bfaf7eec.jpg";
+},{}],"src/assets/img/Roberta/pic_9.jpg":[function(require,module,exports) {
+module.exports = "/pic_9.7f252416.jpg";
 },{}],"src/assets/img/*/*.jpg":[function(require,module,exports) {
 module.exports = {
-  "Anastasia Davletshina": {
-    "DSC01812": require("./../Anastasia Davletshina/DSC01812.jpg"),
-    "DSC01910": require("./../Anastasia Davletshina/DSC01910.jpg"),
-    "DSC02013": require("./../Anastasia Davletshina/DSC02013.jpg"),
-    "DSC02154": require("./../Anastasia Davletshina/DSC02154.jpg"),
-    "DSC02205": require("./../Anastasia Davletshina/DSC02205.jpg"),
-    "DSC02276": require("./../Anastasia Davletshina/DSC02276.jpg"),
-    "DSC02278": require("./../Anastasia Davletshina/DSC02278.jpg"),
-    "NastiaDavletshina1": require("./../Anastasia Davletshina/NastiaDavletshina1.jpg")
+  "Anastasia": {
+    "DSC01812": require("./../Anastasia/DSC01812.jpg"),
+    "DSC01910": require("./../Anastasia/DSC01910.jpg"),
+    "DSC02013": require("./../Anastasia/DSC02013.jpg"),
+    "DSC02154": require("./../Anastasia/DSC02154.jpg"),
+    "DSC02205": require("./../Anastasia/DSC02205.jpg"),
+    "DSC02276": require("./../Anastasia/DSC02276.jpg"),
+    "DSC02278": require("./../Anastasia/DSC02278.jpg"),
+    "NastiaDavletshina1": require("./../Anastasia/NastiaDavletshina1.jpg")
   },
   "Andrea": {
     "DSC01328": require("./../Andrea/DSC01328.jpg"),
@@ -6793,18 +6789,6 @@ module.exports = {
     "pic_14": require("./../Andrea/pic_14.jpg"),
     "pic_15": require("./../Andrea/pic_15.jpg"),
     "pic_9": require("./../Andrea/pic_9.jpg")
-  },
-  "Andrea Lago": {
-    "1": require("./../Andrea Lago/1.jpg"),
-    "2": require("./../Andrea Lago/2.jpg"),
-    "3": require("./../Andrea Lago/3.jpg"),
-    "4": require("./../Andrea Lago/4.jpg"),
-    "5": require("./../Andrea Lago/5.jpg"),
-    "6": require("./../Andrea Lago/6.jpg"),
-    "7": require("./../Andrea Lago/7.jpg"),
-    "8": require("./../Andrea Lago/8.jpg"),
-    "9": require("./../Andrea Lago/9.jpg"),
-    "10": require("./../Andrea Lago/10.jpg")
   },
   "Arianna": {
     "pic_0": require("./../Arianna/pic_0.jpg"),
@@ -6820,6 +6804,18 @@ module.exports = {
     "pic_8": require("./../Arianna/pic_8.jpg"),
     "pic_9": require("./../Arianna/pic_9.jpg")
   },
+  "Inganno": {
+    "1": require("./../Inganno/1.jpg"),
+    "2": require("./../Inganno/2.jpg"),
+    "3": require("./../Inganno/3.jpg"),
+    "4": require("./../Inganno/4.jpg"),
+    "5": require("./../Inganno/5.jpg"),
+    "6": require("./../Inganno/6.jpg"),
+    "7": require("./../Inganno/7.jpg"),
+    "8": require("./../Inganno/8.jpg"),
+    "9": require("./../Inganno/9.jpg"),
+    "10": require("./../Inganno/10.jpg")
+  },
   "Katia": {
     "pic_0": require("./../Katia/pic_0.jpg"),
     "pic_1": require("./../Katia/pic_1.jpg"),
@@ -6830,50 +6826,46 @@ module.exports = {
     "pic_6": require("./../Katia/pic_6.jpg"),
     "pic_7": require("./../Katia/pic_7.jpg")
   },
-  "Nastia Glebik": {
-    "DSC07826": require("./../Nastia Glebik/DSC07826.jpg"),
-    "DSC07836": require("./../Nastia Glebik/DSC07836.jpg"),
-    "DSC08026": require("./../Nastia Glebik/DSC08026.jpg"),
-    "DSC08077": require("./../Nastia Glebik/DSC08077.jpg"),
-    "DSC08167": require("./../Nastia Glebik/DSC08167.jpg"),
-    "DSC08191": require("./../Nastia Glebik/DSC08191.jpg"),
-    "DSC08386": require("./../Nastia Glebik/DSC08386.jpg")
+  "Matteo": {
+    "pic_0": require("./../Matteo/pic_0.jpg"),
+    "pic_1": require("./../Matteo/pic_1.jpg"),
+    "pic_2": require("./../Matteo/pic_2.jpg"),
+    "pic_3": require("./../Matteo/pic_3.jpg"),
+    "pic_4": require("./../Matteo/pic_4.jpg"),
+    "pic_5": require("./../Matteo/pic_5.jpg"),
+    "pic_6": require("./../Matteo/pic_6.jpg"),
+    "pic_7": require("./../Matteo/pic_7.jpg"),
+    "pic_8": require("./../Matteo/pic_8.jpg"),
+    "pic_9": require("./../Matteo/pic_9.jpg")
   },
-  "matteo": {
-    "pic_0": require("./../matteo/pic_0.jpg"),
-    "pic_1": require("./../matteo/pic_1.jpg"),
-    "pic_2": require("./../matteo/pic_2.jpg"),
-    "pic_3": require("./../matteo/pic_3.jpg"),
-    "pic_4": require("./../matteo/pic_4.jpg"),
-    "pic_5": require("./../matteo/pic_5.jpg"),
-    "pic_6": require("./../matteo/pic_6.jpg"),
-    "pic_7": require("./../matteo/pic_7.jpg"),
-    "pic_8": require("./../matteo/pic_8.jpg"),
-    "pic_9": require("./../matteo/pic_9.jpg")
+  "Nastia": {
+    "DSC07826": require("./../Nastia/DSC07826.jpg"),
+    "DSC07836": require("./../Nastia/DSC07836.jpg"),
+    "DSC08026": require("./../Nastia/DSC08026.jpg"),
+    "DSC08077": require("./../Nastia/DSC08077.jpg"),
+    "DSC08167": require("./../Nastia/DSC08167.jpg"),
+    "DSC08191": require("./../Nastia/DSC08191.jpg"),
+    "DSC08386": require("./../Nastia/DSC08386.jpg")
   },
-  "motodeva": {
-    "pic_0": require("./../motodeva/pic_0.jpg"),
-    "pic_1": require("./../motodeva/pic_1.jpg")
-  },
-  "roberta": {
-    "pic_0": require("./../roberta/pic_0.jpg"),
-    "pic_1": require("./../roberta/pic_1.jpg"),
-    "pic_10": require("./../roberta/pic_10.jpg"),
-    "pic_11": require("./../roberta/pic_11.jpg"),
-    "pic_12": require("./../roberta/pic_12.jpg"),
-    "pic_13": require("./../roberta/pic_13.jpg"),
-    "pic_14": require("./../roberta/pic_14.jpg"),
-    "pic_2": require("./../roberta/pic_2.jpg"),
-    "pic_3": require("./../roberta/pic_3.jpg"),
-    "pic_4": require("./../roberta/pic_4.jpg"),
-    "pic_5": require("./../roberta/pic_5.jpg"),
-    "pic_6": require("./../roberta/pic_6.jpg"),
-    "pic_7": require("./../roberta/pic_7.jpg"),
-    "pic_8": require("./../roberta/pic_8.jpg"),
-    "pic_9": require("./../roberta/pic_9.jpg")
+  "Roberta": {
+    "pic_0": require("./../Roberta/pic_0.jpg"),
+    "pic_1": require("./../Roberta/pic_1.jpg"),
+    "pic_10": require("./../Roberta/pic_10.jpg"),
+    "pic_11": require("./../Roberta/pic_11.jpg"),
+    "pic_12": require("./../Roberta/pic_12.jpg"),
+    "pic_13": require("./../Roberta/pic_13.jpg"),
+    "pic_14": require("./../Roberta/pic_14.jpg"),
+    "pic_2": require("./../Roberta/pic_2.jpg"),
+    "pic_3": require("./../Roberta/pic_3.jpg"),
+    "pic_4": require("./../Roberta/pic_4.jpg"),
+    "pic_5": require("./../Roberta/pic_5.jpg"),
+    "pic_6": require("./../Roberta/pic_6.jpg"),
+    "pic_7": require("./../Roberta/pic_7.jpg"),
+    "pic_8": require("./../Roberta/pic_8.jpg"),
+    "pic_9": require("./../Roberta/pic_9.jpg")
   }
 };
-},{"./../Anastasia Davletshina/DSC01812.jpg":"src/assets/img/Anastasia Davletshina/DSC01812.jpg","./../Anastasia Davletshina/DSC01910.jpg":"src/assets/img/Anastasia Davletshina/DSC01910.jpg","./../Anastasia Davletshina/DSC02013.jpg":"src/assets/img/Anastasia Davletshina/DSC02013.jpg","./../Anastasia Davletshina/DSC02154.jpg":"src/assets/img/Anastasia Davletshina/DSC02154.jpg","./../Anastasia Davletshina/DSC02205.jpg":"src/assets/img/Anastasia Davletshina/DSC02205.jpg","./../Anastasia Davletshina/DSC02276.jpg":"src/assets/img/Anastasia Davletshina/DSC02276.jpg","./../Anastasia Davletshina/DSC02278.jpg":"src/assets/img/Anastasia Davletshina/DSC02278.jpg","./../Anastasia Davletshina/NastiaDavletshina1.jpg":"src/assets/img/Anastasia Davletshina/NastiaDavletshina1.jpg","./../Andrea/DSC01328.jpg":"src/assets/img/Andrea/DSC01328.jpg","./../Andrea/DSC01521.jpg":"src/assets/img/Andrea/DSC01521.jpg","./../Andrea/DSC01530.jpg":"src/assets/img/Andrea/DSC01530.jpg","./../Andrea/pic_10.jpg":"src/assets/img/Andrea/pic_10.jpg","./../Andrea/pic_11.jpg":"src/assets/img/Andrea/pic_11.jpg","./../Andrea/pic_12.jpg":"src/assets/img/Andrea/pic_12.jpg","./../Andrea/pic_13.jpg":"src/assets/img/Andrea/pic_13.jpg","./../Andrea/pic_14.jpg":"src/assets/img/Andrea/pic_14.jpg","./../Andrea/pic_15.jpg":"src/assets/img/Andrea/pic_15.jpg","./../Andrea/pic_9.jpg":"src/assets/img/Andrea/pic_9.jpg","./../Andrea Lago/1.jpg":"src/assets/img/Andrea Lago/1.jpg","./../Andrea Lago/10.jpg":"src/assets/img/Andrea Lago/10.jpg","./../Andrea Lago/2.jpg":"src/assets/img/Andrea Lago/2.jpg","./../Andrea Lago/3.jpg":"src/assets/img/Andrea Lago/3.jpg","./../Andrea Lago/4.jpg":"src/assets/img/Andrea Lago/4.jpg","./../Andrea Lago/5.jpg":"src/assets/img/Andrea Lago/5.jpg","./../Andrea Lago/6.jpg":"src/assets/img/Andrea Lago/6.jpg","./../Andrea Lago/7.jpg":"src/assets/img/Andrea Lago/7.jpg","./../Andrea Lago/8.jpg":"src/assets/img/Andrea Lago/8.jpg","./../Andrea Lago/9.jpg":"src/assets/img/Andrea Lago/9.jpg","./../Arianna/pic_0.jpg":"src/assets/img/Arianna/pic_0.jpg","./../Arianna/pic_1.jpg":"src/assets/img/Arianna/pic_1.jpg","./../Arianna/pic_10.jpg":"src/assets/img/Arianna/pic_10.jpg","./../Arianna/pic_11.jpg":"src/assets/img/Arianna/pic_11.jpg","./../Arianna/pic_2.jpg":"src/assets/img/Arianna/pic_2.jpg","./../Arianna/pic_3.jpg":"src/assets/img/Arianna/pic_3.jpg","./../Arianna/pic_4.jpg":"src/assets/img/Arianna/pic_4.jpg","./../Arianna/pic_5.jpg":"src/assets/img/Arianna/pic_5.jpg","./../Arianna/pic_6.jpg":"src/assets/img/Arianna/pic_6.jpg","./../Arianna/pic_7.jpg":"src/assets/img/Arianna/pic_7.jpg","./../Arianna/pic_8.jpg":"src/assets/img/Arianna/pic_8.jpg","./../Arianna/pic_9.jpg":"src/assets/img/Arianna/pic_9.jpg","./../Katia/pic_0.jpg":"src/assets/img/Katia/pic_0.jpg","./../Katia/pic_1.jpg":"src/assets/img/Katia/pic_1.jpg","./../Katia/pic_2.jpg":"src/assets/img/Katia/pic_2.jpg","./../Katia/pic_3.jpg":"src/assets/img/Katia/pic_3.jpg","./../Katia/pic_4.jpg":"src/assets/img/Katia/pic_4.jpg","./../Katia/pic_5.jpg":"src/assets/img/Katia/pic_5.jpg","./../Katia/pic_6.jpg":"src/assets/img/Katia/pic_6.jpg","./../Katia/pic_7.jpg":"src/assets/img/Katia/pic_7.jpg","./../Nastia Glebik/DSC07826.jpg":"src/assets/img/Nastia Glebik/DSC07826.jpg","./../Nastia Glebik/DSC07836.jpg":"src/assets/img/Nastia Glebik/DSC07836.jpg","./../Nastia Glebik/DSC08026.jpg":"src/assets/img/Nastia Glebik/DSC08026.jpg","./../Nastia Glebik/DSC08077.jpg":"src/assets/img/Nastia Glebik/DSC08077.jpg","./../Nastia Glebik/DSC08167.jpg":"src/assets/img/Nastia Glebik/DSC08167.jpg","./../Nastia Glebik/DSC08191.jpg":"src/assets/img/Nastia Glebik/DSC08191.jpg","./../Nastia Glebik/DSC08386.jpg":"src/assets/img/Nastia Glebik/DSC08386.jpg","./../matteo/pic_0.jpg":"src/assets/img/matteo/pic_0.jpg","./../matteo/pic_1.jpg":"src/assets/img/matteo/pic_1.jpg","./../matteo/pic_2.jpg":"src/assets/img/matteo/pic_2.jpg","./../matteo/pic_3.jpg":"src/assets/img/matteo/pic_3.jpg","./../matteo/pic_4.jpg":"src/assets/img/matteo/pic_4.jpg","./../matteo/pic_5.jpg":"src/assets/img/matteo/pic_5.jpg","./../matteo/pic_6.jpg":"src/assets/img/matteo/pic_6.jpg","./../matteo/pic_7.jpg":"src/assets/img/matteo/pic_7.jpg","./../matteo/pic_8.jpg":"src/assets/img/matteo/pic_8.jpg","./../matteo/pic_9.jpg":"src/assets/img/matteo/pic_9.jpg","./../motodeva/pic_0.jpg":"src/assets/img/motodeva/pic_0.jpg","./../motodeva/pic_1.jpg":"src/assets/img/motodeva/pic_1.jpg","./../roberta/pic_0.jpg":"src/assets/img/roberta/pic_0.jpg","./../roberta/pic_1.jpg":"src/assets/img/roberta/pic_1.jpg","./../roberta/pic_10.jpg":"src/assets/img/roberta/pic_10.jpg","./../roberta/pic_11.jpg":"src/assets/img/roberta/pic_11.jpg","./../roberta/pic_12.jpg":"src/assets/img/roberta/pic_12.jpg","./../roberta/pic_13.jpg":"src/assets/img/roberta/pic_13.jpg","./../roberta/pic_14.jpg":"src/assets/img/roberta/pic_14.jpg","./../roberta/pic_2.jpg":"src/assets/img/roberta/pic_2.jpg","./../roberta/pic_3.jpg":"src/assets/img/roberta/pic_3.jpg","./../roberta/pic_4.jpg":"src/assets/img/roberta/pic_4.jpg","./../roberta/pic_5.jpg":"src/assets/img/roberta/pic_5.jpg","./../roberta/pic_6.jpg":"src/assets/img/roberta/pic_6.jpg","./../roberta/pic_7.jpg":"src/assets/img/roberta/pic_7.jpg","./../roberta/pic_8.jpg":"src/assets/img/roberta/pic_8.jpg","./../roberta/pic_9.jpg":"src/assets/img/roberta/pic_9.jpg"}],"src/js/utils.js":[function(require,module,exports) {
+},{"./../Anastasia/DSC01812.jpg":"src/assets/img/Anastasia/DSC01812.jpg","./../Anastasia/DSC01910.jpg":"src/assets/img/Anastasia/DSC01910.jpg","./../Anastasia/DSC02013.jpg":"src/assets/img/Anastasia/DSC02013.jpg","./../Anastasia/DSC02154.jpg":"src/assets/img/Anastasia/DSC02154.jpg","./../Anastasia/DSC02205.jpg":"src/assets/img/Anastasia/DSC02205.jpg","./../Anastasia/DSC02276.jpg":"src/assets/img/Anastasia/DSC02276.jpg","./../Anastasia/DSC02278.jpg":"src/assets/img/Anastasia/DSC02278.jpg","./../Anastasia/NastiaDavletshina1.jpg":"src/assets/img/Anastasia/NastiaDavletshina1.jpg","./../Andrea/DSC01328.jpg":"src/assets/img/Andrea/DSC01328.jpg","./../Andrea/DSC01521.jpg":"src/assets/img/Andrea/DSC01521.jpg","./../Andrea/DSC01530.jpg":"src/assets/img/Andrea/DSC01530.jpg","./../Andrea/pic_10.jpg":"src/assets/img/Andrea/pic_10.jpg","./../Andrea/pic_11.jpg":"src/assets/img/Andrea/pic_11.jpg","./../Andrea/pic_12.jpg":"src/assets/img/Andrea/pic_12.jpg","./../Andrea/pic_13.jpg":"src/assets/img/Andrea/pic_13.jpg","./../Andrea/pic_14.jpg":"src/assets/img/Andrea/pic_14.jpg","./../Andrea/pic_15.jpg":"src/assets/img/Andrea/pic_15.jpg","./../Andrea/pic_9.jpg":"src/assets/img/Andrea/pic_9.jpg","./../Arianna/pic_0.jpg":"src/assets/img/Arianna/pic_0.jpg","./../Arianna/pic_1.jpg":"src/assets/img/Arianna/pic_1.jpg","./../Arianna/pic_10.jpg":"src/assets/img/Arianna/pic_10.jpg","./../Arianna/pic_11.jpg":"src/assets/img/Arianna/pic_11.jpg","./../Arianna/pic_2.jpg":"src/assets/img/Arianna/pic_2.jpg","./../Arianna/pic_3.jpg":"src/assets/img/Arianna/pic_3.jpg","./../Arianna/pic_4.jpg":"src/assets/img/Arianna/pic_4.jpg","./../Arianna/pic_5.jpg":"src/assets/img/Arianna/pic_5.jpg","./../Arianna/pic_6.jpg":"src/assets/img/Arianna/pic_6.jpg","./../Arianna/pic_7.jpg":"src/assets/img/Arianna/pic_7.jpg","./../Arianna/pic_8.jpg":"src/assets/img/Arianna/pic_8.jpg","./../Arianna/pic_9.jpg":"src/assets/img/Arianna/pic_9.jpg","./../Inganno/1.jpg":"src/assets/img/Inganno/1.jpg","./../Inganno/10.jpg":"src/assets/img/Inganno/10.jpg","./../Inganno/2.jpg":"src/assets/img/Inganno/2.jpg","./../Inganno/3.jpg":"src/assets/img/Inganno/3.jpg","./../Inganno/4.jpg":"src/assets/img/Inganno/4.jpg","./../Inganno/5.jpg":"src/assets/img/Inganno/5.jpg","./../Inganno/6.jpg":"src/assets/img/Inganno/6.jpg","./../Inganno/7.jpg":"src/assets/img/Inganno/7.jpg","./../Inganno/8.jpg":"src/assets/img/Inganno/8.jpg","./../Inganno/9.jpg":"src/assets/img/Inganno/9.jpg","./../Katia/pic_0.jpg":"src/assets/img/Katia/pic_0.jpg","./../Katia/pic_1.jpg":"src/assets/img/Katia/pic_1.jpg","./../Katia/pic_2.jpg":"src/assets/img/Katia/pic_2.jpg","./../Katia/pic_3.jpg":"src/assets/img/Katia/pic_3.jpg","./../Katia/pic_4.jpg":"src/assets/img/Katia/pic_4.jpg","./../Katia/pic_5.jpg":"src/assets/img/Katia/pic_5.jpg","./../Katia/pic_6.jpg":"src/assets/img/Katia/pic_6.jpg","./../Katia/pic_7.jpg":"src/assets/img/Katia/pic_7.jpg","./../Matteo/pic_0.jpg":"src/assets/img/Matteo/pic_0.jpg","./../Matteo/pic_1.jpg":"src/assets/img/Matteo/pic_1.jpg","./../Matteo/pic_2.jpg":"src/assets/img/Matteo/pic_2.jpg","./../Matteo/pic_3.jpg":"src/assets/img/Matteo/pic_3.jpg","./../Matteo/pic_4.jpg":"src/assets/img/Matteo/pic_4.jpg","./../Matteo/pic_5.jpg":"src/assets/img/Matteo/pic_5.jpg","./../Matteo/pic_6.jpg":"src/assets/img/Matteo/pic_6.jpg","./../Matteo/pic_7.jpg":"src/assets/img/Matteo/pic_7.jpg","./../Matteo/pic_8.jpg":"src/assets/img/Matteo/pic_8.jpg","./../Matteo/pic_9.jpg":"src/assets/img/Matteo/pic_9.jpg","./../Nastia/DSC07826.jpg":"src/assets/img/Nastia/DSC07826.jpg","./../Nastia/DSC07836.jpg":"src/assets/img/Nastia/DSC07836.jpg","./../Nastia/DSC08026.jpg":"src/assets/img/Nastia/DSC08026.jpg","./../Nastia/DSC08077.jpg":"src/assets/img/Nastia/DSC08077.jpg","./../Nastia/DSC08167.jpg":"src/assets/img/Nastia/DSC08167.jpg","./../Nastia/DSC08191.jpg":"src/assets/img/Nastia/DSC08191.jpg","./../Nastia/DSC08386.jpg":"src/assets/img/Nastia/DSC08386.jpg","./../Roberta/pic_0.jpg":"src/assets/img/Roberta/pic_0.jpg","./../Roberta/pic_1.jpg":"src/assets/img/Roberta/pic_1.jpg","./../Roberta/pic_10.jpg":"src/assets/img/Roberta/pic_10.jpg","./../Roberta/pic_11.jpg":"src/assets/img/Roberta/pic_11.jpg","./../Roberta/pic_12.jpg":"src/assets/img/Roberta/pic_12.jpg","./../Roberta/pic_13.jpg":"src/assets/img/Roberta/pic_13.jpg","./../Roberta/pic_14.jpg":"src/assets/img/Roberta/pic_14.jpg","./../Roberta/pic_2.jpg":"src/assets/img/Roberta/pic_2.jpg","./../Roberta/pic_3.jpg":"src/assets/img/Roberta/pic_3.jpg","./../Roberta/pic_4.jpg":"src/assets/img/Roberta/pic_4.jpg","./../Roberta/pic_5.jpg":"src/assets/img/Roberta/pic_5.jpg","./../Roberta/pic_6.jpg":"src/assets/img/Roberta/pic_6.jpg","./../Roberta/pic_7.jpg":"src/assets/img/Roberta/pic_7.jpg","./../Roberta/pic_8.jpg":"src/assets/img/Roberta/pic_8.jpg","./../Roberta/pic_9.jpg":"src/assets/img/Roberta/pic_9.jpg"}],"src/js/utils.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8875,7 +8867,7 @@ module.exports = {
     // })
   },
   view: function view(vnode) {
-    return (0, _mithril.default)('.footer[data-scroll]', (0, _mithril.default)('.location.flex-column[data-scroll][data-scroll-speed=2]', (0, _mithril.default)('.name', 'Elena Kustova'), (0, _mithril.default)('.place', 'Perugia - Italy')), (0, _mithril.default)('.contacts.flex[data-scroll][data-scroll-speed=1]', (0, _mithril.default)('.link-mail', (0, _mithril.default)('.link-mail-text', 'Contact me at: '), (0, _mithril.default)('a.mail[href=mailto:kuslena@rambler.ru]', 'kuslena@rambler.ru')), (0, _mithril.default)('.socials', (0, _mithril.default)('.socials-title', 'find me also on:'), (0, _mithril.default)('.links', (0, _mithril.default)('.insta-link.flex', (0, _mithril.default)("svg.css-i6dzq1[viewBox='0 0 24 24'][width='24'][height='24'][stroke='currentColor'][stroke-width='2'][fill='none'][stroke-linecap='round'][stroke-linejoin='round']", [(0, _mithril.default)("rect[x='2'][y='2'][width='20'][height='20'][rx='5'][ry='5']"), (0, _mithril.default)("path[d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z']"), (0, _mithril.default)("line[x1='17.5'][y1='6.5'][x2='17.51'][y2='6.5']")]), (0, _mithril.default)('.link-text.insta-link-text', ' @misskustova')), (0, _mithril.default)('.vk-link.flex', (0, _mithril.default)(vkSvg), (0, _mithril.default)('.link-text.vk-link-text', ' Lena Kustova'))))), (0, _mithril.default)(".footer-nav.flex-column[data-scroll][data-scroll-speed=1][data-scroll-call=hide]", {
+    return (0, _mithril.default)('.footer[data-scroll]', (0, _mithril.default)('.location.flex-column[data-scroll][data-scroll-speed=2]', (0, _mithril.default)('.name', 'Elena Kustova'), (0, _mithril.default)('.place', 'Perugia - Italy')), (0, _mithril.default)('.contacts.flex[data-scroll][data-scroll-speed=1]', (0, _mithril.default)('.link-mail', (0, _mithril.default)('.link-mail-text', 'Contact me at: '), (0, _mithril.default)('a.mail[href=mailto:kuslena@rambler.ru]', 'kuslena@rambler.ru')), (0, _mithril.default)('.socials', (0, _mithril.default)('.socials-title', 'find me also on:'), (0, _mithril.default)('.links', (0, _mithril.default)('a.insta-link.flex[href=https://instagram.com/misskustova][target=_blank]', (0, _mithril.default)("svg.css-i6dzq1[viewBox='0 0 24 24'][width='24'][height='24'][stroke='currentColor'][stroke-width='2'][fill='none'][stroke-linecap='round'][stroke-linejoin='round']", [(0, _mithril.default)("rect[x='2'][y='2'][width='20'][height='20'][rx='5'][ry='5']"), (0, _mithril.default)("path[d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z']"), (0, _mithril.default)("line[x1='17.5'][y1='6.5'][x2='17.51'][y2='6.5']")]), (0, _mithril.default)('.link-text.insta-link-text', ' @misskustova')), (0, _mithril.default)('a.vk-link.flex[href=https://vk.com/id17282149][target=_blank]', (0, _mithril.default)(vkSvg), (0, _mithril.default)('.link-text.vk-link-text', ' Lena Kustova'))))), (0, _mithril.default)(".footer-nav.flex-column[data-scroll][data-scroll-speed=1][data-scroll-call=hide]", {
       oncreate: function oncreate(vnode) {
         vnode.dom.addEventListener('hide', function () {
           console.log('hiding nav');
@@ -8919,7 +8911,8 @@ var _ = _interopRequireDefault(require("../assets/img/*/*.jpg"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var allSources = [];
+var allSources = [],
+    scroll;
 
 for (var key in _.default) {
   //array of images
@@ -8934,20 +8927,9 @@ var allImages = allSources.map(function (src) {
 
 function Loader(vnode, scroll, mult) {
   var images = (0, _imagesloaded.default)(allImages);
-  images.on("progress", function (instance) {
-    var len = instance.elements.length;
-    var count = instance.progressedCount;
-    var perc = Math.round(count * 100 / len);
-    document.querySelector(".loader__text").textContent = "".concat(perc, "%");
-  });
-  images.on("done", function () {
-    var loader = document.querySelector(".loader");
-    loader.classList.add("loaded");
-    scroll.update();
-  });
 
   if (scroll) {
-    scroll.destroy;
+    scroll.destroy();
   }
 
   scroll = new _locomotiveScroll.default({
@@ -8958,10 +8940,22 @@ function Loader(vnode, scroll, mult) {
       smooth: true
     }
   });
-  scroll.on("scroll", function (args) {
-    var limit = args.limit,
-        scroll = args.scroll;
-    vnode.state.scrolled = Math.round(scroll.y * 100 / limit.y);
+  images.on("progress", function (instance) {
+    var len = instance.elements.length;
+    var count = instance.progressedCount;
+    var perc = Math.round(count * 100 / len);
+    document.querySelector(".loader__text").textContent = "".concat(perc, "%");
+  });
+  images.on("done", function () {
+    var loader = document.querySelector(".loader");
+    loader.classList.add("loaded");
+    scroll.on("scroll", function (args) {
+      var limit = args.limit;
+      vnode.state.scrolled = Math.round(args.scroll.y * 100 / limit.y); // if (vnode.state.scrolled > 50) {
+      // scroll.update();
+      // }
+    });
+    scroll.update();
   });
   return {
     images: images,
@@ -8994,22 +8988,8 @@ module.exports = {
   oncreate: function oncreate(vnode) {
     // initialize smoothscroll
     //
-    var loader = (0, _Loader.default)();
+    var loader = (0, _Loader.default)(vnode, scroll);
     scroll = loader.scroll;
-    loader.images.on("done", function () {
-      if (scroll) {
-        scroll.destroy();
-      }
-
-      scroll = new _locomotiveScroll.default({
-        el: document.querySelector(".about-page-wrapper"),
-        smooth: true,
-        reloadOnContextChange: true,
-        smartphone: {
-          smooth: true
-        }
-      });
-    });
 
     document.querySelector(".footer-nav .btt").onclick = function () {
       scroll.scrollTo("top");
@@ -9132,8 +9112,8 @@ var MenuItem = /*#__PURE__*/function () {
         begin: function begin(anim) {
           anim.animatables.forEach(function (item) {
             return item.target.style.opacity = '1';
-          });
-          menuItem.style.zIndex = '10';
+          }); // menuItem.style.zIndex = '10'
+
           reveal.style.opacity = '1';
         }
       });
@@ -9141,8 +9121,8 @@ var MenuItem = /*#__PURE__*/function () {
   }, {
     key: "hideImage",
     value: function hideImage() {
-      var menuItem = this.vnode.dom;
-      menuItem.style.zIndex = '1';
+      var menuItem = this.vnode.dom; // menuItem.style.zIndex = '1'
+
       this.hiding = (0, _animejs.default)({
         targets: [this.revealInner, this.revealImage],
         complete: function complete(anim) {
@@ -9156,7 +9136,7 @@ var MenuItem = /*#__PURE__*/function () {
         // opacity: 0,
         duration: 250,
         easing: 'easeOutSine',
-        zIndex: 1,
+        // zIndex: 1,
         translateX: ['0%', direction.x < 0 ? '100%' : '-100%']
       });
     } // calculate the position/size of both the menu item and reveal element
@@ -9230,7 +9210,7 @@ var MenuItem = /*#__PURE__*/function () {
   }, {
     key: "view",
     value: function view() {
-      return (0, _mithril.default)('.link', {
+      return (0, _mithril.default)('.link[data-scroll]', {
         href: "project/".concat(this.index),
         class: 'menu__item',
         onclick: function onclick(e) {
@@ -9242,7 +9222,7 @@ var MenuItem = /*#__PURE__*/function () {
             _mithril.default.route.set("/".concat(_this3.getAttribute('href')));
           }, 1000);
         }
-      }, (0, _mithril.default)('span.menu__item-text[data-scroll]', (0, _mithril.default)('span.menu__item-textinner', this.menuItem)), (0, _mithril.default)('span.menu__item-sub', ''), (0, _mithril.default)('.hover-reveal[style=opacity: 0]', (0, _mithril.default)('.hover-reveal__inner[style=overflow:hidden]', (0, _mithril.default)('.hover-reveal__img', {
+      }, (0, _mithril.default)('span.menu__item-text', (0, _mithril.default)('span.menu__item-textinner', this.menuItem)), (0, _mithril.default)('span.menu__item-sub', ''), (0, _mithril.default)('.hover-reveal[style=opacity: 0]', (0, _mithril.default)('.hover-reveal__inner[style=overflow:hidden]', (0, _mithril.default)('.hover-reveal__img', {
         style: "background-image: url(".concat(this.url, ")")
       }))));
     }
@@ -9367,9 +9347,16 @@ var Works = /*#__PURE__*/function () {
       scroll = loader.scroll;
     }
   }, {
-    key: "onremove",
-    value: function onremove() {
+    key: "onbeforeremove",
+    value: function onbeforeremove() {
       scroll.destroy();
+      (0, _animejs.default)({
+        targets: ".menu__item-textinner",
+        translateY: [0, 100],
+        easing: "easeInOutQuad",
+        duration: 300,
+        delay: _animejs.default.stagger(30)
+      });
     }
   }, {
     key: "view",
@@ -9846,15 +9833,11 @@ var projects = {}; // let allSources = [];
 for (var key in _.default) {
   //array of images
   projects[key] = Object.values(_.default[key]); // allSources = allSources.concat(Object.values(pics[key]));
-} // let allImages = allSources.map((src) => {
-// let img = document.createElement("img");
-// img.src = src;
-// return img;
-// });
-
+}
 
 var projectNames = Object.keys(projects);
 var scroll, cursor;
+window.onhashchange = transition;
 var Home = {
   activeTitle: "",
   slidesIndex: 0,
@@ -9928,6 +9911,7 @@ var Home = {
   oncreate: function oncreate(vnode) {
     // if (scroll != null) scroll.init()
     var loader = (0, _Loader.default)(vnode, scroll);
+    console.log(loader);
     scroll = loader.scroll; // initialize custom cursor
 
     cursor = new _cursor.default(document.querySelector("svg.cursor")); // back to top listener
@@ -10081,7 +10065,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34209" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38437" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

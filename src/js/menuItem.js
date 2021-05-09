@@ -74,14 +74,14 @@ export default class MenuItem {
       translateX: [direction.x < 0 ? '-100%' : '100%', '0%'],
       begin(anim) {
         anim.animatables.forEach(item => item.target.style.opacity = '1');
-        menuItem.style.zIndex = '10'
+        // menuItem.style.zIndex = '10'
         reveal.style.opacity = '1'
       }
     })
   }
   hideImage() {
     let menuItem = this.vnode.dom
-    menuItem.style.zIndex = '1'
+    // menuItem.style.zIndex = '1'
     this.hiding = anime({
       targets: [this.revealInner, this.revealImage],
       complete(anim) {
@@ -94,7 +94,7 @@ export default class MenuItem {
       // opacity: 0,
       duration: 250,
       easing: 'easeOutSine',
-      zIndex: 1,
+      // zIndex: 1,
       translateX: ['0%', direction.x < 0 ? '100%' : '-100%'],
     })
 
@@ -159,7 +159,7 @@ export default class MenuItem {
     this.loopRender()
   }
   view() {
-    return m('.link', {
+    return m('.link[data-scroll]', {
         href: `project/${this.index}`,
         class: 'menu__item',
         onclick(e) {
@@ -170,7 +170,7 @@ export default class MenuItem {
           }, 1000)
         }
       },
-      m('span.menu__item-text[data-scroll]',
+      m('span.menu__item-text',
         m('span.menu__item-textinner', this.menuItem),
       ),
       m('span.menu__item-sub', ''),

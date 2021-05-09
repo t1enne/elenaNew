@@ -12,22 +12,8 @@ module.exports = {
     oncreate(vnode) {
         // initialize smoothscroll
         //
-        const loader = Loader();
-        scroll = loader.scroll
-
-        loader.images.on("done", () => {
-            if (scroll) {
-                scroll.destroy();
-            }
-            scroll = new LocomotiveScroll({
-                el: document.querySelector(".about-page-wrapper"),
-                smooth: true,
-                reloadOnContextChange: true,
-                smartphone: {
-                    smooth: true,
-                },
-            });
-        });
+        const loader = Loader(vnode, scroll);
+        scroll = loader.scroll;
 
         document.querySelector(".footer-nav .btt").onclick = () => {
             scroll.scrollTo("top");

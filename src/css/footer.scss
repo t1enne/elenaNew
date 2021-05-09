@@ -65,6 +65,10 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
       }
     }
     .socials {
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
       svg {
         width: 1.5rem;
         height: 1.5rem;
@@ -78,14 +82,17 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
     font-size: 3.5rem;
     width: max-content;
     align-self: center;
-    &.is-inview:hover a{
-        opacity:0.5;
+    &.is-inview:hover a {
+        opacity: 0.3;
     }
     a {
       width: max-content;
       position: relative;
       cursor: pointer;
       margin-left: auto;
+      &:hover {
+          opacity: 1 !important;
+      }
 
      & span:after {
        content: '';

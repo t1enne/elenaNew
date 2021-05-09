@@ -77,8 +77,15 @@ export default class Works {
         const loader = Loader(vnode)
         scroll = loader.scroll
     }
-    onremove() {
-        scroll.destroy();
+    onbeforeremove() {
+        scroll.destroy()
+        anime({
+            targets: ".menu__item-textinner",
+            translateY: [0, 100],
+            easing: "easeInOutQuad",
+            duration: 300,
+            delay: anime.stagger(30),
+        });
     }
     view() {
         return m(

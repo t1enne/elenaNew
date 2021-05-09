@@ -28,14 +28,10 @@ for (const key in pics) {
     // allSources = allSources.concat(Object.values(pics[key]));
 }
 
-// let allImages = allSources.map((src) => {
-    // let img = document.createElement("img");
-    // img.src = src;
-    // return img;
-// });
-
 let projectNames = Object.keys(projects);
 let scroll, cursor;
+
+window.onhashchange = transition;
 
 let Home = {
     activeTitle: "",
@@ -110,7 +106,11 @@ let Home = {
     oncreate(vnode) {
         // if (scroll != null) scroll.init()
         const loader = Loader(vnode, scroll)
+
+        console.log(loader)
+
         scroll = loader.scroll
+
 
         // initialize custom cursor
         cursor = new Cursor(document.querySelector("svg.cursor"));
