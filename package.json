@@ -2,11 +2,10 @@
   "name": "elenaNew",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "build": "parcel build index.html",
-    "clean": "rm -r .cache dist",
-    "serve": "npm run clean && parcel index.html",
+    "clean": "rm -r .parcel-cache",
+    "serve": "parcel index.html",
     "deploy": "gh-pages -d dist"
   },
   "keywords": [],
@@ -16,21 +15,21 @@
   "homepage": "https://t1enne.github.io/elenaNew",
   "dependencies": {
     "animejs": "^3.2.1",
-    "assets": "^3.0.1",
     "fonts": "0.0.2",
     "gh-pages": "^3.1.0",
     "imagesloaded": "^4.1.4",
-    "locomotive-scroll": "^4.0.6",
+    "locomotive-scroll": "^4.1.2",
     "mithril": "^2.0.4",
-    "regenerator-runtime": "^0.13.7",
-    "splitting": "^1.0.6",
-    "src": "^1.1.2"
+    "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.0.0-beta.2",
+    "@parcel/resolver-glob": "^2.0.0",
+    "@parcel/transformer-sass": "^2.0.0",
+    "@parcel/transformer-toml": "^2.0.0",
     "autoprefixer": "^9.8.6",
     "cssnano": "^5.0.1",
-    "postcss": "^8.2.7",
+    "parcel": "^2.0.0",
+    "postcss": "^8.3.9",
     "postcss-cli": "^8.3.1",
     "postcss-modules": "^3.0.0",
     "sass": "^1.32.0"

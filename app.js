@@ -19,13 +19,12 @@ import Loader from "./src/js/Loader";
 
 let main = document.querySelector("main");
 
+
 let projects = {};
-// let allSources = [];
 
 for (const key in pics) {
     //array of images
     projects[key] = Object.values(pics[key]);
-    // allSources = allSources.concat(Object.values(pics[key]));
 }
 
 let projectNames = Object.keys(projects);
@@ -263,10 +262,6 @@ function transition() {
     body.classList.remove("dark");
 }
 
-function query(sel) {
-    let obj = document.querySelector(sel);
-    return obj;
-}
 exports.transition = transition;
 exports.scroll = scroll;
 exports.cursor = cursor;

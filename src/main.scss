@@ -96,7 +96,7 @@ body {
     margin: 0;
     color: $text-color !important;
     background-color: $bg-color;
-    font-family: Josefine;
+    font-family: 'Montserrat', sans-serif;
     transition: background-color 0.4s linear;
     // cursor: none;
     // transition: background 0.2;
@@ -129,7 +129,8 @@ body {
     }
     .nav {
         font-weight: 700;
-        font-family: "JosefineBold", serif;
+        // font-family: "JosefineBold", serif;
+        font-family: 'Montserrat', sans-serif;
         text-transform: uppercase;
         padding: 1rem;
         z-index: 10;

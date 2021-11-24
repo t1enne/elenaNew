@@ -147,14 +147,15 @@ $bg-dark: #1e1e1e;
             }
         }
         .low-text {
-            padding: 1rem 2rem;
             font-size: 1rem;
             font-weight: 700;
             font-family: "JosefineBold";
+            // font-family: 'Montserrat', sans-serif;
             text-transform: uppercase;
             align-self: center;
             justify-content: space-between;
-            & > * {
+            & .prev, .next {
+                padding: 1rem 2rem;
                 cursor: pointer;
             }
         }

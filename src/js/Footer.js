@@ -100,7 +100,6 @@ module.exports = {
                 m('a.btt[data-scroll]', m('span', {
                     onclick() {
                         m.redraw()
-                        console.log(vnode.scroll)
                     }
                 }, 'back to top')),
                 vnode.state.routes.map(route => {

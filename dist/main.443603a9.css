@@ -517,7 +517,6 @@ html.has-scroll-dragging {
   z-index: 10;
 }
 .roller .next-container .low-text {
-  padding: 1rem 2rem;
   font-size: 1rem;
   font-weight: 700;
   font-family: "JosefineBold";
@@ -525,7 +524,8 @@ html.has-scroll-dragging {
   align-self: center;
   justify-content: space-between;
 }
-.roller .next-container .low-text > * {
+.roller .next-container .low-text .prev, .roller .next-container .low-text .next {
+  padding: 1rem 2rem;
   cursor: pointer;
 }
 

@@ -76,8 +76,6 @@ export default class Project {
             next = projectNames[parseInt(vnode.attrs.key) + 1];
         }
 
-        // console.log(pics[next], next);
-
         return m(".project-page-wrapper[data-scroll-container]", [
             m(
                 "#main",

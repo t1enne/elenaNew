@@ -3470,9 +3470,9 @@ var global = arguments[3];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Smooth = exports.Native = exports.default = void 0;
+exports.default = exports.Smooth = exports.Native = void 0;
 
-/* locomotive-scroll v4.0.6 | MIT License | https://github.com/locomotivemtl/locomotive-scroll */
+/* locomotive-scroll v4.1.1 | MIT License | https://github.com/locomotivemtl/locomotive-scroll */
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -3731,6 +3731,10 @@ var defaults = {
   offset: [0, 0],
   repeat: false,
   smooth: false,
+  initPosition: {
+    x: 0,
+    y: 0
+  },
   direction: 'vertical',
   gestureDirection: 'vertical',
   reloadOnContextChange: false,
@@ -3795,7 +3799,7 @@ var _default = /*#__PURE__*/function () {
         y: 0
       },
       limit: {
-        x: this.html.offsetHeight,
+        x: this.html.offsetWidth,
         y: this.html.offsetHeight
       },
       currentElements: this.currentElements
@@ -4579,10 +4583,6 @@ var _default$1 = /*#__PURE__*/function (_Core) {
         var bottom = top + targetEl.offsetHeight;
         var right = left + targetEl.offsetWidth;
 
-        if (target === '#header') {
-          console.log(top, bottom);
-        }
-
         if (repeat == 'false') {
           repeat = false;
         } else if (repeat != undefined) {
@@ -4705,17 +4705,24 @@ var _default$1 = /*#__PURE__*/function (_Core) {
         offset = target + offset;
       }
 
+      var isTargetReached = function isTargetReached() {
+        return parseInt(window.pageYOffset) === parseInt(offset);
+      };
+
       if (callback) {
-        offset = offset.toFixed();
+        if (isTargetReached()) {
+          callback();
+          return;
+        } else {
+          var onScroll = function onScroll() {
+            if (isTargetReached()) {
+              window.removeEventListener('scroll', onScroll);
+              callback();
+            }
+          };
 
-        var onScroll = function onScroll() {
-          if (window.pageYOffset.toFixed() === offset) {
-            window.removeEventListener('scroll', onScroll);
-            callback();
-          }
-        };
-
-        window.addEventListener('scroll', onScroll);
+          window.addEventListener('scroll', onScroll);
+        }
       }
 
       window.scrollTo({
@@ -5490,8 +5497,12 @@ var _default$2 = /*#__PURE__*/function (_Core) {
       this.html.setAttribute("data-".concat(this.name, "-direction"), this.direction);
       this.instance = _objectSpread2({
         delta: {
-          x: 0,
-          y: 0
+          x: this.initPosition.x,
+          y: this.initPosition.y
+        },
+        scroll: {
+          x: this.initPosition.x,
+          y: this.initPosition.y
         }
       }, this.instance);
       this.vs = new src({
@@ -5690,7 +5701,7 @@ var _default$2 = /*#__PURE__*/function (_Core) {
               section.el.setAttribute("data-".concat(_this4.name, "-section-inview"), '');
             }
           } else {
-            if (section.inView) {
+            if (section.inView || forced) {
               section.inView = false;
               section.el.style.opacity = 0;
               section.el.style.pointerEvents = 'none';
@@ -6257,7 +6268,7 @@ var _default$2 = /*#__PURE__*/function (_Core) {
 
       var offset = parseInt(options.offset) || 0; // An offset to apply on top of given `target` or `sourceElem`'s target
 
-      var duration = options.duration || 1000; // Duration of the scroll animation in milliseconds
+      var duration = !isNaN(parseInt(options.duration)) ? parseInt(options.duration) : 1000; // Duration of the scroll animation in milliseconds
 
       var easing = options.easing || [0.25, 0.0, 0.35, 1.0]; // An array of 4 floats between 0 and 1 defining the bezier curve for the animation's easing. See http://greweb.me/bezier-easing-editor/example/
 
@@ -6871,7 +6882,7 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getMousePos = exports.clamp = exports.lerp = exports.map = void 0;
+exports.map = exports.lerp = exports.getMousePos = exports.clamp = void 0;
 
 // Map number x from range [a, b] to [c, d]
 var map = function map(x, a, b, c, d) {
@@ -8823,6 +8834,10 @@ module.exports = {
 };
 },{"mithril":"node_modules/mithril/index.js","../../app.js":"app.js"}],"src/assets/mypic.jpg":[function(require,module,exports) {
 module.exports = "/mypic.66c23980.jpg";
+},{}],"src/assets/text/about.toml":[function(require,module,exports) {
+module.exports = {
+  about: ["About Me", "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.", "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."]
+};
 },{}],"src/js/Footer.js":[function(require,module,exports) {
 "use strict";
 
@@ -8976,7 +8991,7 @@ var _app = require("../../app.js");
 
 var _mypic = _interopRequireDefault(require("../assets/mypic.jpg"));
 
-var _locomotiveScroll = _interopRequireDefault(require("locomotive-scroll"));
+var _about = _interopRequireDefault(require("../assets/text/about.toml"));
 
 var _cursor = _interopRequireDefault(require("./cursor"));
 
@@ -8991,6 +9006,11 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var scroll;
+var title = _about.default.about[0];
+
+var paragraphs = _about.default.about.splice(1);
+
+console.log(_about.default);
 module.exports = {
   oncreate: function oncreate(vnode) {
     return _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -9029,10 +9049,12 @@ module.exports = {
     // check width > 768px to apply sticky to picture
     vnode.state.width = window.innerWidth;
     var sticky = vnode.state.width > 768 ? "[data-scroll-sticky]" : "";
-    return (0, _mithril.default)(".about-page-wrapper[data-scroll-container]", (0, _mithril.default)("#main", (0, _mithril.default)(_Nav.default), (0, _mithril.default)(".content#content[data-scroll]", [(0, _mithril.default)(".picture-wrapper[data-scroll]".concat(sticky, "[data-scroll-target=#content]"), (0, _mithril.default)("img[src=".concat(_mypic.default, "]"))), (0, _mithril.default)("p.text-wrapper[data-scroll]", (0, _mithril.default)(".title-wrapper[data-scroll]", (0, _mithril.default)("section.content__item.content__item--home.content__item--current[data-scroll][data-scroll-speed=0]", (0, _mithril.default)(".paragraph-wrapper", (0, _mithril.default)(".content__paragraph[data-scroll]", "About")), (0, _mithril.default)(".paragraph-wrapper", (0, _mithril.default)(".content__paragraph[data-scroll]", "Me")))), (0, _mithril.default)(".paragraph-wrapper", (0, _mithril.default)(".text[data-scroll][data-scroll-speed=3]", (0, _mithril.default)("p", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")), (0, _mithril.default)(".text[data-scroll][data-scroll-speed=3]", (0, _mithril.default)("p", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")), (0, _mithril.default)(".text[data-scroll][data-scroll-speed=3]", (0, _mithril.default)("p", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")), (0, _mithril.default)(".text[data-scroll][data-scroll-speed=3]", (0, _mithril.default)("p", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")), (0, _mithril.default)(".text[data-scroll][data-scroll-speed=3]", "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."), (0, _mithril.default)(".text[data-scroll][data-scroll-speed=3]", "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."), (0, _mithril.default)(".text[data-scroll][data-scroll-speed=3]", "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")))])), (0, _mithril.default)(_Footer.default));
+    return (0, _mithril.default)(".about-page-wrapper[data-scroll-container]", (0, _mithril.default)("#main", (0, _mithril.default)(_Nav.default), (0, _mithril.default)(".content#content[data-scroll]", [(0, _mithril.default)(".picture-wrapper[data-scroll]".concat(sticky, "[data-scroll-target=#content]"), (0, _mithril.default)("img[src=".concat(_mypic.default, "]"))), (0, _mithril.default)("p.text-wrapper[data-scroll]", (0, _mithril.default)(".title-wrapper[data-scroll]", (0, _mithril.default)("section.content__item.content__item--home.content__item--current[data-scroll][data-scroll-speed=0]", (0, _mithril.default)(".paragraph-wrapper", (0, _mithril.default)(".content__paragraph[data-scroll]", title)), (0, _mithril.default)(".paragraph-wrapper", (0, _mithril.default)(".content__paragraph[data-scroll]", "Me")))), (0, _mithril.default)(".paragraph-wrapper", paragraphs.map(function (p) {
+      return (0, _mithril.default)(".text[data-scroll][data-scroll-speed=3]", (0, _mithril.default)("p", p));
+    })))])), (0, _mithril.default)(_Footer.default));
   }
 };
-},{"mithril":"node_modules/mithril/index.js","./Nav":"src/js/Nav.js","../../app.js":"app.js","../assets/mypic.jpg":"src/assets/mypic.jpg","locomotive-scroll":"node_modules/locomotive-scroll/dist/locomotive-scroll.esm.js","./cursor":"src/js/cursor.js","./Footer":"src/js/Footer.js","./Loader":"src/js/Loader.js"}],"src/js/menuItem.js":[function(require,module,exports) {
+},{"mithril":"node_modules/mithril/index.js","./Nav":"src/js/Nav.js","../../app.js":"app.js","../assets/mypic.jpg":"src/assets/mypic.jpg","../assets/text/about.toml":"src/assets/text/about.toml","./cursor":"src/js/cursor.js","./Footer":"src/js/Footer.js","./Loader":"src/js/Loader.js"}],"src/js/menuItem.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10129,7 +10151,7 @@ exports.transition = transition;
 exports.scroll = scroll;
 exports.cursor = cursor;
 exports.projects = projects;
-},{"imagesloaded":"node_modules/imagesloaded/imagesloaded.js","regenerator-runtime":"node_modules/regenerator-runtime/runtime.js","mithril":"node_modules/mithril/index.js","locomotive-scroll":"node_modules/locomotive-scroll/dist/locomotive-scroll.esm.js","./src/assets/img/*/*.jpg":"src/assets/img/*/*.jpg","./src/js/cursor":"src/js/cursor.js","./src/js/About":"src/js/About.js","./src/js/Nav":"src/js/Nav.js","./src/js/Works":"src/js/Works.js","./src/js/Footer":"src/js/Footer.js","./src/js/Project":"src/js/Project.js","./src/js/Loader":"src/js/Loader.js"}],"../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"imagesloaded":"node_modules/imagesloaded/imagesloaded.js","regenerator-runtime":"node_modules/regenerator-runtime/runtime.js","mithril":"node_modules/mithril/index.js","locomotive-scroll":"node_modules/locomotive-scroll/dist/locomotive-scroll.esm.js","./src/assets/img/*/*.jpg":"src/assets/img/*/*.jpg","./src/js/cursor":"src/js/cursor.js","./src/js/About":"src/js/About.js","./src/js/Nav":"src/js/Nav.js","./src/js/Works":"src/js/Works.js","./src/js/Footer":"src/js/Footer.js","./src/js/Project":"src/js/Project.js","./src/js/Loader":"src/js/Loader.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -10157,7 +10179,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46451" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42975" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -10333,5 +10355,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../../usr/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","app.js"], null)
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","app.js"], null)
 //# sourceMappingURL=/app.c328ef1a.js.map
