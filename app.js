@@ -1,268 +1,75 @@
-import imagesLoaded from "imagesloaded";
-import regeneratorRuntime from "regenerator-runtime";
-// import 'src/assets/img/*'
-import m from "mithril";
-// import anime from 'animejs'
-import LocomotiveScroll from "locomotive-scroll";
-import pics from "./src/assets/img/*/*.jpg";
-import Cursor from "./src/js/cursor";
-// import {
-// lerp,
-// getMousePos
-// } from './src/js/utils'
+import m from 'mithril';
+import Home from "./src/js/Home";
+import Nav from "./src/js/Nav"
 import About from "./src/js/About";
-import Nav from "./src/js/Nav";
-import Works from "./src/js/Works";
-import Footer from "./src/js/Footer";
 import Project from "./src/js/Project";
 import Loader from "./src/js/Loader";
+import Cursor from "./src/js/cursor";
+import { Title } from "./src/js/Title";
+import { cl } from './src/js/utils';
 
-let main = document.querySelector("main");
+let root = cl(".mithril_root");
+let cursor = new Cursor(cl("svg.cursor"));
+let loader = null
 
-
-let projects = {};
-
-for (const key in pics) {
-    //array of images
-    projects[key] = Object.values(pics[key]);
+function localStorageSupp() {
+  try {
+    localStorage.setItem('test', 'test')
+    localStorage.removeItem('test')
+    return true
+  } catch (e) {
+    return false
+  }
 }
 
-let projectNames = Object.keys(projects);
-let scroll, cursor;
+const loadEvent = ({ stop, route }) => {
+  return new CustomEvent('mithril-loaded', {
+    detail: {
+      stop,
+      route
+    }
+  })
+}
 
-window.onhashchange = transition;
+document.body.addEventListener('mithril-loaded', async (le) => {
+  console.log('load event')
 
-let Home = {
-    activeTitle: "",
-    slidesIndex: 0,
-    firstScroll: false,
-    slidesLength: 0,
-    picturesObj: {},
-    pictures: [],
-    scrolled: 0,
-    // prev(vnode) {
-    // let projects = document.querySelectorAll('.project-title')
-    //
-    // let slides = document.querySelectorAll('.slide')
-    // let previews = document.querySelectorAll('.preview-slide')
-    // let active = document.querySelector('.slide.active')
-    // let activePreview = document.querySelector('.preview-slide.active')
-    //
-    //
-    // active.classList.toggle('active')
-    // active.classList.toggle('behind')
-    // activePreview.classList.toggle('active')
-    // activePreview.classList.toggle('behind')
-    //
-    // animProjectsOut(vnode.state.slidesIndex)
-    //
-    // if (vnode.state.slidesIndex - 1 === -1) {
-    //   vnode.state.slidesIndex = slides.length - 1
-    // } else {
-    //   vnode.state.slidesIndex -= 1
-    // }
-    // animProjectsIn(vnode.state.slidesIndex)
-    //
-    // slides[vnode.state.slidesIndex].classList.toggle('active')
-    // previews[vnode.state.slidesIndex].classList.toggle('active')
-    //
-    // setTimeout(() => {
-    //   active.classList.toggle("behind");
-    //   activePreview.classList.toggle("behind");
-    // }, 1000);
-    // },
-    // next(vnode) {
-    //   let projects = document.querySelectorAll('.project-title')
-    //
-    //   let slides = document.querySelectorAll('.slide')
-    //   let previews = document.querySelectorAll('.preview-slide')
-    //   let active = document.querySelector('.slide.active')
-    //   let activePreview = document.querySelector('.preview-slide.active')
-    //
-    //
-    //   active.classList.toggle('active')
-    //   active.classList.toggle('behind')
-    //   activePreview.classList.toggle('active')
-    //   activePreview.classList.toggle('behind')
-    //
-    //   animProjectsOut(vnode.state.slidesIndex)
-    //
-    //   if (vnode.state.slidesIndex + 1 === slides.length) {
-    //     vnode.state.slidesIndex = 0
-    //   } else {
-    //     vnode.state.slidesIndex += 1
-    //   }
-    //   animProjectsIn(vnode.state.slidesIndex)
-    //
-    //   slides[vnode.state.slidesIndex].classList.toggle('active')
-    //   previews[vnode.state.slidesIndex].classList.toggle('active')
-    //
-    //   setTimeout(() => {
-    //     active.classList.toggle("behind");
-    //     activePreview.classList.toggle("behind");
-    //   }, 1000);
-    // },
-    async oncreate(vnode) {
-        // if (scroll != null) scroll.init()
-        const loader = await Loader(vnode, scroll)
+  const { stop, route } = le.detail
+  if (window.scroller) {
+    window.scroller.destroy()
+    window.scroller.init()
+    window.scroller.update()
+    if (stop) {
+      window.scroller.stop()
+    }
+  }
 
-        scroll = loader.scroll;
+  if (!loader) {
+    console.log('loader = null')
+    loader = await Loader({ stop, route })
+  }
 
-        // initialize custom cursor
-        cursor = new Cursor(document.querySelector("svg.cursor"));
 
-        // back to top listener
-        document.querySelector(".footer-nav .btt").onclick = () => {
-            scroll.scrollTo("top");
-        };
-    },
-    onremove() {
-        scroll.destroy();
-    },
-    view(vnode) {
-        // let projectDate = Object.keys(Object.values(projects)[vnode.state.slidesIndex])
-        return [
-            m(
-                ".home-page-wrapper[data-scroll-id=home-section]",
-                m(
-                    "#main",
-                    m(Nav),
-                    m(
-                        ".title-wrapper[data-scroll][data-scroll-repeat]",
-                        m(
-                            "section.content__item.content__item--home.content__item--current[data-scroll-speed=2][data-scroll]",
-                            m(".paragraph-wrapper", m(".content__paragraph[data-splitting][data-scroll]", "Elena Kustova")),
-                            m(".paragraph-wrapper", m(".content__paragraph[data-splitting][data-scroll]", "Russian")),
-                            m(".paragraph-wrapper", m(".content__paragraph[data-splitting][data-scroll]", "Photographer")),
-                            m(".paragraph-wrapper", m(".content__paragraph[data-splitting][data-scroll]", "Based in Italy"))
-                        )
-                    ),
-                    m(".gallery[data-scroll]", [
-                        //
+})
 
-                        // m('.slides-wrapper',
-                        // m('.work-selector-wrapper.grid', [
-                        // m('.preview[data-scroll][data-scroll-speed=2]',
-                        // [
-                        // m('.project-index', `${vnode.state.slidesIndex+1} / ${vnode.state.slidesLength}`),
-                        // m('.preview-slides',
-                        // projectNames.map((name, i) => {
-                        // return m(`.preview-slide.${i == 0 ? '.active' : '' }`, {
-                        // style: `background-image: url(${pics[name][name + '1']});`
-                        // })
-                        // })),
-                        // m('.buttons.space-between', [
-                        // m('.button.flex.prev', {
-                        // onclick: () => {
-                        // vnode.state.prev(vnode)
-                        // }
-                        // },
-                        // m("svg.arrows.arrow-left[xmlns='http://www.w3.org/2000/svg'][width='24'][height='24'][viewBox='0 0 24 24'][fill='none'][stroke='currentColor'][stroke-width='2'][stroke-linecap='round'][stroke-linejoin='round']",
-                        // [
-                        // m("line[x1='19'][y1='12'][x2='5'][y2='12']"),
-                        // m("polyline[points='12 19 5 12 12 5']")
-                        // ]
-                        // ), m('.text', 'prev')),
-                        // m('.button.flex.next', {
-                        // onclick(e) {
-                        // vnode.state.next(vnode)
-                        // }
-                        // },
-                        // m('.text', 'next'),
-                        // m("svg.arrows.arrow-right[xmlns='http://www.w3.org/2000/svg'][width='24'][height='24'][viewBox='0 0 24 24'][fill='none'][stroke='currentColor'][stroke-width='2'][stroke-linecap='round'][stroke-linejoin='round']",
-                        // [
-                        // m("line[x1='5'][y1='12'][x2='19'][y2='12']"),
-                        // m("polyline[points='12 5 19 12 12 19']")
-                        // ]
-                        // )
-                        // )
-                        // ])
-                        // ],
-                        // [
-                        // m('.project-titles.flex-column', projectNames.map((name, i) => {
-                        // return m(`h1.project-title.project-${name}[index=${i}]`, projectNames[i])
-                        // }))
-                        // ]
-                        // )
-                        // ]),
-                        // m('.slides',
-                        // m('.work-title-wrapper', [
-                        // m('p.work-title', `- tbd -`),
-                        // m('p.explore-project', 'explore')
-                        // ]),
-                        // projectNames.map((name, i) => {
-                        // return m(`.slide${i == 0 ? '.active' : ''}`, m('img', {
-                        // src: projects[name][0]
-                        // }))
-                        // })
-                        // )
-                        // ),
 
-                        //
-                        m(".divider[data-scroll][data-scroll-repeat]", m("span.divider-text", "some of my pictures")),
-                        m(
-                            ".gallery-pictures-wrapper",
-                            projectNames.map((key, i) => {
-                                let url = projects[key][0];
-                                let delay = i % 2 === 0 ? ".9" : ".4";
-                                // return projects[key].map((url, y) => {
-                                return m(
-                                    ".gallery-pic[style=padding-top:-50%]",
-                                    m(
-                                        `a.img-wrapper[data-scroll][data-scroll-delay=${delay}][data-scroll-speed=${delay * 4}]`,
-                                        {
-                                            onclick() {
-                                                transition();
-                                                setTimeout(() => {
-                                                    m.route.set(`/project/${i}`);
-                                                }, 1000);
-                                            },
-                                            onmouseenter: () => {
-                                                let title = document.querySelector(`.pic-title.title-${i}`);
-                                                title.classList.remove("hidden");
-                                                title.classList.add("animated");
-                                            },
-                                            onmouseleave: () => {
-                                                let title = document.querySelector(`.pic-title.title-${i}`);
-                                                title.classList.remove("animated");
-                                                title.classList.add("hidden");
-                                            },
-                                        },
-                                        m(`img[title=${key}]`, {
-                                            src: url,
-                                        }),
-                                        m(".pic-title-wrapper", m(`.pic-title.title-${key}.title-${i}.hidden`, key))
-                                    )
-                                );
-                                // })
-                            })
-                        ),
-                    ])
-                ),
-                m(Footer)
-            ),
-        ];
-    },
-};
+m.mount(cl('.nav'), Nav)
+m.mount(cl('.title_root'), Title)
 
-m.route(main, "/home", {
-    "/home": Home,
-    "/about": About,
-    "/works": Works,
-    "/project/:key": Project,
+m.route.prefix = ''
+m.route(root, "/home", {
+  "/home": Home,
+  "/about": About,
+  "/project/:key": Project,
 });
 
 function transition() {
-    document.querySelectorAll(".is-inview").forEach((item) => {
-        item.classList.remove("is-inview");
-    });
-    // document.querySelector("body").style.backgroundColor = "#d7cca1";
-    const body = document.querySelector("body");
-
-    body.classList.remove("dark");
+  cl(".is-inview").forEach((item) => {
+    item.classList.remove("is-inview");
+  });
+  cl('body').classList.remove("dark");
 }
 
-exports.transition = transition;
-exports.scroll = scroll;
-exports.cursor = cursor;
-exports.projects = projects;
+!function(t, e) { "use strict"; "function" != typeof t.CustomEvent && (t.CustomEvent = function(t, n) { n = n || { bubbles: !1, cancelable: !1, detail: void 0 }; var a = e.createEvent("CustomEvent"); return a.initCustomEvent(t, n.bubbles, n.cancelable, n.detail), a }, t.CustomEvent.prototype = t.Event.prototype), e.addEventListener("touchstart", function(t) { if ("true" === t.target.getAttribute("data-swipe-ignore")) return; s = t.target, r = Date.now(), n = t.touches[0].clientX, a = t.touches[0].clientY, u = 0, i = 0 }, !1), e.addEventListener("touchmove", function(t) { if (!n || !a) return; var e = t.touches[0].clientX, r = t.touches[0].clientY; u = n - e, i = a - r }, !1), e.addEventListener("touchend", function(t) { if (s !== t.target) return; var e = parseInt(l(s, "data-swipe-threshold", "20"), 10), o = parseInt(l(s, "data-swipe-timeout", "500"), 10), c = Date.now() - r, d = "", p = t.changedTouches || t.touches || []; Math.abs(u) > Math.abs(i) ? Math.abs(u) > e && c < o && (d = u > 0 ? "swiped-left" : "swiped-right") : Math.abs(i) > e && c < o && (d = i > 0 ? "swiped-up" : "swiped-down"); if ("" !== d) { var b = { dir: d.replace(/swiped-/, ""), touchType: (p[0] || {}).touchType || "direct", xStart: parseInt(n, 10), xEnd: parseInt((p[0] || {}).clientX || -1, 10), yStart: parseInt(a, 10), yEnd: parseInt((p[0] || {}).clientY || -1, 10) }; s.dispatchEvent(new CustomEvent("swiped", { bubbles: !0, cancelable: !0, detail: b })), s.dispatchEvent(new CustomEvent(d, { bubbles: !0, cancelable: !0, detail: b })) } n = null, a = null, r = null }, !1); var n = null, a = null, u = null, i = null, r = null, s = null; function l(t, n, a) { for (; t && t !== e.documentElement;) { var u = t.getAttribute(n); if (u) return u; t = t.parentNode } return a } }(window, document);
+
+export { loadEvent, transition, localStorageSupp }

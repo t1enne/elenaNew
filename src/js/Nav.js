@@ -1,105 +1,66 @@
 import m from 'mithril'
 import locales from '../locales/common.toml'
 import {
-  transition
+  transition,
+  localStorageSupp
 } from '../../app.js'
+import { columnsExitAnim } from './Works/Works'
+import { cl } from './utils'
 
-
-function handleLang(lang) {
-  let preferredLang = null
-  if (lang) {
-      preferredLang = lang
-  } else if (localStorage.lang && lang) {
-    preferredLang = lang
-  } else {
-      let language = window.navigator.languages.filter( l => {
-          l.slice(2)
-          if (l === "en" ) {
-              return true
-          } else if ( l === "ru") {
-              return true
-          }
-      })[0]
-      if (language.length === 0) {
-          language = "en"
-      }
-      preferredLang = language
-  }
-  if (localStorage.lang != preferredLang) {
-    localStorage.lang = preferredLang
-  }
-  
-}
 
 module.exports = {
-  oncreate() {
-    if( !localStorage.lang ) {
-      handleLang(null)
-    }
-  },
-  view(vnode) {
-    vnode.state.lang = localStorage.lang
-    handleLang(localStorage.lang)
-    const { me, works, about } = locales[vnode.state.lang].nav
+  view(v) {
+    const docLang = document.documentElement.lang;
 
-    return m('.nav.space-between#nav[data-scroll][data-scroll-sticky][data-scroll-target=#main]', [
+    const { me, about } = locales[docLang].nav
+
+    return m('#nav.space-between', [
       m('.link-wrapper',
         m('a.home-link.underlined', {
           onclick() {
-            if (location.hash != '#!/') {
+            if (location.pathname != '/home') {
               transition()
+              // columnsExitAnim.direction = 'normal'
+              // columnsExitAnim.play()
               setTimeout(() => {
                 m.route.set('/')
-              }, 1000);
+              }, 1300);
             }
           }
         }, me)),
       m('.link-wrapper',
-        m('a.works-link.underlined', {
+        m('a.about-link.underlined', {
           onclick() {
-            if (location.hash != '#!/works') {
+            if (location.pathname != '/about') {
               transition()
+              columnsExitAnim.direction = 'normal'
+              columnsExitAnim.play()
               setTimeout(() => {
-                m.route.set('/works')
-              }, 1000);
+                m.route.set('/about')
+              }, 1300);
             }
           }
-        }, works)),
-      m('.link-wrapper',
-        m('a.about-link.underlined', {
-            onclick() {
-              if (location.hash != '#!/about') {
-                transition()
-                setTimeout(() => {
-                  m.route.set('/about')
-                }, 1000);
-              }
-            }
-          },
+        },
           about)),
-          m('.link-wrapper',
-          [
-            m("label[for='lang']", 
-              "lang: "
-            ), 
-            m("select[name='lang'][id='lang'][form='carform']", {
-              onchange(e) {
-                handleLang(e.target.value)
-                vnode.state.lang = e.target.value
-                  document.location.reload()
-              }
-            },
-              [
-                m("option[value='en']", 
-                  "en"
-                ),
-                m("option[value='ru']", 
-                  "ru"
-                )
-              ]
-            )
-          ]
-          ),
+      // m('.link-wrapper',
+      //   [
+      //     m("select.underlined[name='lang'][id='lang'][form='language-switch']", {
+      //       onchange(e) {
+      //         v.tag.handleLang({ lang: e.srcElement.value, vnode: v })
+      //         window.scroller.update()
+      //       }
+      //     },
+      //       [
+      //         m("option[value='en']",
+      //           "en"
+      //         ),
+      //         m("option[value='ru']",
+      //           "ru"
+      //         ),
+      //       ]
+      //     )
+      //   ]
+      // ),
     ])
   }
 }

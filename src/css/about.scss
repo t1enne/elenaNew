@@ -1,77 +1,91 @@
 $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
 
-.about-page-wrapper {
-    .content {
-        display: grid;
-        grid-template-columns: repeat(2, 50%);
-        transition: 0.6s $easeQuintic;
+.content {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  transition: 0.6s $easeQuintic;
+  transition-property: transform, opacity;
+  &.hidden {
+    opacity: 0 !important;
+  }
+  .text {
+    overflow: hidden;
+    transition-delay: .5s;
+  }
 
-        &.is-inview > * > * {
-            opacity: 1;
-            transform: translateY(0vh);
-        }
+  &.is-inview > * > * {
+    opacity: 1;
+    transform: translateY(0vh);
+  }
 
-        & > * > * {
-            transition: 0.6s $easeQuintic;
-            opacity: 0;
-        }
-        &.is-inview > * > .paragraph-wrapper > .text.is-inview * {
-            transform: translateX(0);
-        }
-        & > * > .paragraph-wrapper > .text:nth-child(2n) > p {
-            transform: translateX(30vw);
-            transition: transform 0.6s $easeQuintic;
-        }
-        & > * > .paragraph-wrapper > .text:nth-child(odd) > p {
-            transform: translateX(-30vw);
-            transition: transform 0.6s $easeQuintic;
-        }
-        .picture-wrapper {
-            height: calc(100vh - 10.313vw);
-            overflow: hidden;
-            width: 100%;
+  & > * > * {
+    opacity: 0;
+    transition: 0.6s $easeQuintic;
+    transition-property: transform, opacity;
+  }
+  &.is-inview > * > .paragraph-wrapper > .text.is-inview * {
+    transform: translateY(0);
+  }
+  & > * > .paragraph-wrapper > .text:nth-child(2n) > p {
+    transform: translateY(30vw);
+    transition: transform 0.6s $easeQuintic;
+  }
+  & > * > .paragraph-wrapper > .text:nth-child(odd) > p {
+    transform: translateY(30vw);
+    transition: transform 0.6s $easeQuintic;
+  }
+  .picture-wrapper {
+    height: calc(100vh - 10.313vw);
+    overflow: hidden;
+    width: 100%;
 
-            img {
-                object-fit: cover;
-                height: 100%;
-                width: 100%;
-            }
-        }
-
-        .text-wrapper {
-            .title-wrapper {
-                padding: 2rem 0;
-                height: auto;
-            }
-            .text {
-                // font-size: 2vw;
-
-                margin: 1rem;
-                padding: 1rem 5rem;
-                position: relative;
-                font-size: 1.5rem;
-                font-weight: 300;
-            }
-        }
+    img {
+      object-fit: contain;
+      height: 100%;
+      width: 100%;
     }
+  }
 
-    .content.is-inview {
-        transform: translateY(0);
-        opacity: 1;
+  .text-wrapper {
+    .title-wrapper {
+      padding: 2rem 0;
+      width: max-content !important;
+      height: auto;
+      .content__paragraph {
+        transition: 1.5s $easeQuintic;
+        transform: translateY(200px) skew(10deg) !important;
+      }
+      &.is-inview {
+        .content__paragraph {
+          opacity: 1;
+          transform: translateY(0px) skew(0deg) !important;
+        }
+      }
     }
+    .text {
+      margin: 1rem;
+      padding: 1rem 5rem;
+      position: relative;
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+  }
+}
+
+.socials-title {
+  text-align: right;
+}
+
+.content.is-inview {
+  transform: translateY(0);
+  opacity: 1;
 }
 @media only screen and (max-width: 768px) {
-    .content {
-        grid-template-columns: 1fr !important;
+  .content {
+    grid-template-columns: 1fr !important;
 
-        .picture-wrapper {
-            height: 70vh !important;
-        }
-
-        .text-wrapper {
-            .text {
-                // font-size: 4.688vw !important;
-            }
-        }
+    .picture-wrapper {
+      height: 70vh !important;
     }
+  }
 }

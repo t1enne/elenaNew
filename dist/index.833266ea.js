@@ -6,7 +6,7 @@
 // anything defined in a previous bundle is accessed via the
 // orig method which is the require for previous bundles
 
-(function(modules, entry, mainEntry, parcelRequireName, globalName) {
+(function (modules, entry, mainEntry, parcelRequireName, globalName) {
   /* eslint-disable no-undef */
   var globalObject =
     typeof globalThis !== 'undefined'
@@ -99,9 +99,9 @@
   newRequire.modules = modules;
   newRequire.cache = cache;
   newRequire.parent = previousRequire;
-  newRequire.register = function(id, exports) {
+  newRequire.register = function (id, exports) {
     modules[id] = [
-      function(require, module) {
+      function (require, module) {
         module.exports = exports;
       },
       {},
@@ -109,7 +109,7 @@
   };
 
   Object.defineProperty(newRequire, 'root', {
-    get: function() {
+    get: function () {
       return globalObject[parcelRequireName];
     },
   });
@@ -131,7 +131,7 @@
 
       // RequireJS
     } else if (typeof define === 'function' && define.amd) {
-      define(function() {
+      define(function () {
         return mainExports;
       });
 
@@ -460,1182 +460,136 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"lzYRN":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _imagesloaded = require("imagesloaded");
-var _imagesloadedDefault = parcelHelpers.interopDefault(_imagesloaded);
-var _regeneratorRuntime = require("regenerator-runtime");
-var _regeneratorRuntimeDefault = parcelHelpers.interopDefault(_regeneratorRuntime);
-// import 'src/assets/img/*'
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "loadEvent", ()=>loadEvent
+);
+parcelHelpers.export(exports, "transition", ()=>transition
+);
+parcelHelpers.export(exports, "localStorageSupp", ()=>localStorageSupp
+);
 var _mithril = require("mithril");
 var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-// import anime from 'animejs'
-var _locomotiveScroll = require("locomotive-scroll");
-var _locomotiveScrollDefault = parcelHelpers.interopDefault(_locomotiveScroll);
-var _jpg = require("./src/assets/img/*/*.jpg");
-var _jpgDefault = parcelHelpers.interopDefault(_jpg);
-var _cursor = require("./src/js/cursor");
-var _cursorDefault = parcelHelpers.interopDefault(_cursor);
-// import {
-// lerp,
-// getMousePos
-// } from './src/js/utils'
-var _about = require("./src/js/About");
-var _aboutDefault = parcelHelpers.interopDefault(_about);
+var _home = require("./src/js/Home");
+var _homeDefault = parcelHelpers.interopDefault(_home);
 var _nav = require("./src/js/Nav");
 var _navDefault = parcelHelpers.interopDefault(_nav);
-var _works = require("./src/js/Works");
-var _worksDefault = parcelHelpers.interopDefault(_works);
-var _footer = require("./src/js/Footer");
-var _footerDefault = parcelHelpers.interopDefault(_footer);
+var _about = require("./src/js/About");
+var _aboutDefault = parcelHelpers.interopDefault(_about);
 var _project = require("./src/js/Project");
 var _projectDefault = parcelHelpers.interopDefault(_project);
 var _loader = require("./src/js/Loader");
 var _loaderDefault = parcelHelpers.interopDefault(_loader);
-let main = document.querySelector("main");
-let projects = {
-};
-for(const key in _jpgDefault.default)//array of images
-projects[key] = Object.values(_jpgDefault.default[key]);
-let projectNames = Object.keys(projects);
-let scroll, cursor;
-window.onhashchange = transition;
-let Home = {
-    activeTitle: "",
-    slidesIndex: 0,
-    firstScroll: false,
-    slidesLength: 0,
-    picturesObj: {
-    },
-    pictures: [],
-    scrolled: 0,
-    // prev(vnode) {
-    // let projects = document.querySelectorAll('.project-title')
-    //
-    // let slides = document.querySelectorAll('.slide')
-    // let previews = document.querySelectorAll('.preview-slide')
-    // let active = document.querySelector('.slide.active')
-    // let activePreview = document.querySelector('.preview-slide.active')
-    //
-    //
-    // active.classList.toggle('active')
-    // active.classList.toggle('behind')
-    // activePreview.classList.toggle('active')
-    // activePreview.classList.toggle('behind')
-    //
-    // animProjectsOut(vnode.state.slidesIndex)
-    //
-    // if (vnode.state.slidesIndex - 1 === -1) {
-    //   vnode.state.slidesIndex = slides.length - 1
-    // } else {
-    //   vnode.state.slidesIndex -= 1
-    // }
-    // animProjectsIn(vnode.state.slidesIndex)
-    //
-    // slides[vnode.state.slidesIndex].classList.toggle('active')
-    // previews[vnode.state.slidesIndex].classList.toggle('active')
-    //
-    // setTimeout(() => {
-    //   active.classList.toggle("behind");
-    //   activePreview.classList.toggle("behind");
-    // }, 1000);
-    // },
-    // next(vnode) {
-    //   let projects = document.querySelectorAll('.project-title')
-    //
-    //   let slides = document.querySelectorAll('.slide')
-    //   let previews = document.querySelectorAll('.preview-slide')
-    //   let active = document.querySelector('.slide.active')
-    //   let activePreview = document.querySelector('.preview-slide.active')
-    //
-    //
-    //   active.classList.toggle('active')
-    //   active.classList.toggle('behind')
-    //   activePreview.classList.toggle('active')
-    //   activePreview.classList.toggle('behind')
-    //
-    //   animProjectsOut(vnode.state.slidesIndex)
-    //
-    //   if (vnode.state.slidesIndex + 1 === slides.length) {
-    //     vnode.state.slidesIndex = 0
-    //   } else {
-    //     vnode.state.slidesIndex += 1
-    //   }
-    //   animProjectsIn(vnode.state.slidesIndex)
-    //
-    //   slides[vnode.state.slidesIndex].classList.toggle('active')
-    //   previews[vnode.state.slidesIndex].classList.toggle('active')
-    //
-    //   setTimeout(() => {
-    //     active.classList.toggle("behind");
-    //     activePreview.classList.toggle("behind");
-    //   }, 1000);
-    // },
-    async oncreate (vnode) {
-        // if (scroll != null) scroll.init()
-        const loader = await _loaderDefault.default(vnode, scroll);
-        scroll = loader.scroll;
-        // initialize custom cursor
-        cursor = new _cursorDefault.default(document.querySelector("svg.cursor"));
-        // back to top listener
-        document.querySelector(".footer-nav .btt").onclick = ()=>{
-            scroll.scrollTo("top");
-        };
-    },
-    onremove () {
-        scroll.destroy();
-    },
-    view (vnode) {
-        // let projectDate = Object.keys(Object.values(projects)[vnode.state.slidesIndex])
-        return [
-            _mithrilDefault.default(".home-page-wrapper[data-scroll-id=home-section]", _mithrilDefault.default("#main", _mithrilDefault.default(_navDefault.default), _mithrilDefault.default(".title-wrapper[data-scroll][data-scroll-repeat]", _mithrilDefault.default("section.content__item.content__item--home.content__item--current[data-scroll-speed=2][data-scroll]", _mithrilDefault.default(".paragraph-wrapper", _mithrilDefault.default(".content__paragraph[data-splitting][data-scroll]", "Elena Kustova")), _mithrilDefault.default(".paragraph-wrapper", _mithrilDefault.default(".content__paragraph[data-splitting][data-scroll]", "Russian")), _mithrilDefault.default(".paragraph-wrapper", _mithrilDefault.default(".content__paragraph[data-splitting][data-scroll]", "Photographer")), _mithrilDefault.default(".paragraph-wrapper", _mithrilDefault.default(".content__paragraph[data-splitting][data-scroll]", "Based in Italy")))), _mithrilDefault.default(".gallery[data-scroll]", [
-                //
-                // m('.slides-wrapper',
-                // m('.work-selector-wrapper.grid', [
-                // m('.preview[data-scroll][data-scroll-speed=2]',
-                // [
-                // m('.project-index', `${vnode.state.slidesIndex+1} / ${vnode.state.slidesLength}`),
-                // m('.preview-slides',
-                // projectNames.map((name, i) => {
-                // return m(`.preview-slide.${i == 0 ? '.active' : '' }`, {
-                // style: `background-image: url(${pics[name][name + '1']});`
-                // })
-                // })),
-                // m('.buttons.space-between', [
-                // m('.button.flex.prev', {
-                // onclick: () => {
-                // vnode.state.prev(vnode)
-                // }
-                // },
-                // m("svg.arrows.arrow-left[xmlns='http://www.w3.org/2000/svg'][width='24'][height='24'][viewBox='0 0 24 24'][fill='none'][stroke='currentColor'][stroke-width='2'][stroke-linecap='round'][stroke-linejoin='round']",
-                // [
-                // m("line[x1='19'][y1='12'][x2='5'][y2='12']"),
-                // m("polyline[points='12 19 5 12 12 5']")
-                // ]
-                // ), m('.text', 'prev')),
-                // m('.button.flex.next', {
-                // onclick(e) {
-                // vnode.state.next(vnode)
-                // }
-                // },
-                // m('.text', 'next'),
-                // m("svg.arrows.arrow-right[xmlns='http://www.w3.org/2000/svg'][width='24'][height='24'][viewBox='0 0 24 24'][fill='none'][stroke='currentColor'][stroke-width='2'][stroke-linecap='round'][stroke-linejoin='round']",
-                // [
-                // m("line[x1='5'][y1='12'][x2='19'][y2='12']"),
-                // m("polyline[points='12 5 19 12 12 19']")
-                // ]
-                // )
-                // )
-                // ])
-                // ],
-                // [
-                // m('.project-titles.flex-column', projectNames.map((name, i) => {
-                // return m(`h1.project-title.project-${name}[index=${i}]`, projectNames[i])
-                // }))
-                // ]
-                // )
-                // ]),
-                // m('.slides',
-                // m('.work-title-wrapper', [
-                // m('p.work-title', `- tbd -`),
-                // m('p.explore-project', 'explore')
-                // ]),
-                // projectNames.map((name, i) => {
-                // return m(`.slide${i == 0 ? '.active' : ''}`, m('img', {
-                // src: projects[name][0]
-                // }))
-                // })
-                // )
-                // ),
-                //
-                _mithrilDefault.default(".divider[data-scroll][data-scroll-repeat]", _mithrilDefault.default("span.divider-text", "some of my pictures")),
-                _mithrilDefault.default(".gallery-pictures-wrapper", projectNames.map((key, i)=>{
-                    let url = projects[key][0];
-                    let delay = i % 2 === 0 ? ".9" : ".4";
-                    // return projects[key].map((url, y) => {
-                    return _mithrilDefault.default(".gallery-pic[style=padding-top:-50%]", _mithrilDefault.default(`a.img-wrapper[data-scroll][data-scroll-delay=${delay}][data-scroll-speed=${delay * 4}]`, {
-                        onclick () {
-                            transition();
-                            setTimeout(()=>{
-                                _mithrilDefault.default.route.set(`/project/${i}`);
-                            }, 1000);
-                        },
-                        onmouseenter: ()=>{
-                            let title = document.querySelector(`.pic-title.title-${i}`);
-                            title.classList.remove("hidden");
-                            title.classList.add("animated");
-                        },
-                        onmouseleave: ()=>{
-                            let title = document.querySelector(`.pic-title.title-${i}`);
-                            title.classList.remove("animated");
-                            title.classList.add("hidden");
-                        }
-                    }, _mithrilDefault.default(`img[title=${key}]`, {
-                        src: url
-                    }), _mithrilDefault.default(".pic-title-wrapper", _mithrilDefault.default(`.pic-title.title-${key}.title-${i}.hidden`, key))));
-                // })
-                })), 
-            ])), _mithrilDefault.default(_footerDefault.default)), 
-        ];
+var _cursor = require("./src/js/cursor");
+var _cursorDefault = parcelHelpers.interopDefault(_cursor);
+var _title = require("./src/js/Title");
+var _utils = require("./src/js/utils");
+let root = _utils.cl(".mithril_root");
+let cursor = new _cursorDefault.default(_utils.cl("svg.cursor"));
+let loader = null;
+function localStorageSupp() {
+    try {
+        localStorage.setItem('test', 'test');
+        localStorage.removeItem('test');
+        return true;
+    } catch (e) {
+        return false;
     }
+}
+const loadEvent = ({ stop , route  })=>{
+    return new CustomEvent('mithril-loaded', {
+        detail: {
+            stop,
+            route
+        }
+    });
 };
-_mithrilDefault.default.route(main, "/home", {
-    "/home": Home,
+document.body.addEventListener('mithril-loaded', async (le)=>{
+    console.log('load event');
+    const { stop , route  } = le.detail;
+    if (window.scroller) {
+        window.scroller.destroy();
+        window.scroller.init();
+        window.scroller.update();
+        if (stop) window.scroller.stop();
+    }
+    if (!loader) {
+        console.log('loader = null');
+        loader = await _loaderDefault.default({
+            stop,
+            route
+        });
+    }
+});
+_mithrilDefault.default.mount(_utils.cl('.nav'), _navDefault.default);
+_mithrilDefault.default.mount(_utils.cl('.title_root'), _title.Title);
+_mithrilDefault.default.route.prefix = '';
+_mithrilDefault.default.route(root, "/home", {
+    "/home": _homeDefault.default,
     "/about": _aboutDefault.default,
-    "/works": _worksDefault.default,
     "/project/:key": _projectDefault.default
 });
 function transition() {
-    document.querySelectorAll(".is-inview").forEach((item)=>{
+    _utils.cl(".is-inview").forEach((item)=>{
         item.classList.remove("is-inview");
     });
-    // document.querySelector("body").style.backgroundColor = "#d7cca1";
-    const body = document.querySelector("body");
-    body.classList.remove("dark");
+    _utils.cl('body').classList.remove("dark");
 }
-exports.transition = transition;
-exports.scroll = scroll;
-exports.cursor = cursor;
-exports.projects = projects;
-
-},{"imagesloaded":"uXwLn","regenerator-runtime":"1EBPE","mithril":"a7UJj","locomotive-scroll":"aJY2w","./src/assets/img/*/*.jpg":"adFF7","./src/js/cursor":"gc278","./src/js/About":"aKONg","./src/js/Nav":"teRhW","./src/js/Works":"i3rOK","./src/js/Footer":"5Grlo","./src/js/Project":"9dd82","./src/js/Loader":"7UblQ","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"uXwLn":[function(require,module,exports) {
-/*!
- * imagesLoaded v4.1.4
- * JavaScript is all like "You images are done yet or what?"
- * MIT License
- */ (function(window, factory) {
-    // universal module definition
-    /*global define: false, module: false, require: false */ if (typeof define == 'function' && define.amd) // AMD
-    define([
-        'ev-emitter/ev-emitter'
-    ], function(EvEmitter) {
-        return factory(window, EvEmitter);
-    });
-    else if (typeof module == 'object' && module.exports) // CommonJS
-    module.exports = factory(window, require('ev-emitter'));
-    else // browser global
-    window.imagesLoaded = factory(window, window.EvEmitter);
-})(typeof window !== 'undefined' ? window : this, // --------------------------  factory -------------------------- //
-function factory(window, EvEmitter) {
-    'use strict';
-    var $ = window.jQuery;
-    var console = window.console;
-    // -------------------------- helpers -------------------------- //
-    // extend objects
-    function extend(a, b) {
-        for(var prop in b)a[prop] = b[prop];
+!function(t1, e1) {
+    "function" != typeof t1.CustomEvent && (t1.CustomEvent = function(t, n) {
+        n = n || {
+            bubbles: !1,
+            cancelable: !1,
+            detail: void 0
+        };
+        var a = e1.createEvent("CustomEvent");
+        return a.initCustomEvent(t, n.bubbles, n.cancelable, n.detail), a;
+    }, t1.CustomEvent.prototype = t1.Event.prototype), e1.addEventListener("touchstart", function(t) {
+        if ("true" === t.target.getAttribute("data-swipe-ignore")) return;
+        s = t.target, r1 = Date.now(), n1 = t.touches[0].clientX, a1 = t.touches[0].clientY, u1 = 0, i = 0;
+    }, !1), e1.addEventListener("touchmove", function(t) {
+        if (!n1 || !a1) return;
+        var e = t.touches[0].clientX, r = t.touches[0].clientY;
+        u1 = n1 - e, i = a1 - r;
+    }, !1), e1.addEventListener("touchend", function(t) {
+        if (s !== t.target) return;
+        var e = parseInt(l(s, "data-swipe-threshold", "20"), 10), o = parseInt(l(s, "data-swipe-timeout", "500"), 10), c = Date.now() - r1, d = "", p = t.changedTouches || t.touches || [];
+        Math.abs(u1) > Math.abs(i) ? Math.abs(u1) > e && c < o && (d = u1 > 0 ? "swiped-left" : "swiped-right") : Math.abs(i) > e && c < o && (d = i > 0 ? "swiped-up" : "swiped-down");
+        if ("" !== d) {
+            var b = {
+                dir: d.replace(/swiped-/, ""),
+                touchType: (p[0] || {
+                }).touchType || "direct",
+                xStart: parseInt(n1, 10),
+                xEnd: parseInt((p[0] || {
+                }).clientX || -1, 10),
+                yStart: parseInt(a1, 10),
+                yEnd: parseInt((p[0] || {
+                }).clientY || -1, 10)
+            };
+            s.dispatchEvent(new CustomEvent("swiped", {
+                bubbles: !0,
+                cancelable: !0,
+                detail: b
+            })), s.dispatchEvent(new CustomEvent(d, {
+                bubbles: !0,
+                cancelable: !0,
+                detail: b
+            }));
+        }
+        n1 = null, a1 = null, r1 = null;
+    }, !1);
+    var n1 = null, a1 = null, u1 = null, i = null, r1 = null, s = null;
+    function l(t, n, a) {
+        for(; t && t !== e1.documentElement;){
+            var u = t.getAttribute(n);
+            if (u) return u;
+            t = t.parentNode;
+        }
         return a;
     }
-    var arraySlice = Array.prototype.slice;
-    // turn element or nodeList into an array
-    function makeArray(obj) {
-        if (Array.isArray(obj)) // use object if already an array
-        return obj;
-        var isArrayLike = typeof obj == 'object' && typeof obj.length == 'number';
-        if (isArrayLike) // convert nodeList to array
-        return arraySlice.call(obj);
-        // array of single index
-        return [
-            obj
-        ];
-    }
-    // -------------------------- imagesLoaded -------------------------- //
-    /**
- * @param {Array, Element, NodeList, String} elem
- * @param {Object or Function} options - if function, use as callback
- * @param {Function} onAlways - callback function
- */ function ImagesLoaded(elem, options, onAlways) {
-        // coerce ImagesLoaded() without new, to be new ImagesLoaded()
-        if (!(this instanceof ImagesLoaded)) return new ImagesLoaded(elem, options, onAlways);
-        // use elem as selector string
-        var queryElem = elem;
-        if (typeof elem == 'string') queryElem = document.querySelectorAll(elem);
-        // bail if bad element
-        if (!queryElem) {
-            console.error('Bad element for imagesLoaded ' + (queryElem || elem));
-            return;
-        }
-        this.elements = makeArray(queryElem);
-        this.options = extend({
-        }, this.options);
-        // shift arguments if no options set
-        if (typeof options == 'function') onAlways = options;
-        else extend(this.options, options);
-        if (onAlways) this.on('always', onAlways);
-        this.getImages();
-        if ($) // add jQuery Deferred object
-        this.jqDeferred = new $.Deferred();
-        // HACK check async to allow time to bind listeners
-        setTimeout(this.check.bind(this));
-    }
-    ImagesLoaded.prototype = Object.create(EvEmitter.prototype);
-    ImagesLoaded.prototype.options = {
-    };
-    ImagesLoaded.prototype.getImages = function() {
-        this.images = [];
-        // filter & find items if we have an item selector
-        this.elements.forEach(this.addElementImages, this);
-    };
-    /**
- * @param {Node} element
- */ ImagesLoaded.prototype.addElementImages = function(elem) {
-        // filter siblings
-        if (elem.nodeName == 'IMG') this.addImage(elem);
-        // get background image on element
-        if (this.options.background === true) this.addElementBackgroundImages(elem);
-        // find children
-        // no non-element nodes, #143
-        var nodeType = elem.nodeType;
-        if (!nodeType || !elementNodeTypes[nodeType]) return;
-        var childImgs = elem.querySelectorAll('img');
-        // concat childElems to filterFound array
-        for(var i = 0; i < childImgs.length; i++){
-            var img = childImgs[i];
-            this.addImage(img);
-        }
-        // get child background images
-        if (typeof this.options.background == 'string') {
-            var children = elem.querySelectorAll(this.options.background);
-            for(i = 0; i < children.length; i++){
-                var child = children[i];
-                this.addElementBackgroundImages(child);
-            }
-        }
-    };
-    var elementNodeTypes = {
-        1: true,
-        9: true,
-        11: true
-    };
-    ImagesLoaded.prototype.addElementBackgroundImages = function(elem) {
-        var style = getComputedStyle(elem);
-        if (!style) // Firefox returns null if in a hidden iframe https://bugzil.la/548397
-        return;
-        // get url inside url("...")
-        var reURL = /url\((['"])?(.*?)\1\)/gi;
-        var matches = reURL.exec(style.backgroundImage);
-        while(matches !== null){
-            var url = matches && matches[2];
-            if (url) this.addBackground(url, elem);
-            matches = reURL.exec(style.backgroundImage);
-        }
-    };
-    /**
- * @param {Image} img
- */ ImagesLoaded.prototype.addImage = function(img) {
-        var loadingImage = new LoadingImage(img);
-        this.images.push(loadingImage);
-    };
-    ImagesLoaded.prototype.addBackground = function(url, elem) {
-        var background = new Background(url, elem);
-        this.images.push(background);
-    };
-    ImagesLoaded.prototype.check = function() {
-        var _this = this;
-        this.progressedCount = 0;
-        this.hasAnyBroken = false;
-        // complete if no images
-        if (!this.images.length) {
-            this.complete();
-            return;
-        }
-        function onProgress(image, elem, message) {
-            // HACK - Chrome triggers event before object properties have changed. #83
-            setTimeout(function() {
-                _this.progress(image, elem, message);
-            });
-        }
-        this.images.forEach(function(loadingImage) {
-            loadingImage.once('progress', onProgress);
-            loadingImage.check();
-        });
-    };
-    ImagesLoaded.prototype.progress = function(image, elem, message) {
-        this.progressedCount++;
-        this.hasAnyBroken = this.hasAnyBroken || !image.isLoaded;
-        // progress event
-        this.emitEvent('progress', [
-            this,
-            image,
-            elem
-        ]);
-        if (this.jqDeferred && this.jqDeferred.notify) this.jqDeferred.notify(this, image);
-        // check if completed
-        if (this.progressedCount == this.images.length) this.complete();
-        if (this.options.debug && console) console.log('progress: ' + message, image, elem);
-    };
-    ImagesLoaded.prototype.complete = function() {
-        var eventName = this.hasAnyBroken ? 'fail' : 'done';
-        this.isComplete = true;
-        this.emitEvent(eventName, [
-            this
-        ]);
-        this.emitEvent('always', [
-            this
-        ]);
-        if (this.jqDeferred) {
-            var jqMethod = this.hasAnyBroken ? 'reject' : 'resolve';
-            this.jqDeferred[jqMethod](this);
-        }
-    };
-    // --------------------------  -------------------------- //
-    function LoadingImage(img) {
-        this.img = img;
-    }
-    LoadingImage.prototype = Object.create(EvEmitter.prototype);
-    LoadingImage.prototype.check = function() {
-        // If complete is true and browser supports natural sizes,
-        // try to check for image status manually.
-        var isComplete = this.getIsImageComplete();
-        if (isComplete) {
-            // report based on naturalWidth
-            this.confirm(this.img.naturalWidth !== 0, 'naturalWidth');
-            return;
-        }
-        // If none of the checks above matched, simulate loading on detached element.
-        this.proxyImage = new Image();
-        this.proxyImage.addEventListener('load', this);
-        this.proxyImage.addEventListener('error', this);
-        // bind to image as well for Firefox. #191
-        this.img.addEventListener('load', this);
-        this.img.addEventListener('error', this);
-        this.proxyImage.src = this.img.src;
-    };
-    LoadingImage.prototype.getIsImageComplete = function() {
-        // check for non-zero, non-undefined naturalWidth
-        // fixes Safari+InfiniteScroll+Masonry bug infinite-scroll#671
-        return this.img.complete && this.img.naturalWidth;
-    };
-    LoadingImage.prototype.confirm = function(isLoaded, message) {
-        this.isLoaded = isLoaded;
-        this.emitEvent('progress', [
-            this,
-            this.img,
-            message
-        ]);
-    };
-    // ----- events ----- //
-    // trigger specified handler for event type
-    LoadingImage.prototype.handleEvent = function(event) {
-        var method = 'on' + event.type;
-        if (this[method]) this[method](event);
-    };
-    LoadingImage.prototype.onload = function() {
-        this.confirm(true, 'onload');
-        this.unbindEvents();
-    };
-    LoadingImage.prototype.onerror = function() {
-        this.confirm(false, 'onerror');
-        this.unbindEvents();
-    };
-    LoadingImage.prototype.unbindEvents = function() {
-        this.proxyImage.removeEventListener('load', this);
-        this.proxyImage.removeEventListener('error', this);
-        this.img.removeEventListener('load', this);
-        this.img.removeEventListener('error', this);
-    };
-    // -------------------------- Background -------------------------- //
-    function Background(url, element) {
-        this.url = url;
-        this.element = element;
-        this.img = new Image();
-    }
-    // inherit LoadingImage prototype
-    Background.prototype = Object.create(LoadingImage.prototype);
-    Background.prototype.check = function() {
-        this.img.addEventListener('load', this);
-        this.img.addEventListener('error', this);
-        this.img.src = this.url;
-        // check if image is already complete
-        var isComplete = this.getIsImageComplete();
-        if (isComplete) {
-            this.confirm(this.img.naturalWidth !== 0, 'naturalWidth');
-            this.unbindEvents();
-        }
-    };
-    Background.prototype.unbindEvents = function() {
-        this.img.removeEventListener('load', this);
-        this.img.removeEventListener('error', this);
-    };
-    Background.prototype.confirm = function(isLoaded, message) {
-        this.isLoaded = isLoaded;
-        this.emitEvent('progress', [
-            this,
-            this.element,
-            message
-        ]);
-    };
-    // -------------------------- jQuery -------------------------- //
-    ImagesLoaded.makeJQueryPlugin = function(jQuery) {
-        jQuery = jQuery || window.jQuery;
-        if (!jQuery) return;
-        // set local variable
-        $ = jQuery;
-        // $().imagesLoaded()
-        $.fn.imagesLoaded = function(options, callback) {
-            var instance = new ImagesLoaded(this, options, callback);
-            return instance.jqDeferred.promise($(this));
-        };
-    };
-    // try making plugin
-    ImagesLoaded.makeJQueryPlugin();
-    // --------------------------  -------------------------- //
-    return ImagesLoaded;
-});
+}(window, document);
 
-},{"ev-emitter":"ckzFK"}],"ckzFK":[function(require,module,exports) {
-(function(global, factory) {
-    // universal module definition
-    /* jshint strict: false */ /* globals define, module, window */ if (typeof define == 'function' && define.amd) // AMD - RequireJS
-    define(factory);
-    else if (typeof module == 'object' && module.exports) // CommonJS - Browserify, Webpack
-    module.exports = factory();
-    else // Browser globals
-    global.EvEmitter = factory();
-})(typeof window != 'undefined' ? window : this, function() {
-    "use strict";
-    function EvEmitter() {
-    }
-    var proto = EvEmitter.prototype;
-    proto.on = function(eventName, listener) {
-        if (!eventName || !listener) return;
-        // set events hash
-        var events = this._events = this._events || {
-        };
-        // set listeners array
-        var listeners = events[eventName] = events[eventName] || [];
-        // only add once
-        if (listeners.indexOf(listener) == -1) listeners.push(listener);
-        return this;
-    };
-    proto.once = function(eventName, listener) {
-        if (!eventName || !listener) return;
-        // add event
-        this.on(eventName, listener);
-        // set once flag
-        // set onceEvents hash
-        var onceEvents = this._onceEvents = this._onceEvents || {
-        };
-        // set onceListeners object
-        var onceListeners = onceEvents[eventName] = onceEvents[eventName] || {
-        };
-        // set flag
-        onceListeners[listener] = true;
-        return this;
-    };
-    proto.off = function(eventName, listener) {
-        var listeners = this._events && this._events[eventName];
-        if (!listeners || !listeners.length) return;
-        var index = listeners.indexOf(listener);
-        if (index != -1) listeners.splice(index, 1);
-        return this;
-    };
-    proto.emitEvent = function(eventName, args) {
-        var listeners = this._events && this._events[eventName];
-        if (!listeners || !listeners.length) return;
-        // copy over to avoid interference if .off() in listener
-        listeners = listeners.slice(0);
-        args = args || [];
-        // once stuff
-        var onceListeners = this._onceEvents && this._onceEvents[eventName];
-        for(var i = 0; i < listeners.length; i++){
-            var listener = listeners[i];
-            var isOnce = onceListeners && onceListeners[listener];
-            if (isOnce) {
-                // remove listener
-                // remove before trigger to prevent recursion
-                this.off(eventName, listener);
-                // unset once flag
-                delete onceListeners[listener];
-            }
-            // trigger listener
-            listener.apply(this, args);
-        }
-        return this;
-    };
-    proto.allOff = function() {
-        delete this._events;
-        delete this._onceEvents;
-    };
-    return EvEmitter;
-});
-
-},{}],"1EBPE":[function(require,module,exports) {
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */ var runtime = function(exports) {
-    var Op = Object.prototype;
-    var hasOwn = Op.hasOwnProperty;
-    var undefined; // More compressible than void 0.
-    var $Symbol = typeof Symbol === "function" ? Symbol : {
-    };
-    var iteratorSymbol = $Symbol.iterator || "@@iterator";
-    var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
-    var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
-    function define(obj, key, value) {
-        Object.defineProperty(obj, key, {
-            value: value,
-            enumerable: true,
-            configurable: true,
-            writable: true
-        });
-        return obj[key];
-    }
-    try {
-        // IE 8 has a broken Object.defineProperty that only works on DOM objects.
-        define({
-        }, "");
-    } catch (err) {
-        define = function(obj, key, value) {
-            return obj[key] = value;
-        };
-    }
-    function wrap(innerFn, outerFn, self, tryLocsList) {
-        // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
-        var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
-        var generator = Object.create(protoGenerator.prototype);
-        var context = new Context(tryLocsList || []);
-        // The ._invoke method unifies the implementations of the .next,
-        // .throw, and .return methods.
-        generator._invoke = makeInvokeMethod(innerFn, self, context);
-        return generator;
-    }
-    exports.wrap = wrap;
-    // Try/catch helper to minimize deoptimizations. Returns a completion
-    // record like context.tryEntries[i].completion. This interface could
-    // have been (and was previously) designed to take a closure to be
-    // invoked without arguments, but in all the cases we care about we
-    // already have an existing method we want to call, so there's no need
-    // to create a new function object. We can even get away with assuming
-    // the method takes exactly one argument, since that happens to be true
-    // in every case, so we don't have to touch the arguments object. The
-    // only additional allocation required is the completion record, which
-    // has a stable shape and so hopefully should be cheap to allocate.
-    function tryCatch(fn, obj, arg) {
-        try {
-            return {
-                type: "normal",
-                arg: fn.call(obj, arg)
-            };
-        } catch (err) {
-            return {
-                type: "throw",
-                arg: err
-            };
-        }
-    }
-    var GenStateSuspendedStart = "suspendedStart";
-    var GenStateSuspendedYield = "suspendedYield";
-    var GenStateExecuting = "executing";
-    var GenStateCompleted = "completed";
-    // Returning this object from the innerFn has the same effect as
-    // breaking out of the dispatch switch statement.
-    var ContinueSentinel = {
-    };
-    // Dummy constructor functions that we use as the .constructor and
-    // .constructor.prototype properties for functions that return Generator
-    // objects. For full spec compliance, you may wish to configure your
-    // minifier not to mangle the names of these two functions.
-    function Generator() {
-    }
-    function GeneratorFunction() {
-    }
-    function GeneratorFunctionPrototype() {
-    }
-    // This is a polyfill for %IteratorPrototype% for environments that
-    // don't natively support it.
-    var IteratorPrototype = {
-    };
-    IteratorPrototype[iteratorSymbol] = function() {
-        return this;
-    };
-    var getProto = Object.getPrototypeOf;
-    var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
-    if (NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) // This environment has a native %IteratorPrototype%; use it instead
-    // of the polyfill.
-    IteratorPrototype = NativeIteratorPrototype;
-    var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype);
-    GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
-    GeneratorFunctionPrototype.constructor = GeneratorFunction;
-    GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction");
-    // Helper for defining the .next, .throw, and .return methods of the
-    // Iterator interface in terms of a single ._invoke method.
-    function defineIteratorMethods(prototype) {
-        [
-            "next",
-            "throw",
-            "return"
-        ].forEach(function(method) {
-            define(prototype, method, function(arg) {
-                return this._invoke(method, arg);
-            });
-        });
-    }
-    exports.isGeneratorFunction = function(genFun) {
-        var ctor = typeof genFun === "function" && genFun.constructor;
-        return ctor ? ctor === GeneratorFunction || // For the native GeneratorFunction constructor, the best we can
-        // do is to check its .name property.
-        (ctor.displayName || ctor.name) === "GeneratorFunction" : false;
-    };
-    exports.mark = function(genFun) {
-        if (Object.setPrototypeOf) Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
-        else {
-            genFun.__proto__ = GeneratorFunctionPrototype;
-            define(genFun, toStringTagSymbol, "GeneratorFunction");
-        }
-        genFun.prototype = Object.create(Gp);
-        return genFun;
-    };
-    // Within the body of any async function, `await x` is transformed to
-    // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
-    // `hasOwn.call(value, "__await")` to determine if the yielded value is
-    // meant to be awaited.
-    exports.awrap = function(arg) {
-        return {
-            __await: arg
-        };
-    };
-    function AsyncIterator(generator, PromiseImpl) {
-        function invoke(method, arg, resolve, reject) {
-            var record = tryCatch(generator[method], generator, arg);
-            if (record.type === "throw") reject(record.arg);
-            else {
-                var result = record.arg;
-                var value = result.value;
-                if (value && typeof value === "object" && hasOwn.call(value, "__await")) return PromiseImpl.resolve(value.__await).then(function(value) {
-                    invoke("next", value, resolve, reject);
-                }, function(err) {
-                    invoke("throw", err, resolve, reject);
-                });
-                return PromiseImpl.resolve(value).then(function(unwrapped) {
-                    // When a yielded Promise is resolved, its final value becomes
-                    // the .value of the Promise<{value,done}> result for the
-                    // current iteration.
-                    result.value = unwrapped;
-                    resolve(result);
-                }, function(error) {
-                    // If a rejected Promise was yielded, throw the rejection back
-                    // into the async generator function so it can be handled there.
-                    return invoke("throw", error, resolve, reject);
-                });
-            }
-        }
-        var previousPromise;
-        function enqueue(method, arg) {
-            function callInvokeWithMethodAndArg() {
-                return new PromiseImpl(function(resolve, reject) {
-                    invoke(method, arg, resolve, reject);
-                });
-            }
-            return previousPromise = // If enqueue has been called before, then we want to wait until
-            // all previous Promises have been resolved before calling invoke,
-            // so that results are always delivered in the correct order. If
-            // enqueue has not been called before, then it is important to
-            // call invoke immediately, without waiting on a callback to fire,
-            // so that the async generator function has the opportunity to do
-            // any necessary setup in a predictable way. This predictability
-            // is why the Promise constructor synchronously invokes its
-            // executor callback, and why async functions synchronously
-            // execute code before the first await. Since we implement simple
-            // async functions in terms of async generators, it is especially
-            // important to get this right, even though it requires care.
-            previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, // Avoid propagating failures to Promises returned by later
-            // invocations of the iterator.
-            callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg();
-        }
-        // Define the unified helper method that is used to implement .next,
-        // .throw, and .return (see defineIteratorMethods).
-        this._invoke = enqueue;
-    }
-    defineIteratorMethods(AsyncIterator.prototype);
-    AsyncIterator.prototype[asyncIteratorSymbol] = function() {
-        return this;
-    };
-    exports.AsyncIterator = AsyncIterator;
-    // Note that simple async functions are implemented on top of
-    // AsyncIterator objects; they just return a Promise for the value of
-    // the final result produced by the iterator.
-    exports.async = function(innerFn, outerFn, self, tryLocsList, PromiseImpl) {
-        if (PromiseImpl === void 0) PromiseImpl = Promise;
-        var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl);
-        return exports.isGeneratorFunction(outerFn) ? iter // If outerFn is a generator, return the full iterator.
-         : iter.next().then(function(result) {
-            return result.done ? result.value : iter.next();
-        });
-    };
-    function makeInvokeMethod(innerFn, self, context) {
-        var state = GenStateSuspendedStart;
-        return function invoke(method, arg) {
-            if (state === GenStateExecuting) throw new Error("Generator is already running");
-            if (state === GenStateCompleted) {
-                if (method === "throw") throw arg;
-                // Be forgiving, per 25.3.3.3.3 of the spec:
-                // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
-                return doneResult();
-            }
-            context.method = method;
-            context.arg = arg;
-            while(true){
-                var delegate = context.delegate;
-                if (delegate) {
-                    var delegateResult = maybeInvokeDelegate(delegate, context);
-                    if (delegateResult) {
-                        if (delegateResult === ContinueSentinel) continue;
-                        return delegateResult;
-                    }
-                }
-                if (context.method === "next") // Setting context._sent for legacy support of Babel's
-                // function.sent implementation.
-                context.sent = context._sent = context.arg;
-                else if (context.method === "throw") {
-                    if (state === GenStateSuspendedStart) {
-                        state = GenStateCompleted;
-                        throw context.arg;
-                    }
-                    context.dispatchException(context.arg);
-                } else if (context.method === "return") context.abrupt("return", context.arg);
-                state = GenStateExecuting;
-                var record = tryCatch(innerFn, self, context);
-                if (record.type === "normal") {
-                    // If an exception is thrown from innerFn, we leave state ===
-                    // GenStateExecuting and loop back for another invocation.
-                    state = context.done ? GenStateCompleted : GenStateSuspendedYield;
-                    if (record.arg === ContinueSentinel) continue;
-                    return {
-                        value: record.arg,
-                        done: context.done
-                    };
-                } else if (record.type === "throw") {
-                    state = GenStateCompleted;
-                    // Dispatch the exception by looping back around to the
-                    // context.dispatchException(context.arg) call above.
-                    context.method = "throw";
-                    context.arg = record.arg;
-                }
-            }
-        };
-    }
-    // Call delegate.iterator[context.method](context.arg) and handle the
-    // result, either by returning a { value, done } result from the
-    // delegate iterator, or by modifying context.method and context.arg,
-    // setting context.delegate to null, and returning the ContinueSentinel.
-    function maybeInvokeDelegate(delegate, context) {
-        var method = delegate.iterator[context.method];
-        if (method === undefined) {
-            // A .throw or .return when the delegate iterator has no .throw
-            // method always terminates the yield* loop.
-            context.delegate = null;
-            if (context.method === "throw") {
-                // Note: ["return"] must be used for ES3 parsing compatibility.
-                if (delegate.iterator["return"]) {
-                    // If the delegate iterator has a return method, give it a
-                    // chance to clean up.
-                    context.method = "return";
-                    context.arg = undefined;
-                    maybeInvokeDelegate(delegate, context);
-                    if (context.method === "throw") // If maybeInvokeDelegate(context) changed context.method from
-                    // "return" to "throw", let that override the TypeError below.
-                    return ContinueSentinel;
-                }
-                context.method = "throw";
-                context.arg = new TypeError("The iterator does not provide a 'throw' method");
-            }
-            return ContinueSentinel;
-        }
-        var record = tryCatch(method, delegate.iterator, context.arg);
-        if (record.type === "throw") {
-            context.method = "throw";
-            context.arg = record.arg;
-            context.delegate = null;
-            return ContinueSentinel;
-        }
-        var info = record.arg;
-        if (!info) {
-            context.method = "throw";
-            context.arg = new TypeError("iterator result is not an object");
-            context.delegate = null;
-            return ContinueSentinel;
-        }
-        if (info.done) {
-            // Assign the result of the finished delegate to the temporary
-            // variable specified by delegate.resultName (see delegateYield).
-            context[delegate.resultName] = info.value;
-            // Resume execution at the desired location (see delegateYield).
-            context.next = delegate.nextLoc;
-            // If context.method was "throw" but the delegate handled the
-            // exception, let the outer generator proceed normally. If
-            // context.method was "next", forget context.arg since it has been
-            // "consumed" by the delegate iterator. If context.method was
-            // "return", allow the original .return call to continue in the
-            // outer generator.
-            if (context.method !== "return") {
-                context.method = "next";
-                context.arg = undefined;
-            }
-        } else // Re-yield the result returned by the delegate method.
-        return info;
-        // The delegate iterator is finished, so forget it and continue with
-        // the outer generator.
-        context.delegate = null;
-        return ContinueSentinel;
-    }
-    // Define Generator.prototype.{next,throw,return} in terms of the
-    // unified ._invoke helper method.
-    defineIteratorMethods(Gp);
-    define(Gp, toStringTagSymbol, "Generator");
-    // A Generator should always return itself as the iterator object when the
-    // @@iterator function is called on it. Some browsers' implementations of the
-    // iterator prototype chain incorrectly implement this, causing the Generator
-    // object to not be returned from this call. This ensures that doesn't happen.
-    // See https://github.com/facebook/regenerator/issues/274 for more details.
-    Gp[iteratorSymbol] = function() {
-        return this;
-    };
-    Gp.toString = function() {
-        return "[object Generator]";
-    };
-    function pushTryEntry(locs) {
-        var entry = {
-            tryLoc: locs[0]
-        };
-        if (1 in locs) entry.catchLoc = locs[1];
-        if (2 in locs) {
-            entry.finallyLoc = locs[2];
-            entry.afterLoc = locs[3];
-        }
-        this.tryEntries.push(entry);
-    }
-    function resetTryEntry(entry) {
-        var record = entry.completion || {
-        };
-        record.type = "normal";
-        delete record.arg;
-        entry.completion = record;
-    }
-    function Context(tryLocsList) {
-        // The root entry object (effectively a try statement without a catch
-        // or a finally block) gives us a place to store values thrown from
-        // locations where there is no enclosing try statement.
-        this.tryEntries = [
-            {
-                tryLoc: "root"
-            }
-        ];
-        tryLocsList.forEach(pushTryEntry, this);
-        this.reset(true);
-    }
-    exports.keys = function(object) {
-        var keys = [];
-        for(var key in object)keys.push(key);
-        keys.reverse();
-        // Rather than returning an object with a next method, we keep
-        // things simple and return the next function itself.
-        return function next() {
-            while(keys.length){
-                var key = keys.pop();
-                if (key in object) {
-                    next.value = key;
-                    next.done = false;
-                    return next;
-                }
-            }
-            // To avoid creating an additional object, we just hang the .value
-            // and .done properties off the next function object itself. This
-            // also ensures that the minifier will not anonymize the function.
-            next.done = true;
-            return next;
-        };
-    };
-    function values(iterable) {
-        if (iterable) {
-            var iteratorMethod = iterable[iteratorSymbol];
-            if (iteratorMethod) return iteratorMethod.call(iterable);
-            if (typeof iterable.next === "function") return iterable;
-            if (!isNaN(iterable.length)) {
-                var i = -1, next = function next() {
-                    while(++i < iterable.length)if (hasOwn.call(iterable, i)) {
-                        next.value = iterable[i];
-                        next.done = false;
-                        return next;
-                    }
-                    next.value = undefined;
-                    next.done = true;
-                    return next;
-                };
-                return next.next = next;
-            }
-        }
-        // Return an iterator with no values.
-        return {
-            next: doneResult
-        };
-    }
-    exports.values = values;
-    function doneResult() {
-        return {
-            value: undefined,
-            done: true
-        };
-    }
-    Context.prototype = {
-        constructor: Context,
-        reset: function(skipTempReset) {
-            this.prev = 0;
-            this.next = 0;
-            // Resetting context._sent for legacy support of Babel's
-            // function.sent implementation.
-            this.sent = this._sent = undefined;
-            this.done = false;
-            this.delegate = null;
-            this.method = "next";
-            this.arg = undefined;
-            this.tryEntries.forEach(resetTryEntry);
-            if (!skipTempReset) {
-                for(var name in this)// Not sure about the optimal order of these conditions:
-                if (name.charAt(0) === "t" && hasOwn.call(this, name) && !isNaN(+name.slice(1))) this[name] = undefined;
-            }
-        },
-        stop: function() {
-            this.done = true;
-            var rootEntry = this.tryEntries[0];
-            var rootRecord = rootEntry.completion;
-            if (rootRecord.type === "throw") throw rootRecord.arg;
-            return this.rval;
-        },
-        dispatchException: function(exception) {
-            if (this.done) throw exception;
-            var context = this;
-            function handle(loc, caught) {
-                record.type = "throw";
-                record.arg = exception;
-                context.next = loc;
-                if (caught) {
-                    // If the dispatched exception was caught by a catch block,
-                    // then let that catch block handle the exception normally.
-                    context.method = "next";
-                    context.arg = undefined;
-                }
-                return !!caught;
-            }
-            for(var i = this.tryEntries.length - 1; i >= 0; --i){
-                var entry = this.tryEntries[i];
-                var record = entry.completion;
-                if (entry.tryLoc === "root") // Exception thrown outside of any try block that could handle
-                // it, so set the completion value of the entire function to
-                // throw the exception.
-                return handle("end");
-                if (entry.tryLoc <= this.prev) {
-                    var hasCatch = hasOwn.call(entry, "catchLoc");
-                    var hasFinally = hasOwn.call(entry, "finallyLoc");
-                    if (hasCatch && hasFinally) {
-                        if (this.prev < entry.catchLoc) return handle(entry.catchLoc, true);
-                        else if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc);
-                    } else if (hasCatch) {
-                        if (this.prev < entry.catchLoc) return handle(entry.catchLoc, true);
-                    } else if (hasFinally) {
-                        if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc);
-                    } else throw new Error("try statement without catch or finally");
-                }
-            }
-        },
-        abrupt: function(type, arg) {
-            for(var i = this.tryEntries.length - 1; i >= 0; --i){
-                var entry = this.tryEntries[i];
-                if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) {
-                    var finallyEntry = entry;
-                    break;
-                }
-            }
-            if (finallyEntry && (type === "break" || type === "continue") && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc) // Ignore the finally entry if control is not jumping to a
-            // location outside the try/catch block.
-            finallyEntry = null;
-            var record = finallyEntry ? finallyEntry.completion : {
-            };
-            record.type = type;
-            record.arg = arg;
-            if (finallyEntry) {
-                this.method = "next";
-                this.next = finallyEntry.finallyLoc;
-                return ContinueSentinel;
-            }
-            return this.complete(record);
-        },
-        complete: function(record, afterLoc) {
-            if (record.type === "throw") throw record.arg;
-            if (record.type === "break" || record.type === "continue") this.next = record.arg;
-            else if (record.type === "return") {
-                this.rval = this.arg = record.arg;
-                this.method = "return";
-                this.next = "end";
-            } else if (record.type === "normal" && afterLoc) this.next = afterLoc;
-            return ContinueSentinel;
-        },
-        finish: function(finallyLoc) {
-            for(var i = this.tryEntries.length - 1; i >= 0; --i){
-                var entry = this.tryEntries[i];
-                if (entry.finallyLoc === finallyLoc) {
-                    this.complete(entry.completion, entry.afterLoc);
-                    resetTryEntry(entry);
-                    return ContinueSentinel;
-                }
-            }
-        },
-        "catch": function(tryLoc) {
-            for(var i = this.tryEntries.length - 1; i >= 0; --i){
-                var entry = this.tryEntries[i];
-                if (entry.tryLoc === tryLoc) {
-                    var record = entry.completion;
-                    if (record.type === "throw") {
-                        var thrown = record.arg;
-                        resetTryEntry(entry);
-                    }
-                    return thrown;
-                }
-            }
-            // The context.catch method must only be called with a location
-            // argument that corresponds to a known catch block.
-            throw new Error("illegal catch attempt");
-        },
-        delegateYield: function(iterable, resultName, nextLoc) {
-            this.delegate = {
-                iterator: values(iterable),
-                resultName: resultName,
-                nextLoc: nextLoc
-            };
-            if (this.method === "next") // Deliberately forget the last sent value so that we don't
-            // accidentally pass it on to the delegate.
-            this.arg = undefined;
-            return ContinueSentinel;
-        }
-    };
-    // Regardless of whether this script is executing as a CommonJS module
-    // or not, return the runtime object so that we can declare the variable
-    // regeneratorRuntime in the outer scope, which allows this module to be
-    // injected easily by `bin/regenerator --include-runtime script.js`.
-    return exports;
-}(// If this script is executing as a CommonJS module, use module.exports
-// as the regeneratorRuntime namespace. Otherwise create a new empty
-// object. Either way, the resulting object will be used to initialize
-// the regeneratorRuntime variable at the top of this file.
-typeof module === "object" ? module.exports : {
-});
-try {
-    regeneratorRuntime = runtime;
-} catch (accidentalStrictMode) {
-    // This module should not be running in strict mode, so the above
-    // assignment should always work unless something is misconfigured. Just
-    // in case runtime.js accidentally runs in strict mode, we can escape
-    // strict mode using a global Function call. This could conceivably fail
-    // if a Content Security Policy forbids using Function, but in that case
-    // the proper solution is to fix the accidental strict mode problem. If
-    // you've misconfigured your bundler to force strict mode and applied a
-    // CSP to forbid Function, and you're not willing to fix either of those
-    // problems, please detail your unique predicament in a GitHub issue.
-    Function("r", "regeneratorRuntime = r")(runtime);
-}
-
-},{}],"a7UJj":[function(require,module,exports) {
+},{"mithril":"a7UJj","./src/js/Home":"nVxdE","./src/js/Nav":"teRhW","./src/js/About":"aKONg","./src/js/Project":"9dd82","./src/js/Loader":"7UblQ","./src/js/cursor":"gc278","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","./src/js/Title":"ewZrl","./src/js/utils":"fIYUT"}],"a7UJj":[function(require,module,exports) {
 "use strict";
 var hyperscript = require("./hyperscript");
 var request = require("./request");
@@ -2816,7 +1770,7 @@ module.exports = function($window) {
         var result;
         if (typeof handler === "function") result = handler.call(ev.currentTarget, ev);
         else if (typeof handler.handleEvent === "function") handler.handleEvent(ev);
-        if (this._ && ev.redraw !== false) this._();
+        if (this._ && ev.redraw !== false) (0, this._)();
         if (result === false) {
             ev.preventDefault();
             ev.stopPropagation();
@@ -2964,7 +1918,7 @@ module.exports = function($window, Promise, oncompletion) {
                 url = url.url;
             } else if (args == null) args = {
             };
-            var promise = new Promise(function(resolve, reject) {
+            var promise1 = new Promise(function(resolve, reject) {
                 factory(buildPathname(url, args.params), args, function(data) {
                     if (typeof args.type === "function") {
                         if (Array.isArray(data)) for(var i = 0; i < data.length; i++)data[i] = new args.type(data[i]);
@@ -2973,7 +1927,7 @@ module.exports = function($window, Promise, oncompletion) {
                     resolve(data);
                 }, reject);
             });
-            if (args.background === true) return promise;
+            if (args.background === true) return promise1;
             var count = 0;
             function complete() {
                 if (--count === 0 && typeof oncompletion === "function") oncompletion();
@@ -2999,7 +1953,7 @@ module.exports = function($window, Promise, oncompletion) {
                 };
                 return promise;
             }
-            return wrap(promise);
+            return wrap(promise1);
         };
     }
     function hasHeader(args, name) {
@@ -3151,7 +2105,7 @@ module.exports = function(template, params) {
 module.exports = function(object) {
     if (Object.prototype.toString.call(object) !== "[object Object]") return "";
     var args = [];
-    for(var key in object)destructure(key, object[key]);
+    for(var key1 in object)destructure(key1, object[key1]);
     function destructure(key, value) {
         if (Array.isArray(value)) {
             for(var i = 0; i < value.length; i++){
@@ -3198,14 +2152,14 @@ module.exports = function($window, mountRedraw) {
             fireAsync();
             var state = options ? options.state : null;
             var title = options ? options.title : null;
-            if (options && options.replace) $window.history.replaceState(state, title, route.prefix + path);
-            else $window.history.pushState(state, title, route.prefix + path);
-        } else $window.location.href = route.prefix + path;
+            if (options && options.replace) $window.history.replaceState(state, title, route1.prefix + path);
+            else $window.history.pushState(state, title, route1.prefix + path);
+        } else $window.location.href = route1.prefix + path;
     }
-    var currentResolver = sentinel, component, attrs, currentPath, lastUpdate;
-    var SKIP = route.SKIP = {
+    var currentResolver = sentinel, component, attrs1, currentPath, lastUpdate;
+    var SKIP = route1.SKIP = {
     };
-    function route(root, defaultRoute, routes) {
+    function route1(root, defaultRoute, routes) {
         if (root == null) throw new Error("Ensure the DOM element that was passed to `m.route` is not undefined");
         // 0 = start
         // 1 = init
@@ -3236,9 +2190,9 @@ module.exports = function($window, mountRedraw) {
             // Consider the pathname holistically. The prefix might even be invalid,
             // but that's not our problem.
             var prefix = $window.location.hash;
-            if (route.prefix[0] !== "#") {
+            if (route1.prefix[0] !== "#") {
                 prefix = $window.location.search + prefix;
-                if (route.prefix[0] !== "?") {
+                if (route1.prefix[0] !== "?") {
                     prefix = $window.location.pathname + prefix;
                     if (prefix[0] !== "/") prefix = "/" + prefix;
                 }
@@ -3246,7 +2200,7 @@ module.exports = function($window, mountRedraw) {
             // This seemingly useless `.concat()` speeds up the tests quite a bit,
             // since the representation is consistently a relatively poorly
             // optimized cons string.
-            var path = prefix.concat().replace(/(?:%[a-f89][a-f0-9])+/gim, decodeURIComponent).slice(route.prefix.length);
+            var path = prefix.concat().replace(/(?:%[a-f89][a-f0-9])+/gim, decodeURIComponent).slice(route1.prefix.length);
             var data = parsePathname(path);
             assign(data.params, $window.history.state);
             function fail() {
@@ -3268,7 +2222,7 @@ module.exports = function($window, mountRedraw) {
                         if (update !== lastUpdate) return;
                         if (comp === SKIP) return loop(i + 1);
                         component = comp != null && (typeof comp.view === "function" || typeof comp === "function") ? comp : "div";
-                        attrs = data.params, currentPath = path, lastUpdate = null;
+                        attrs1 = data.params, currentPath = path, lastUpdate = null;
                         currentResolver = payload.render ? payload : null;
                         if (state === 2) mountRedraw.redraw();
                         else {
@@ -3306,7 +2260,7 @@ module.exports = function($window, mountRedraw) {
                 $window.removeEventListener("popstate", fireAsync, false);
             };
             $window.addEventListener("popstate", fireAsync, false);
-        } else if (route.prefix[0] === "#") {
+        } else if (route1.prefix[0] === "#") {
             fireAsync = null;
             onremove = function() {
                 $window.removeEventListener("hashchange", resolveRoute, false);
@@ -3324,14 +2278,14 @@ module.exports = function($window, mountRedraw) {
                 if (!state || sentinel === currentResolver) return;
                 // Wrap in a fragment to preserve existing key semantics
                 var vnode = [
-                    Vnode(component, attrs.key, attrs)
+                    Vnode(component, attrs1.key, attrs1)
                 ];
                 if (currentResolver) vnode = currentResolver.render(vnode[0]);
                 return vnode;
             }
         });
     }
-    route.set = function(path, data, options) {
+    route1.set = function(path, data, options) {
         if (lastUpdate != null) {
             options = options || {
             };
@@ -3340,11 +2294,11 @@ module.exports = function($window, mountRedraw) {
         lastUpdate = null;
         setPath(path, data, options);
     };
-    route.get = function() {
+    route1.get = function() {
         return currentPath;
     };
-    route.prefix = "#!";
-    route.Link = {
+    route1.prefix = "#!";
+    route1.Link = {
         view: function(vnode) {
             var options = vnode.attrs.options;
             // Remove these so they don't get overwritten
@@ -3373,7 +2327,7 @@ module.exports = function($window, mountRedraw) {
             } else {
                 onclick = child.attrs.onclick;
                 href = child.attrs.href;
-                child.attrs.href = route.prefix + href;
+                child.attrs.href = route1.prefix + href;
                 child.attrs.onclick = function(e) {
                     var result;
                     if (typeof onclick === "function") result = onclick.call(e.currentTarget, e);
@@ -3393,17 +2347,17 @@ module.exports = function($window, mountRedraw) {
                     !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
                         e.preventDefault();
                         e.redraw = false;
-                        route.set(href, null, options);
+                        route1.set(href, null, options);
                     }
                 };
             }
             return child;
         }
     };
-    route.param = function(key) {
-        return attrs && key != null ? attrs[key] : attrs;
+    route1.param = function(key) {
+        return attrs1 && key != null ? attrs1[key] : attrs1;
     };
-    return route;
+    return route1;
 };
 
 },{"../render/vnode":"6srsp","../render/hyperscript":"gVN62","../promise/promise":"jcHh3","../pathname/build":"3I4yB","../pathname/parse":"dIkXY","../pathname/compileTemplate":"e47NK","../pathname/assign":"imdNC"}],"dIkXY":[function(require,module,exports) {
@@ -3510,15 +2464,3935 @@ module.exports = function(template) {
     };
 };
 
-},{"./parse":"dIkXY"}],"aJY2w":[function(require,module,exports) {
+},{"./parse":"dIkXY"}],"nVxdE":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Native", ()=>Native
+// import 'src/assets/img/*'
+var _mithril = require("mithril");
+var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
+var _footer = require("./Footer");
+var _footerDefault = parcelHelpers.interopDefault(_footer);
+var _works = require("./Works/Works");
+var _worksDefault = parcelHelpers.interopDefault(_works);
+var _app = require("../../app");
+var _utils = require("./utils");
+var _title = require("./Title");
+const Home = {
+    oncreate () {
+        if (!window.scroller) {
+            document.body.dispatchEvent(_app.loadEvent({
+                stop: true,
+                route: 'home'
+            }));
+            _utils.cl('.c-scrollbar', 'add', 'hidden');
+        } else {
+            document.body.dispatchEvent(_app.loadEvent({
+                scroll: true,
+                stop: true,
+                route: 'home'
+            }));
+            _title.columnsAnim().play();
+        }
+    },
+    view () {
+        return [
+            _mithrilDefault.default(_worksDefault.default),
+            _mithrilDefault.default(_footerDefault.default)
+        ];
+    }
+};
+exports.default = Home;
+
+},{"mithril":"a7UJj","./Footer":"5Grlo","./Works/Works":"gcDDq","./utils":"fIYUT","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","../../app":"lzYRN","./Title":"ewZrl"}],"5Grlo":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _mithril = require("mithril");
+var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
+var _app = require("../../app");
+var _utils = require("./utils");
+var _commonToml = require("../locales/common.toml");
+var _commonTomlDefault = parcelHelpers.interopDefault(_commonToml);
+let vkSvg = {
+    view () {
+        return _mithrilDefault.default("svg[version='1.1'][id='Layer_1'][xmlns='http://www.w3.org/2000/svg'][xmlns:xlink='http://www.w3.org/1999/xlink'][x='0px'][y='0px'][viewBox='0 0 304.36 304.36'][xml:space='preserve']", {
+            "style": {
+                "enable-background": "new 0 0 304.36 304.36"
+            }
+        }, [
+            _mithrilDefault.default("g[id='XMLID_1_']", _mithrilDefault.default("path[id='XMLID_807_'][d='M261.945,175.576c10.096,9.857,20.752,19.131,29.807,29.982 c4,4.822,7.787,9.798,10.684,15.394c4.105,7.955,0.387,16.709-6.746,17.184l-44.34-0.02c-11.436,0.949-20.559-3.655-28.23-11.474 c-6.139-6.253-11.824-12.908-17.727-19.372c-2.42-2.642-4.953-5.128-7.979-7.093c-6.053-3.929-11.307-2.726-14.766,3.587 c-3.523,6.421-4.322,13.531-4.668,20.687c-0.475,10.441-3.631,13.186-14.119,13.664c-22.414,1.057-43.686-2.334-63.447-13.641 c-17.422-9.968-30.932-24.04-42.691-39.971C34.828,153.482,17.295,119.395,1.537,84.353C-2.01,76.458,0.584,72.22,9.295,72.07 c14.465-0.281,28.928-0.261,43.41-0.02c5.879,0.086,9.771,3.458,12.041,9.012c7.826,19.243,17.402,37.551,29.422,54.521 c3.201,4.518,6.465,9.036,11.113,12.216c5.142,3.521,9.057,2.354,11.476-3.374c1.535-3.632,2.207-7.544,2.553-11.434 c1.146-13.383,1.297-26.743-0.713-40.079c-1.234-8.323-5.922-13.711-14.227-15.286c-4.238-0.803-3.607-2.38-1.555-4.799 c3.564-4.172,6.916-6.769,13.598-6.769h50.111c7.889,1.557,9.641,5.101,10.721,13.039l0.043,55.663 c-0.086,3.073,1.535,12.192,7.07,14.226c4.43,1.448,7.35-2.096,10.008-4.905c11.998-12.734,20.561-27.783,28.211-43.366 c3.395-6.852,6.314-13.968,9.143-21.078c2.096-5.276,5.385-7.872,11.328-7.757l48.229,0.043c1.43,0,2.877,0.021,4.262,0.258 c8.127,1.385,10.354,4.881,7.844,12.817c-3.955,12.451-11.65,22.827-19.174,33.251c-8.043,11.129-16.645,21.877-24.621,33.072 C252.26,161.544,252.842,166.697,261.945,175.576L261.945,175.576z M261.945,175.576']", {
+                "style": {
+                    "fill-rule": "evenodd",
+                    "clip-rule": "evenodd"
+                }
+            })),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("g"),
+            _mithrilDefault.default("style[xmlns='http://www.w3.org/1999/xhtml'][type='text/css']")
+        ]);
+    }
+};
+const instaSvg = ()=>{
+    return {
+        view () {
+            return _mithrilDefault.default("svg.css-i6dzq1[viewBox='0 0 24 24'][width='24'][height='24'][stroke='currentColor'][stroke-width='2'][fill='none'][stroke-linecap='round'][stroke-linejoin='round']", [
+                _mithrilDefault.default("rect[x='2'][y='2'][width='20'][height='20'][rx='5'][ry='5']"),
+                _mithrilDefault.default("path[d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z']"),
+                _mithrilDefault.default("line[x1='17.5'][y1='6.5'][x2='17.51'][y2='6.5']")
+            ]);
+        }
+    };
+};
+module.exports = {
+    routes: [
+        'home',
+        'about'
+    ],
+    view (vnode) {
+        let lang = document.documentElement.lang || 'eng';
+        return _mithrilDefault.default('.footer[data-scroll].cormorant', _mithrilDefault.default('.location.flex-column[data-scroll][data-scroll-speed=2]', _mithrilDefault.default('.name', _commonTomlDefault.default[lang].footer.me), _mithrilDefault.default('.places', _commonTomlDefault.default[lang].footer.places.map((p)=>_mithrilDefault.default('.place', p)
+        ))), _mithrilDefault.default('.contacts.flex[data-scroll][data-scroll-speed=1]', _mithrilDefault.default('.link-mail', _mithrilDefault.default('.link-mail-text', _commonTomlDefault.default[lang].footer.contact), _mithrilDefault.default('a.lowercase.mail[href=mailto:kuslena@rambler.ru]', 'kuslena@inbox.ru')), _mithrilDefault.default('.socials', _mithrilDefault.default('.socials-title', _commonTomlDefault.default[lang].footer.alsoOn), _mithrilDefault.default('.links.lowercase', _mithrilDefault.default('a.insta-link.flex[rel=noopener][href=https://instagram.com/misskustova][target=_blank]', _mithrilDefault.default('.link-text.insta-link-text', '@misskustova'), _mithrilDefault.default(instaSvg)), _mithrilDefault.default('a.vk-link.flex[rel=noopener][href=https://vk.com/id17282149][target=_blank]', _mithrilDefault.default('.link-text.vk-link-text', 'Lena Kustova'), _mithrilDefault.default(vkSvg))))), _mithrilDefault.default(`.footer-nav.flex-column[data-scroll][data-scroll-speed=1][data-scroll-call=hide][data-scroll-repeat]`, {
+            oncreate (v) {
+            }
+        }, _mithrilDefault.default('button.btt[data-scroll]', _mithrilDefault.default('span', {
+            onclick () {
+                window.scroller.scrollTo("top");
+            }
+        }, _commonTomlDefault.default[lang].footer.btt)), vnode.state.routes.filter((route)=>location.pathname != `/${route}`
+        ).map((route)=>{
+            return _mithrilDefault.default(`a.${route}[data-scroll][href=/${route}]`, {
+                onclick (e) {
+                    e.preventDefault();
+                    if (location.pathname != `/${route}`) {
+                        _app.transition();
+                        // cl('.nav', 'remove', 'hidden')
+                        setTimeout(()=>{
+                            _mithrilDefault.default.route.set(`/${route}`);
+                        }, 1000);
+                    }
+                }
+            }, _mithrilDefault.default('span', _commonTomlDefault.default[lang].footer[route]));
+        })), _mithrilDefault.default('.credits[data-scroll][data-scroll-speed=2]', _mithrilDefault.default('span', _commonTomlDefault.default[lang].footer.creds), _mithrilDefault.default('span', _mithrilDefault.default('a.creds[rel=noopener]', {
+            href: "https://www.instagram.com/t1enne_/",
+            target: '_blank'
+        }, 't1enne_'))));
+    }
+};
+
+},{"mithril":"a7UJj","../../app":"lzYRN","./utils":"fIYUT","../locales/common.toml":"gpEUq","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"fIYUT":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "map", ()=>map
 );
-parcelHelpers.export(exports, "Smooth", ()=>Smooth
+parcelHelpers.export(exports, "lerp", ()=>lerp
+);
+parcelHelpers.export(exports, "clamp", ()=>clamp
+);
+parcelHelpers.export(exports, "getMousePos", ()=>getMousePos
+);
+parcelHelpers.export(exports, "cl", ()=>cl
+);
+// Map number x from range [a, b] to [c, d]
+const map = (x, a, b, c, d)=>(x - a) * (d - c) / (b - a) + c
+;
+// Linear interpolation
+const lerp = (a, b, n)=>(1 - n) * a + n * b
+;
+const clamp = (num, min, max)=>num <= min ? min : num >= max ? max : num
+;
+// Gets the mouse position
+const getMousePos = (e)=>{
+    let posx = 0;
+    let posy = 0;
+    if (!e) e = window.event;
+    if (e.pageX || e.pageY) {
+        posx = e.pageX;
+        posy = e.pageY;
+    } else if (e.clientX || e.clientY) {
+        posx = e.clientX + body.scrollLeft + document.documentElement.scrollLeft;
+        posy = e.clientY + body.scrollTop + document.documentElement.scrollTop;
+    }
+    return {
+        x: posx,
+        y: posy
+    };
+};
+const cl = (items, action, classname)=>{
+    let nodeArray = [];
+    if (typeof items === 'string') nodeArray = [
+        ...document.querySelectorAll(items)
+    ];
+    else if (items.__proto__ === [].__proto__) nodeArray = items;
+    else if (items instanceof HTMLElement) nodeArray.push(items);
+    else nodeArray = [
+        ...items
+    ];
+    if (action && classname) return nodeArray.map((n)=>n && n.classList[action](classname)
+    );
+    else {
+        if (nodeArray.length == 0) return null;
+        else if (nodeArray.length == 1) return nodeArray[0];
+        return nodeArray;
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"ciiiV":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule' || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"gpEUq":[function(require,module,exports) {
+module.exports = {
+    "en": {
+        "about": {
+            "title": "About Me",
+            "paragraphs": [
+                "My name is Elena, and I'm a photographer working in Italy",
+                "My love for photography flourished in me as passion does in young hearts, and now I can't imagine my life without it",
+                "In my shoots I try to express each person's uniqueness and beauty, lightly and naturally. My favourite shoots are love-stories, catching real feelings between people and imprinting them on my shots",
+                "I base my style on three ideas - lightness, naturalness and a movie-like atmosphere. The colors in my pictures resemble old film, and that's a timeless classic. Such pictures will never go out of style and you will keep falling in love them long after the shoot ✨"
+            ]
+        },
+        "nav": {
+            "me": "Elena Kustova",
+            "works": "works",
+            "about": "about"
+        },
+        "footer": {
+            "me": "I shoot in:",
+            "contact": "Book your shoot:",
+            "alsoOn": "Or DM me:",
+            "btt": "back to top",
+            "home": "home",
+            "about": "about",
+            "creds": "website made by: ",
+            "places": [
+                "- rome",
+                "- florence",
+                "- perugia"
+            ]
+        }
+    },
+    "ru": {
+        "about": {
+            "title": "Про меня",
+            "paragraphs": [
+                "Меня зовут Лена и я фотограф в Италии ❤️",
+                "Любовь к фотографии проснулась во мне с такой же силой, как вспыхивает огонь страсти в юных сердцах, и сейчас я не представляю свою жизнь без этого.",
+                "В своих работах я стараюсь передавать уникальную красоту человека в своей естественности и легкости. Больше всего я люблю снимать lovestory, ловить неподдельные чувства между людьми и оставлять их на фотографии.",
+                "Лёгкость, естественность и кинематографичность - то, на чем базируется мое творчество. Цвет моих снимков напоминает старую пленку, а это вечная классика, которая всегда будет актуальна и такие фотографии будут нравиться вам и через десять лет ✨"
+            ]
+        },
+        "nav": {
+            "me": "Елена Кустова",
+            "works": "работы",
+            "about": "про меня"
+        },
+        "footer": {
+            "me": "Я фотографирую тут:",
+            "contact": "Бронируете съемку:",
+            "alsoOn": "Или пишите тут:",
+            "btt": "На верх",
+            "home": "Главная",
+            "about": "Про меня",
+            "creds": "Сайт от: ",
+            "places": [
+                "- рим",
+                "- флоренция",
+                "- перуджа"
+            ]
+        }
+    }
+};
+
+},{}],"gcDDq":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "pictureAnimation", ()=>pictureAnimation
+);
+parcelHelpers.export(exports, "columnsExitAnim", ()=>columnsExitAnim
+);
+var _mithril = require("mithril");
+var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
+var _animejs = require("animejs");
+var _animejsDefault = parcelHelpers.interopDefault(_animejs);
+var _jpg = require("../../assets/img/*/*.jpg");
+var _jpgDefault = parcelHelpers.interopDefault(_jpg);
+var _modal = require("./Modal");
+var _utils = require("../utils");
+let projects = {
+};
+for(const key in _jpgDefault.default)projects[key] = Object.values(_jpgDefault.default[key]);
+let columnsExitAnim, pictureAnimation;
+const handleClick = (e, url, vnode)=>{
+    window.scroller.stop();
+    const target = e.target, w = window.innerWidth, h = window.innerHeight, grandParent = e.target.parentNode.parentNode, title = grandParent.getAttribute('data-title'), rect = target.getBoundingClientRect(), imgWrap = document.querySelector('.carousel-wrap');
+    vnode.state.worksState.selectedTitle = title;
+    vnode.state.worksState.showModal = true;
+    _utils.cl('.nav', 'add', 'hidden');
+    _utils.cl('.c-scrollbar', 'add', 'd-none');
+    _utils.cl('.modal, .controls', 'remove', 'hidden');
+    let newH, newW, newY, newX;
+    if (h > w) {
+        newW = w * 0.7;
+        newH = newW * 1.5;
+        newY = h / 2 - newH / 2;
+        newX = w / 2 - newW / 2;
+    } else {
+        newH = h * 0.7;
+        newW = newH / 1.5;
+        newY = h * 0.1;
+        newX = w / 2 - newW / 2;
+    }
+    pictureAnimation = _animejsDefault.default({
+        targets: imgWrap,
+        begin () {
+            _utils.cl(grandParent, 'add', 'v-hidden');
+            columnsExitAnim.direction = 'normal';
+            columnsExitAnim.play();
+        },
+        complete () {
+            _utils.cl('.selected_root', 'remove', 'hidden');
+        },
+        // translateY: [rect.y, (h / 2) - yTop],
+        translateY: [
+            rect.y,
+            newY
+        ],
+        translateX: [
+            rect.left,
+            newX
+        ],
+        height: [
+            rect.height,
+            newH
+        ],
+        width: [
+            rect.width,
+            newW
+        ],
+        duration: 1500,
+        easing: 'easeInOutQuint'
+    });
+    pictureAnimation.play();
+};
+function PicStrip() {
+    return {
+        projectTitles: this.attrs.projectTitles,
+        worksState: this.attrs.worksState,
+        reverse: this.attrs.class === '.reverse' ? true : false,
+        locomotive: this.attrs.class === '.reverse' ? '[data-scroll]' : '',
+        projects: this.attrs.projectTitles,
+        view (vnode) {
+            return _mithrilDefault.default(`.column-wrap ${vnode.attrs.class}`, _mithrilDefault.default(`.column ${vnode.attrs.class} ${vnode.state.reverse ? '[data-scroll]' : ''}`, this.projects.map((title)=>{
+                const url = projects[title][0];
+                return _mithrilDefault.default(`.column-item.h-50[data-scroll][data-scroll-repeat][data-title=${title}]`, _mithrilDefault.default('button.btn', {
+                    onclick (e) {
+                        handleClick(e, url, vnode);
+                    }
+                }, _mithrilDefault.default(`img[height=400][width=300][alt=project photo].item__img[src=${url}]`)));
+            })));
+        }
+    };
+}
+function handleScroll(args) {
+    const { scroll  } = args;
+    const normalStrips = [
+        ...document.querySelectorAll('.column-wrap.normal')
+    ];
+    normalStrips.forEach((str)=>{
+        str.querySelector('.column').style.transform = `translateY(${scroll.y * 2}px)`;
+    });
+}
+const Works = {
+    projectTitles: Object.keys(projects),
+    timeout (vnode) {
+        setTimeout(()=>vnode.state.scrollable = true
+        , 1500);
+    },
+    oninit (v) {
+        // v.state.selectedTitle = v.tag.projectTitles[0]
+        v.state.selectedTitle = undefined;
+        v.state.showModal = false;
+    },
+    oncreate (v) {
+        if (window.scroller) window.scroller.on('scroll', (attrs)=>{
+            handleScroll(attrs);
+        });
+        this.rows = v.tag.projectTitles.length;
+        this.cols = window.innerWidth > 768 ? 3 : 2;
+        window.onresize = ()=>{
+            this.rows = window.innerWidth > 768 ? 3 : 2;
+        };
+        _animejsDefault.default({
+            targets: '.staggering-axis-grid-demo .el',
+            translateX: _animejsDefault.default.stagger(10, {
+                grid: [
+                    14,
+                    5
+                ],
+                from: 'center',
+                axis: 'x'
+            }),
+            translateY: _animejsDefault.default.stagger(10, {
+                grid: [
+                    14,
+                    5
+                ],
+                from: 'center',
+                axis: 'y'
+            }),
+            rotateZ: _animejsDefault.default.stagger([
+                0,
+                90
+            ], {
+                grid: [
+                    14,
+                    5
+                ],
+                from: 'center',
+                axis: 'x'
+            }),
+            delay: _animejsDefault.default.stagger(200, {
+                grid: [
+                    14,
+                    5
+                ],
+                from: 'center'
+            }),
+            easing: 'easeInOutQuad'
+        });
+        columnsExitAnim = _animejsDefault.default({
+            targets: [
+                ...document.querySelectorAll('.column-item')
+            ].filter((e)=>!e.classList.contains('v-hidden')
+            ),
+            opacity: 0,
+            translateY: (_, i)=>i ? 200 : -200
+            ,
+            delay: _animejsDefault.default.stagger(5),
+            duration: 1500,
+            easing: 'easeInOutQuart',
+            autoplay: false
+        });
+    },
+    view (v) {
+        return [
+            _mithrilDefault.default('.columns[data-scroll]', _mithrilDefault.default(PicStrip, {
+                projectTitles: this.projectTitles,
+                worksState: v.state,
+                class: '.normal'
+            }), _mithrilDefault.default(PicStrip, {
+                projectTitles: this.projectTitles,
+                worksState: v.state,
+                class: '.reverse'
+            }), _mithrilDefault.default(PicStrip, {
+                projectTitles: this.projectTitles,
+                worksState: v.state,
+                class: '.normal'
+            })),
+            _mithrilDefault.default(_modal.Modal, {
+                selTitle: v.state.selectedTitle,
+                showModal: v.state.showModal
+            }), 
+        ];
+    }
+};
+exports.default = Works;
+
+},{"mithril":"a7UJj","animejs":"bfYip","../../assets/img/*/*.jpg":"5yMWl","./Modal":"pLhS0","../utils":"fIYUT","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"bfYip":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+/*
+ * anime.js v3.2.1
+ * (c) 2020 Julian Garnier
+ * Released under the MIT license
+ * animejs.com
+ */ // Defaults
+var defaultInstanceSettings = {
+    update: null,
+    begin: null,
+    loopBegin: null,
+    changeBegin: null,
+    change: null,
+    changeComplete: null,
+    loopComplete: null,
+    complete: null,
+    loop: 1,
+    direction: 'normal',
+    autoplay: true,
+    timelineOffset: 0
+};
+var defaultTweenSettings = {
+    duration: 1000,
+    delay: 0,
+    endDelay: 0,
+    easing: 'easeOutElastic(1, .5)',
+    round: 0
+};
+var validTransforms = [
+    'translateX',
+    'translateY',
+    'translateZ',
+    'rotate',
+    'rotateX',
+    'rotateY',
+    'rotateZ',
+    'scale',
+    'scaleX',
+    'scaleY',
+    'scaleZ',
+    'skew',
+    'skewX',
+    'skewY',
+    'perspective',
+    'matrix',
+    'matrix3d'
+];
+// Caching
+var cache = {
+    CSS: {
+    },
+    springs: {
+    }
+};
+// Utils
+function minMax(val, min, max) {
+    return Math.min(Math.max(val, min), max);
+}
+function stringContains(str, text) {
+    return str.indexOf(text) > -1;
+}
+function applyArguments(func, args) {
+    return func.apply(null, args);
+}
+var is = {
+    arr: function(a) {
+        return Array.isArray(a);
+    },
+    obj: function(a) {
+        return stringContains(Object.prototype.toString.call(a), 'Object');
+    },
+    pth: function(a) {
+        return is.obj(a) && a.hasOwnProperty('totalLength');
+    },
+    svg: function(a) {
+        return a instanceof SVGElement;
+    },
+    inp: function(a) {
+        return a instanceof HTMLInputElement;
+    },
+    dom: function(a) {
+        return a.nodeType || is.svg(a);
+    },
+    str: function(a) {
+        return typeof a === 'string';
+    },
+    fnc: function(a) {
+        return typeof a === 'function';
+    },
+    und: function(a) {
+        return typeof a === 'undefined';
+    },
+    nil: function(a) {
+        return is.und(a) || a === null;
+    },
+    hex: function(a) {
+        return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(a);
+    },
+    rgb: function(a) {
+        return /^rgb/.test(a);
+    },
+    hsl: function(a) {
+        return /^hsl/.test(a);
+    },
+    col: function(a) {
+        return is.hex(a) || is.rgb(a) || is.hsl(a);
+    },
+    key: function(a) {
+        return !defaultInstanceSettings.hasOwnProperty(a) && !defaultTweenSettings.hasOwnProperty(a) && a !== 'targets' && a !== 'keyframes';
+    }
+};
+// Easings
+function parseEasingParameters(string) {
+    var match = /\(([^)]+)\)/.exec(string);
+    return match ? match[1].split(',').map(function(p) {
+        return parseFloat(p);
+    }) : [];
+}
+// Spring solver inspired by Webkit Copyright © 2016 Apple Inc. All rights reserved. https://webkit.org/demos/spring/spring.js
+function spring(string, duration1) {
+    var params = parseEasingParameters(string);
+    var mass = minMax(is.und(params[0]) ? 1 : params[0], 0.1, 100);
+    var stiffness = minMax(is.und(params[1]) ? 100 : params[1], 0.1, 100);
+    var damping = minMax(is.und(params[2]) ? 10 : params[2], 0.1, 100);
+    var velocity = minMax(is.und(params[3]) ? 0 : params[3], 0.1, 100);
+    var w0 = Math.sqrt(stiffness / mass);
+    var zeta = damping / (2 * Math.sqrt(stiffness * mass));
+    var wd = zeta < 1 ? w0 * Math.sqrt(1 - zeta * zeta) : 0;
+    var a = 1;
+    var b = zeta < 1 ? (zeta * w0 + -velocity) / wd : -velocity + w0;
+    function solver(t) {
+        var progress = duration1 ? duration1 * t / 1000 : t;
+        if (zeta < 1) progress = Math.exp(-progress * zeta * w0) * (a * Math.cos(wd * progress) + b * Math.sin(wd * progress));
+        else progress = (a + b * progress) * Math.exp(-progress * w0);
+        if (t === 0 || t === 1) return t;
+        return 1 - progress;
+    }
+    function getDuration() {
+        var cached = cache.springs[string];
+        if (cached) return cached;
+        var frame = 1 / 6;
+        var elapsed = 0;
+        var rest = 0;
+        while(true){
+            elapsed += frame;
+            if (solver(elapsed) === 1) {
+                rest++;
+                if (rest >= 16) break;
+            } else rest = 0;
+        }
+        var duration = elapsed * frame * 1000;
+        cache.springs[string] = duration;
+        return duration;
+    }
+    return duration1 ? solver : getDuration;
+}
+// Basic steps easing implementation https://developer.mozilla.org/fr/docs/Web/CSS/transition-timing-function
+function steps1(steps) {
+    if (steps === void 0) steps = 10;
+    return function(t) {
+        return Math.ceil(minMax(t, 0.000001, 1) * steps) * (1 / steps);
+    };
+}
+// BezierEasing https://github.com/gre/bezier-easing
+var bezier1 = function() {
+    var kSplineTableSize = 11;
+    var kSampleStepSize = 1 / (kSplineTableSize - 1);
+    function A(aA1, aA2) {
+        return 1 - 3 * aA2 + 3 * aA1;
+    }
+    function B(aA1, aA2) {
+        return 3 * aA2 - 6 * aA1;
+    }
+    function C(aA1) {
+        return 3 * aA1;
+    }
+    function calcBezier(aT, aA1, aA2) {
+        return ((A(aA1, aA2) * aT + B(aA1, aA2)) * aT + C(aA1)) * aT;
+    }
+    function getSlope(aT, aA1, aA2) {
+        return 3 * A(aA1, aA2) * aT * aT + 2 * B(aA1, aA2) * aT + C(aA1);
+    }
+    function binarySubdivide(aX, aA, aB, mX1, mX2) {
+        var currentX, currentT, i = 0;
+        do {
+            currentT = aA + (aB - aA) / 2;
+            currentX = calcBezier(currentT, mX1, mX2) - aX;
+            if (currentX > 0) aB = currentT;
+            else aA = currentT;
+        }while (Math.abs(currentX) > 0.0000001 && ++i < 10)
+        return currentT;
+    }
+    function newtonRaphsonIterate(aX, aGuessT, mX1, mX2) {
+        for(var i = 0; i < 4; ++i){
+            var currentSlope = getSlope(aGuessT, mX1, mX2);
+            if (currentSlope === 0) return aGuessT;
+            var currentX = calcBezier(aGuessT, mX1, mX2) - aX;
+            aGuessT -= currentX / currentSlope;
+        }
+        return aGuessT;
+    }
+    function bezier(mX1, mY1, mX2, mY2) {
+        if (!(0 <= mX1 && mX1 <= 1 && 0 <= mX2 && mX2 <= 1)) return;
+        var sampleValues = new Float32Array(kSplineTableSize);
+        if (mX1 !== mY1 || mX2 !== mY2) for(var i = 0; i < kSplineTableSize; ++i)sampleValues[i] = calcBezier(i * kSampleStepSize, mX1, mX2);
+        function getTForX(aX) {
+            var intervalStart = 0;
+            var currentSample = 1;
+            var lastSample = kSplineTableSize - 1;
+            for(; currentSample !== lastSample && sampleValues[currentSample] <= aX; ++currentSample)intervalStart += kSampleStepSize;
+            --currentSample;
+            var dist = (aX - sampleValues[currentSample]) / (sampleValues[currentSample + 1] - sampleValues[currentSample]);
+            var guessForT = intervalStart + dist * kSampleStepSize;
+            var initialSlope = getSlope(guessForT, mX1, mX2);
+            if (initialSlope >= 0.001) return newtonRaphsonIterate(aX, guessForT, mX1, mX2);
+            else if (initialSlope === 0) return guessForT;
+            else return binarySubdivide(aX, intervalStart, intervalStart + kSampleStepSize, mX1, mX2);
+        }
+        return function(x) {
+            if (mX1 === mY1 && mX2 === mY2) return x;
+            if (x === 0 || x === 1) return x;
+            return calcBezier(getTForX(x), mY1, mY2);
+        };
+    }
+    return bezier;
+}();
+var penner = function() {
+    // Based on jQuery UI's implemenation of easing equations from Robert Penner (http://www.robertpenner.com/easing)
+    var eases = {
+        linear: function() {
+            return function(t) {
+                return t;
+            };
+        }
+    };
+    var functionEasings = {
+        Sine: function() {
+            return function(t) {
+                return 1 - Math.cos(t * Math.PI / 2);
+            };
+        },
+        Circ: function() {
+            return function(t) {
+                return 1 - Math.sqrt(1 - t * t);
+            };
+        },
+        Back: function() {
+            return function(t) {
+                return t * t * (3 * t - 2);
+            };
+        },
+        Bounce: function() {
+            return function(t) {
+                var pow2, b = 4;
+                while(t < ((pow2 = Math.pow(2, --b)) - 1) / 11);
+                return 1 / Math.pow(4, 3 - b) - 7.5625 * Math.pow((pow2 * 3 - 2) / 22 - t, 2);
+            };
+        },
+        Elastic: function(amplitude, period) {
+            if (amplitude === void 0) amplitude = 1;
+            if (period === void 0) period = 0.5;
+            var a = minMax(amplitude, 1, 10);
+            var p = minMax(period, 0.1, 2);
+            return function(t) {
+                return t === 0 || t === 1 ? t : -a * Math.pow(2, 10 * (t - 1)) * Math.sin((t - 1 - p / (Math.PI * 2) * Math.asin(1 / a)) * (Math.PI * 2) / p);
+            };
+        }
+    };
+    var baseEasings = [
+        'Quad',
+        'Cubic',
+        'Quart',
+        'Quint',
+        'Expo'
+    ];
+    baseEasings.forEach(function(name, i) {
+        functionEasings[name] = function() {
+            return function(t) {
+                return Math.pow(t, i + 2);
+            };
+        };
+    });
+    Object.keys(functionEasings).forEach(function(name) {
+        var easeIn = functionEasings[name];
+        eases['easeIn' + name] = easeIn;
+        eases['easeOut' + name] = function(a, b) {
+            return function(t) {
+                return 1 - easeIn(a, b)(1 - t);
+            };
+        };
+        eases['easeInOut' + name] = function(a, b) {
+            return function(t) {
+                return t < 0.5 ? easeIn(a, b)(t * 2) / 2 : 1 - easeIn(a, b)(t * -2 + 2) / 2;
+            };
+        };
+        eases['easeOutIn' + name] = function(a, b) {
+            return function(t) {
+                return t < 0.5 ? (1 - easeIn(a, b)(1 - t * 2)) / 2 : (easeIn(a, b)(t * 2 - 1) + 1) / 2;
+            };
+        };
+    });
+    return eases;
+}();
+function parseEasings(easing, duration) {
+    if (is.fnc(easing)) return easing;
+    var name = easing.split('(')[0];
+    var ease = penner[name];
+    var args = parseEasingParameters(easing);
+    switch(name){
+        case 'spring':
+            return spring(easing, duration);
+        case 'cubicBezier':
+            return applyArguments(bezier1, args);
+        case 'steps':
+            return applyArguments(steps1, args);
+        default:
+            return applyArguments(ease, args);
+    }
+}
+// Strings
+function selectString(str) {
+    try {
+        var nodes = document.querySelectorAll(str);
+        return nodes;
+    } catch (e) {
+        return;
+    }
+}
+// Arrays
+function filterArray(arr, callback) {
+    var len = arr.length;
+    var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+    var result = [];
+    for(var i = 0; i < len; i++)if (i in arr) {
+        var val = arr[i];
+        if (callback.call(thisArg, val, i, arr)) result.push(val);
+    }
+    return result;
+}
+function flattenArray(arr) {
+    return arr.reduce(function(a, b) {
+        return a.concat(is.arr(b) ? flattenArray(b) : b);
+    }, []);
+}
+function toArray(o) {
+    if (is.arr(o)) return o;
+    if (is.str(o)) o = selectString(o) || o;
+    if (o instanceof NodeList || o instanceof HTMLCollection) return [].slice.call(o);
+    return [
+        o
+    ];
+}
+function arrayContains(arr, val) {
+    return arr.some(function(a) {
+        return a === val;
+    });
+}
+// Objects
+function cloneObject(o) {
+    var clone = {
+    };
+    for(var p in o)clone[p] = o[p];
+    return clone;
+}
+function replaceObjectProps(o1, o2) {
+    var o = cloneObject(o1);
+    for(var p in o1)o[p] = o2.hasOwnProperty(p) ? o2[p] : o1[p];
+    return o;
+}
+function mergeObjects(o1, o2) {
+    var o = cloneObject(o1);
+    for(var p in o2)o[p] = is.und(o1[p]) ? o2[p] : o1[p];
+    return o;
+}
+// Colors
+function rgbToRgba(rgbValue) {
+    var rgb = /rgb\((\d+,\s*[\d]+,\s*[\d]+)\)/g.exec(rgbValue);
+    return rgb ? "rgba(" + rgb[1] + ",1)" : rgbValue;
+}
+function hexToRgba(hexValue) {
+    var rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    var hex = hexValue.replace(rgx, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+    });
+    var rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    var r1 = parseInt(rgb[1], 16);
+    var g1 = parseInt(rgb[2], 16);
+    var b1 = parseInt(rgb[3], 16);
+    return "rgba(" + r1 + "," + g1 + "," + b1 + ",1)";
+}
+function hslToRgba(hslValue) {
+    var hsl = /hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(hslValue) || /hsla\((\d+),\s*([\d.]+)%,\s*([\d.]+)%,\s*([\d.]+)\)/g.exec(hslValue);
+    var h = parseInt(hsl[1], 10) / 360;
+    var s = parseInt(hsl[2], 10) / 100;
+    var l = parseInt(hsl[3], 10) / 100;
+    var a = hsl[4] || 1;
+    function hue2rgb(p, q, t) {
+        if (t < 0) t += 1;
+        if (t > 1) t -= 1;
+        if (t < 1 / 6) return p + (q - p) * 6 * t;
+        if (t < 0.5) return q;
+        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+        return p;
+    }
+    var r, g, b;
+    if (s == 0) r = g = b = l;
+    else {
+        var q1 = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        var p1 = 2 * l - q1;
+        r = hue2rgb(p1, q1, h + 1 / 3);
+        g = hue2rgb(p1, q1, h);
+        b = hue2rgb(p1, q1, h - 1 / 3);
+    }
+    return "rgba(" + r * 255 + "," + g * 255 + "," + b * 255 + "," + a + ")";
+}
+function colorToRgb(val) {
+    if (is.rgb(val)) return rgbToRgba(val);
+    if (is.hex(val)) return hexToRgba(val);
+    if (is.hsl(val)) return hslToRgba(val);
+}
+// Units
+function getUnit(val) {
+    var split = /[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?(%|px|pt|em|rem|in|cm|mm|ex|ch|pc|vw|vh|vmin|vmax|deg|rad|turn)?$/.exec(val);
+    if (split) return split[1];
+}
+function getTransformUnit(propName) {
+    if (stringContains(propName, 'translate') || propName === 'perspective') return 'px';
+    if (stringContains(propName, 'rotate') || stringContains(propName, 'skew')) return 'deg';
+}
+// Values
+function getFunctionValue(val, animatable) {
+    if (!is.fnc(val)) return val;
+    return val(animatable.target, animatable.id, animatable.total);
+}
+function getAttribute(el, prop) {
+    return el.getAttribute(prop);
+}
+function convertPxToUnit(el, value, unit) {
+    var valueUnit = getUnit(value);
+    if (arrayContains([
+        unit,
+        'deg',
+        'rad',
+        'turn'
+    ], valueUnit)) return value;
+    var cached = cache.CSS[value + unit];
+    if (!is.und(cached)) return cached;
+    var baseline = 100;
+    var tempEl = document.createElement(el.tagName);
+    var parentEl = el.parentNode && el.parentNode !== document ? el.parentNode : document.body;
+    parentEl.appendChild(tempEl);
+    tempEl.style.position = 'absolute';
+    tempEl.style.width = baseline + unit;
+    var factor = baseline / tempEl.offsetWidth;
+    parentEl.removeChild(tempEl);
+    var convertedUnit = factor * parseFloat(value);
+    cache.CSS[value + unit] = convertedUnit;
+    return convertedUnit;
+}
+function getCSSValue(el, prop, unit) {
+    if (prop in el.style) {
+        var uppercasePropName = prop.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+        var value = el.style[prop] || getComputedStyle(el).getPropertyValue(uppercasePropName) || '0';
+        return unit ? convertPxToUnit(el, value, unit) : value;
+    }
+}
+function getAnimationType(el, prop) {
+    if (is.dom(el) && !is.inp(el) && (!is.nil(getAttribute(el, prop)) || is.svg(el) && el[prop])) return 'attribute';
+    if (is.dom(el) && arrayContains(validTransforms, prop)) return 'transform';
+    if (is.dom(el) && prop !== 'transform' && getCSSValue(el, prop)) return 'css';
+    if (el[prop] != null) return 'object';
+}
+function getElementTransforms(el) {
+    if (!is.dom(el)) return;
+    var str = el.style.transform || '';
+    var reg = /(\w+)\(([^)]*)\)/g;
+    var transforms = new Map();
+    var m;
+    while(m = reg.exec(str))transforms.set(m[1], m[2]);
+    return transforms;
+}
+function getTransformValue(el, propName, animatable, unit) {
+    var defaultVal = stringContains(propName, 'scale') ? 1 : 0 + getTransformUnit(propName);
+    var value = getElementTransforms(el).get(propName) || defaultVal;
+    if (animatable) {
+        animatable.transforms.list.set(propName, value);
+        animatable.transforms['last'] = propName;
+    }
+    return unit ? convertPxToUnit(el, value, unit) : value;
+}
+function getOriginalTargetValue(target, propName, unit, animatable) {
+    switch(getAnimationType(target, propName)){
+        case 'transform':
+            return getTransformValue(target, propName, animatable, unit);
+        case 'css':
+            return getCSSValue(target, propName, unit);
+        case 'attribute':
+            return getAttribute(target, propName);
+        default:
+            return target[propName] || 0;
+    }
+}
+function getRelativeValue(to, from) {
+    var operator = /^(\*=|\+=|-=)/.exec(to);
+    if (!operator) return to;
+    var u = getUnit(to) || 0;
+    var x = parseFloat(from);
+    var y = parseFloat(to.replace(operator[0], ''));
+    switch(operator[0][0]){
+        case '+':
+            return x + y + u;
+        case '-':
+            return x - y + u;
+        case '*':
+            return x * y + u;
+    }
+}
+function validateValue(val, unit) {
+    if (is.col(val)) return colorToRgb(val);
+    if (/\s/g.test(val)) return val;
+    var originalUnit = getUnit(val);
+    var unitLess = originalUnit ? val.substr(0, val.length - originalUnit.length) : val;
+    if (unit) return unitLess + unit;
+    return unitLess;
+}
+// getTotalLength() equivalent for circle, rect, polyline, polygon and line shapes
+// adapted from https://gist.github.com/SebLambla/3e0550c496c236709744
+function getDistance(p1, p2) {
+    return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+}
+function getCircleLength(el) {
+    return Math.PI * 2 * getAttribute(el, 'r');
+}
+function getRectLength(el) {
+    return getAttribute(el, 'width') * 2 + getAttribute(el, 'height') * 2;
+}
+function getLineLength(el) {
+    return getDistance({
+        x: getAttribute(el, 'x1'),
+        y: getAttribute(el, 'y1')
+    }, {
+        x: getAttribute(el, 'x2'),
+        y: getAttribute(el, 'y2')
+    });
+}
+function getPolylineLength(el) {
+    var points = el.points;
+    var totalLength = 0;
+    var previousPos;
+    for(var i = 0; i < points.numberOfItems; i++){
+        var currentPos = points.getItem(i);
+        if (i > 0) totalLength += getDistance(previousPos, currentPos);
+        previousPos = currentPos;
+    }
+    return totalLength;
+}
+function getPolygonLength(el) {
+    var points = el.points;
+    return getPolylineLength(el) + getDistance(points.getItem(points.numberOfItems - 1), points.getItem(0));
+}
+// Path animation
+function getTotalLength(el) {
+    if (el.getTotalLength) return el.getTotalLength();
+    switch(el.tagName.toLowerCase()){
+        case 'circle':
+            return getCircleLength(el);
+        case 'rect':
+            return getRectLength(el);
+        case 'line':
+            return getLineLength(el);
+        case 'polyline':
+            return getPolylineLength(el);
+        case 'polygon':
+            return getPolygonLength(el);
+    }
+}
+function setDashoffset(el) {
+    var pathLength = getTotalLength(el);
+    el.setAttribute('stroke-dasharray', pathLength);
+    return pathLength;
+}
+// Motion path
+function getParentSvgEl(el) {
+    var parentEl = el.parentNode;
+    while(is.svg(parentEl)){
+        if (!is.svg(parentEl.parentNode)) break;
+        parentEl = parentEl.parentNode;
+    }
+    return parentEl;
+}
+function getParentSvg(pathEl, svgData) {
+    var svg = svgData || {
+    };
+    var parentSvgEl = svg.el || getParentSvgEl(pathEl);
+    var rect = parentSvgEl.getBoundingClientRect();
+    var viewBoxAttr = getAttribute(parentSvgEl, 'viewBox');
+    var width = rect.width;
+    var height = rect.height;
+    var viewBox = svg.viewBox || (viewBoxAttr ? viewBoxAttr.split(' ') : [
+        0,
+        0,
+        width,
+        height
+    ]);
+    return {
+        el: parentSvgEl,
+        viewBox: viewBox,
+        x: viewBox[0] / 1,
+        y: viewBox[1] / 1,
+        w: width,
+        h: height,
+        vW: viewBox[2],
+        vH: viewBox[3]
+    };
+}
+function getPath(path, percent) {
+    var pathEl = is.str(path) ? selectString(path)[0] : path;
+    var p = percent || 100;
+    return function(property) {
+        return {
+            property: property,
+            el: pathEl,
+            svg: getParentSvg(pathEl),
+            totalLength: getTotalLength(pathEl) * (p / 100)
+        };
+    };
+}
+function getPathProgress(path, progress, isPathTargetInsideSVG) {
+    function point(offset) {
+        if (offset === void 0) offset = 0;
+        var l = progress + offset >= 1 ? progress + offset : 0;
+        return path.el.getPointAtLength(l);
+    }
+    var svg = getParentSvg(path.el, path.svg);
+    var p = point();
+    var p0 = point(-1);
+    var p1 = point(1);
+    var scaleX = isPathTargetInsideSVG ? 1 : svg.w / svg.vW;
+    var scaleY = isPathTargetInsideSVG ? 1 : svg.h / svg.vH;
+    switch(path.property){
+        case 'x':
+            return (p.x - svg.x) * scaleX;
+        case 'y':
+            return (p.y - svg.y) * scaleY;
+        case 'angle':
+            return Math.atan2(p1.y - p0.y, p1.x - p0.x) * 180 / Math.PI;
+    }
+}
+// Decompose value
+function decomposeValue(val, unit) {
+    // const rgx = /-?\d*\.?\d+/g; // handles basic numbers
+    // const rgx = /[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g; // handles exponents notation
+    var rgx = /[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g; // handles exponents notation
+    var value = validateValue(is.pth(val) ? val.totalLength : val, unit) + '';
+    return {
+        original: value,
+        numbers: value.match(rgx) ? value.match(rgx).map(Number) : [
+            0
+        ],
+        strings: is.str(val) || unit ? value.split(rgx) : []
+    };
+}
+// Animatables
+function parseTargets(targets) {
+    var targetsArray = targets ? flattenArray(is.arr(targets) ? targets.map(toArray) : toArray(targets)) : [];
+    return filterArray(targetsArray, function(item, pos, self) {
+        return self.indexOf(item) === pos;
+    });
+}
+function getAnimatables(targets) {
+    var parsed = parseTargets(targets);
+    return parsed.map(function(t, i) {
+        return {
+            target: t,
+            id: i,
+            total: parsed.length,
+            transforms: {
+                list: getElementTransforms(t)
+            }
+        };
+    });
+}
+// Properties
+function normalizePropertyTweens(prop, tweenSettings) {
+    var settings = cloneObject(tweenSettings);
+    // Override duration if easing is a spring
+    if (/^spring/.test(settings.easing)) settings.duration = spring(settings.easing);
+    if (is.arr(prop)) {
+        var l = prop.length;
+        var isFromTo = l === 2 && !is.obj(prop[0]);
+        if (!isFromTo) // Duration divided by the number of tweens
+        {
+            if (!is.fnc(tweenSettings.duration)) settings.duration = tweenSettings.duration / l;
+        } else // Transform [from, to] values shorthand to a valid tween value
+        prop = {
+            value: prop
+        };
+    }
+    var propArray = is.arr(prop) ? prop : [
+        prop
+    ];
+    return propArray.map(function(v, i) {
+        var obj = is.obj(v) && !is.pth(v) ? v : {
+            value: v
+        };
+        // Default delay value should only be applied to the first tween
+        if (is.und(obj.delay)) obj.delay = !i ? tweenSettings.delay : 0;
+        // Default endDelay value should only be applied to the last tween
+        if (is.und(obj.endDelay)) obj.endDelay = i === propArray.length - 1 ? tweenSettings.endDelay : 0;
+        return obj;
+    }).map(function(k) {
+        return mergeObjects(k, settings);
+    });
+}
+function flattenKeyframes(keyframes) {
+    var propertyNames = filterArray(flattenArray(keyframes.map(function(key) {
+        return Object.keys(key);
+    })), function(p) {
+        return is.key(p);
+    }).reduce(function(a, b) {
+        if (a.indexOf(b) < 0) a.push(b);
+        return a;
+    }, []);
+    var properties = {
+    };
+    var loop = function(i) {
+        var propName = propertyNames[i];
+        properties[propName] = keyframes.map(function(key) {
+            var newKey = {
+            };
+            for(var p in key){
+                if (is.key(p)) {
+                    if (p == propName) newKey.value = key[p];
+                } else newKey[p] = key[p];
+            }
+            return newKey;
+        });
+    };
+    for(var i = 0; i < propertyNames.length; i++)loop(i);
+    return properties;
+}
+function getProperties(tweenSettings, params) {
+    var properties = [];
+    var keyframes = params.keyframes;
+    if (keyframes) params = mergeObjects(flattenKeyframes(keyframes), params);
+    for(var p in params)if (is.key(p)) properties.push({
+        name: p,
+        tweens: normalizePropertyTweens(params[p], tweenSettings)
+    });
+    return properties;
+}
+// Tweens
+function normalizeTweenValues(tween, animatable) {
+    var t = {
+    };
+    for(var p in tween){
+        var value = getFunctionValue(tween[p], animatable);
+        if (is.arr(value)) {
+            value = value.map(function(v) {
+                return getFunctionValue(v, animatable);
+            });
+            if (value.length === 1) value = value[0];
+        }
+        t[p] = value;
+    }
+    t.duration = parseFloat(t.duration);
+    t.delay = parseFloat(t.delay);
+    return t;
+}
+function normalizeTweens(prop, animatable) {
+    var previousTween;
+    return prop.tweens.map(function(t) {
+        var tween = normalizeTweenValues(t, animatable);
+        var tweenValue = tween.value;
+        var to = is.arr(tweenValue) ? tweenValue[1] : tweenValue;
+        var toUnit = getUnit(to);
+        var originalValue = getOriginalTargetValue(animatable.target, prop.name, toUnit, animatable);
+        var previousValue = previousTween ? previousTween.to.original : originalValue;
+        var from = is.arr(tweenValue) ? tweenValue[0] : previousValue;
+        var fromUnit = getUnit(from) || getUnit(originalValue);
+        var unit = toUnit || fromUnit;
+        if (is.und(to)) to = previousValue;
+        tween.from = decomposeValue(from, unit);
+        tween.to = decomposeValue(getRelativeValue(to, from), unit);
+        tween.start = previousTween ? previousTween.end : 0;
+        tween.end = tween.start + tween.delay + tween.duration + tween.endDelay;
+        tween.easing = parseEasings(tween.easing, tween.duration);
+        tween.isPath = is.pth(tweenValue);
+        tween.isPathTargetInsideSVG = tween.isPath && is.svg(animatable.target);
+        tween.isColor = is.col(tween.from.original);
+        if (tween.isColor) tween.round = 1;
+        previousTween = tween;
+        return tween;
+    });
+}
+// Tween progress
+var setProgressValue = {
+    css: function(t, p, v) {
+        return t.style[p] = v;
+    },
+    attribute: function(t, p, v) {
+        return t.setAttribute(p, v);
+    },
+    object: function(t, p, v) {
+        return t[p] = v;
+    },
+    transform: function(t, p, v, transforms, manual) {
+        transforms.list.set(p, v);
+        if (p === transforms.last || manual) {
+            var str = '';
+            transforms.list.forEach(function(value, prop) {
+                str += prop + "(" + value + ") ";
+            });
+            t.style.transform = str;
+        }
+    }
+};
+// Set Value helper
+function setTargetsValue(targets, properties) {
+    var animatables = getAnimatables(targets);
+    animatables.forEach(function(animatable) {
+        for(var property in properties){
+            var value = getFunctionValue(properties[property], animatable);
+            var target = animatable.target;
+            var valueUnit = getUnit(value);
+            var originalValue = getOriginalTargetValue(target, property, valueUnit, animatable);
+            var unit = valueUnit || getUnit(originalValue);
+            var to = getRelativeValue(validateValue(value, unit), originalValue);
+            var animType = getAnimationType(target, property);
+            setProgressValue[animType](target, property, to, animatable.transforms, true);
+        }
+    });
+}
+// Animations
+function createAnimation(animatable, prop) {
+    var animType = getAnimationType(animatable.target, prop.name);
+    if (animType) {
+        var tweens = normalizeTweens(prop, animatable);
+        var lastTween = tweens[tweens.length - 1];
+        return {
+            type: animType,
+            property: prop.name,
+            animatable: animatable,
+            tweens: tweens,
+            duration: lastTween.end,
+            delay: tweens[0].delay,
+            endDelay: lastTween.endDelay
+        };
+    }
+}
+function getAnimations(animatables, properties) {
+    return filterArray(flattenArray(animatables.map(function(animatable) {
+        return properties.map(function(prop) {
+            return createAnimation(animatable, prop);
+        });
+    })), function(a) {
+        return !is.und(a);
+    });
+}
+// Create Instance
+function getInstanceTimings(animations, tweenSettings) {
+    var animLength = animations.length;
+    var getTlOffset = function(anim) {
+        return anim.timelineOffset ? anim.timelineOffset : 0;
+    };
+    var timings = {
+    };
+    timings.duration = animLength ? Math.max.apply(Math, animations.map(function(anim) {
+        return getTlOffset(anim) + anim.duration;
+    })) : tweenSettings.duration;
+    timings.delay = animLength ? Math.min.apply(Math, animations.map(function(anim) {
+        return getTlOffset(anim) + anim.delay;
+    })) : tweenSettings.delay;
+    timings.endDelay = animLength ? timings.duration - Math.max.apply(Math, animations.map(function(anim) {
+        return getTlOffset(anim) + anim.duration - anim.endDelay;
+    })) : tweenSettings.endDelay;
+    return timings;
+}
+var instanceID = 0;
+function createNewInstance(params) {
+    var instanceSettings = replaceObjectProps(defaultInstanceSettings, params);
+    var tweenSettings = replaceObjectProps(defaultTweenSettings, params);
+    var properties = getProperties(tweenSettings, params);
+    var animatables = getAnimatables(params.targets);
+    var animations = getAnimations(animatables, properties);
+    var timings = getInstanceTimings(animations, tweenSettings);
+    var id = instanceID;
+    instanceID++;
+    return mergeObjects(instanceSettings, {
+        id: id,
+        children: [],
+        animatables: animatables,
+        animations: animations,
+        duration: timings.duration,
+        delay: timings.delay,
+        endDelay: timings.endDelay
+    });
+}
+// Core
+var activeInstances = [];
+var engine = function() {
+    var raf;
+    function play() {
+        if (!raf && (!isDocumentHidden() || !anime.suspendWhenDocumentHidden) && activeInstances.length > 0) raf = requestAnimationFrame(step);
+    }
+    function step(t) {
+        // memo on algorithm issue:
+        // dangerous iteration over mutable `activeInstances`
+        // (that collection may be updated from within callbacks of `tick`-ed animation instances)
+        var activeInstancesLength = activeInstances.length;
+        var i = 0;
+        while(i < activeInstancesLength){
+            var activeInstance = activeInstances[i];
+            if (!activeInstance.paused) {
+                activeInstance.tick(t);
+                i++;
+            } else {
+                activeInstances.splice(i, 1);
+                activeInstancesLength--;
+            }
+        }
+        raf = i > 0 ? requestAnimationFrame(step) : undefined;
+    }
+    function handleVisibilityChange() {
+        if (!anime.suspendWhenDocumentHidden) return;
+        if (isDocumentHidden()) // suspend ticks
+        raf = cancelAnimationFrame(raf);
+        else {
+            // first adjust animations to consider the time that ticks were suspended
+            activeInstances.forEach(function(instance) {
+                return instance._onDocumentVisibility();
+            });
+            engine();
+        }
+    }
+    if (typeof document !== 'undefined') document.addEventListener('visibilitychange', handleVisibilityChange);
+    return play;
+}();
+function isDocumentHidden() {
+    return !!document && document.hidden;
+}
+// Public Instance
+function anime(params) {
+    if (params === void 0) params = {
+    };
+    var startTime = 0, lastTime = 0, now = 0;
+    var children, childrenLength = 0;
+    var resolve = null;
+    function makePromise(instance) {
+        var promise = window.Promise && new Promise(function(_resolve) {
+            return resolve = _resolve;
+        });
+        instance.finished = promise;
+        return promise;
+    }
+    var instance1 = createNewInstance(params);
+    var promise1 = makePromise(instance1);
+    function toggleInstanceDirection() {
+        var direction = instance1.direction;
+        if (direction !== 'alternate') instance1.direction = direction !== 'normal' ? 'normal' : 'reverse';
+        instance1.reversed = !instance1.reversed;
+        children.forEach(function(child) {
+            return child.reversed = instance1.reversed;
+        });
+    }
+    function adjustTime(time) {
+        return instance1.reversed ? instance1.duration - time : time;
+    }
+    function resetTime() {
+        startTime = 0;
+        lastTime = adjustTime(instance1.currentTime) * (1 / anime.speed);
+    }
+    function seekChild(time, child) {
+        if (child) child.seek(time - child.timelineOffset);
+    }
+    function syncInstanceChildren(time) {
+        if (!instance1.reversePlayback) for(var i = 0; i < childrenLength; i++)seekChild(time, children[i]);
+        else for(var i$1 = childrenLength; i$1--;)seekChild(time, children[i$1]);
+    }
+    function setAnimationsProgress(insTime) {
+        var i = 0;
+        var animations = instance1.animations;
+        var animationsLength = animations.length;
+        while(i < animationsLength){
+            var anim = animations[i];
+            var animatable = anim.animatable;
+            var tweens = anim.tweens;
+            var tweenLength = tweens.length - 1;
+            var tween = tweens[tweenLength];
+            // Only check for keyframes if there is more than one tween
+            if (tweenLength) tween = filterArray(tweens, function(t) {
+                return insTime < t.end;
+            })[0] || tween;
+            var elapsed = minMax(insTime - tween.start - tween.delay, 0, tween.duration) / tween.duration;
+            var eased = isNaN(elapsed) ? 1 : tween.easing(elapsed);
+            var strings = tween.to.strings;
+            var round = tween.round;
+            var numbers = [];
+            var toNumbersLength = tween.to.numbers.length;
+            var progress = void 0;
+            for(var n = 0; n < toNumbersLength; n++){
+                var value = void 0;
+                var toNumber = tween.to.numbers[n];
+                var fromNumber = tween.from.numbers[n] || 0;
+                if (!tween.isPath) value = fromNumber + eased * (toNumber - fromNumber);
+                else value = getPathProgress(tween.value, eased * toNumber, tween.isPathTargetInsideSVG);
+                if (round) {
+                    if (!(tween.isColor && n > 2)) value = Math.round(value * round) / round;
+                }
+                numbers.push(value);
+            }
+            // Manual Array.reduce for better performances
+            var stringsLength = strings.length;
+            if (!stringsLength) progress = numbers[0];
+            else {
+                progress = strings[0];
+                for(var s = 0; s < stringsLength; s++){
+                    var a = strings[s];
+                    var b = strings[s + 1];
+                    var n$1 = numbers[s];
+                    if (!isNaN(n$1)) {
+                        if (!b) progress += n$1 + ' ';
+                        else progress += n$1 + b;
+                    }
+                }
+            }
+            setProgressValue[anim.type](animatable.target, anim.property, progress, animatable.transforms);
+            anim.currentValue = progress;
+            i++;
+        }
+    }
+    function setCallback(cb) {
+        if (instance1[cb] && !instance1.passThrough) instance1[cb](instance1);
+    }
+    function countIteration() {
+        if (instance1.remaining && instance1.remaining !== true) instance1.remaining--;
+    }
+    function setInstanceProgress(engineTime) {
+        var insDuration = instance1.duration;
+        var insDelay = instance1.delay;
+        var insEndDelay = insDuration - instance1.endDelay;
+        var insTime = adjustTime(engineTime);
+        instance1.progress = minMax(insTime / insDuration * 100, 0, 100);
+        instance1.reversePlayback = insTime < instance1.currentTime;
+        if (children) syncInstanceChildren(insTime);
+        if (!instance1.began && instance1.currentTime > 0) {
+            instance1.began = true;
+            setCallback('begin');
+        }
+        if (!instance1.loopBegan && instance1.currentTime > 0) {
+            instance1.loopBegan = true;
+            setCallback('loopBegin');
+        }
+        if (insTime <= insDelay && instance1.currentTime !== 0) setAnimationsProgress(0);
+        if (insTime >= insEndDelay && instance1.currentTime !== insDuration || !insDuration) setAnimationsProgress(insDuration);
+        if (insTime > insDelay && insTime < insEndDelay) {
+            if (!instance1.changeBegan) {
+                instance1.changeBegan = true;
+                instance1.changeCompleted = false;
+                setCallback('changeBegin');
+            }
+            setCallback('change');
+            setAnimationsProgress(insTime);
+        } else if (instance1.changeBegan) {
+            instance1.changeCompleted = true;
+            instance1.changeBegan = false;
+            setCallback('changeComplete');
+        }
+        instance1.currentTime = minMax(insTime, 0, insDuration);
+        if (instance1.began) setCallback('update');
+        if (engineTime >= insDuration) {
+            lastTime = 0;
+            countIteration();
+            if (!instance1.remaining) {
+                instance1.paused = true;
+                if (!instance1.completed) {
+                    instance1.completed = true;
+                    setCallback('loopComplete');
+                    setCallback('complete');
+                    if (!instance1.passThrough && 'Promise' in window) {
+                        resolve();
+                        promise1 = makePromise(instance1);
+                    }
+                }
+            } else {
+                startTime = now;
+                setCallback('loopComplete');
+                instance1.loopBegan = false;
+                if (instance1.direction === 'alternate') toggleInstanceDirection();
+            }
+        }
+    }
+    instance1.reset = function() {
+        var direction = instance1.direction;
+        instance1.passThrough = false;
+        instance1.currentTime = 0;
+        instance1.progress = 0;
+        instance1.paused = true;
+        instance1.began = false;
+        instance1.loopBegan = false;
+        instance1.changeBegan = false;
+        instance1.completed = false;
+        instance1.changeCompleted = false;
+        instance1.reversePlayback = false;
+        instance1.reversed = direction === 'reverse';
+        instance1.remaining = instance1.loop;
+        children = instance1.children;
+        childrenLength = children.length;
+        for(var i = childrenLength; i--;)instance1.children[i].reset();
+        if (instance1.reversed && instance1.loop !== true || direction === 'alternate' && instance1.loop === 1) instance1.remaining++;
+        setAnimationsProgress(instance1.reversed ? instance1.duration : 0);
+    };
+    // internal method (for engine) to adjust animation timings before restoring engine ticks (rAF)
+    instance1._onDocumentVisibility = resetTime;
+    // Set Value helper
+    instance1.set = function(targets, properties) {
+        setTargetsValue(targets, properties);
+        return instance1;
+    };
+    instance1.tick = function(t) {
+        now = t;
+        if (!startTime) startTime = now;
+        setInstanceProgress((now + (lastTime - startTime)) * anime.speed);
+    };
+    instance1.seek = function(time) {
+        setInstanceProgress(adjustTime(time));
+    };
+    instance1.pause = function() {
+        instance1.paused = true;
+        resetTime();
+    };
+    instance1.play = function() {
+        if (!instance1.paused) return;
+        if (instance1.completed) instance1.reset();
+        instance1.paused = false;
+        activeInstances.push(instance1);
+        resetTime();
+        engine();
+    };
+    instance1.reverse = function() {
+        toggleInstanceDirection();
+        instance1.completed = instance1.reversed ? false : true;
+        resetTime();
+    };
+    instance1.restart = function() {
+        instance1.reset();
+        instance1.play();
+    };
+    instance1.remove = function(targets) {
+        var targetsArray = parseTargets(targets);
+        removeTargetsFromInstance(targetsArray, instance1);
+    };
+    instance1.reset();
+    if (instance1.autoplay) instance1.play();
+    return instance1;
+}
+// Remove targets from animation
+function removeTargetsFromAnimations(targetsArray, animations) {
+    for(var a = animations.length; a--;)if (arrayContains(targetsArray, animations[a].animatable.target)) animations.splice(a, 1);
+}
+function removeTargetsFromInstance(targetsArray, instance) {
+    var animations = instance.animations;
+    var children = instance.children;
+    removeTargetsFromAnimations(targetsArray, animations);
+    for(var c = children.length; c--;){
+        var child = children[c];
+        var childAnimations = child.animations;
+        removeTargetsFromAnimations(targetsArray, childAnimations);
+        if (!childAnimations.length && !child.children.length) children.splice(c, 1);
+    }
+    if (!animations.length && !children.length) instance.pause();
+}
+function removeTargetsFromActiveInstances(targets) {
+    var targetsArray = parseTargets(targets);
+    for(var i = activeInstances.length; i--;){
+        var instance = activeInstances[i];
+        removeTargetsFromInstance(targetsArray, instance);
+    }
+}
+// Stagger helpers
+function stagger(val3, params) {
+    if (params === void 0) params = {
+    };
+    var direction = params.direction || 'normal';
+    var easing = params.easing ? parseEasings(params.easing) : null;
+    var grid = params.grid;
+    var axis = params.axis;
+    var fromIndex = params.from || 0;
+    var fromFirst = fromIndex === 'first';
+    var fromCenter = fromIndex === 'center';
+    var fromLast = fromIndex === 'last';
+    var isRange = is.arr(val3);
+    var val1 = isRange ? parseFloat(val3[0]) : parseFloat(val3);
+    var val2 = isRange ? parseFloat(val3[1]) : 0;
+    var unit = getUnit(isRange ? val3[1] : val3) || 0;
+    var start = params.start || 0 + (isRange ? val1 : 0);
+    var values = [];
+    var maxValue = 0;
+    return function(el, i, t) {
+        if (fromFirst) fromIndex = 0;
+        if (fromCenter) fromIndex = (t - 1) / 2;
+        if (fromLast) fromIndex = t - 1;
+        if (!values.length) {
+            for(var index = 0; index < t; index++){
+                if (!grid) values.push(Math.abs(fromIndex - index));
+                else {
+                    var fromX = !fromCenter ? fromIndex % grid[0] : (grid[0] - 1) / 2;
+                    var fromY = !fromCenter ? Math.floor(fromIndex / grid[0]) : (grid[1] - 1) / 2;
+                    var toX = index % grid[0];
+                    var toY = Math.floor(index / grid[0]);
+                    var distanceX = fromX - toX;
+                    var distanceY = fromY - toY;
+                    var value = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+                    if (axis === 'x') value = -distanceX;
+                    if (axis === 'y') value = -distanceY;
+                    values.push(value);
+                }
+                maxValue = Math.max.apply(Math, values);
+            }
+            if (easing) values = values.map(function(val) {
+                return easing(val / maxValue) * maxValue;
+            });
+            if (direction === 'reverse') values = values.map(function(val) {
+                return axis ? val < 0 ? val * -1 : -val : Math.abs(maxValue - val);
+            });
+        }
+        var spacing = isRange ? (val2 - val1) / maxValue : val1;
+        return start + spacing * (Math.round(values[i] * 100) / 100) + unit;
+    };
+}
+// Timeline
+function timeline(params) {
+    if (params === void 0) params = {
+    };
+    var tl = anime(params);
+    tl.duration = 0;
+    tl.add = function(instanceParams, timelineOffset) {
+        var tlIndex = activeInstances.indexOf(tl);
+        var children = tl.children;
+        if (tlIndex > -1) activeInstances.splice(tlIndex, 1);
+        function passThrough(ins) {
+            ins.passThrough = true;
+        }
+        for(var i = 0; i < children.length; i++)passThrough(children[i]);
+        var insParams = mergeObjects(instanceParams, replaceObjectProps(defaultTweenSettings, params));
+        insParams.targets = insParams.targets || params.targets;
+        var tlDuration = tl.duration;
+        insParams.autoplay = false;
+        insParams.direction = tl.direction;
+        insParams.timelineOffset = is.und(timelineOffset) ? tlDuration : getRelativeValue(timelineOffset, tlDuration);
+        passThrough(tl);
+        tl.seek(insParams.timelineOffset);
+        var ins1 = anime(insParams);
+        passThrough(ins1);
+        children.push(ins1);
+        var timings = getInstanceTimings(children, params);
+        tl.delay = timings.delay;
+        tl.endDelay = timings.endDelay;
+        tl.duration = timings.duration;
+        tl.seek(0);
+        tl.reset();
+        if (tl.autoplay) tl.play();
+        return tl;
+    };
+    return tl;
+}
+anime.version = '3.2.1';
+anime.speed = 1;
+// TODO:#review: naming, documentation
+anime.suspendWhenDocumentHidden = true;
+anime.running = activeInstances;
+anime.remove = removeTargetsFromActiveInstances;
+anime.get = getOriginalTargetValue;
+anime.set = setTargetsValue;
+anime.convertPx = convertPxToUnit;
+anime.path = getPath;
+anime.setDashoffset = setDashoffset;
+anime.stagger = stagger;
+anime.timeline = timeline;
+anime.easing = parseEasings;
+anime.penner = penner;
+anime.random = function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+exports.default = anime;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"5yMWl":[function(require,module,exports) {
+const _temp0 = require("../Andrea/DSC01328.jpg");
+const _temp1 = require("../Andrea/DSC01521.jpg");
+const _temp2 = require("../Andrea/DSC01530.jpg");
+const _temp3 = require("../Andrea/pic_10.jpg");
+const _temp4 = require("../Andrea/pic_11.jpg");
+const _temp5 = require("../Andrea/pic_12.jpg");
+const _temp6 = require("../Andrea/pic_13.jpg");
+const _temp7 = require("../Andrea/pic_14.jpg");
+const _temp8 = require("../Andrea/pic_15.jpg");
+const _temp9 = require("../Andrea/pic_9.jpg");
+const _temp10 = require("../Arianna/pic_0.jpg");
+const _temp11 = require("../Arianna/pic_1.jpg");
+const _temp12 = require("../Arianna/pic_10.jpg");
+const _temp13 = require("../Arianna/pic_11.jpg");
+const _temp14 = require("../Arianna/pic_2.jpg");
+const _temp15 = require("../Arianna/pic_3.jpg");
+const _temp16 = require("../Arianna/pic_4.jpg");
+const _temp17 = require("../Arianna/pic_5.jpg");
+const _temp18 = require("../Arianna/pic_6.jpg");
+const _temp19 = require("../Arianna/pic_7.jpg");
+const _temp20 = require("../Arianna/pic_8.jpg");
+const _temp21 = require("../Arianna/pic_9.jpg");
+const _temp22 = require("../Inganno/1.jpg");
+const _temp23 = require("../Inganno/2.jpg");
+const _temp24 = require("../Inganno/3.jpg");
+const _temp25 = require("../Inganno/4.jpg");
+const _temp26 = require("../Inganno/5.jpg");
+const _temp27 = require("../Inganno/6.jpg");
+const _temp28 = require("../Inganno/7.jpg");
+const _temp29 = require("../Inganno/8.jpg");
+const _temp30 = require("../Inganno/9.jpg");
+const _temp31 = require("../Inganno/10.jpg");
+const _temp32 = require("../Katia/pic_0.jpg");
+const _temp33 = require("../Katia/pic_1.jpg");
+const _temp34 = require("../Katia/pic_2.jpg");
+const _temp35 = require("../Katia/pic_3.jpg");
+const _temp36 = require("../Katia/pic_4.jpg");
+const _temp37 = require("../Katia/pic_5.jpg");
+const _temp38 = require("../Katia/pic_6.jpg");
+const _temp39 = require("../Katia/pic_7.jpg");
+const _temp40 = require("../Matteo/pic_0.jpg");
+const _temp41 = require("../Matteo/pic_1.jpg");
+const _temp42 = require("../Matteo/pic_2.jpg");
+const _temp43 = require("../Matteo/pic_3.jpg");
+const _temp44 = require("../Matteo/pic_4.jpg");
+const _temp45 = require("../Matteo/pic_5.jpg");
+const _temp46 = require("../Matteo/pic_6.jpg");
+const _temp47 = require("../Matteo/pic_7.jpg");
+const _temp48 = require("../Matteo/pic_8.jpg");
+const _temp49 = require("../Matteo/pic_9.jpg");
+const _temp50 = require("../Nastia/DSC07826.jpg");
+const _temp51 = require("../Nastia/DSC07836.jpg");
+const _temp52 = require("../Nastia/DSC08026.jpg");
+const _temp53 = require("../Nastia/DSC08077.jpg");
+const _temp54 = require("../Nastia/DSC08167.jpg");
+const _temp55 = require("../Nastia/DSC08191.jpg");
+const _temp56 = require("../Nastia/DSC08386.jpg");
+const _temp57 = require("../Roberta/pic_0.jpg");
+const _temp58 = require("../Roberta/pic_1.jpg");
+const _temp59 = require("../Roberta/pic_10.jpg");
+const _temp60 = require("../Roberta/pic_11.jpg");
+const _temp61 = require("../Roberta/pic_12.jpg");
+const _temp62 = require("../Roberta/pic_13.jpg");
+const _temp63 = require("../Roberta/pic_14.jpg");
+const _temp64 = require("../Roberta/pic_2.jpg");
+const _temp65 = require("../Roberta/pic_3.jpg");
+const _temp66 = require("../Roberta/pic_4.jpg");
+const _temp67 = require("../Roberta/pic_5.jpg");
+const _temp68 = require("../Roberta/pic_6.jpg");
+const _temp69 = require("../Roberta/pic_7.jpg");
+const _temp70 = require("../Roberta/pic_8.jpg");
+const _temp71 = require("../Roberta/pic_9.jpg");
+const _temp72 = require("../Valeria/239645708_913348032586675_3526176268626277941_n.jpg");
+const _temp73 = require("../Valeria/239858938_422969359157922_8304902028896030195_n.jpg");
+const _temp74 = require("../Valeria/240108310_221163499954226_6077238410015003289_n.jpg");
+const _temp75 = require("../Valeria/240108522_986136085294928_4307106541389037811_n.jpg");
+const _temp76 = require("../Valeria/240110620_4776111199083747_2956117918730996962_n.jpg");
+const _temp77 = require("../Valeria/240453595_245641064230822_139858117910837704_n.jpg");
+const _temp78 = require("../bath/DSC04903.JPG.jpg");
+const _temp79 = require("../bath/DSC04905.JPG.jpg");
+const _temp80 = require("../bath/DSC04913.JPG.jpg");
+const _temp81 = require("../bath/DSC04928.JPG.jpg");
+const _temp82 = require("../bath/DSC05007.JPG.jpg");
+const _temp83 = require("../bath/DSC05114-2.JPG.jpg");
+const _temp84 = require("../bath/DSC05117.JPG.jpg");
+const _temp85 = require("../bath/DSC05172.JPG.jpg");
+const _temp86 = require("../family/DSC05233.JPG.jpg");
+const _temp87 = require("../family/DSC05254.JPG.jpg");
+const _temp88 = require("../family/DSC05268.JPG.jpg");
+const _temp89 = require("../family/DSC05347.JPG.jpg");
+const _temp90 = require("../family/DSC05355.JPG.jpg");
+const _temp91 = require("../family/DSC05370.JPG.jpg");
+const _temp92 = require("../family/DSC05418.JPG.jpg");
+const _temp93 = require("../family/DSC05501.JPG.jpg");
+const _temp94 = require("../family/DSC05510.JPG.jpg");
+const _temp95 = require("../family/DSC05517.JPG.jpg");
+const _temp96 = require("../jane/DSC01759.JPG.sm.jpg");
+const _temp97 = require("../jane/DSC01771.JPG.sm.jpg");
+const _temp98 = require("../jane/DSC01907.JPG.sm.jpg");
+const _temp99 = require("../jane/DSC01921.JPG.sm.jpg");
+const _temp100 = require("../jane/DSC01942.JPG.sm.jpg");
+const _temp101 = require("../jane/DSC02031.JPG.sm.jpg");
+const _temp102 = require("../jane/DSC02068.JPG.sm.jpg");
+const _temp103 = require("../jane/DSC02081.JPG.sm.jpg");
+const _temp104 = require("../jane/DSC02095.JPG.sm.jpg");
+const _temp105 = require("../jane/DSC02124.JPG.sm.jpg");
+const _temp106 = require("../jane/DSC02248.JPG.sm.jpg");
+const _temp107 = require("../jane/DSC02287.JPG.sm.jpg");
+const _temp108 = require("../jane/DSC02388.JPG.sm.jpg");
+const _temp109 = require("../jane/DSC02483.JPG.sm.jpg");
+const _temp110 = require("../kids/DSC03810.JPG.jpg");
+const _temp111 = require("../kids/DSC03816.JPG.jpg");
+const _temp112 = require("../kids/DSC03943.JPG.jpg");
+const _temp113 = require("../kids/DSC03954.JPG.jpg");
+const _temp114 = require("../kids/DSC04097.JPG.jpg");
+const _temp115 = require("../kids/DSC04137.JPG.jpg");
+const _temp116 = require("../kids/DSC04198.JPG.jpg");
+const _temp117 = require("../kids/DSC04379.JPG.jpg");
+const _temp118 = require("../kids/DSC04406.JPG.jpg");
+const _temp119 = require("../kids/DSC04437.JPG.jpg");
+const _temp120 = require("../kids/DSC04532.JPG.jpg");
+const _temp121 = require("../kids/DSC04582.JPG.jpg");
+const _temp122 = require("../kids/DSC04929.JPG.jpg");
+const _temp123 = require("../kids/DSC05031.JPG.jpg");
+const _temp124 = require("../kids/DSC05035.JPG.jpg");
+const _temp125 = require("../kids/DSC05585.JPG.jpg");
+const _temp126 = require("../lera/DSC00691.JPG.jpg");
+const _temp127 = require("../lera/DSC00707.JPG.jpg");
+const _temp128 = require("../lera/DSC00817.JPG.jpg");
+const _temp129 = require("../lera/DSC00835.JPG.jpg");
+const _temp130 = require("../lera/DSC00853.JPG.jpg");
+const _temp131 = require("../lera/DSC00883.JPG.jpg");
+const _temp132 = require("../lera/DSC00900.JPG.jpg");
+const _temp133 = require("../lera/DSC00905.JPG.jpg");
+const _temp134 = require("../lera/DSC00912.JPG.jpg");
+const _temp135 = require("../lera/DSC01019.JPG.jpg");
+const _temp136 = require("../lera/DSC01079.JPG.jpg");
+const _temp137 = require("../lera/DSC01153.JPG.jpg");
+const _temp138 = require("../lera/DSC01523.JPG.jpg");
+const _temp139 = require("../lera_riccardo/DSC04357.jpg.jpg");
+const _temp140 = require("../lera_riccardo/DSC04371.jpg.jpg");
+const _temp141 = require("../lera_riccardo/DSC04479.jpg.jpg");
+const _temp142 = require("../lera_riccardo/DSC04495.jpg.jpg");
+const _temp143 = require("../lera_riccardo/DSC04507.jpg.jpg");
+const _temp144 = require("../lera_riccardo/DSC04882.jpg.jpg");
+const _temp145 = require("../libri/DSC01507.JPG.jpg");
+const _temp146 = require("../libri/DSC01509.JPG.jpg");
+const _temp147 = require("../libri/DSC01519.JPG.jpg");
+const _temp148 = require("../libri/DSC01525.JPG.jpg");
+const _temp149 = require("../libri/DSC01553.JPG.jpg");
+const _temp150 = require("../libri/DSC01558.JPG.jpg");
+const _temp151 = require("../libri/DSC01564.JPG.jpg");
+const _temp152 = require("../libri/DSC01593.JPG.jpg");
+const _temp153 = require("../libri/DSC01605.JPG.jpg");
+const _temp154 = require("../nastya/DSC02701.JPG.jpg");
+const _temp155 = require("../nastya/DSC02756.JPG.jpg");
+const _temp156 = require("../nastya/DSC02803.JPG.jpg");
+const _temp157 = require("../nastya/DSC02817.JPG.jpg");
+const _temp158 = require("../nastya/DSC02829.JPG.jpg");
+const _temp159 = require("../nastya/DSC03006.JPG.jpg");
+const _temp160 = require("../nastya/DSC03070.JPG.jpg");
+const _temp161 = require("../nastya/DSC03113.JPG.jpg");
+const _temp162 = require("../nastya/DSC03292.JPG.jpg");
+const _temp163 = require("../nastya/DSC03342.JPG.jpg");
+const _temp164 = require("../silvia/DSC03391.JPG.jpg");
+const _temp165 = require("../silvia/DSC03451.JPG.jpg");
+const _temp166 = require("../silvia/DSC03462.JPG.jpg");
+const _temp167 = require("../silvia/DSC03527.JPG.jpg");
+const _temp168 = require("../silvia/DSC03744.JPG.jpg");
+const _temp169 = require("../silvia/DSC03943.JPG.jpg");
+const _temp170 = require("../silvia/DSC03998.JPG.jpg");
+const _temp171 = require("../silvia/DSC04102.JPG.jpg");
+const _temp172 = require("../silvia/DSC04125.JPG.jpg");
+const _temp173 = require("../silvia/DSC04155.JPG.jpg");
+const _temp174 = require("../silvia/DSC04159.JPG.jpg");
+const _temp175 = require("../silvia/DSC04280.JPG.jpg");
+const _temp176 = require("../silvia/DSC04334.JPG.jpg");
+const _temp177 = require("../silvia/DSC04359.JPG.jpg");
+const _temp178 = require("../yulia/DSC05234.JPG.jpg");
+const _temp179 = require("../yulia/DSC05474.JPG.jpg");
+const _temp180 = require("../yulia/DSC05608.JPG.jpg");
+const _temp181 = require("../yulia/DSC05676.JPG.jpg");
+const _temp182 = require("../yulia/DSC05726.JPG.jpg");
+const _temp183 = require("../yulia/DSC05760.JPG.jpg");
+const _temp184 = require("../yulia/DSC05770.JPG.jpg");
+const _temp185 = require("../yulia/DSC05780.JPG.jpg");
+const _temp186 = require("../yulia/DSC05818.JPG.jpg");
+const _temp187 = require("../yulia/DSC05978.JPG.jpg");
+const _temp188 = require("../yulia/DSC05996.JPG.jpg");
+const _temp189 = require("../yulia/DSC06037.JPG.jpg");
+const _temp190 = require("../yulia/DSC06046.JPG.jpg");
+const _temp191 = require("../yulia/DSC06347.JPG.jpg");
+const _temp192 = require("../yulia_sasha/DSC00029.JPG.jpg");
+const _temp193 = require("../yulia_sasha/DSC00162.JPG.jpg");
+const _temp194 = require("../yulia_sasha/DSC00171.JPG.jpg");
+const _temp195 = require("../yulia_sasha/DSC00197.JPG.jpg");
+const _temp196 = require("../yulia_sasha/DSC00259.JPG.jpg");
+const _temp197 = require("../yulia_sasha/DSC00339.JPG.jpg");
+const _temp198 = require("../yulia_sasha/DSC00413.JPG.jpg");
+const _temp199 = require("../yulia_sasha/DSC00556.JPG.jpg");
+const _temp200 = require("../yulia_sasha/DSC00749.JPG.jpg");
+const _temp201 = require("../yulia_sasha/DSC00789.JPG.jpg");
+const _temp202 = require("../yulia_sasha/DSC09831.JPG.jpg");
+const _temp203 = require("../yulia_sasha/DSC09844.JPG.jpg");
+const _temp204 = require("../yulia_sasha/DSC09849.JPG.jpg");
+const _temp205 = require("../yulia_sasha/DSC09980.JPG.jpg");
+module.exports = {
+    "Andrea": {
+        "DSC01328": _temp0,
+        "DSC01521": _temp1,
+        "DSC01530": _temp2,
+        "pic_10": _temp3,
+        "pic_11": _temp4,
+        "pic_12": _temp5,
+        "pic_13": _temp6,
+        "pic_14": _temp7,
+        "pic_15": _temp8,
+        "pic_9": _temp9
+    },
+    "Arianna": {
+        "pic_0": _temp10,
+        "pic_1": _temp11,
+        "pic_10": _temp12,
+        "pic_11": _temp13,
+        "pic_2": _temp14,
+        "pic_3": _temp15,
+        "pic_4": _temp16,
+        "pic_5": _temp17,
+        "pic_6": _temp18,
+        "pic_7": _temp19,
+        "pic_8": _temp20,
+        "pic_9": _temp21
+    },
+    "Inganno": {
+        "1": _temp22,
+        "2": _temp23,
+        "3": _temp24,
+        "4": _temp25,
+        "5": _temp26,
+        "6": _temp27,
+        "7": _temp28,
+        "8": _temp29,
+        "9": _temp30,
+        "10": _temp31
+    },
+    "Katia": {
+        "pic_0": _temp32,
+        "pic_1": _temp33,
+        "pic_2": _temp34,
+        "pic_3": _temp35,
+        "pic_4": _temp36,
+        "pic_5": _temp37,
+        "pic_6": _temp38,
+        "pic_7": _temp39
+    },
+    "Matteo": {
+        "pic_0": _temp40,
+        "pic_1": _temp41,
+        "pic_2": _temp42,
+        "pic_3": _temp43,
+        "pic_4": _temp44,
+        "pic_5": _temp45,
+        "pic_6": _temp46,
+        "pic_7": _temp47,
+        "pic_8": _temp48,
+        "pic_9": _temp49
+    },
+    "Nastia": {
+        "DSC07826": _temp50,
+        "DSC07836": _temp51,
+        "DSC08026": _temp52,
+        "DSC08077": _temp53,
+        "DSC08167": _temp54,
+        "DSC08191": _temp55,
+        "DSC08386": _temp56
+    },
+    "Roberta": {
+        "pic_0": _temp57,
+        "pic_1": _temp58,
+        "pic_10": _temp59,
+        "pic_11": _temp60,
+        "pic_12": _temp61,
+        "pic_13": _temp62,
+        "pic_14": _temp63,
+        "pic_2": _temp64,
+        "pic_3": _temp65,
+        "pic_4": _temp66,
+        "pic_5": _temp67,
+        "pic_6": _temp68,
+        "pic_7": _temp69,
+        "pic_8": _temp70,
+        "pic_9": _temp71
+    },
+    "Valeria": {
+        "239645708_913348032586675_3526176268626277941_n": _temp72,
+        "239858938_422969359157922_8304902028896030195_n": _temp73,
+        "240108310_221163499954226_6077238410015003289_n": _temp74,
+        "240108522_986136085294928_4307106541389037811_n": _temp75,
+        "240110620_4776111199083747_2956117918730996962_n": _temp76,
+        "240453595_245641064230822_139858117910837704_n": _temp77
+    },
+    "bath": {
+        "DSC04903.JPG": _temp78,
+        "DSC04905.JPG": _temp79,
+        "DSC04913.JPG": _temp80,
+        "DSC04928.JPG": _temp81,
+        "DSC05007.JPG": _temp82,
+        "DSC05114-2.JPG": _temp83,
+        "DSC05117.JPG": _temp84,
+        "DSC05172.JPG": _temp85
+    },
+    "family": {
+        "DSC05233.JPG": _temp86,
+        "DSC05254.JPG": _temp87,
+        "DSC05268.JPG": _temp88,
+        "DSC05347.JPG": _temp89,
+        "DSC05355.JPG": _temp90,
+        "DSC05370.JPG": _temp91,
+        "DSC05418.JPG": _temp92,
+        "DSC05501.JPG": _temp93,
+        "DSC05510.JPG": _temp94,
+        "DSC05517.JPG": _temp95
+    },
+    "jane": {
+        "DSC01759.JPG.sm": _temp96,
+        "DSC01771.JPG.sm": _temp97,
+        "DSC01907.JPG.sm": _temp98,
+        "DSC01921.JPG.sm": _temp99,
+        "DSC01942.JPG.sm": _temp100,
+        "DSC02031.JPG.sm": _temp101,
+        "DSC02068.JPG.sm": _temp102,
+        "DSC02081.JPG.sm": _temp103,
+        "DSC02095.JPG.sm": _temp104,
+        "DSC02124.JPG.sm": _temp105,
+        "DSC02248.JPG.sm": _temp106,
+        "DSC02287.JPG.sm": _temp107,
+        "DSC02388.JPG.sm": _temp108,
+        "DSC02483.JPG.sm": _temp109
+    },
+    "kids": {
+        "DSC03810.JPG": _temp110,
+        "DSC03816.JPG": _temp111,
+        "DSC03943.JPG": _temp112,
+        "DSC03954.JPG": _temp113,
+        "DSC04097.JPG": _temp114,
+        "DSC04137.JPG": _temp115,
+        "DSC04198.JPG": _temp116,
+        "DSC04379.JPG": _temp117,
+        "DSC04406.JPG": _temp118,
+        "DSC04437.JPG": _temp119,
+        "DSC04532.JPG": _temp120,
+        "DSC04582.JPG": _temp121,
+        "DSC04929.JPG": _temp122,
+        "DSC05031.JPG": _temp123,
+        "DSC05035.JPG": _temp124,
+        "DSC05585.JPG": _temp125
+    },
+    "lera": {
+        "DSC00691.JPG": _temp126,
+        "DSC00707.JPG": _temp127,
+        "DSC00817.JPG": _temp128,
+        "DSC00835.JPG": _temp129,
+        "DSC00853.JPG": _temp130,
+        "DSC00883.JPG": _temp131,
+        "DSC00900.JPG": _temp132,
+        "DSC00905.JPG": _temp133,
+        "DSC00912.JPG": _temp134,
+        "DSC01019.JPG": _temp135,
+        "DSC01079.JPG": _temp136,
+        "DSC01153.JPG": _temp137,
+        "DSC01523.JPG": _temp138
+    },
+    "lera_riccardo": {
+        "DSC04357.jpg": _temp139,
+        "DSC04371.jpg": _temp140,
+        "DSC04479.jpg": _temp141,
+        "DSC04495.jpg": _temp142,
+        "DSC04507.jpg": _temp143,
+        "DSC04882.jpg": _temp144
+    },
+    "libri": {
+        "DSC01507.JPG": _temp145,
+        "DSC01509.JPG": _temp146,
+        "DSC01519.JPG": _temp147,
+        "DSC01525.JPG": _temp148,
+        "DSC01553.JPG": _temp149,
+        "DSC01558.JPG": _temp150,
+        "DSC01564.JPG": _temp151,
+        "DSC01593.JPG": _temp152,
+        "DSC01605.JPG": _temp153
+    },
+    "nastya": {
+        "DSC02701.JPG": _temp154,
+        "DSC02756.JPG": _temp155,
+        "DSC02803.JPG": _temp156,
+        "DSC02817.JPG": _temp157,
+        "DSC02829.JPG": _temp158,
+        "DSC03006.JPG": _temp159,
+        "DSC03070.JPG": _temp160,
+        "DSC03113.JPG": _temp161,
+        "DSC03292.JPG": _temp162,
+        "DSC03342.JPG": _temp163
+    },
+    "silvia": {
+        "DSC03391.JPG": _temp164,
+        "DSC03451.JPG": _temp165,
+        "DSC03462.JPG": _temp166,
+        "DSC03527.JPG": _temp167,
+        "DSC03744.JPG": _temp168,
+        "DSC03943.JPG": _temp169,
+        "DSC03998.JPG": _temp170,
+        "DSC04102.JPG": _temp171,
+        "DSC04125.JPG": _temp172,
+        "DSC04155.JPG": _temp173,
+        "DSC04159.JPG": _temp174,
+        "DSC04280.JPG": _temp175,
+        "DSC04334.JPG": _temp176,
+        "DSC04359.JPG": _temp177
+    },
+    "yulia": {
+        "DSC05234.JPG": _temp178,
+        "DSC05474.JPG": _temp179,
+        "DSC05608.JPG": _temp180,
+        "DSC05676.JPG": _temp181,
+        "DSC05726.JPG": _temp182,
+        "DSC05760.JPG": _temp183,
+        "DSC05770.JPG": _temp184,
+        "DSC05780.JPG": _temp185,
+        "DSC05818.JPG": _temp186,
+        "DSC05978.JPG": _temp187,
+        "DSC05996.JPG": _temp188,
+        "DSC06037.JPG": _temp189,
+        "DSC06046.JPG": _temp190,
+        "DSC06347.JPG": _temp191
+    },
+    "yulia_sasha": {
+        "DSC00029.JPG": _temp192,
+        "DSC00162.JPG": _temp193,
+        "DSC00171.JPG": _temp194,
+        "DSC00197.JPG": _temp195,
+        "DSC00259.JPG": _temp196,
+        "DSC00339.JPG": _temp197,
+        "DSC00413.JPG": _temp198,
+        "DSC00556.JPG": _temp199,
+        "DSC00749.JPG": _temp200,
+        "DSC00789.JPG": _temp201,
+        "DSC09831.JPG": _temp202,
+        "DSC09844.JPG": _temp203,
+        "DSC09849.JPG": _temp204,
+        "DSC09980.JPG": _temp205
+    }
+};
+
+},{"../Andrea/DSC01328.jpg":"hRoJD","../Andrea/DSC01521.jpg":"kDciS","../Andrea/DSC01530.jpg":"kPZ4W","../Andrea/pic_10.jpg":"cHmim","../Andrea/pic_11.jpg":"hVcrc","../Andrea/pic_12.jpg":"jKlhJ","../Andrea/pic_13.jpg":"jtYtg","../Andrea/pic_14.jpg":"2UESJ","../Andrea/pic_15.jpg":"922HP","../Andrea/pic_9.jpg":"jSfp4","../Arianna/pic_0.jpg":"auLbh","../Arianna/pic_1.jpg":"iAfPt","../Arianna/pic_10.jpg":"aQDpZ","../Arianna/pic_11.jpg":"R6BUR","../Arianna/pic_2.jpg":"3frM6","../Arianna/pic_3.jpg":"efIZZ","../Arianna/pic_4.jpg":"bFr8T","../Arianna/pic_5.jpg":"kk6oK","../Arianna/pic_6.jpg":"jOlOW","../Arianna/pic_7.jpg":"jRqb2","../Arianna/pic_8.jpg":"3ASMb","../Arianna/pic_9.jpg":"9xrLx","../Inganno/1.jpg":"cXFMX","../Inganno/2.jpg":"eYjAi","../Inganno/3.jpg":"dzvRw","../Inganno/4.jpg":"25uYQ","../Inganno/5.jpg":"6xnJd","../Inganno/6.jpg":"4i2K2","../Inganno/7.jpg":"8KeWv","../Inganno/8.jpg":"8BTVQ","../Inganno/9.jpg":"75YVs","../Inganno/10.jpg":"hH93w","../Katia/pic_0.jpg":"brCd4","../Katia/pic_1.jpg":"5k64l","../Katia/pic_2.jpg":"efIsy","../Katia/pic_3.jpg":"8GdmZ","../Katia/pic_4.jpg":"fJf2z","../Katia/pic_5.jpg":"6h9cv","../Katia/pic_6.jpg":"alue5","../Katia/pic_7.jpg":"e6M8v","../Matteo/pic_0.jpg":"gZNPp","../Matteo/pic_1.jpg":"8tQWi","../Matteo/pic_2.jpg":"cDanF","../Matteo/pic_3.jpg":"6knsV","../Matteo/pic_4.jpg":"gwu8n","../Matteo/pic_5.jpg":"fVWwX","../Matteo/pic_6.jpg":"9plNI","../Matteo/pic_7.jpg":"aLqGh","../Matteo/pic_8.jpg":"031sh","../Matteo/pic_9.jpg":"8gMYd","../Nastia/DSC07826.jpg":"9AVLD","../Nastia/DSC07836.jpg":"4gDqK","../Nastia/DSC08026.jpg":"97xVA","../Nastia/DSC08077.jpg":"dT3AH","../Nastia/DSC08167.jpg":"disvw","../Nastia/DSC08191.jpg":"82WXc","../Nastia/DSC08386.jpg":"4xBCp","../Roberta/pic_0.jpg":"7Tv3D","../Roberta/pic_1.jpg":"gZjDs","../Roberta/pic_10.jpg":"8enkX","../Roberta/pic_11.jpg":"bRQEo","../Roberta/pic_12.jpg":"cyTn7","../Roberta/pic_13.jpg":"65oxB","../Roberta/pic_14.jpg":"fTWSL","../Roberta/pic_2.jpg":"e0eqk","../Roberta/pic_3.jpg":"iQ3Fq","../Roberta/pic_4.jpg":"leutP","../Roberta/pic_5.jpg":"eFIuM","../Roberta/pic_6.jpg":"CX81U","../Roberta/pic_7.jpg":"8hJhl","../Roberta/pic_8.jpg":"8oINI","../Roberta/pic_9.jpg":"kmSx4","../Valeria/239645708_913348032586675_3526176268626277941_n.jpg":"kndmW","../Valeria/239858938_422969359157922_8304902028896030195_n.jpg":"4sU58","../Valeria/240108310_221163499954226_6077238410015003289_n.jpg":"etHor","../Valeria/240108522_986136085294928_4307106541389037811_n.jpg":"eMAQg","../Valeria/240110620_4776111199083747_2956117918730996962_n.jpg":"8Vxw5","../Valeria/240453595_245641064230822_139858117910837704_n.jpg":"5mveD","../bath/DSC04903.JPG.jpg":"jxdGf","../bath/DSC04905.JPG.jpg":"eyKGc","../bath/DSC04913.JPG.jpg":"i7iZq","../bath/DSC04928.JPG.jpg":"buXog","../bath/DSC05007.JPG.jpg":"jU2uz","../bath/DSC05114-2.JPG.jpg":"bIEBd","../bath/DSC05117.JPG.jpg":"aUA1A","../bath/DSC05172.JPG.jpg":"9Hfiy","../family/DSC05233.JPG.jpg":"kYGht","../family/DSC05254.JPG.jpg":"i3fxE","../family/DSC05268.JPG.jpg":"fj8eg","../family/DSC05347.JPG.jpg":"6xrcg","../family/DSC05355.JPG.jpg":"2COJ2","../family/DSC05370.JPG.jpg":"6TVq1","../family/DSC05418.JPG.jpg":"a09nc","../family/DSC05501.JPG.jpg":"ihVwe","../family/DSC05510.JPG.jpg":"eo17a","../family/DSC05517.JPG.jpg":"jgWzh","../jane/DSC01759.JPG.sm.jpg":"gghIc","../jane/DSC01771.JPG.sm.jpg":"jbNQI","../jane/DSC01907.JPG.sm.jpg":"c0ns6","../jane/DSC01921.JPG.sm.jpg":"fwrHK","../jane/DSC01942.JPG.sm.jpg":"bBnCV","../jane/DSC02031.JPG.sm.jpg":"2oDEl","../jane/DSC02068.JPG.sm.jpg":"5k6CV","../jane/DSC02081.JPG.sm.jpg":"a34hK","../jane/DSC02095.JPG.sm.jpg":"fWgPz","../jane/DSC02124.JPG.sm.jpg":"nvufX","../jane/DSC02248.JPG.sm.jpg":"4i8i1","../jane/DSC02287.JPG.sm.jpg":"7mBxH","../jane/DSC02388.JPG.sm.jpg":"43ZrH","../jane/DSC02483.JPG.sm.jpg":"aD7xn","../kids/DSC03810.JPG.jpg":"jceMa","../kids/DSC03816.JPG.jpg":"tOGk3","../kids/DSC03943.JPG.jpg":"648gS","../kids/DSC03954.JPG.jpg":"eDC9m","../kids/DSC04097.JPG.jpg":"2fHtz","../kids/DSC04137.JPG.jpg":"fGROC","../kids/DSC04198.JPG.jpg":"cmuOh","../kids/DSC04379.JPG.jpg":"4Fd3M","../kids/DSC04406.JPG.jpg":"dPOAB","../kids/DSC04437.JPG.jpg":"efLTr","../kids/DSC04532.JPG.jpg":"codNr","../kids/DSC04582.JPG.jpg":"73DWE","../kids/DSC04929.JPG.jpg":"8iX13","../kids/DSC05031.JPG.jpg":"Qi4Kk","../kids/DSC05035.JPG.jpg":"9GDmP","../kids/DSC05585.JPG.jpg":"5i02u","../lera/DSC00691.JPG.jpg":"gEQxC","../lera/DSC00707.JPG.jpg":"VUsbH","../lera/DSC00817.JPG.jpg":"9p1oP","../lera/DSC00835.JPG.jpg":"k08EB","../lera/DSC00853.JPG.jpg":"kxpY5","../lera/DSC00883.JPG.jpg":"h3ATa","../lera/DSC00900.JPG.jpg":"RXy8E","../lera/DSC00905.JPG.jpg":"1Y6Cc","../lera/DSC00912.JPG.jpg":"aL3p7","../lera/DSC01019.JPG.jpg":"h6UJR","../lera/DSC01079.JPG.jpg":"cOflM","../lera/DSC01153.JPG.jpg":"jW3an","../lera/DSC01523.JPG.jpg":"hQUrH","../lera_riccardo/DSC04357.jpg.jpg":"7lQQI","../lera_riccardo/DSC04371.jpg.jpg":"80zY0","../lera_riccardo/DSC04479.jpg.jpg":"YlLJF","../lera_riccardo/DSC04495.jpg.jpg":"6do8p","../lera_riccardo/DSC04507.jpg.jpg":"lekpl","../lera_riccardo/DSC04882.jpg.jpg":"iNQrD","../libri/DSC01507.JPG.jpg":"8d9ZI","../libri/DSC01509.JPG.jpg":"Mmo4M","../libri/DSC01519.JPG.jpg":"fUcLo","../libri/DSC01525.JPG.jpg":"aXJsR","../libri/DSC01553.JPG.jpg":"hJAac","../libri/DSC01558.JPG.jpg":"UVexb","../libri/DSC01564.JPG.jpg":"ho7Rh","../libri/DSC01593.JPG.jpg":"lNPn2","../libri/DSC01605.JPG.jpg":"bOxtB","../nastya/DSC02701.JPG.jpg":"4b06H","../nastya/DSC02756.JPG.jpg":"6MaM6","../nastya/DSC02803.JPG.jpg":"lSIEd","../nastya/DSC02817.JPG.jpg":"d5Rfq","../nastya/DSC02829.JPG.jpg":"93Al0","../nastya/DSC03006.JPG.jpg":"lfCun","../nastya/DSC03070.JPG.jpg":"fO1V6","../nastya/DSC03113.JPG.jpg":"28aWT","../nastya/DSC03292.JPG.jpg":"1suXF","../nastya/DSC03342.JPG.jpg":"cLpL4","../silvia/DSC03391.JPG.jpg":"gN5Uj","../silvia/DSC03451.JPG.jpg":"jpyIv","../silvia/DSC03462.JPG.jpg":"7J7b4","../silvia/DSC03527.JPG.jpg":"gEXdb","../silvia/DSC03744.JPG.jpg":"93qdK","../silvia/DSC03943.JPG.jpg":"bKtGk","../silvia/DSC03998.JPG.jpg":"9YYcZ","../silvia/DSC04102.JPG.jpg":"8h8eN","../silvia/DSC04125.JPG.jpg":"f7VaF","../silvia/DSC04155.JPG.jpg":"dSmk7","../silvia/DSC04159.JPG.jpg":"lhbY3","../silvia/DSC04280.JPG.jpg":"cTYzs","../silvia/DSC04334.JPG.jpg":"j3psF","../silvia/DSC04359.JPG.jpg":"khZJi","../yulia/DSC05234.JPG.jpg":"4yT2m","../yulia/DSC05474.JPG.jpg":"7GGOE","../yulia/DSC05608.JPG.jpg":"iCvSh","../yulia/DSC05676.JPG.jpg":"3c7w3","../yulia/DSC05726.JPG.jpg":"8Ilec","../yulia/DSC05760.JPG.jpg":"lrVh1","../yulia/DSC05770.JPG.jpg":"kLFjG","../yulia/DSC05780.JPG.jpg":"44klB","../yulia/DSC05818.JPG.jpg":"3ElzM","../yulia/DSC05978.JPG.jpg":"baT44","../yulia/DSC05996.JPG.jpg":"hkEFZ","../yulia/DSC06037.JPG.jpg":"8q3YV","../yulia/DSC06046.JPG.jpg":"5Jv8Y","../yulia/DSC06347.JPG.jpg":"i3zWA","../yulia_sasha/DSC00029.JPG.jpg":"kCfLm","../yulia_sasha/DSC00162.JPG.jpg":"8mEVD","../yulia_sasha/DSC00171.JPG.jpg":"ejl0u","../yulia_sasha/DSC00197.JPG.jpg":"amoq6","../yulia_sasha/DSC00259.JPG.jpg":"dDQuw","../yulia_sasha/DSC00339.JPG.jpg":"ja90C","../yulia_sasha/DSC00413.JPG.jpg":"fNjSg","../yulia_sasha/DSC00556.JPG.jpg":"2aQtc","../yulia_sasha/DSC00749.JPG.jpg":"6cpVj","../yulia_sasha/DSC00789.JPG.jpg":"c9Bw7","../yulia_sasha/DSC09831.JPG.jpg":"3JGrS","../yulia_sasha/DSC09844.JPG.jpg":"4Q8sn","../yulia_sasha/DSC09849.JPG.jpg":"hOYYB","../yulia_sasha/DSC09980.JPG.jpg":"7Ix5h"}],"hRoJD":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01328.dd143993.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"chiK4":[function(require,module,exports) {
+"use strict";
+var bundleURL = {
+};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return '/';
+}
+function getBaseURL(url) {
+    return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ('' + url).match(/(https?|file|ftp):\/\/[^/]+/);
+    if (!matches) throw new Error('Origin not found');
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}],"kDciS":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01521.aff48e98.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"kPZ4W":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01530.15ff90da.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"cHmim":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_10.78208dc2.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"hVcrc":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_11.7999c15d.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"jKlhJ":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_12.d96c8373.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"jtYtg":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_13.792abaf6.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"2UESJ":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_14.02e647ee.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"922HP":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_15.4d2b85ca.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"jSfp4":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_9.b5e5ed7f.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"auLbh":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_0.057c2856.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"iAfPt":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_1.22f8ed5e.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"aQDpZ":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_10.2056aeca.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"R6BUR":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_11.329be0bc.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"3frM6":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_2.1c9fd381.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"efIZZ":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_3.d31a86b9.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"bFr8T":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_4.94a358fc.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"kk6oK":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_5.7a7313ec.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"jOlOW":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_6.15eeaed4.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"jRqb2":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_7.5794c806.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"3ASMb":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_8.e901c4f0.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"9xrLx":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_9.224cf7dd.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"cXFMX":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "1.6c0475a8.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"eYjAi":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "2.d180dbbb.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"dzvRw":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "3.5f0d813d.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"25uYQ":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "4.ada9c2a2.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"6xnJd":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "5.a20972fd.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"4i2K2":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "6.29ef4fa2.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8KeWv":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "7.598d504b.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8BTVQ":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "8.b17e6f5d.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"75YVs":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "9.d2f46422.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"hH93w":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "10.b4f2a28b.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"brCd4":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_0.ddc8bec4.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"5k64l":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_1.5f736752.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"efIsy":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_2.08001445.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8GdmZ":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_3.2e846be1.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"fJf2z":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_4.593140b9.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"6h9cv":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_5.3c24871b.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"alue5":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_6.1673c9ec.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"e6M8v":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_7.9e58bd7f.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"gZNPp":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_0.a494541a.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8tQWi":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_1.5da3eed5.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"cDanF":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_2.1a08d2d7.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"6knsV":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_3.65cb02dd.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"gwu8n":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_4.12ac8484.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"fVWwX":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_5.1c0e05ea.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"9plNI":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_6.6bb040aa.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"aLqGh":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_7.e44544a7.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"031sh":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_8.b90f642b.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8gMYd":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_9.84c1a91f.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"9AVLD":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC07826.ba4dfdff.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"4gDqK":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC07836.31c5c297.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"97xVA":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC08026.21eb0ae4.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"dT3AH":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC08077.c2ecdd56.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"disvw":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC08167.2b06d695.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"82WXc":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC08191.1f80abd4.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"4xBCp":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC08386.e4ee8bf9.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"7Tv3D":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_0.ae7e09ba.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"gZjDs":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_1.64790b5e.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8enkX":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_10.57d12a09.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"bRQEo":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_11.6ec8f916.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"cyTn7":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_12.e27fdafb.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"65oxB":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_13.250d15ce.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"fTWSL":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_14.b169344d.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"e0eqk":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_2.1103a691.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"iQ3Fq":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_3.a873d067.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"leutP":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_4.5e870878.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"eFIuM":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_5.207feacc.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"CX81U":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_6.f89b9ea3.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8hJhl":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_7.5522e693.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8oINI":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_8.0000ef58.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"kmSx4":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_9.f39145d3.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"kndmW":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "239645708_913348032586675_3526176268626277941_n.451dc16d.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"4sU58":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "239858938_422969359157922_8304902028896030195_n.1afa5611.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"etHor":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "240108310_221163499954226_6077238410015003289_n.f8cf644d.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"eMAQg":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "240108522_986136085294928_4307106541389037811_n.f97058dc.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8Vxw5":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "240110620_4776111199083747_2956117918730996962_n.c6da6197.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"5mveD":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "240453595_245641064230822_139858117910837704_n.697a6fe2.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"jxdGf":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04903.JPG.35b6fb4f.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"eyKGc":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04905.JPG.a0248318.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"i7iZq":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04913.JPG.092f74cb.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"buXog":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04928.JPG.d1c33816.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"jU2uz":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05007.JPG.0c473597.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"bIEBd":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05114-2.JPG.36b5c8a3.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"aUA1A":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05117.JPG.e80402d6.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"9Hfiy":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05172.JPG.5fbdae29.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"kYGht":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05233.JPG.0e62c18c.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"i3fxE":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05254.JPG.c9a716a6.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"fj8eg":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05268.JPG.27c63dd8.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"6xrcg":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05347.JPG.f52e07c8.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"2COJ2":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05355.JPG.416f28cc.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"6TVq1":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05370.JPG.2ec2e954.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"a09nc":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05418.JPG.adf66517.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"ihVwe":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05501.JPG.af24ef59.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"eo17a":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05510.JPG.484c07d3.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"jgWzh":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05517.JPG.e7c05aef.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"gghIc":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01759.JPG.sm.aa61f81f.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"jbNQI":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01771.JPG.sm.57fd8a7d.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"c0ns6":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01907.JPG.sm.07cc3f76.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"fwrHK":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01921.JPG.sm.dec52a84.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"bBnCV":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01942.JPG.sm.467567ca.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"2oDEl":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02031.JPG.sm.0cd80977.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"5k6CV":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02068.JPG.sm.fad148ce.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"a34hK":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02081.JPG.sm.4203bd67.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"fWgPz":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02095.JPG.sm.4f63a877.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"nvufX":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02124.JPG.sm.65f5c8e6.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"4i8i1":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02248.JPG.sm.a0700c19.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"7mBxH":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02287.JPG.sm.af2443a0.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"43ZrH":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02388.JPG.sm.93508615.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"aD7xn":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02483.JPG.sm.647e87fd.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"jceMa":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03810.JPG.b7f10b8e.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"tOGk3":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03816.JPG.1649ebee.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"648gS":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03943.JPG.9460aeb5.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"eDC9m":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03954.JPG.96e1368a.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"2fHtz":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04097.JPG.fc22f6db.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"fGROC":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04137.JPG.f1bd53a0.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"cmuOh":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04198.JPG.8db87bff.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"4Fd3M":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04379.JPG.aa98854a.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"dPOAB":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04406.JPG.28ea8eb1.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"efLTr":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04437.JPG.f53b2504.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"codNr":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04532.JPG.2da9892d.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"73DWE":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04582.JPG.a8f636c2.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8iX13":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04929.JPG.049bda86.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"Qi4Kk":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05031.JPG.ad548468.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"9GDmP":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05035.JPG.3e98e66b.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"5i02u":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05585.JPG.7fceb6a9.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"gEQxC":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00691.JPG.686713d2.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"VUsbH":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00707.JPG.be6ca46c.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"9p1oP":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00817.JPG.0d76df02.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"k08EB":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00835.JPG.de6b06c8.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"kxpY5":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00853.JPG.c46f3a1a.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"h3ATa":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00883.JPG.fe7d249e.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"RXy8E":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00900.JPG.8e9dc4b9.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"1Y6Cc":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00905.JPG.61305ded.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"aL3p7":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00912.JPG.e1eb5fe7.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"h6UJR":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01019.JPG.85e1f7e8.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"cOflM":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01079.JPG.87c58bb8.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"jW3an":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01153.JPG.5ece4f0a.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"hQUrH":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01523.JPG.155b2678.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"7lQQI":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04357.jpg.4e9de86b.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"80zY0":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04371.jpg.277b7e6f.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"YlLJF":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04479.jpg.84361cf5.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"6do8p":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04495.jpg.a173a2a1.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"lekpl":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04507.jpg.7d4ae6ba.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"iNQrD":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04882.jpg.8ae522b2.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8d9ZI":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01507.JPG.aa02b06b.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"Mmo4M":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01509.JPG.10109f8d.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"fUcLo":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01519.JPG.2948b079.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"aXJsR":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01525.JPG.0bc32fe2.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"hJAac":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01553.JPG.af1cce2a.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"UVexb":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01558.JPG.1e39f46b.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"ho7Rh":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01564.JPG.96da25cb.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"lNPn2":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01593.JPG.92c98fd3.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"bOxtB":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01605.JPG.4953b059.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"4b06H":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02701.JPG.9fda6c58.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"6MaM6":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02756.JPG.88436d2f.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"lSIEd":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02803.JPG.4f970c01.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"d5Rfq":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02817.JPG.b5b77a11.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"93Al0":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02829.JPG.1a3b1f4e.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"lfCun":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03006.JPG.091b0f97.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"fO1V6":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03070.JPG.406ae465.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"28aWT":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03113.JPG.82f9a989.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"1suXF":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03292.JPG.eeee84f3.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"cLpL4":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03342.JPG.3eefd400.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"gN5Uj":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03391.JPG.81574f02.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"jpyIv":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03451.JPG.d2ed9335.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"7J7b4":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03462.JPG.78fa0321.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"gEXdb":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03527.JPG.2901b7b6.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"93qdK":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03744.JPG.852708d9.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"bKtGk":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03943.JPG.53d9d188.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"9YYcZ":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC03998.JPG.37422832.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8h8eN":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04102.JPG.813d1a05.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"f7VaF":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04125.JPG.ac526c8a.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"dSmk7":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04155.JPG.cf625c2f.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"lhbY3":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04159.JPG.0e11470e.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"cTYzs":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04280.JPG.d1137fd3.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"j3psF":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04334.JPG.b969a4f1.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"khZJi":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC04359.JPG.12641480.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"4yT2m":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05234.JPG.ff79a36e.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"7GGOE":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05474.JPG.0b61b7aa.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"iCvSh":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05608.JPG.02e5da37.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"3c7w3":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05676.JPG.9552766d.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8Ilec":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05726.JPG.94ce89f2.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"lrVh1":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05760.JPG.da9a7413.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"kLFjG":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05770.JPG.ebbbd7a7.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"44klB":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05780.JPG.e3ab8e5f.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"3ElzM":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05818.JPG.420c0538.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"baT44":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05978.JPG.01281627.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"hkEFZ":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC05996.JPG.56844918.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8q3YV":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC06037.JPG.436078de.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"5Jv8Y":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC06046.JPG.e22cced1.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"i3zWA":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC06347.JPG.2c69ae5d.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"kCfLm":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00029.JPG.5da7e3f7.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"8mEVD":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00162.JPG.745d8f16.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"ejl0u":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00171.JPG.91dcace0.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"amoq6":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00197.JPG.406de695.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"dDQuw":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00259.JPG.a565407b.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"ja90C":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00339.JPG.fda40a38.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"fNjSg":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00413.JPG.dcd7e926.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"2aQtc":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00556.JPG.4d0ea2ea.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"6cpVj":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00749.JPG.77c9a4b3.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"c9Bw7":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC00789.JPG.099124f5.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"3JGrS":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC09831.JPG.e1643b90.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"4Q8sn":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC09844.JPG.bf820819.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"hOYYB":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC09849.JPG.149b4e95.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"7Ix5h":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC09980.JPG.6ef01039.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"pLhS0":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "SelectedPic", ()=>SelectedPic
+);
+parcelHelpers.export(exports, "Modal", ()=>Modal
+);
+var _mithril = require("mithril");
+var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
+var _jpg = require("../../assets/img/*/*.jpg");
+var _jpgDefault = parcelHelpers.interopDefault(_jpg);
+var _works = require("./Works");
+var _utils = require("../utils");
+const LeftArrow = {
+    view (v) {
+        const cn = v.attrs.disabled ? '[disabled]' : '';
+        return _mithrilDefault.default('.left-arrow', _mithrilDefault.default(`button${cn}`, {
+            onclick () {
+                v.attrs.parentState.picIndex -= 1;
+            }
+        }, 'prev'));
+    }
+};
+const RightArrow = {
+    view (v) {
+        const cn = v.attrs.disabled ? '[disabled]' : '';
+        return _mithrilDefault.default('.right-arrow', _mithrilDefault.default(`button${cn}`, {
+            onclick () {
+                v.attrs.parentState.picIndex += 1;
+            }
+        }, // m("svg.svg-icon[viewBox='0 0 20 20']",
+        //   m("path[fill='currentColor'][d='M14.989,9.491L6.071,0.537C5.78,0.246,5.308,0.244,5.017,0.535c-0.294,0.29-0.294,0.763-0.003,1.054l8.394,8.428L5.014,18.41c-0.291,0.291-0.291,0.763,0,1.054c0.146,0.146,0.335,0.218,0.527,0.218c0.19,0,0.382-0.073,0.527-0.218l8.918-8.919C15.277,10.254,15.277,9.784,14.989,9.491z']")
+        // )
+        'next'));
+    }
+};
+const handleClose = (v)=>{
+    v.attrs.parentState.picIndex = 0;
+    v.attrs.showModal = false;
+    const root = document.querySelector('.selected_root');
+    _utils.cl('.overlay, .controls', 'add', 'hidden');
+    _utils.cl('.selected_root', 'add', 'hidden');
+    root.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    _works.columnsExitAnim.reverse();
+    _works.columnsExitAnim.play();
+    _works.pictureAnimation.reverse();
+    _works.pictureAnimation.complete = ()=>{
+        _utils.cl('.modal', 'add', 'hidden');
+        _utils.cl('.nav', 'remove', 'hidden');
+        _utils.cl('.c-scrollbar', 'remove', 'd-none');
+        _utils.cl('.column-item.v-hidden', 'remove', 'v-hidden');
+        window.scroller.start();
+    };
+    _works.pictureAnimation.play();
+};
+const CloseButton = {
+    oncreate (v) {
+        window.addEventListener('resize', ()=>handleClose(v)
+        );
+    },
+    view (v) {
+        return _mithrilDefault.default('.close-button', _mithrilDefault.default('button.flex', {
+            onclick () {
+                handleClose(v);
+            }
+        }, _mithrilDefault.default("svg[viewBox='0 0 50 9']", {
+            style: {
+                stroke: 'white',
+                fill: 'white',
+                width: '5rem',
+                height: '5rem',
+                color: '#282829'
+            }
+        }, _mithrilDefault.default("path[stroke=currentColor][fill=currentColor][d='m0 4.5 5-3m-5 3 5 3m45-3h-77']"))));
+    }
+};
+function Modal() {
+    return {
+        oninit (v) {
+            v.state.picIndex = 0;
+            v.state.selTitle = v.attrs.selTitle;
+            v.state.picsObj = _jpgDefault.default[v.state.selTitle];
+        },
+        oncreate (v) {
+            const root = document.querySelector('.selected_root');
+            root.addEventListener('swiped-left', (_)=>{
+                if (v.state.picIndex < v.state.picsArray.length - 1) v.state.picIndex += 1;
+                _mithrilDefault.default.redraw();
+            });
+            root.addEventListener('swiped-right', (_)=>{
+                if (v.state.picIndex > 0) v.state.picIndex -= 1;
+                _mithrilDefault.default.redraw();
+            });
+        },
+        view (v) {
+            v.state.picsObj = _jpgDefault.default[v.attrs.selTitle] || {
+            };
+            v.state.picsArray = Object.values(v.state.picsObj) || [];
+            return _mithrilDefault.default('.modal.hidden[data-scroll][data-scroll-sticky][data-scroll-target=.main]', _mithrilDefault.default('.selected_root', _mithrilDefault.default('.carousel-wrap', _mithrilDefault.default('.carousel', v.state.picsArray.map((url, i)=>{
+                const clname = i === v.state.picIndex ? 'selected' : '';
+                const diff = v.state.picIndex - i;
+                return _mithrilDefault.default(`.img-wrap.${clname}[data-index=${i}]`, {
+                    style: {
+                        transform: `translate3d(${-diff * 100}%, ${0}px,  ${0}px)`
+                    },
+                    key: url
+                }, _mithrilDefault.default('img', {
+                    src: url
+                }));
+            })), _mithrilDefault.default('.controls.hidden', _mithrilDefault.default('.controls__bot', _mithrilDefault.default('.space-between', _mithrilDefault.default(LeftArrow, {
+                parentState: v.state,
+                disabled: v.state.picIndex == 0
+            }), _mithrilDefault.default(RightArrow, {
+                parentState: v.state,
+                disabled: v.state.picIndex == v.state.picsArray.length - 1
+            })), _mithrilDefault.default(`.controls__thumbs`, _mithrilDefault.default('.thumbs-wrapper', {
+                style: {
+                    transform: `translateX(-${v.state.picIndex * 20}%)`
+                }
+            }, v.state.picsArray.map((url, i)=>_mithrilDefault.default(`.thumb-wrap[data-index=${i}]${i == v.state.picIndex ? '.selected' : ''}`, {
+                    key: url,
+                    onclick () {
+                        v.state.picIndex = i;
+                        const sx = 46 * i;
+                    }
+                }, _mithrilDefault.default('img.placeholder', {
+                    src: url
+                }))
+            )))), _mithrilDefault.default('.controls__top', _mithrilDefault.default(CloseButton, {
+                parentState: v.state,
+                showModal: v.attrs.showModal
+            }), _mithrilDefault.default('div', v.attrs.selTitle))))));
+        }
+    };
+}
+
+},{"mithril":"a7UJj","../../assets/img/*/*.jpg":"5yMWl","./Works":"gcDDq","../utils":"fIYUT","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"ewZrl":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Title", ()=>Title
+);
+parcelHelpers.export(exports, "completeLoadingAnim", ()=>completeLoadingAnim
+);
+parcelHelpers.export(exports, "beginLoadingAnim", ()=>beginLoadingAnim
+);
+parcelHelpers.export(exports, "columnsAnim", ()=>columnsAnim
+);
+var _mithril = require("mithril");
+var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
+var _animejs = require("animejs");
+var _animejsDefault = parcelHelpers.interopDefault(_animejs);
+var _utils = require("./utils");
+const paragraphsKf = [
+    {
+        opacity: 0,
+        translateY: '200%',
+        skew: (_, i)=>i % 2 ? '10deg' : '-10deg'
+        ,
+        rotate: (_, i)=>i % 2 ? '10deg' : '-10deg'
+        ,
+        duration: 200,
+        easing: 'easeInOutQuad'
+    },
+    {
+        opacity: 1,
+        translateY: '0%',
+        skew: '0deg',
+        rotate: '0deg',
+        duration: 1000,
+        easing: 'easeInOutQuad'
+    }, 
+];
+const beginLoadingAnim = ()=>_animejsDefault.default({
+        targets: '.greeter .content__paragraph',
+        keyframes: paragraphsKf
+    })
+;
+const completeLoadingAnim = ({ animateColumns  })=>_animejsDefault.default({
+        targets: '.title_root .content__paragraph',
+        opacity: 0,
+        translateY: '-200%',
+        skew: (_, i)=>i % 2 ? '-10deg' : '10deg'
+        ,
+        rotate: (_, i)=>i % 2 ? '-10deg' : '10deg'
+        ,
+        duration: 1500,
+        delay: 500,
+        easing: 'easeInOutQuad',
+        autoplay: false,
+        // complete() { titleAnim() }
+        complete () {
+            if (animateColumns) columnsAnim().play();
+            else {
+                _utils.cl('.greeter', 'add', 'd-none');
+                window.scroller.update();
+                window.scroller.start();
+            }
+        }
+    })
+;
+const titleAnim = ()=>_animejsDefault.default({
+        targets: '.title_root',
+        height: '0vh',
+        duration: 1000,
+        easing: 'easeInOutCubic',
+        begin () {
+            _utils.cl('.nav', 'remove', 'visible');
+            columnsAnim().play();
+        }
+    })
+;
+const columnsAnim = ()=>_animejsDefault.default({
+        targets: '.column',
+        opacity: [
+            0,
+            1
+        ],
+        translateY: (_, i)=>i == 1 ? [
+                '-50%',
+                0
+            ] : [
+                '50%',
+                0
+            ]
+        ,
+        duration: 1500,
+        easing: 'easeOutQuart',
+        complete () {
+            _utils.cl('.greeter', 'add', 'd-none');
+            _utils.cl('.c-scrollbar', 'remove', 'hidden');
+            window.scroller.update();
+            window.scroller.start();
+        }
+    })
+;
+const Title = {
+    view () {
+        return [
+            _mithrilDefault.default(".title-wrapper[data-scroll][data-scroll-repeat]", _mithrilDefault.default("section.content__item.content__item--home.content__item--current[data-scroll-speed=2][data-scroll]", _mithrilDefault.default(".paragraph-wrapper", _mithrilDefault.default(".content__paragraph[data-scroll]", "Elena Kustova")), _mithrilDefault.default(".paragraph-wrapper", _mithrilDefault.default(".content__paragraph[data-scroll]", "Russian")), _mithrilDefault.default(".paragraph-wrapper", _mithrilDefault.default(".content__paragraph[data-scroll]", "Photographer")), _mithrilDefault.default(".paragraph-wrapper", _mithrilDefault.default(".content__paragraph[data-scroll]", "Based in Italy")))), 
+        ];
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","mithril":"a7UJj","./utils":"fIYUT","animejs":"bfYip"}],"teRhW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _mithril = require("mithril");
+var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
+var _commonToml = require("../locales/common.toml");
+var _commonTomlDefault = parcelHelpers.interopDefault(_commonToml);
+var _appJs = require("../../app.js");
+var _works = require("./Works/Works");
+var _utils = require("./utils");
+module.exports = {
+    view (v) {
+        const docLang = document.documentElement.lang;
+        const { me , about  } = _commonTomlDefault.default[docLang].nav;
+        return _mithrilDefault.default('#nav.space-between', [
+            _mithrilDefault.default('.link-wrapper', _mithrilDefault.default('a.home-link.underlined', {
+                onclick () {
+                    if (location.pathname != '/home') {
+                        _appJs.transition();
+                        // columnsExitAnim.direction = 'normal'
+                        // columnsExitAnim.play()
+                        setTimeout(()=>{
+                            _mithrilDefault.default.route.set('/');
+                        }, 1300);
+                    }
+                }
+            }, me)),
+            _mithrilDefault.default('.link-wrapper', _mithrilDefault.default('a.about-link.underlined', {
+                onclick () {
+                    if (location.pathname != '/about') {
+                        _appJs.transition();
+                        _works.columnsExitAnim.direction = 'normal';
+                        _works.columnsExitAnim.play();
+                        setTimeout(()=>{
+                            _mithrilDefault.default.route.set('/about');
+                        }, 1300);
+                    }
+                }
+            }, about)), 
+        ]);
+    }
+};
+
+},{"mithril":"a7UJj","../locales/common.toml":"gpEUq","../../app.js":"lzYRN","./Works/Works":"gcDDq","./utils":"fIYUT","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"aKONg":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _mithril = require("mithril");
+var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
+var _mypic2Jpg = require("../assets/mypic2.jpg");
+var _mypic2JpgDefault = parcelHelpers.interopDefault(_mypic2Jpg);
+var _commonToml = require("../locales/common.toml");
+var _commonTomlDefault = parcelHelpers.interopDefault(_commonToml);
+var _app = require("../../app");
+var _footer = require("./Footer");
+var _footerDefault = parcelHelpers.interopDefault(_footer);
+// import Nav from "./Nav";
+var _utils = require("./utils");
+module.exports = {
+    oncreate (v) {
+        if (window.scroller) {
+            document.body.dispatchEvent(_app.loadEvent({
+                stop: false,
+                route: 'about'
+            }));
+            _utils.cl('.content', 'remove', 'hidden');
+        } else document.body.dispatchEvent(_app.loadEvent({
+            stop: true,
+            route: 'about'
+        }));
+    },
+    view (v) {
+        let docLang = document.documentElement.lang;
+        let { title , paragraphs  } = _commonTomlDefault.default[docLang].about;
+        return [
+            _mithrilDefault.default(".content#content.hidden[data-scroll]", [
+                _mithrilDefault.default(`.picture-wrapper[data-scroll]data-scroll-target=#content]`, _mithrilDefault.default(`img[src=${_mypic2JpgDefault.default}]`)),
+                _mithrilDefault.default("p.text-wrapper", _mithrilDefault.default(".title-wrapper[data-scroll][data-scroll-repeat]", _mithrilDefault.default("section.content__item.content__item--home.content__item--current", _mithrilDefault.default(".paragraph-wrapper", _mithrilDefault.default(".content__paragraph", title)))), _mithrilDefault.default(".paragraph-wrapper", paragraphs.map((p)=>{
+                    return _mithrilDefault.default(".text[data-scroll]", _mithrilDefault.default("p", p));
+                }))), 
+            ]),
+            _mithrilDefault.default(_footerDefault.default)
+        ];
+    }
+};
+
+},{"mithril":"a7UJj","../locales/common.toml":"gpEUq","../../app":"lzYRN","./Footer":"5Grlo","./utils":"fIYUT","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","../assets/mypic2.jpg":"6FZFq"}],"6FZFq":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "mypic2.882dd118.jpg" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"chiK4"}],"9dd82":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _mithril = require("mithril");
+var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
+var _nav = require("./Nav");
+var _navDefault = parcelHelpers.interopDefault(_nav);
+var _cursor = require("./cursor");
+var _cursorDefault = parcelHelpers.interopDefault(_cursor);
+var _roller = require("./Roller");
+var _rollerDefault = parcelHelpers.interopDefault(_roller);
+var _loader = require("./Loader");
+var _loaderDefault = parcelHelpers.interopDefault(_loader);
+var _jpg = require("../assets/img/*/*.jpg");
+var _jpgDefault = parcelHelpers.interopDefault(_jpg);
+let projectNames = [];
+for(let key in _jpgDefault.default)projectNames.push(key);
+let scroll1;
+function handleScroll(scroll) {
+    const body = document.querySelector("body");
+    const nav = document.querySelector("#nav");
+    // const shards = document.querySelectorAll(".shard-spacer");
+    const bgDark = "#1e1e1e";
+    const bgLight = "#d7cca1";
+    if (scroll > 85) body.classList.add('dark');
+    else body.classList.remove('dark');
+}
+class Project {
+    constructor(){
+    }
+    oninit(vnode) {
+        vnode.state.pictures = Object.values(_jpgDefault.default[projectNames[vnode.attrs.key]]);
+        vnode.state.titleArr = projectNames[vnode.attrs.key].split(" ");
+        vnode.state.scrolled = 0;
+    }
+    onremove() {
+        scroll1.destroy();
+    }
+    async oncreate(vnode1) {
+        // initialize smoothscroll
+        const loader = await _loaderDefault.default(vnode1, scroll1, 2);
+        scroll1 = loader.scroll;
+        // uncover the shards found in Roller.js
+        loader.scroll.on("call", (func)=>{
+            if (func === "uncover") document.querySelectorAll(".bg-shard").forEach((e)=>e.classList.add("uncover")
+            );
+        });
+        loader.scroll.on("scroll", (args)=>{
+            const { limit , scroll  } = args;
+            vnode1.state.scrolled = Math.round(scroll.y * 100 / limit.y);
+            handleScroll(vnode1.state.scrolled);
+        });
+        setTimeout(()=>{
+            loader.scroll.update();
+        }, 1000);
+        if (!cursor) new _cursorDefault.default(document.querySelector("svg.cursor"));
+    }
+    view(vnode2) {
+        let next;
+        if (parseInt(vnode2.attrs.key) + 1 == projectNames.length) next = projectNames[0];
+        else next = projectNames[parseInt(vnode2.attrs.key) + 1];
+        return _mithrilDefault.default(".project-page-wrapper[data-scroll-container]", [
+            _mithrilDefault.default("#main", _mithrilDefault.default(_navDefault.default), _mithrilDefault.default(".title-wrapper[data-scroll][data-scroll-repeat]", _mithrilDefault.default("section.content__item.content__item--project.content__item--current[data-scroll][data-scroll-speed=1]", vnode2.state.titleArr.map((line)=>{
+                return _mithrilDefault.default(".paragraph-wrapper", _mithrilDefault.default(".content__paragraph[data-scroll]", line));
+            }))), _mithrilDefault.default(".divider[data-scroll][data-scroll-repeat]", _mithrilDefault.default("span.divider-text", "scroll down")), _mithrilDefault.default(".gallery.grid", vnode2.state.pictures.map((pic, i)=>{
+                let speed = i % 2 === 0 ? 1 : 4;
+                // instead of ${speed} will put 1
+                return _mithrilDefault.default(`.img-wrapper[data-scroll][data-scroll-speed=${speed}]`, _mithrilDefault.default(`img[src=${pic}]`));
+            })), _mithrilDefault.default(_rollerDefault.default, {
+                id: parseInt(vnode2.attrs.key),
+                nextId: parseInt(vnode2.attrs.key) + 1 == projectNames.length ? 0 : parseInt(vnode2.attrs.key) + 1,
+                next: next,
+                nextSrc: Object.values(_jpgDefault.default[next])[0],
+                projectNames,
+                pics: _jpgDefault.default
+            })), 
+        ]);
+    }
+}
+exports.default = Project;
+
+},{"mithril":"a7UJj","./Nav":"teRhW","./cursor":"gc278","./Roller":"5S4kq","./Loader":"7UblQ","../assets/img/*/*.jpg":"5yMWl","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"gc278":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _utils = require("./utils");
+var _animejs = require("animejs");
+var _animejsDefault = parcelHelpers.interopDefault(_animejs);
+// Track the mouse position
+let mouse = {
+    x: 0,
+    y: 0
+};
+window.addEventListener('mousemove', (ev)=>mouse = _utils.getMousePos(ev)
+);
+window.addEventListener('touchmove', (ev)=>document.querySelector('.cursor').style.display = 'none'
+);
+class Cursor {
+    constructor(el){
+        this.DOM = {
+            el: el
+        };
+        this.DOM.el.style.opacity = 0;
+        this.bounds = this.DOM.el.getBoundingClientRect();
+        this.renderedStyles = {
+            tx: {
+                previous: 0,
+                current: 0,
+                amt: 0.2
+            },
+            ty: {
+                previous: 0,
+                current: 0,
+                amt: 0.2
+            }
+        };
+        this.onMouseMoveEv = ()=>{
+            this.renderedStyles.tx.previous = this.renderedStyles.tx.current = mouse.x - this.bounds.width / 2;
+            this.renderedStyles.ty.previous = this.renderedStyles.ty.previous = mouse.y - this.bounds.height / 2;
+            _animejsDefault.default({
+                targets: this.DOM.el,
+                duration: 900,
+                ease: 'easeOut',
+                opacity: 1
+            });
+            // gsap.to(this.DOM.el, {duration: 0.9, ease: 'Power3.easeOut', opacity: 1});
+            requestAnimationFrame(()=>this.render()
+            );
+            window.removeEventListener('mousemove', this.onMouseMoveEv);
+        };
+        window.addEventListener('mousemove', this.onMouseMoveEv);
+    }
+    render() {
+        this.renderedStyles['tx'].current = mouse.x - this.bounds.width / 2;
+        this.renderedStyles['ty'].current = mouse.y - this.bounds.height / 2;
+        for(const key in this.renderedStyles)this.renderedStyles[key].previous = _utils.lerp(this.renderedStyles[key].previous, this.renderedStyles[key].current, this.renderedStyles[key].amt);
+        this.DOM.el.style.transform = `translateX(${this.renderedStyles['tx'].previous}px) translateY(${this.renderedStyles['ty'].previous}px)`;
+        this.DOM.el.style.opacity = '1';
+        requestAnimationFrame(()=>this.render()
+        );
+    }
+}
+exports.default = Cursor;
+
+},{"./utils":"fIYUT","animejs":"bfYip","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"5S4kq":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _mithril = require("mithril");
+var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
+var _animejs = require("animejs");
+var _animejsDefault = parcelHelpers.interopDefault(_animejs);
+var _app = require("../../app");
+async function wait(ms) {
+    await new Promise((resolve)=>setTimeout(resolve, ms)
+    );
+}
+function mouseMoveHandler(b, e) {
+}
+async function revealer(vnode, projectNames, operator) {
+    const shards = document.querySelectorAll(".bg-shard");
+    const text = document.querySelector(".next-section__project-text");
+    const options = {
+        duration: 500,
+        easing: "easeInOutQuad",
+        delay: _animejsDefault.default.stagger(150)
+    };
+    let anim = _animejsDefault.default({
+        targets: text,
+        duration: options.duration * 2,
+        // easing: options.easing,
+        begin () {
+            text.style.opacity = 0;
+            shards.forEach((e)=>{
+                e.classList.remove("uncover");
+            });
+        },
+        complete () {
+            text.style.opacity = 1;
+            shards.forEach((e)=>{
+                e.classList.add("uncover");
+            });
+            _mithrilDefault.default.redraw();
+        }
+    });
+    if (operator === "-") {
+        vnode.state.id -= 1;
+        if (vnode.state.id < 0) vnode.state.id = projectNames.length - 1;
+    } else if (operator === "+") {
+        vnode.state.id += 1;
+        if (vnode.state.id > projectNames.length - 1) vnode.state.id = 0;
+    }
+    const pr = projectNames[vnode.state.id];
+    await wait(options.duration);
+    return pr;
+}
+module.exports = {
+    id: null,
+    next: null,
+    nextPic: null,
+    pics: [],
+    oncreate () {
+    // const shards = document.querySelectorAll('.bg-shard')
+    // shards.forEach(sh => {
+    //   const bounds = sh.getBoundingClientRect()
+    //   sh.addEventListener('mousemove', e => mouseMoveHandler(bounds, e))
+    // })
+    },
+    view (vnode) {
+        let { nextId , next , projectNames , pics  } = JSON.parse(JSON.stringify(vnode.attrs));
+        if (!vnode.state.next) vnode.state.next = next;
+        if (!vnode.state.id && vnode.state.id != 0) vnode.state.id = nextId;
+        const nextPics = Object.values(pics[vnode.state.next]);
+        vnode.state.nextPic = nextPics[0];
+        return _mithrilDefault.default(".roller[data-scroll][data-scroll-call=uncover]", [
+            _mithrilDefault.default(".next-container.grid", _mithrilDefault.default(".next-section.grid", {
+                onclick () {
+                    _app.transition();
+                    setTimeout(()=>{
+                        _mithrilDefault.default.route.set(`/project/${vnode.state.id}`);
+                    }, 1000);
+                }
+            }, _mithrilDefault.default(".next-section__img-wrapper", {
+            }, _mithrilDefault.default(".bg-shard[data-scroll]", _mithrilDefault.default(".bg-shard-sides", _mithrilDefault.default(".bg-shard__front", {
+                style: `background-image: url(${nextPics[0]})`
+            }), _mithrilDefault.default(".bg-shard__back"))), // m(".shard-spacer"),
+            _mithrilDefault.default(".bg-shard[data-scroll]", _mithrilDefault.default(".bg-shard-sides", _mithrilDefault.default(".bg-shard__front", {
+                style: `background-image: url(${nextPics[1]})`
+            }), _mithrilDefault.default(".bg-shard__back"))), // m(".shard-spacer"),
+            _mithrilDefault.default(".bg-shard[data-scroll]", _mithrilDefault.default(".bg-shard-sides", _mithrilDefault.default(".bg-shard__front", {
+                style: `background-image: url(${nextPics[2]})`
+            }), _mithrilDefault.default(".bg-shard__back")))), _mithrilDefault.default(".next-section__project-text", vnode.state.next)), _mithrilDefault.default(".low-text.flex", _mithrilDefault.default(".prev", {
+                async onclick () {
+                    // vnode.state.next = await cardFlip(vnode, projectNames, "-");
+                    vnode.state.next = await revealer(vnode, projectNames, "-");
+                }
+            }, _mithrilDefault.default(".prev__text", "prev")), _mithrilDefault.default(".next", {
+                async onclick () {
+                    // vnode.state.next = await cardFlip(vnode, projectNames, "+");
+                    vnode.state.next = await revealer(vnode, projectNames, '+');
+                }
+            }, _mithrilDefault.default(".next__text", "next")))), 
+        ]);
+    }
+};
+
+},{"mithril":"a7UJj","animejs":"bfYip","../../app":"lzYRN","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"7UblQ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _animejs = require("animejs");
+var _animejsDefault = parcelHelpers.interopDefault(_animejs);
+var _mithril = require("mithril");
+var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
+var _imagesloaded = require("imagesloaded");
+var _imagesloadedDefault = parcelHelpers.interopDefault(_imagesloaded);
+var _locomotiveScroll = require("locomotive-scroll");
+var _locomotiveScrollDefault = parcelHelpers.interopDefault(_locomotiveScroll);
+var _jpg = require("../assets/img/*/*.jpg");
+var _jpgDefault = parcelHelpers.interopDefault(_jpg);
+var _title = require("./Title");
+var _utils = require("./utils");
+let allSources = [];
+for(const key in _jpgDefault.default)//array of images
+allSources.push(Object.values(_jpgDefault.default[key])[0]);
+let firstImages = allSources.map((src)=>{
+    let img = document.createElement("img");
+    img.src = src;
+    return img;
+});
+function handleDone(route) {
+    _utils.cl('.loader', 'add', 'loaded');
+    _animejsDefault.default({
+        targets: '.language-picker button',
+        opacity: [
+            1,
+            0
+        ],
+        easing: 'easeInOutQuad',
+        delay: _animejsDefault.default.stagger(100),
+        translateY: 150,
+        duration: 1000,
+        complete () {
+            _utils.cl('.language-picker', 'add', 'v-hidden');
+        }
+    });
+    _animejsDefault.default({
+        targets: '.loader',
+        opacity: 0,
+        duration: 1000,
+        easing: 'easeOutQuad',
+        complete () {
+            _utils.cl('.nav', 'remove', 'hidden');
+            if (route == 'about') _utils.cl('.content', 'remove', 'hidden');
+            _mithrilDefault.default.redraw();
+        }
+    });
+    if (route == 'about') setTimeout(()=>_title.completeLoadingAnim({
+            animateColumns: false
+        }).play()
+    , 500);
+    else setTimeout(()=>_title.completeLoadingAnim({
+            animateColumns: true
+        }).play()
+    , 500);
+}
+function Loader({ scroll , stop , route  }) {
+    let langPicked = false, imagesDone = false;
+    if (!scroll) {
+        _title.beginLoadingAnim().play();
+        let imagesPromise = new Promise((resolve)=>{
+            let images = _imagesloadedDefault.default(firstImages);
+            images.on("progress", (instance)=>{
+                const len = instance.elements.length;
+                const count = instance.progressedCount;
+                const perc = Math.round(count * 100 / len);
+                document.querySelector(".loader__text").textContent = `${perc}%`;
+                document.querySelector(".loader__bar").style.transform = `scaleX(${perc / 100})`;
+            });
+            _utils.cl('.language-picker button').forEach((b)=>{
+                b.addEventListener('click', async (e)=>{
+                    document.documentElement.lang = e.target.textContent;
+                    _utils.cl('.language-picker button', 'remove', 'selected');
+                    _utils.cl(e.target, 'add', 'selected');
+                    langPicked = true;
+                    if (imagesDone) handleDone(route);
+                });
+            });
+            images.on("done", ()=>{
+                imagesDone = true;
+                _utils.cl('.loader', 'add', 'v-hidden');
+                if (langPicked) handleDone(route);
+            });
+            if (!window.scroller | scroll != false) {
+                window.scroller = new _locomotiveScrollDefault.default({
+                    el: document.querySelector(".main"),
+                    lerp: 0.13,
+                    smooth: true,
+                    smartphone: {
+                        smooth: true
+                    },
+                    tablet: {
+                        smooth: true
+                    },
+                    reloadOnContextChange: true
+                });
+                window.addEventListener('resize', ()=>window.scroller.update()
+                );
+                window.scroller.on('call', (args)=>{
+                    console.log(args, window.scroller);
+                    args === 'hide' && _utils.cl('.nav', 'toggle', 'hidden');
+                });
+                if (stop) window.scroller.stop();
+            }
+            return resolve({
+                images
+            });
+        });
+        return imagesPromise;
+    }
+}
+exports.default = Loader;
+
+},{"animejs":"bfYip","imagesloaded":"uXwLn","locomotive-scroll":"aJY2w","../assets/img/*/*.jpg":"5yMWl","./utils":"fIYUT","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","./Title":"ewZrl","mithril":"a7UJj"}],"uXwLn":[function(require,module,exports) {
+/*!
+ * imagesLoaded v4.1.4
+ * JavaScript is all like "You images are done yet or what?"
+ * MIT License
+ */ (function(window, factory) {
+    // universal module definition
+    /*global define: false, module: false, require: false */ if (typeof define == 'function' && define.amd) // AMD
+    define([
+        'ev-emitter/ev-emitter'
+    ], function(EvEmitter) {
+        return factory(window, EvEmitter);
+    });
+    else if (typeof module == 'object' && module.exports) // CommonJS
+    module.exports = factory(window, require('ev-emitter'));
+    else // browser global
+    window.imagesLoaded = factory(window, window.EvEmitter);
+})(typeof window !== 'undefined' ? window : this, // --------------------------  factory -------------------------- //
+function factory(window, EvEmitter) {
+    'use strict';
+    var $ = window.jQuery;
+    var console = window.console;
+    // -------------------------- helpers -------------------------- //
+    // extend objects
+    function extend(a, b) {
+        for(var prop in b)a[prop] = b[prop];
+        return a;
+    }
+    var arraySlice = Array.prototype.slice;
+    // turn element or nodeList into an array
+    function makeArray(obj) {
+        if (Array.isArray(obj)) // use object if already an array
+        return obj;
+        var isArrayLike = typeof obj == 'object' && typeof obj.length == 'number';
+        if (isArrayLike) // convert nodeList to array
+        return arraySlice.call(obj);
+        // array of single index
+        return [
+            obj
+        ];
+    }
+    // -------------------------- imagesLoaded -------------------------- //
+    /**
+ * @param {Array, Element, NodeList, String} elem
+ * @param {Object or Function} options - if function, use as callback
+ * @param {Function} onAlways - callback function
+ */ function ImagesLoaded(elem, options, onAlways) {
+        // coerce ImagesLoaded() without new, to be new ImagesLoaded()
+        if (!(this instanceof ImagesLoaded)) return new ImagesLoaded(elem, options, onAlways);
+        // use elem as selector string
+        var queryElem = elem;
+        if (typeof elem == 'string') queryElem = document.querySelectorAll(elem);
+        // bail if bad element
+        if (!queryElem) {
+            console.error('Bad element for imagesLoaded ' + (queryElem || elem));
+            return;
+        }
+        this.elements = makeArray(queryElem);
+        this.options = extend({
+        }, this.options);
+        // shift arguments if no options set
+        if (typeof options == 'function') onAlways = options;
+        else extend(this.options, options);
+        if (onAlways) this.on('always', onAlways);
+        this.getImages();
+        if ($) // add jQuery Deferred object
+        this.jqDeferred = new $.Deferred();
+        // HACK check async to allow time to bind listeners
+        setTimeout(this.check.bind(this));
+    }
+    ImagesLoaded.prototype = Object.create(EvEmitter.prototype);
+    ImagesLoaded.prototype.options = {
+    };
+    ImagesLoaded.prototype.getImages = function() {
+        this.images = [];
+        // filter & find items if we have an item selector
+        this.elements.forEach(this.addElementImages, this);
+    };
+    /**
+ * @param {Node} element
+ */ ImagesLoaded.prototype.addElementImages = function(elem) {
+        // filter siblings
+        if (elem.nodeName == 'IMG') this.addImage(elem);
+        // get background image on element
+        if (this.options.background === true) this.addElementBackgroundImages(elem);
+        // find children
+        // no non-element nodes, #143
+        var nodeType = elem.nodeType;
+        if (!nodeType || !elementNodeTypes[nodeType]) return;
+        var childImgs = elem.querySelectorAll('img');
+        // concat childElems to filterFound array
+        for(var i = 0; i < childImgs.length; i++){
+            var img = childImgs[i];
+            this.addImage(img);
+        }
+        // get child background images
+        if (typeof this.options.background == 'string') {
+            var children = elem.querySelectorAll(this.options.background);
+            for(i = 0; i < children.length; i++){
+                var child = children[i];
+                this.addElementBackgroundImages(child);
+            }
+        }
+    };
+    var elementNodeTypes = {
+        1: true,
+        9: true,
+        11: true
+    };
+    ImagesLoaded.prototype.addElementBackgroundImages = function(elem) {
+        var style = getComputedStyle(elem);
+        if (!style) // Firefox returns null if in a hidden iframe https://bugzil.la/548397
+        return;
+        // get url inside url("...")
+        var reURL = /url\((['"])?(.*?)\1\)/gi;
+        var matches = reURL.exec(style.backgroundImage);
+        while(matches !== null){
+            var url = matches && matches[2];
+            if (url) this.addBackground(url, elem);
+            matches = reURL.exec(style.backgroundImage);
+        }
+    };
+    /**
+ * @param {Image} img
+ */ ImagesLoaded.prototype.addImage = function(img) {
+        var loadingImage = new LoadingImage(img);
+        this.images.push(loadingImage);
+    };
+    ImagesLoaded.prototype.addBackground = function(url, elem) {
+        var background = new Background(url, elem);
+        this.images.push(background);
+    };
+    ImagesLoaded.prototype.check = function() {
+        var _this = this;
+        this.progressedCount = 0;
+        this.hasAnyBroken = false;
+        // complete if no images
+        if (!this.images.length) {
+            this.complete();
+            return;
+        }
+        function onProgress(image, elem, message) {
+            // HACK - Chrome triggers event before object properties have changed. #83
+            setTimeout(function() {
+                _this.progress(image, elem, message);
+            });
+        }
+        this.images.forEach(function(loadingImage) {
+            loadingImage.once('progress', onProgress);
+            loadingImage.check();
+        });
+    };
+    ImagesLoaded.prototype.progress = function(image, elem, message) {
+        this.progressedCount++;
+        this.hasAnyBroken = this.hasAnyBroken || !image.isLoaded;
+        // progress event
+        this.emitEvent('progress', [
+            this,
+            image,
+            elem
+        ]);
+        if (this.jqDeferred && this.jqDeferred.notify) this.jqDeferred.notify(this, image);
+        // check if completed
+        if (this.progressedCount == this.images.length) this.complete();
+        if (this.options.debug && console) console.log('progress: ' + message, image, elem);
+    };
+    ImagesLoaded.prototype.complete = function() {
+        var eventName = this.hasAnyBroken ? 'fail' : 'done';
+        this.isComplete = true;
+        this.emitEvent(eventName, [
+            this
+        ]);
+        this.emitEvent('always', [
+            this
+        ]);
+        if (this.jqDeferred) {
+            var jqMethod = this.hasAnyBroken ? 'reject' : 'resolve';
+            this.jqDeferred[jqMethod](this);
+        }
+    };
+    // --------------------------  -------------------------- //
+    function LoadingImage(img) {
+        this.img = img;
+    }
+    LoadingImage.prototype = Object.create(EvEmitter.prototype);
+    LoadingImage.prototype.check = function() {
+        // If complete is true and browser supports natural sizes,
+        // try to check for image status manually.
+        var isComplete = this.getIsImageComplete();
+        if (isComplete) {
+            // report based on naturalWidth
+            this.confirm(this.img.naturalWidth !== 0, 'naturalWidth');
+            return;
+        }
+        // If none of the checks above matched, simulate loading on detached element.
+        this.proxyImage = new Image();
+        this.proxyImage.addEventListener('load', this);
+        this.proxyImage.addEventListener('error', this);
+        // bind to image as well for Firefox. #191
+        this.img.addEventListener('load', this);
+        this.img.addEventListener('error', this);
+        this.proxyImage.src = this.img.src;
+    };
+    LoadingImage.prototype.getIsImageComplete = function() {
+        // check for non-zero, non-undefined naturalWidth
+        // fixes Safari+InfiniteScroll+Masonry bug infinite-scroll#671
+        return this.img.complete && this.img.naturalWidth;
+    };
+    LoadingImage.prototype.confirm = function(isLoaded, message) {
+        this.isLoaded = isLoaded;
+        this.emitEvent('progress', [
+            this,
+            this.img,
+            message
+        ]);
+    };
+    // ----- events ----- //
+    // trigger specified handler for event type
+    LoadingImage.prototype.handleEvent = function(event) {
+        var method = 'on' + event.type;
+        if (this[method]) this[method](event);
+    };
+    LoadingImage.prototype.onload = function() {
+        this.confirm(true, 'onload');
+        this.unbindEvents();
+    };
+    LoadingImage.prototype.onerror = function() {
+        this.confirm(false, 'onerror');
+        this.unbindEvents();
+    };
+    LoadingImage.prototype.unbindEvents = function() {
+        this.proxyImage.removeEventListener('load', this);
+        this.proxyImage.removeEventListener('error', this);
+        this.img.removeEventListener('load', this);
+        this.img.removeEventListener('error', this);
+    };
+    // -------------------------- Background -------------------------- //
+    function Background(url, element) {
+        this.url = url;
+        this.element = element;
+        this.img = new Image();
+    }
+    // inherit LoadingImage prototype
+    Background.prototype = Object.create(LoadingImage.prototype);
+    Background.prototype.check = function() {
+        this.img.addEventListener('load', this);
+        this.img.addEventListener('error', this);
+        this.img.src = this.url;
+        // check if image is already complete
+        var isComplete = this.getIsImageComplete();
+        if (isComplete) {
+            this.confirm(this.img.naturalWidth !== 0, 'naturalWidth');
+            this.unbindEvents();
+        }
+    };
+    Background.prototype.unbindEvents = function() {
+        this.img.removeEventListener('load', this);
+        this.img.removeEventListener('error', this);
+    };
+    Background.prototype.confirm = function(isLoaded, message) {
+        this.isLoaded = isLoaded;
+        this.emitEvent('progress', [
+            this,
+            this.element,
+            message
+        ]);
+    };
+    // -------------------------- jQuery -------------------------- //
+    ImagesLoaded.makeJQueryPlugin = function(jQuery) {
+        jQuery = jQuery || window.jQuery;
+        if (!jQuery) return;
+        // set local variable
+        $ = jQuery;
+        // $().imagesLoaded()
+        $.fn.imagesLoaded = function(options, callback) {
+            var instance = new ImagesLoaded(this, options, callback);
+            return instance.jqDeferred.promise($(this));
+        };
+    };
+    // try making plugin
+    ImagesLoaded.makeJQueryPlugin();
+    // --------------------------  -------------------------- //
+    return ImagesLoaded;
+});
+
+},{"ev-emitter":"ckzFK"}],"ckzFK":[function(require,module,exports) {
+(function(global, factory) {
+    // universal module definition
+    /* jshint strict: false */ /* globals define, module, window */ if (typeof define == 'function' && define.amd) // AMD - RequireJS
+    define(factory);
+    else if (typeof module == 'object' && module.exports) // CommonJS - Browserify, Webpack
+    module.exports = factory();
+    else // Browser globals
+    global.EvEmitter = factory();
+})(typeof window != 'undefined' ? window : this, function() {
+    "use strict";
+    function EvEmitter() {
+    }
+    var proto = EvEmitter.prototype;
+    proto.on = function(eventName, listener) {
+        if (!eventName || !listener) return;
+        // set events hash
+        var events = this._events = this._events || {
+        };
+        // set listeners array
+        var listeners = events[eventName] = events[eventName] || [];
+        // only add once
+        if (listeners.indexOf(listener) == -1) listeners.push(listener);
+        return this;
+    };
+    proto.once = function(eventName, listener) {
+        if (!eventName || !listener) return;
+        // add event
+        this.on(eventName, listener);
+        // set once flag
+        // set onceEvents hash
+        var onceEvents = this._onceEvents = this._onceEvents || {
+        };
+        // set onceListeners object
+        var onceListeners = onceEvents[eventName] = onceEvents[eventName] || {
+        };
+        // set flag
+        onceListeners[listener] = true;
+        return this;
+    };
+    proto.off = function(eventName, listener) {
+        var listeners = this._events && this._events[eventName];
+        if (!listeners || !listeners.length) return;
+        var index = listeners.indexOf(listener);
+        if (index != -1) listeners.splice(index, 1);
+        return this;
+    };
+    proto.emitEvent = function(eventName, args) {
+        var listeners = this._events && this._events[eventName];
+        if (!listeners || !listeners.length) return;
+        // copy over to avoid interference if .off() in listener
+        listeners = listeners.slice(0);
+        args = args || [];
+        // once stuff
+        var onceListeners = this._onceEvents && this._onceEvents[eventName];
+        for(var i = 0; i < listeners.length; i++){
+            var listener = listeners[i];
+            var isOnce = onceListeners && onceListeners[listener];
+            if (isOnce) {
+                // remove listener
+                // remove before trigger to prevent recursion
+                this.off(eventName, listener);
+                // unset once flag
+                delete onceListeners[listener];
+            }
+            // trigger listener
+            listener.apply(this, args);
+        }
+        return this;
+    };
+    proto.allOff = function() {
+        delete this._events;
+        delete this._onceEvents;
+    };
+    return EvEmitter;
+});
+
+},{}],"aJY2w":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Native", ()=>Native1
+);
+parcelHelpers.export(exports, "Smooth", ()=>Smooth1
 );
 var global = arguments[3];
-/* locomotive-scroll v4.1.1 | MIT License | https://github.com/locomotivemtl/locomotive-scroll */ function _classCallCheck(instance, Constructor) {
+/* locomotive-scroll v4.1.2 | MIT License | https://github.com/locomotivemtl/locomotive-scroll */ function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) throw new TypeError("Cannot call a class as a function");
 }
 function _defineProperties(target, props) {
@@ -3581,18 +6455,18 @@ function _inherits(subClass, superClass) {
     });
     if (superClass) _setPrototypeOf(subClass, superClass);
 }
-function _getPrototypeOf(o) {
+function _getPrototypeOf(o1) {
     _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
         return o.__proto__ || Object.getPrototypeOf(o);
     };
-    return _getPrototypeOf(o);
+    return _getPrototypeOf(o1);
 }
-function _setPrototypeOf(o, p) {
+function _setPrototypeOf(o2, p1) {
     _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
         o.__proto__ = p;
         return o;
     };
-    return _setPrototypeOf(o, p);
+    return _setPrototypeOf(o2, p1);
 }
 function _isNativeReflectConstruct() {
     if (typeof Reflect === "undefined" || !Reflect.construct) return false;
@@ -3632,7 +6506,7 @@ function _superPropBase(object, property) {
     }
     return object;
 }
-function _get(target, property, receiver) {
+function _get(target1, property1, receiver1) {
     if (typeof Reflect !== "undefined" && Reflect.get) _get = Reflect.get;
     else _get = function _get(target, property, receiver) {
         var base = _superPropBase(target, property);
@@ -3641,7 +6515,7 @@ function _get(target, property, receiver) {
         if (desc.get) return desc.get.call(receiver);
         return desc.value;
     };
-    return _get(target, property, receiver || target);
+    return _get(target1, property1, receiver1 || target1);
 }
 function _slicedToArray(arr, i) {
     return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
@@ -3743,7 +6617,7 @@ var defaults = {
         gestureDirection: 'vertical'
     }
 };
-var _default = /*#__PURE__*/ function() {
+var _default1 = /*#__PURE__*/ function() {
     function _default() {
         var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
         };
@@ -4493,18 +7367,18 @@ var _default$1 = /*#__PURE__*/ function(_Core) {
                         callback();
                         return;
                     } else {
-                        var onScroll = function onScroll() {
+                        var onScroll1 = function onScroll() {
                             if (isTargetReached()) {
                                 window.removeEventListener('scroll', onScroll);
                                 callback();
                             }
                         };
-                        window.addEventListener('scroll', onScroll);
+                        window.addEventListener('scroll', onScroll1);
                     }
                 }
                 window.scrollTo({
                     top: offset,
-                    behavior: 'smooth'
+                    behavior: options.duration === 0 ? 'auto' : 'smooth'
                 });
             }
         },
@@ -4524,7 +7398,7 @@ var _default$1 = /*#__PURE__*/ function(_Core) {
         }
     ]);
     return _default;
-}(_default);
+}(_default1);
 /*
 object-assign
 (c) Sindre Sorhus
@@ -4738,7 +7612,7 @@ var bindallStandalone = function(object) {
         return func.apply(context, arguments);
     };
 }
-var Lethargy = lethargy.Lethargy;
+var Lethargy1 = lethargy.Lethargy;
 var EVT_ID = 'virtualscroll';
 var src = VirtualScroll;
 var keyCodes = {
@@ -4766,7 +7640,7 @@ function VirtualScroll(options) {
         useKeyboard: true,
         useTouch: true
     }, options);
-    if (this.options.limitInertia) this._lethargy = new Lethargy();
+    if (this.options.limitInertia) this._lethargy = new Lethargy1();
     this._emitter = new tinyEmitter();
     this._event = {
         y: 0,
@@ -5117,6 +7991,8 @@ var _default$2 = /*#__PURE__*/ function(_Core) {
             key: "stopScrolling",
             value: function stopScrolling() {
                 cancelAnimationFrame(this.checkScrollRaf); // Prevent checkScroll to continue looping
+                //Pevent scrollbar glitch/locking
+                this.startScrollTs = undefined;
                 if (this.scrollToRaf) {
                     cancelAnimationFrame(this.scrollToRaf);
                     this.scrollToRaf = null;
@@ -5386,7 +8262,7 @@ var _default$2 = /*#__PURE__*/ function(_Core) {
             key: "releaseScrollBar",
             value: function releaseScrollBar(e) {
                 this.isDraggingScrollbar = false;
-                this.html.classList.add(this.scrollingClass);
+                if (this.isScrolling) this.html.classList.add(this.scrollingClass);
                 this.html.classList.remove(this.draggingClass);
             }
         },
@@ -5414,7 +8290,7 @@ var _default$2 = /*#__PURE__*/ function(_Core) {
                 els.forEach(function(el, index) {
                     // Try and find the target's parent section
                     var targetParents = getParents(el);
-                    var section = Object.entries(_this6.sections).map(function(_ref3) {
+                    var section1 = Object.entries(_this6.sections).map(function(_ref3) {
                         var _ref4 = _slicedToArray(_ref3, 2), key = _ref4[0], section = _ref4[1];
                         return section;
                     }).find(function(section) {
@@ -5437,12 +8313,12 @@ var _default$2 = /*#__PURE__*/ function(_Core) {
                     if (target !== undefined) targetEl = document.querySelector("".concat(target));
                     else targetEl = el;
                     var targetElBCR = targetEl.getBoundingClientRect();
-                    if (section === null) {
+                    if (section1 === null) {
                         top = targetElBCR.top + _this6.instance.scroll.y - getTranslate(targetEl).y;
                         left = targetElBCR.left + _this6.instance.scroll.x - getTranslate(targetEl).x;
-                    } else if (!section.inView) {
-                        top = targetElBCR.top - getTranslate(section.el).y - getTranslate(targetEl).y;
-                        left = targetElBCR.left - getTranslate(section.el).x - getTranslate(targetEl).x;
+                    } else if (!section1.inView) {
+                        top = targetElBCR.top - getTranslate(section1.el).y - getTranslate(targetEl).y;
+                        left = targetElBCR.left - getTranslate(section1.el).x - getTranslate(targetEl).x;
                     } else {
                         top = targetElBCR.top + _this6.instance.scroll.y - getTranslate(targetEl).y;
                         left = targetElBCR.left + _this6.instance.scroll.x - getTranslate(targetEl).x;
@@ -5498,7 +8374,7 @@ var _default$2 = /*#__PURE__*/ function(_Core) {
                         el: el,
                         id: id,
                         "class": cl,
-                        section: section,
+                        section: section1,
                         top: top,
                         middle: middle,
                         bottom: bottom,
@@ -5712,7 +8588,7 @@ var _default$2 = /*#__PURE__*/ function(_Core) {
                 this.startScrolling(); // Restart the scroll
                 // Start the animation loop
                 var start = Date.now();
-                var loop = function loop() {
+                var loop1 = function loop() {
                     var p = (Date.now() - start) / duration; // Animation progress
                     if (p > 1) {
                         // Animation ends
@@ -5725,7 +8601,7 @@ var _default$2 = /*#__PURE__*/ function(_Core) {
                         render(easing(p));
                     }
                 };
-                loop();
+                loop1();
             }
         },
         {
@@ -5784,8 +8660,8 @@ var _default$2 = /*#__PURE__*/ function(_Core) {
         }
     ]);
     return _default;
-}(_default);
-var Smooth = /*#__PURE__*/ function() {
+}(_default1);
+var Smooth1 = /*#__PURE__*/ function() {
     function Smooth() {
         var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
         };
@@ -5869,7 +8745,7 @@ var Smooth = /*#__PURE__*/ function() {
     ]);
     return Smooth;
 }();
-var Native = /*#__PURE__*/ function() {
+var Native1 = /*#__PURE__*/ function() {
     function Native() {
         var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
         };
@@ -5947,3373 +8823,8 @@ var Native = /*#__PURE__*/ function() {
     ]);
     return Native;
 }();
-exports.default = Smooth;
+exports.default = Smooth1;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"ciiiV":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, '__esModule', {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === 'default' || key === '__esModule' || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"adFF7":[function(require,module,exports) {
-const _temp0 = require("../Anastasia/DSC01812.jpg");
-const _temp1 = require("../Anastasia/DSC01910.jpg");
-const _temp2 = require("../Anastasia/DSC02013.jpg");
-const _temp3 = require("../Anastasia/DSC02154.jpg");
-const _temp4 = require("../Anastasia/DSC02205.jpg");
-const _temp5 = require("../Anastasia/DSC02276.jpg");
-const _temp6 = require("../Anastasia/DSC02278.jpg");
-const _temp7 = require("../Anastasia/NastiaDavletshina1.jpg");
-const _temp8 = require("../Andrea/DSC01328.jpg");
-const _temp9 = require("../Andrea/DSC01521.jpg");
-const _temp10 = require("../Andrea/DSC01530.jpg");
-const _temp11 = require("../Andrea/pic_10.jpg");
-const _temp12 = require("../Andrea/pic_11.jpg");
-const _temp13 = require("../Andrea/pic_12.jpg");
-const _temp14 = require("../Andrea/pic_13.jpg");
-const _temp15 = require("../Andrea/pic_14.jpg");
-const _temp16 = require("../Andrea/pic_15.jpg");
-const _temp17 = require("../Andrea/pic_9.jpg");
-const _temp18 = require("../Arianna/pic_0.jpg");
-const _temp19 = require("../Arianna/pic_1.jpg");
-const _temp20 = require("../Arianna/pic_10.jpg");
-const _temp21 = require("../Arianna/pic_11.jpg");
-const _temp22 = require("../Arianna/pic_2.jpg");
-const _temp23 = require("../Arianna/pic_3.jpg");
-const _temp24 = require("../Arianna/pic_4.jpg");
-const _temp25 = require("../Arianna/pic_5.jpg");
-const _temp26 = require("../Arianna/pic_6.jpg");
-const _temp27 = require("../Arianna/pic_7.jpg");
-const _temp28 = require("../Arianna/pic_8.jpg");
-const _temp29 = require("../Arianna/pic_9.jpg");
-const _temp30 = require("../Inganno/1.jpg");
-const _temp31 = require("../Inganno/2.jpg");
-const _temp32 = require("../Inganno/3.jpg");
-const _temp33 = require("../Inganno/4.jpg");
-const _temp34 = require("../Inganno/5.jpg");
-const _temp35 = require("../Inganno/6.jpg");
-const _temp36 = require("../Inganno/7.jpg");
-const _temp37 = require("../Inganno/8.jpg");
-const _temp38 = require("../Inganno/9.jpg");
-const _temp39 = require("../Inganno/10.jpg");
-const _temp40 = require("../Katia/pic_0.jpg");
-const _temp41 = require("../Katia/pic_1.jpg");
-const _temp42 = require("../Katia/pic_2.jpg");
-const _temp43 = require("../Katia/pic_3.jpg");
-const _temp44 = require("../Katia/pic_4.jpg");
-const _temp45 = require("../Katia/pic_5.jpg");
-const _temp46 = require("../Katia/pic_6.jpg");
-const _temp47 = require("../Katia/pic_7.jpg");
-const _temp48 = require("../Matteo/pic_0.jpg");
-const _temp49 = require("../Matteo/pic_1.jpg");
-const _temp50 = require("../Matteo/pic_2.jpg");
-const _temp51 = require("../Matteo/pic_3.jpg");
-const _temp52 = require("../Matteo/pic_4.jpg");
-const _temp53 = require("../Matteo/pic_5.jpg");
-const _temp54 = require("../Matteo/pic_6.jpg");
-const _temp55 = require("../Matteo/pic_7.jpg");
-const _temp56 = require("../Matteo/pic_8.jpg");
-const _temp57 = require("../Matteo/pic_9.jpg");
-const _temp58 = require("../Nastia/DSC07826.jpg");
-const _temp59 = require("../Nastia/DSC07836.jpg");
-const _temp60 = require("../Nastia/DSC08026.jpg");
-const _temp61 = require("../Nastia/DSC08077.jpg");
-const _temp62 = require("../Nastia/DSC08167.jpg");
-const _temp63 = require("../Nastia/DSC08191.jpg");
-const _temp64 = require("../Nastia/DSC08386.jpg");
-const _temp65 = require("../Roberta/pic_0.jpg");
-const _temp66 = require("../Roberta/pic_1.jpg");
-const _temp67 = require("../Roberta/pic_10.jpg");
-const _temp68 = require("../Roberta/pic_11.jpg");
-const _temp69 = require("../Roberta/pic_12.jpg");
-const _temp70 = require("../Roberta/pic_13.jpg");
-const _temp71 = require("../Roberta/pic_14.jpg");
-const _temp72 = require("../Roberta/pic_2.jpg");
-const _temp73 = require("../Roberta/pic_3.jpg");
-const _temp74 = require("../Roberta/pic_4.jpg");
-const _temp75 = require("../Roberta/pic_5.jpg");
-const _temp76 = require("../Roberta/pic_6.jpg");
-const _temp77 = require("../Roberta/pic_7.jpg");
-const _temp78 = require("../Roberta/pic_8.jpg");
-const _temp79 = require("../Roberta/pic_9.jpg");
-const _temp80 = require("../Valeria/239645708_913348032586675_3526176268626277941_n.jpg");
-const _temp81 = require("../Valeria/239858938_422969359157922_8304902028896030195_n.jpg");
-const _temp82 = require("../Valeria/240108310_221163499954226_6077238410015003289_n.jpg");
-const _temp83 = require("../Valeria/240108522_986136085294928_4307106541389037811_n.jpg");
-const _temp84 = require("../Valeria/240110620_4776111199083747_2956117918730996962_n.jpg");
-const _temp85 = require("../Valeria/240453595_245641064230822_139858117910837704_n.jpg");
-module.exports = {
-    "Anastasia": {
-        "DSC01812": _temp0,
-        "DSC01910": _temp1,
-        "DSC02013": _temp2,
-        "DSC02154": _temp3,
-        "DSC02205": _temp4,
-        "DSC02276": _temp5,
-        "DSC02278": _temp6,
-        "NastiaDavletshina1": _temp7
-    },
-    "Andrea": {
-        "DSC01328": _temp8,
-        "DSC01521": _temp9,
-        "DSC01530": _temp10,
-        "pic_10": _temp11,
-        "pic_11": _temp12,
-        "pic_12": _temp13,
-        "pic_13": _temp14,
-        "pic_14": _temp15,
-        "pic_15": _temp16,
-        "pic_9": _temp17
-    },
-    "Arianna": {
-        "pic_0": _temp18,
-        "pic_1": _temp19,
-        "pic_10": _temp20,
-        "pic_11": _temp21,
-        "pic_2": _temp22,
-        "pic_3": _temp23,
-        "pic_4": _temp24,
-        "pic_5": _temp25,
-        "pic_6": _temp26,
-        "pic_7": _temp27,
-        "pic_8": _temp28,
-        "pic_9": _temp29
-    },
-    "Inganno": {
-        "1": _temp30,
-        "2": _temp31,
-        "3": _temp32,
-        "4": _temp33,
-        "5": _temp34,
-        "6": _temp35,
-        "7": _temp36,
-        "8": _temp37,
-        "9": _temp38,
-        "10": _temp39
-    },
-    "Katia": {
-        "pic_0": _temp40,
-        "pic_1": _temp41,
-        "pic_2": _temp42,
-        "pic_3": _temp43,
-        "pic_4": _temp44,
-        "pic_5": _temp45,
-        "pic_6": _temp46,
-        "pic_7": _temp47
-    },
-    "Matteo": {
-        "pic_0": _temp48,
-        "pic_1": _temp49,
-        "pic_2": _temp50,
-        "pic_3": _temp51,
-        "pic_4": _temp52,
-        "pic_5": _temp53,
-        "pic_6": _temp54,
-        "pic_7": _temp55,
-        "pic_8": _temp56,
-        "pic_9": _temp57
-    },
-    "Nastia": {
-        "DSC07826": _temp58,
-        "DSC07836": _temp59,
-        "DSC08026": _temp60,
-        "DSC08077": _temp61,
-        "DSC08167": _temp62,
-        "DSC08191": _temp63,
-        "DSC08386": _temp64
-    },
-    "Roberta": {
-        "pic_0": _temp65,
-        "pic_1": _temp66,
-        "pic_10": _temp67,
-        "pic_11": _temp68,
-        "pic_12": _temp69,
-        "pic_13": _temp70,
-        "pic_14": _temp71,
-        "pic_2": _temp72,
-        "pic_3": _temp73,
-        "pic_4": _temp74,
-        "pic_5": _temp75,
-        "pic_6": _temp76,
-        "pic_7": _temp77,
-        "pic_8": _temp78,
-        "pic_9": _temp79
-    },
-    "Valeria": {
-        "239645708_913348032586675_3526176268626277941_n": _temp80,
-        "239858938_422969359157922_8304902028896030195_n": _temp81,
-        "240108310_221163499954226_6077238410015003289_n": _temp82,
-        "240108522_986136085294928_4307106541389037811_n": _temp83,
-        "240110620_4776111199083747_2956117918730996962_n": _temp84,
-        "240453595_245641064230822_139858117910837704_n": _temp85
-    }
-};
-
-},{"../Anastasia/DSC01812.jpg":"27hhp","../Anastasia/DSC01910.jpg":"kL9Y3","../Anastasia/DSC02013.jpg":"kRGo3","../Anastasia/DSC02154.jpg":"lONke","../Anastasia/DSC02205.jpg":"dnibK","../Anastasia/DSC02276.jpg":"kYH8c","../Anastasia/DSC02278.jpg":"iDyhP","../Anastasia/NastiaDavletshina1.jpg":"9XNPE","../Andrea/DSC01328.jpg":"hRoJD","../Andrea/DSC01521.jpg":"kDciS","../Andrea/DSC01530.jpg":"kPZ4W","../Andrea/pic_10.jpg":"cHmim","../Andrea/pic_11.jpg":"hVcrc","../Andrea/pic_12.jpg":"jKlhJ","../Andrea/pic_13.jpg":"jtYtg","../Andrea/pic_14.jpg":"2UESJ","../Andrea/pic_15.jpg":"922HP","../Andrea/pic_9.jpg":"jSfp4","../Arianna/pic_0.jpg":"auLbh","../Arianna/pic_1.jpg":"iAfPt","../Arianna/pic_10.jpg":"aQDpZ","../Arianna/pic_11.jpg":"R6BUR","../Arianna/pic_2.jpg":"3frM6","../Arianna/pic_3.jpg":"efIZZ","../Arianna/pic_4.jpg":"bFr8T","../Arianna/pic_5.jpg":"kk6oK","../Arianna/pic_6.jpg":"jOlOW","../Arianna/pic_7.jpg":"jRqb2","../Arianna/pic_8.jpg":"3ASMb","../Arianna/pic_9.jpg":"9xrLx","../Inganno/1.jpg":"cXFMX","../Inganno/2.jpg":"eYjAi","../Inganno/3.jpg":"dzvRw","../Inganno/4.jpg":"25uYQ","../Inganno/5.jpg":"6xnJd","../Inganno/6.jpg":"4i2K2","../Inganno/7.jpg":"8KeWv","../Inganno/8.jpg":"8BTVQ","../Inganno/9.jpg":"75YVs","../Inganno/10.jpg":"hH93w","../Katia/pic_0.jpg":"brCd4","../Katia/pic_1.jpg":"5k64l","../Katia/pic_2.jpg":"efIsy","../Katia/pic_3.jpg":"8GdmZ","../Katia/pic_4.jpg":"fJf2z","../Katia/pic_5.jpg":"6h9cv","../Katia/pic_6.jpg":"alue5","../Katia/pic_7.jpg":"e6M8v","../Matteo/pic_0.jpg":"gZNPp","../Matteo/pic_1.jpg":"8tQWi","../Matteo/pic_2.jpg":"cDanF","../Matteo/pic_3.jpg":"6knsV","../Matteo/pic_4.jpg":"gwu8n","../Matteo/pic_5.jpg":"fVWwX","../Matteo/pic_6.jpg":"9plNI","../Matteo/pic_7.jpg":"aLqGh","../Matteo/pic_8.jpg":"031sh","../Matteo/pic_9.jpg":"8gMYd","../Nastia/DSC07826.jpg":"9AVLD","../Nastia/DSC07836.jpg":"4gDqK","../Nastia/DSC08026.jpg":"97xVA","../Nastia/DSC08077.jpg":"dT3AH","../Nastia/DSC08167.jpg":"disvw","../Nastia/DSC08191.jpg":"82WXc","../Nastia/DSC08386.jpg":"4xBCp","../Roberta/pic_0.jpg":"7Tv3D","../Roberta/pic_1.jpg":"gZjDs","../Roberta/pic_10.jpg":"8enkX","../Roberta/pic_11.jpg":"bRQEo","../Roberta/pic_12.jpg":"cyTn7","../Roberta/pic_13.jpg":"65oxB","../Roberta/pic_14.jpg":"fTWSL","../Roberta/pic_2.jpg":"e0eqk","../Roberta/pic_3.jpg":"iQ3Fq","../Roberta/pic_4.jpg":"leutP","../Roberta/pic_5.jpg":"eFIuM","../Roberta/pic_6.jpg":"CX81U","../Roberta/pic_7.jpg":"8hJhl","../Roberta/pic_8.jpg":"8oINI","../Roberta/pic_9.jpg":"kmSx4","../Valeria/239645708_913348032586675_3526176268626277941_n.jpg":"kndmW","../Valeria/239858938_422969359157922_8304902028896030195_n.jpg":"4sU58","../Valeria/240108310_221163499954226_6077238410015003289_n.jpg":"etHor","../Valeria/240108522_986136085294928_4307106541389037811_n.jpg":"eMAQg","../Valeria/240110620_4776111199083747_2956117918730996962_n.jpg":"8Vxw5","../Valeria/240453595_245641064230822_139858117910837704_n.jpg":"5mveD"}],"27hhp":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01812.9b457f3b.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"chiK4":[function(require,module,exports) {
-"use strict";
-var bundleURL = {
-};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return '/';
-}
-function getBaseURL(url) {
-    return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
-} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ('' + url).match(/(https?|file|ftp):\/\/[^/]+/);
-    if (!matches) throw new Error('Origin not found');
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
-
-},{}],"kL9Y3":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01910.abf7c2ed.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"kRGo3":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02013.b73d0b50.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"lONke":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02154.2bddf6ee.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"dnibK":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02205.45ea7ced.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"kYH8c":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02276.69ad461a.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"iDyhP":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC02278.2b79a0da.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"9XNPE":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "NastiaDavletshina1.d1043d66.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"hRoJD":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01328.dd143993.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"kDciS":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01521.aff48e98.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"kPZ4W":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC01530.15ff90da.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"cHmim":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_10.78208dc2.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"hVcrc":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_11.7999c15d.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"jKlhJ":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_12.d96c8373.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"jtYtg":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_13.792abaf6.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"2UESJ":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_14.02e647ee.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"922HP":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_15.4d2b85ca.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"jSfp4":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_9.b5e5ed7f.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"auLbh":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_0.057c2856.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"iAfPt":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_1.22f8ed5e.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"aQDpZ":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_10.2056aeca.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"R6BUR":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_11.329be0bc.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"3frM6":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_2.1c9fd381.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"efIZZ":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_3.d31a86b9.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"bFr8T":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_4.94a358fc.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"kk6oK":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_5.7a7313ec.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"jOlOW":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_6.15eeaed4.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"jRqb2":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_7.5794c806.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"3ASMb":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_8.e901c4f0.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"9xrLx":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_9.224cf7dd.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"cXFMX":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "1.6c0475a8.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"eYjAi":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "2.d180dbbb.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"dzvRw":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "3.5f0d813d.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"25uYQ":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "4.ada9c2a2.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"6xnJd":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "5.a20972fd.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"4i2K2":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "6.29ef4fa2.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"8KeWv":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "7.598d504b.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"8BTVQ":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "8.b17e6f5d.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"75YVs":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "9.d2f46422.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"hH93w":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "10.b4f2a28b.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"brCd4":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_0.ddc8bec4.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"5k64l":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_1.5f736752.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"efIsy":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_2.08001445.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"8GdmZ":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_3.2e846be1.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"fJf2z":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_4.593140b9.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"6h9cv":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_5.3c24871b.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"alue5":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_6.1673c9ec.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"e6M8v":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_7.9e58bd7f.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"gZNPp":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_0.a494541a.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"8tQWi":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_1.5da3eed5.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"cDanF":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_2.1a08d2d7.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"6knsV":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_3.65cb02dd.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"gwu8n":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_4.12ac8484.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"fVWwX":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_5.1c0e05ea.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"9plNI":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_6.6bb040aa.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"aLqGh":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_7.e44544a7.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"031sh":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_8.b90f642b.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"8gMYd":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_9.84c1a91f.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"9AVLD":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC07826.ba4dfdff.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"4gDqK":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC07836.31c5c297.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"97xVA":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC08026.21eb0ae4.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"dT3AH":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC08077.c2ecdd56.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"disvw":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC08167.2b06d695.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"82WXc":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC08191.1f80abd4.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"4xBCp":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "DSC08386.e4ee8bf9.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"7Tv3D":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_0.ae7e09ba.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"gZjDs":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_1.64790b5e.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"8enkX":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_10.57d12a09.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"bRQEo":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_11.6ec8f916.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"cyTn7":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_12.e27fdafb.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"65oxB":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_13.250d15ce.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"fTWSL":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_14.b169344d.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"e0eqk":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_2.1103a691.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"iQ3Fq":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_3.a873d067.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"leutP":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_4.5e870878.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"eFIuM":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_5.207feacc.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"CX81U":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_6.f89b9ea3.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"8hJhl":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_7.5522e693.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"8oINI":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_8.0000ef58.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"kmSx4":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "pic_9.f39145d3.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"kndmW":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "239645708_913348032586675_3526176268626277941_n.451dc16d.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"4sU58":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "239858938_422969359157922_8304902028896030195_n.1afa5611.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"etHor":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "240108310_221163499954226_6077238410015003289_n.f8cf644d.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"eMAQg":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "240108522_986136085294928_4307106541389037811_n.f97058dc.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"8Vxw5":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "240110620_4776111199083747_2956117918730996962_n.c6da6197.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"5mveD":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "240453595_245641064230822_139858117910837704_n.697a6fe2.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"gc278":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _utils = require("./utils");
-var _animejs = require("animejs");
-var _animejsDefault = parcelHelpers.interopDefault(_animejs);
-// Track the mouse position
-let mouse = {
-    x: 0,
-    y: 0
-};
-window.addEventListener('mousemove', (ev)=>mouse = _utils.getMousePos(ev)
-);
-window.addEventListener('touchmove', (ev)=>document.querySelector('.cursor').style.display = 'none'
-);
-class Cursor {
-    constructor(el){
-        this.DOM = {
-            el: el
-        };
-        this.DOM.el.style.opacity = 0;
-        this.bounds = this.DOM.el.getBoundingClientRect();
-        this.renderedStyles = {
-            tx: {
-                previous: 0,
-                current: 0,
-                amt: 0.2
-            },
-            ty: {
-                previous: 0,
-                current: 0,
-                amt: 0.2
-            }
-        };
-        this.onMouseMoveEv = ()=>{
-            this.renderedStyles.tx.previous = this.renderedStyles.tx.current = mouse.x - this.bounds.width / 2;
-            this.renderedStyles.ty.previous = this.renderedStyles.ty.previous = mouse.y - this.bounds.height / 2;
-            _animejsDefault.default({
-                targets: this.DOM.el,
-                duration: 900,
-                ease: 'easeOut',
-                opacity: 1
-            });
-            // gsap.to(this.DOM.el, {duration: 0.9, ease: 'Power3.easeOut', opacity: 1});
-            requestAnimationFrame(()=>this.render()
-            );
-            window.removeEventListener('mousemove', this.onMouseMoveEv);
-        };
-        window.addEventListener('mousemove', this.onMouseMoveEv);
-    }
-    render() {
-        this.renderedStyles['tx'].current = mouse.x - this.bounds.width / 2;
-        this.renderedStyles['ty'].current = mouse.y - this.bounds.height / 2;
-        for(const key in this.renderedStyles)this.renderedStyles[key].previous = _utils.lerp(this.renderedStyles[key].previous, this.renderedStyles[key].current, this.renderedStyles[key].amt);
-        this.DOM.el.style.transform = `translateX(${this.renderedStyles['tx'].previous}px) translateY(${this.renderedStyles['ty'].previous}px)`;
-        this.DOM.el.style.opacity = '1';
-        requestAnimationFrame(()=>this.render()
-        );
-    }
-}
-exports.default = Cursor;
-
-},{"./utils":"fIYUT","animejs":"bfYip","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"fIYUT":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "map", ()=>map
-);
-parcelHelpers.export(exports, "lerp", ()=>lerp
-);
-parcelHelpers.export(exports, "clamp", ()=>clamp
-);
-parcelHelpers.export(exports, "getMousePos", ()=>getMousePos
-);
-// Map number x from range [a, b] to [c, d]
-const map = (x, a, b, c, d)=>(x - a) * (d - c) / (b - a) + c
-;
-// Linear interpolation
-const lerp = (a, b, n)=>(1 - n) * a + n * b
-;
-const clamp = (num, min, max)=>num <= min ? min : num >= max ? max : num
-;
-// Gets the mouse position
-const getMousePos = (e)=>{
-    let posx = 0;
-    let posy = 0;
-    if (!e) e = window.event;
-    if (e.pageX || e.pageY) {
-        posx = e.pageX;
-        posy = e.pageY;
-    } else if (e.clientX || e.clientY) {
-        posx = e.clientX + body.scrollLeft + document.documentElement.scrollLeft;
-        posy = e.clientY + body.scrollTop + document.documentElement.scrollTop;
-    }
-    return {
-        x: posx,
-        y: posy
-    };
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"bfYip":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-/*
- * anime.js v3.2.1
- * (c) 2020 Julian Garnier
- * Released under the MIT license
- * animejs.com
- */ // Defaults
-var defaultInstanceSettings = {
-    update: null,
-    begin: null,
-    loopBegin: null,
-    changeBegin: null,
-    change: null,
-    changeComplete: null,
-    loopComplete: null,
-    complete: null,
-    loop: 1,
-    direction: 'normal',
-    autoplay: true,
-    timelineOffset: 0
-};
-var defaultTweenSettings = {
-    duration: 1000,
-    delay: 0,
-    endDelay: 0,
-    easing: 'easeOutElastic(1, .5)',
-    round: 0
-};
-var validTransforms = [
-    'translateX',
-    'translateY',
-    'translateZ',
-    'rotate',
-    'rotateX',
-    'rotateY',
-    'rotateZ',
-    'scale',
-    'scaleX',
-    'scaleY',
-    'scaleZ',
-    'skew',
-    'skewX',
-    'skewY',
-    'perspective',
-    'matrix',
-    'matrix3d'
-];
-// Caching
-var cache = {
-    CSS: {
-    },
-    springs: {
-    }
-};
-// Utils
-function minMax(val, min, max) {
-    return Math.min(Math.max(val, min), max);
-}
-function stringContains(str, text) {
-    return str.indexOf(text) > -1;
-}
-function applyArguments(func, args) {
-    return func.apply(null, args);
-}
-var is = {
-    arr: function(a) {
-        return Array.isArray(a);
-    },
-    obj: function(a) {
-        return stringContains(Object.prototype.toString.call(a), 'Object');
-    },
-    pth: function(a) {
-        return is.obj(a) && a.hasOwnProperty('totalLength');
-    },
-    svg: function(a) {
-        return a instanceof SVGElement;
-    },
-    inp: function(a) {
-        return a instanceof HTMLInputElement;
-    },
-    dom: function(a) {
-        return a.nodeType || is.svg(a);
-    },
-    str: function(a) {
-        return typeof a === 'string';
-    },
-    fnc: function(a) {
-        return typeof a === 'function';
-    },
-    und: function(a) {
-        return typeof a === 'undefined';
-    },
-    nil: function(a) {
-        return is.und(a) || a === null;
-    },
-    hex: function(a) {
-        return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(a);
-    },
-    rgb: function(a) {
-        return /^rgb/.test(a);
-    },
-    hsl: function(a) {
-        return /^hsl/.test(a);
-    },
-    col: function(a) {
-        return is.hex(a) || is.rgb(a) || is.hsl(a);
-    },
-    key: function(a) {
-        return !defaultInstanceSettings.hasOwnProperty(a) && !defaultTweenSettings.hasOwnProperty(a) && a !== 'targets' && a !== 'keyframes';
-    }
-};
-// Easings
-function parseEasingParameters(string) {
-    var match = /\(([^)]+)\)/.exec(string);
-    return match ? match[1].split(',').map(function(p) {
-        return parseFloat(p);
-    }) : [];
-}
-// Spring solver inspired by Webkit Copyright © 2016 Apple Inc. All rights reserved. https://webkit.org/demos/spring/spring.js
-function spring(string, duration) {
-    var params = parseEasingParameters(string);
-    var mass = minMax(is.und(params[0]) ? 1 : params[0], 0.1, 100);
-    var stiffness = minMax(is.und(params[1]) ? 100 : params[1], 0.1, 100);
-    var damping = minMax(is.und(params[2]) ? 10 : params[2], 0.1, 100);
-    var velocity = minMax(is.und(params[3]) ? 0 : params[3], 0.1, 100);
-    var w0 = Math.sqrt(stiffness / mass);
-    var zeta = damping / (2 * Math.sqrt(stiffness * mass));
-    var wd = zeta < 1 ? w0 * Math.sqrt(1 - zeta * zeta) : 0;
-    var a = 1;
-    var b = zeta < 1 ? (zeta * w0 + -velocity) / wd : -velocity + w0;
-    function solver(t) {
-        var progress = duration ? duration * t / 1000 : t;
-        if (zeta < 1) progress = Math.exp(-progress * zeta * w0) * (a * Math.cos(wd * progress) + b * Math.sin(wd * progress));
-        else progress = (a + b * progress) * Math.exp(-progress * w0);
-        if (t === 0 || t === 1) return t;
-        return 1 - progress;
-    }
-    function getDuration() {
-        var cached = cache.springs[string];
-        if (cached) return cached;
-        var frame = 1 / 6;
-        var elapsed = 0;
-        var rest = 0;
-        while(true){
-            elapsed += frame;
-            if (solver(elapsed) === 1) {
-                rest++;
-                if (rest >= 16) break;
-            } else rest = 0;
-        }
-        var duration = elapsed * frame * 1000;
-        cache.springs[string] = duration;
-        return duration;
-    }
-    return duration ? solver : getDuration;
-}
-// Basic steps easing implementation https://developer.mozilla.org/fr/docs/Web/CSS/transition-timing-function
-function steps(steps) {
-    if (steps === void 0) steps = 10;
-    return function(t) {
-        return Math.ceil(minMax(t, 0.000001, 1) * steps) * (1 / steps);
-    };
-}
-// BezierEasing https://github.com/gre/bezier-easing
-var bezier = function() {
-    var kSplineTableSize = 11;
-    var kSampleStepSize = 1 / (kSplineTableSize - 1);
-    function A(aA1, aA2) {
-        return 1 - 3 * aA2 + 3 * aA1;
-    }
-    function B(aA1, aA2) {
-        return 3 * aA2 - 6 * aA1;
-    }
-    function C(aA1) {
-        return 3 * aA1;
-    }
-    function calcBezier(aT, aA1, aA2) {
-        return ((A(aA1, aA2) * aT + B(aA1, aA2)) * aT + C(aA1)) * aT;
-    }
-    function getSlope(aT, aA1, aA2) {
-        return 3 * A(aA1, aA2) * aT * aT + 2 * B(aA1, aA2) * aT + C(aA1);
-    }
-    function binarySubdivide(aX, aA, aB, mX1, mX2) {
-        var currentX, currentT, i = 0;
-        do {
-            currentT = aA + (aB - aA) / 2;
-            currentX = calcBezier(currentT, mX1, mX2) - aX;
-            if (currentX > 0) aB = currentT;
-            else aA = currentT;
-        }while (Math.abs(currentX) > 0.0000001 && ++i < 10)
-        return currentT;
-    }
-    function newtonRaphsonIterate(aX, aGuessT, mX1, mX2) {
-        for(var i = 0; i < 4; ++i){
-            var currentSlope = getSlope(aGuessT, mX1, mX2);
-            if (currentSlope === 0) return aGuessT;
-            var currentX = calcBezier(aGuessT, mX1, mX2) - aX;
-            aGuessT -= currentX / currentSlope;
-        }
-        return aGuessT;
-    }
-    function bezier(mX1, mY1, mX2, mY2) {
-        if (!(0 <= mX1 && mX1 <= 1 && 0 <= mX2 && mX2 <= 1)) return;
-        var sampleValues = new Float32Array(kSplineTableSize);
-        if (mX1 !== mY1 || mX2 !== mY2) for(var i = 0; i < kSplineTableSize; ++i)sampleValues[i] = calcBezier(i * kSampleStepSize, mX1, mX2);
-        function getTForX(aX) {
-            var intervalStart = 0;
-            var currentSample = 1;
-            var lastSample = kSplineTableSize - 1;
-            for(; currentSample !== lastSample && sampleValues[currentSample] <= aX; ++currentSample)intervalStart += kSampleStepSize;
-            --currentSample;
-            var dist = (aX - sampleValues[currentSample]) / (sampleValues[currentSample + 1] - sampleValues[currentSample]);
-            var guessForT = intervalStart + dist * kSampleStepSize;
-            var initialSlope = getSlope(guessForT, mX1, mX2);
-            if (initialSlope >= 0.001) return newtonRaphsonIterate(aX, guessForT, mX1, mX2);
-            else if (initialSlope === 0) return guessForT;
-            else return binarySubdivide(aX, intervalStart, intervalStart + kSampleStepSize, mX1, mX2);
-        }
-        return function(x) {
-            if (mX1 === mY1 && mX2 === mY2) return x;
-            if (x === 0 || x === 1) return x;
-            return calcBezier(getTForX(x), mY1, mY2);
-        };
-    }
-    return bezier;
-}();
-var penner = function() {
-    // Based on jQuery UI's implemenation of easing equations from Robert Penner (http://www.robertpenner.com/easing)
-    var eases = {
-        linear: function() {
-            return function(t) {
-                return t;
-            };
-        }
-    };
-    var functionEasings = {
-        Sine: function() {
-            return function(t) {
-                return 1 - Math.cos(t * Math.PI / 2);
-            };
-        },
-        Circ: function() {
-            return function(t) {
-                return 1 - Math.sqrt(1 - t * t);
-            };
-        },
-        Back: function() {
-            return function(t) {
-                return t * t * (3 * t - 2);
-            };
-        },
-        Bounce: function() {
-            return function(t) {
-                var pow2, b = 4;
-                while(t < ((pow2 = Math.pow(2, --b)) - 1) / 11);
-                return 1 / Math.pow(4, 3 - b) - 7.5625 * Math.pow((pow2 * 3 - 2) / 22 - t, 2);
-            };
-        },
-        Elastic: function(amplitude, period) {
-            if (amplitude === void 0) amplitude = 1;
-            if (period === void 0) period = 0.5;
-            var a = minMax(amplitude, 1, 10);
-            var p = minMax(period, 0.1, 2);
-            return function(t) {
-                return t === 0 || t === 1 ? t : -a * Math.pow(2, 10 * (t - 1)) * Math.sin((t - 1 - p / (Math.PI * 2) * Math.asin(1 / a)) * (Math.PI * 2) / p);
-            };
-        }
-    };
-    var baseEasings = [
-        'Quad',
-        'Cubic',
-        'Quart',
-        'Quint',
-        'Expo'
-    ];
-    baseEasings.forEach(function(name, i) {
-        functionEasings[name] = function() {
-            return function(t) {
-                return Math.pow(t, i + 2);
-            };
-        };
-    });
-    Object.keys(functionEasings).forEach(function(name) {
-        var easeIn = functionEasings[name];
-        eases['easeIn' + name] = easeIn;
-        eases['easeOut' + name] = function(a, b) {
-            return function(t) {
-                return 1 - easeIn(a, b)(1 - t);
-            };
-        };
-        eases['easeInOut' + name] = function(a, b) {
-            return function(t) {
-                return t < 0.5 ? easeIn(a, b)(t * 2) / 2 : 1 - easeIn(a, b)(t * -2 + 2) / 2;
-            };
-        };
-        eases['easeOutIn' + name] = function(a, b) {
-            return function(t) {
-                return t < 0.5 ? (1 - easeIn(a, b)(1 - t * 2)) / 2 : (easeIn(a, b)(t * 2 - 1) + 1) / 2;
-            };
-        };
-    });
-    return eases;
-}();
-function parseEasings(easing, duration) {
-    if (is.fnc(easing)) return easing;
-    var name = easing.split('(')[0];
-    var ease = penner[name];
-    var args = parseEasingParameters(easing);
-    switch(name){
-        case 'spring':
-            return spring(easing, duration);
-        case 'cubicBezier':
-            return applyArguments(bezier, args);
-        case 'steps':
-            return applyArguments(steps, args);
-        default:
-            return applyArguments(ease, args);
-    }
-}
-// Strings
-function selectString(str) {
-    try {
-        var nodes = document.querySelectorAll(str);
-        return nodes;
-    } catch (e) {
-        return;
-    }
-}
-// Arrays
-function filterArray(arr, callback) {
-    var len = arr.length;
-    var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
-    var result = [];
-    for(var i = 0; i < len; i++)if (i in arr) {
-        var val = arr[i];
-        if (callback.call(thisArg, val, i, arr)) result.push(val);
-    }
-    return result;
-}
-function flattenArray(arr) {
-    return arr.reduce(function(a, b) {
-        return a.concat(is.arr(b) ? flattenArray(b) : b);
-    }, []);
-}
-function toArray(o) {
-    if (is.arr(o)) return o;
-    if (is.str(o)) o = selectString(o) || o;
-    if (o instanceof NodeList || o instanceof HTMLCollection) return [].slice.call(o);
-    return [
-        o
-    ];
-}
-function arrayContains(arr, val) {
-    return arr.some(function(a) {
-        return a === val;
-    });
-}
-// Objects
-function cloneObject(o) {
-    var clone = {
-    };
-    for(var p in o)clone[p] = o[p];
-    return clone;
-}
-function replaceObjectProps(o1, o2) {
-    var o = cloneObject(o1);
-    for(var p in o1)o[p] = o2.hasOwnProperty(p) ? o2[p] : o1[p];
-    return o;
-}
-function mergeObjects(o1, o2) {
-    var o = cloneObject(o1);
-    for(var p in o2)o[p] = is.und(o1[p]) ? o2[p] : o1[p];
-    return o;
-}
-// Colors
-function rgbToRgba(rgbValue) {
-    var rgb = /rgb\((\d+,\s*[\d]+,\s*[\d]+)\)/g.exec(rgbValue);
-    return rgb ? "rgba(" + rgb[1] + ",1)" : rgbValue;
-}
-function hexToRgba(hexValue) {
-    var rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    var hex = hexValue.replace(rgx, function(m, r, g, b) {
-        return r + r + g + g + b + b;
-    });
-    var rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    var r = parseInt(rgb[1], 16);
-    var g = parseInt(rgb[2], 16);
-    var b = parseInt(rgb[3], 16);
-    return "rgba(" + r + "," + g + "," + b + ",1)";
-}
-function hslToRgba(hslValue) {
-    var hsl = /hsl\((\d+),\s*([\d.]+)%,\s*([\d.]+)%\)/g.exec(hslValue) || /hsla\((\d+),\s*([\d.]+)%,\s*([\d.]+)%,\s*([\d.]+)\)/g.exec(hslValue);
-    var h = parseInt(hsl[1], 10) / 360;
-    var s = parseInt(hsl[2], 10) / 100;
-    var l = parseInt(hsl[3], 10) / 100;
-    var a = hsl[4] || 1;
-    function hue2rgb(p, q, t) {
-        if (t < 0) t += 1;
-        if (t > 1) t -= 1;
-        if (t < 1 / 6) return p + (q - p) * 6 * t;
-        if (t < 0.5) return q;
-        if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-        return p;
-    }
-    var r, g, b;
-    if (s == 0) r = g = b = l;
-    else {
-        var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-        var p = 2 * l - q;
-        r = hue2rgb(p, q, h + 1 / 3);
-        g = hue2rgb(p, q, h);
-        b = hue2rgb(p, q, h - 1 / 3);
-    }
-    return "rgba(" + r * 255 + "," + g * 255 + "," + b * 255 + "," + a + ")";
-}
-function colorToRgb(val) {
-    if (is.rgb(val)) return rgbToRgba(val);
-    if (is.hex(val)) return hexToRgba(val);
-    if (is.hsl(val)) return hslToRgba(val);
-}
-// Units
-function getUnit(val) {
-    var split = /[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?(%|px|pt|em|rem|in|cm|mm|ex|ch|pc|vw|vh|vmin|vmax|deg|rad|turn)?$/.exec(val);
-    if (split) return split[1];
-}
-function getTransformUnit(propName) {
-    if (stringContains(propName, 'translate') || propName === 'perspective') return 'px';
-    if (stringContains(propName, 'rotate') || stringContains(propName, 'skew')) return 'deg';
-}
-// Values
-function getFunctionValue(val, animatable) {
-    if (!is.fnc(val)) return val;
-    return val(animatable.target, animatable.id, animatable.total);
-}
-function getAttribute(el, prop) {
-    return el.getAttribute(prop);
-}
-function convertPxToUnit(el, value, unit) {
-    var valueUnit = getUnit(value);
-    if (arrayContains([
-        unit,
-        'deg',
-        'rad',
-        'turn'
-    ], valueUnit)) return value;
-    var cached = cache.CSS[value + unit];
-    if (!is.und(cached)) return cached;
-    var baseline = 100;
-    var tempEl = document.createElement(el.tagName);
-    var parentEl = el.parentNode && el.parentNode !== document ? el.parentNode : document.body;
-    parentEl.appendChild(tempEl);
-    tempEl.style.position = 'absolute';
-    tempEl.style.width = baseline + unit;
-    var factor = baseline / tempEl.offsetWidth;
-    parentEl.removeChild(tempEl);
-    var convertedUnit = factor * parseFloat(value);
-    cache.CSS[value + unit] = convertedUnit;
-    return convertedUnit;
-}
-function getCSSValue(el, prop, unit) {
-    if (prop in el.style) {
-        var uppercasePropName = prop.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-        var value = el.style[prop] || getComputedStyle(el).getPropertyValue(uppercasePropName) || '0';
-        return unit ? convertPxToUnit(el, value, unit) : value;
-    }
-}
-function getAnimationType(el, prop) {
-    if (is.dom(el) && !is.inp(el) && (!is.nil(getAttribute(el, prop)) || is.svg(el) && el[prop])) return 'attribute';
-    if (is.dom(el) && arrayContains(validTransforms, prop)) return 'transform';
-    if (is.dom(el) && prop !== 'transform' && getCSSValue(el, prop)) return 'css';
-    if (el[prop] != null) return 'object';
-}
-function getElementTransforms(el) {
-    if (!is.dom(el)) return;
-    var str = el.style.transform || '';
-    var reg = /(\w+)\(([^)]*)\)/g;
-    var transforms = new Map();
-    var m;
-    while(m = reg.exec(str))transforms.set(m[1], m[2]);
-    return transforms;
-}
-function getTransformValue(el, propName, animatable, unit) {
-    var defaultVal = stringContains(propName, 'scale') ? 1 : 0 + getTransformUnit(propName);
-    var value = getElementTransforms(el).get(propName) || defaultVal;
-    if (animatable) {
-        animatable.transforms.list.set(propName, value);
-        animatable.transforms['last'] = propName;
-    }
-    return unit ? convertPxToUnit(el, value, unit) : value;
-}
-function getOriginalTargetValue(target, propName, unit, animatable) {
-    switch(getAnimationType(target, propName)){
-        case 'transform':
-            return getTransformValue(target, propName, animatable, unit);
-        case 'css':
-            return getCSSValue(target, propName, unit);
-        case 'attribute':
-            return getAttribute(target, propName);
-        default:
-            return target[propName] || 0;
-    }
-}
-function getRelativeValue(to, from) {
-    var operator = /^(\*=|\+=|-=)/.exec(to);
-    if (!operator) return to;
-    var u = getUnit(to) || 0;
-    var x = parseFloat(from);
-    var y = parseFloat(to.replace(operator[0], ''));
-    switch(operator[0][0]){
-        case '+':
-            return x + y + u;
-        case '-':
-            return x - y + u;
-        case '*':
-            return x * y + u;
-    }
-}
-function validateValue(val, unit) {
-    if (is.col(val)) return colorToRgb(val);
-    if (/\s/g.test(val)) return val;
-    var originalUnit = getUnit(val);
-    var unitLess = originalUnit ? val.substr(0, val.length - originalUnit.length) : val;
-    if (unit) return unitLess + unit;
-    return unitLess;
-}
-// getTotalLength() equivalent for circle, rect, polyline, polygon and line shapes
-// adapted from https://gist.github.com/SebLambla/3e0550c496c236709744
-function getDistance(p1, p2) {
-    return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
-}
-function getCircleLength(el) {
-    return Math.PI * 2 * getAttribute(el, 'r');
-}
-function getRectLength(el) {
-    return getAttribute(el, 'width') * 2 + getAttribute(el, 'height') * 2;
-}
-function getLineLength(el) {
-    return getDistance({
-        x: getAttribute(el, 'x1'),
-        y: getAttribute(el, 'y1')
-    }, {
-        x: getAttribute(el, 'x2'),
-        y: getAttribute(el, 'y2')
-    });
-}
-function getPolylineLength(el) {
-    var points = el.points;
-    var totalLength = 0;
-    var previousPos;
-    for(var i = 0; i < points.numberOfItems; i++){
-        var currentPos = points.getItem(i);
-        if (i > 0) totalLength += getDistance(previousPos, currentPos);
-        previousPos = currentPos;
-    }
-    return totalLength;
-}
-function getPolygonLength(el) {
-    var points = el.points;
-    return getPolylineLength(el) + getDistance(points.getItem(points.numberOfItems - 1), points.getItem(0));
-}
-// Path animation
-function getTotalLength(el) {
-    if (el.getTotalLength) return el.getTotalLength();
-    switch(el.tagName.toLowerCase()){
-        case 'circle':
-            return getCircleLength(el);
-        case 'rect':
-            return getRectLength(el);
-        case 'line':
-            return getLineLength(el);
-        case 'polyline':
-            return getPolylineLength(el);
-        case 'polygon':
-            return getPolygonLength(el);
-    }
-}
-function setDashoffset(el) {
-    var pathLength = getTotalLength(el);
-    el.setAttribute('stroke-dasharray', pathLength);
-    return pathLength;
-}
-// Motion path
-function getParentSvgEl(el) {
-    var parentEl = el.parentNode;
-    while(is.svg(parentEl)){
-        if (!is.svg(parentEl.parentNode)) break;
-        parentEl = parentEl.parentNode;
-    }
-    return parentEl;
-}
-function getParentSvg(pathEl, svgData) {
-    var svg = svgData || {
-    };
-    var parentSvgEl = svg.el || getParentSvgEl(pathEl);
-    var rect = parentSvgEl.getBoundingClientRect();
-    var viewBoxAttr = getAttribute(parentSvgEl, 'viewBox');
-    var width = rect.width;
-    var height = rect.height;
-    var viewBox = svg.viewBox || (viewBoxAttr ? viewBoxAttr.split(' ') : [
-        0,
-        0,
-        width,
-        height
-    ]);
-    return {
-        el: parentSvgEl,
-        viewBox: viewBox,
-        x: viewBox[0] / 1,
-        y: viewBox[1] / 1,
-        w: width,
-        h: height,
-        vW: viewBox[2],
-        vH: viewBox[3]
-    };
-}
-function getPath(path, percent) {
-    var pathEl = is.str(path) ? selectString(path)[0] : path;
-    var p = percent || 100;
-    return function(property) {
-        return {
-            property: property,
-            el: pathEl,
-            svg: getParentSvg(pathEl),
-            totalLength: getTotalLength(pathEl) * (p / 100)
-        };
-    };
-}
-function getPathProgress(path, progress, isPathTargetInsideSVG) {
-    function point(offset) {
-        if (offset === void 0) offset = 0;
-        var l = progress + offset >= 1 ? progress + offset : 0;
-        return path.el.getPointAtLength(l);
-    }
-    var svg = getParentSvg(path.el, path.svg);
-    var p = point();
-    var p0 = point(-1);
-    var p1 = point(1);
-    var scaleX = isPathTargetInsideSVG ? 1 : svg.w / svg.vW;
-    var scaleY = isPathTargetInsideSVG ? 1 : svg.h / svg.vH;
-    switch(path.property){
-        case 'x':
-            return (p.x - svg.x) * scaleX;
-        case 'y':
-            return (p.y - svg.y) * scaleY;
-        case 'angle':
-            return Math.atan2(p1.y - p0.y, p1.x - p0.x) * 180 / Math.PI;
-    }
-}
-// Decompose value
-function decomposeValue(val, unit) {
-    // const rgx = /-?\d*\.?\d+/g; // handles basic numbers
-    // const rgx = /[+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g; // handles exponents notation
-    var rgx = /[+-]?\d*\.?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g; // handles exponents notation
-    var value = validateValue(is.pth(val) ? val.totalLength : val, unit) + '';
-    return {
-        original: value,
-        numbers: value.match(rgx) ? value.match(rgx).map(Number) : [
-            0
-        ],
-        strings: is.str(val) || unit ? value.split(rgx) : []
-    };
-}
-// Animatables
-function parseTargets(targets) {
-    var targetsArray = targets ? flattenArray(is.arr(targets) ? targets.map(toArray) : toArray(targets)) : [];
-    return filterArray(targetsArray, function(item, pos, self) {
-        return self.indexOf(item) === pos;
-    });
-}
-function getAnimatables(targets) {
-    var parsed = parseTargets(targets);
-    return parsed.map(function(t, i) {
-        return {
-            target: t,
-            id: i,
-            total: parsed.length,
-            transforms: {
-                list: getElementTransforms(t)
-            }
-        };
-    });
-}
-// Properties
-function normalizePropertyTweens(prop, tweenSettings) {
-    var settings = cloneObject(tweenSettings);
-    // Override duration if easing is a spring
-    if (/^spring/.test(settings.easing)) settings.duration = spring(settings.easing);
-    if (is.arr(prop)) {
-        var l = prop.length;
-        var isFromTo = l === 2 && !is.obj(prop[0]);
-        if (!isFromTo) // Duration divided by the number of tweens
-        {
-            if (!is.fnc(tweenSettings.duration)) settings.duration = tweenSettings.duration / l;
-        } else // Transform [from, to] values shorthand to a valid tween value
-        prop = {
-            value: prop
-        };
-    }
-    var propArray = is.arr(prop) ? prop : [
-        prop
-    ];
-    return propArray.map(function(v, i) {
-        var obj = is.obj(v) && !is.pth(v) ? v : {
-            value: v
-        };
-        // Default delay value should only be applied to the first tween
-        if (is.und(obj.delay)) obj.delay = !i ? tweenSettings.delay : 0;
-        // Default endDelay value should only be applied to the last tween
-        if (is.und(obj.endDelay)) obj.endDelay = i === propArray.length - 1 ? tweenSettings.endDelay : 0;
-        return obj;
-    }).map(function(k) {
-        return mergeObjects(k, settings);
-    });
-}
-function flattenKeyframes(keyframes) {
-    var propertyNames = filterArray(flattenArray(keyframes.map(function(key) {
-        return Object.keys(key);
-    })), function(p) {
-        return is.key(p);
-    }).reduce(function(a, b) {
-        if (a.indexOf(b) < 0) a.push(b);
-        return a;
-    }, []);
-    var properties = {
-    };
-    var loop = function(i) {
-        var propName = propertyNames[i];
-        properties[propName] = keyframes.map(function(key) {
-            var newKey = {
-            };
-            for(var p in key){
-                if (is.key(p)) {
-                    if (p == propName) newKey.value = key[p];
-                } else newKey[p] = key[p];
-            }
-            return newKey;
-        });
-    };
-    for(var i = 0; i < propertyNames.length; i++)loop(i);
-    return properties;
-}
-function getProperties(tweenSettings, params) {
-    var properties = [];
-    var keyframes = params.keyframes;
-    if (keyframes) params = mergeObjects(flattenKeyframes(keyframes), params);
-    for(var p in params)if (is.key(p)) properties.push({
-        name: p,
-        tweens: normalizePropertyTweens(params[p], tweenSettings)
-    });
-    return properties;
-}
-// Tweens
-function normalizeTweenValues(tween, animatable) {
-    var t = {
-    };
-    for(var p in tween){
-        var value = getFunctionValue(tween[p], animatable);
-        if (is.arr(value)) {
-            value = value.map(function(v) {
-                return getFunctionValue(v, animatable);
-            });
-            if (value.length === 1) value = value[0];
-        }
-        t[p] = value;
-    }
-    t.duration = parseFloat(t.duration);
-    t.delay = parseFloat(t.delay);
-    return t;
-}
-function normalizeTweens(prop, animatable) {
-    var previousTween;
-    return prop.tweens.map(function(t) {
-        var tween = normalizeTweenValues(t, animatable);
-        var tweenValue = tween.value;
-        var to = is.arr(tweenValue) ? tweenValue[1] : tweenValue;
-        var toUnit = getUnit(to);
-        var originalValue = getOriginalTargetValue(animatable.target, prop.name, toUnit, animatable);
-        var previousValue = previousTween ? previousTween.to.original : originalValue;
-        var from = is.arr(tweenValue) ? tweenValue[0] : previousValue;
-        var fromUnit = getUnit(from) || getUnit(originalValue);
-        var unit = toUnit || fromUnit;
-        if (is.und(to)) to = previousValue;
-        tween.from = decomposeValue(from, unit);
-        tween.to = decomposeValue(getRelativeValue(to, from), unit);
-        tween.start = previousTween ? previousTween.end : 0;
-        tween.end = tween.start + tween.delay + tween.duration + tween.endDelay;
-        tween.easing = parseEasings(tween.easing, tween.duration);
-        tween.isPath = is.pth(tweenValue);
-        tween.isPathTargetInsideSVG = tween.isPath && is.svg(animatable.target);
-        tween.isColor = is.col(tween.from.original);
-        if (tween.isColor) tween.round = 1;
-        previousTween = tween;
-        return tween;
-    });
-}
-// Tween progress
-var setProgressValue = {
-    css: function(t, p, v) {
-        return t.style[p] = v;
-    },
-    attribute: function(t, p, v) {
-        return t.setAttribute(p, v);
-    },
-    object: function(t, p, v) {
-        return t[p] = v;
-    },
-    transform: function(t, p, v, transforms, manual) {
-        transforms.list.set(p, v);
-        if (p === transforms.last || manual) {
-            var str = '';
-            transforms.list.forEach(function(value, prop) {
-                str += prop + "(" + value + ") ";
-            });
-            t.style.transform = str;
-        }
-    }
-};
-// Set Value helper
-function setTargetsValue(targets, properties) {
-    var animatables = getAnimatables(targets);
-    animatables.forEach(function(animatable) {
-        for(var property in properties){
-            var value = getFunctionValue(properties[property], animatable);
-            var target = animatable.target;
-            var valueUnit = getUnit(value);
-            var originalValue = getOriginalTargetValue(target, property, valueUnit, animatable);
-            var unit = valueUnit || getUnit(originalValue);
-            var to = getRelativeValue(validateValue(value, unit), originalValue);
-            var animType = getAnimationType(target, property);
-            setProgressValue[animType](target, property, to, animatable.transforms, true);
-        }
-    });
-}
-// Animations
-function createAnimation(animatable, prop) {
-    var animType = getAnimationType(animatable.target, prop.name);
-    if (animType) {
-        var tweens = normalizeTweens(prop, animatable);
-        var lastTween = tweens[tweens.length - 1];
-        return {
-            type: animType,
-            property: prop.name,
-            animatable: animatable,
-            tweens: tweens,
-            duration: lastTween.end,
-            delay: tweens[0].delay,
-            endDelay: lastTween.endDelay
-        };
-    }
-}
-function getAnimations(animatables, properties) {
-    return filterArray(flattenArray(animatables.map(function(animatable) {
-        return properties.map(function(prop) {
-            return createAnimation(animatable, prop);
-        });
-    })), function(a) {
-        return !is.und(a);
-    });
-}
-// Create Instance
-function getInstanceTimings(animations, tweenSettings) {
-    var animLength = animations.length;
-    var getTlOffset = function(anim) {
-        return anim.timelineOffset ? anim.timelineOffset : 0;
-    };
-    var timings = {
-    };
-    timings.duration = animLength ? Math.max.apply(Math, animations.map(function(anim) {
-        return getTlOffset(anim) + anim.duration;
-    })) : tweenSettings.duration;
-    timings.delay = animLength ? Math.min.apply(Math, animations.map(function(anim) {
-        return getTlOffset(anim) + anim.delay;
-    })) : tweenSettings.delay;
-    timings.endDelay = animLength ? timings.duration - Math.max.apply(Math, animations.map(function(anim) {
-        return getTlOffset(anim) + anim.duration - anim.endDelay;
-    })) : tweenSettings.endDelay;
-    return timings;
-}
-var instanceID = 0;
-function createNewInstance(params) {
-    var instanceSettings = replaceObjectProps(defaultInstanceSettings, params);
-    var tweenSettings = replaceObjectProps(defaultTweenSettings, params);
-    var properties = getProperties(tweenSettings, params);
-    var animatables = getAnimatables(params.targets);
-    var animations = getAnimations(animatables, properties);
-    var timings = getInstanceTimings(animations, tweenSettings);
-    var id = instanceID;
-    instanceID++;
-    return mergeObjects(instanceSettings, {
-        id: id,
-        children: [],
-        animatables: animatables,
-        animations: animations,
-        duration: timings.duration,
-        delay: timings.delay,
-        endDelay: timings.endDelay
-    });
-}
-// Core
-var activeInstances = [];
-var engine = function() {
-    var raf;
-    function play() {
-        if (!raf && (!isDocumentHidden() || !anime.suspendWhenDocumentHidden) && activeInstances.length > 0) raf = requestAnimationFrame(step);
-    }
-    function step(t) {
-        // memo on algorithm issue:
-        // dangerous iteration over mutable `activeInstances`
-        // (that collection may be updated from within callbacks of `tick`-ed animation instances)
-        var activeInstancesLength = activeInstances.length;
-        var i = 0;
-        while(i < activeInstancesLength){
-            var activeInstance = activeInstances[i];
-            if (!activeInstance.paused) {
-                activeInstance.tick(t);
-                i++;
-            } else {
-                activeInstances.splice(i, 1);
-                activeInstancesLength--;
-            }
-        }
-        raf = i > 0 ? requestAnimationFrame(step) : undefined;
-    }
-    function handleVisibilityChange() {
-        if (!anime.suspendWhenDocumentHidden) return;
-        if (isDocumentHidden()) // suspend ticks
-        raf = cancelAnimationFrame(raf);
-        else {
-            // first adjust animations to consider the time that ticks were suspended
-            activeInstances.forEach(function(instance) {
-                return instance._onDocumentVisibility();
-            });
-            engine();
-        }
-    }
-    if (typeof document !== 'undefined') document.addEventListener('visibilitychange', handleVisibilityChange);
-    return play;
-}();
-function isDocumentHidden() {
-    return !!document && document.hidden;
-}
-// Public Instance
-function anime(params) {
-    if (params === void 0) params = {
-    };
-    var startTime = 0, lastTime = 0, now = 0;
-    var children, childrenLength = 0;
-    var resolve = null;
-    function makePromise(instance) {
-        var promise = window.Promise && new Promise(function(_resolve) {
-            return resolve = _resolve;
-        });
-        instance.finished = promise;
-        return promise;
-    }
-    var instance = createNewInstance(params);
-    var promise = makePromise(instance);
-    function toggleInstanceDirection() {
-        var direction = instance.direction;
-        if (direction !== 'alternate') instance.direction = direction !== 'normal' ? 'normal' : 'reverse';
-        instance.reversed = !instance.reversed;
-        children.forEach(function(child) {
-            return child.reversed = instance.reversed;
-        });
-    }
-    function adjustTime(time) {
-        return instance.reversed ? instance.duration - time : time;
-    }
-    function resetTime() {
-        startTime = 0;
-        lastTime = adjustTime(instance.currentTime) * (1 / anime.speed);
-    }
-    function seekChild(time, child) {
-        if (child) child.seek(time - child.timelineOffset);
-    }
-    function syncInstanceChildren(time) {
-        if (!instance.reversePlayback) for(var i = 0; i < childrenLength; i++)seekChild(time, children[i]);
-        else for(var i$1 = childrenLength; i$1--;)seekChild(time, children[i$1]);
-    }
-    function setAnimationsProgress(insTime) {
-        var i = 0;
-        var animations = instance.animations;
-        var animationsLength = animations.length;
-        while(i < animationsLength){
-            var anim = animations[i];
-            var animatable = anim.animatable;
-            var tweens = anim.tweens;
-            var tweenLength = tweens.length - 1;
-            var tween = tweens[tweenLength];
-            // Only check for keyframes if there is more than one tween
-            if (tweenLength) tween = filterArray(tweens, function(t) {
-                return insTime < t.end;
-            })[0] || tween;
-            var elapsed = minMax(insTime - tween.start - tween.delay, 0, tween.duration) / tween.duration;
-            var eased = isNaN(elapsed) ? 1 : tween.easing(elapsed);
-            var strings = tween.to.strings;
-            var round = tween.round;
-            var numbers = [];
-            var toNumbersLength = tween.to.numbers.length;
-            var progress = void 0;
-            for(var n = 0; n < toNumbersLength; n++){
-                var value = void 0;
-                var toNumber = tween.to.numbers[n];
-                var fromNumber = tween.from.numbers[n] || 0;
-                if (!tween.isPath) value = fromNumber + eased * (toNumber - fromNumber);
-                else value = getPathProgress(tween.value, eased * toNumber, tween.isPathTargetInsideSVG);
-                if (round) {
-                    if (!(tween.isColor && n > 2)) value = Math.round(value * round) / round;
-                }
-                numbers.push(value);
-            }
-            // Manual Array.reduce for better performances
-            var stringsLength = strings.length;
-            if (!stringsLength) progress = numbers[0];
-            else {
-                progress = strings[0];
-                for(var s = 0; s < stringsLength; s++){
-                    var a = strings[s];
-                    var b = strings[s + 1];
-                    var n$1 = numbers[s];
-                    if (!isNaN(n$1)) {
-                        if (!b) progress += n$1 + ' ';
-                        else progress += n$1 + b;
-                    }
-                }
-            }
-            setProgressValue[anim.type](animatable.target, anim.property, progress, animatable.transforms);
-            anim.currentValue = progress;
-            i++;
-        }
-    }
-    function setCallback(cb) {
-        if (instance[cb] && !instance.passThrough) instance[cb](instance);
-    }
-    function countIteration() {
-        if (instance.remaining && instance.remaining !== true) instance.remaining--;
-    }
-    function setInstanceProgress(engineTime) {
-        var insDuration = instance.duration;
-        var insDelay = instance.delay;
-        var insEndDelay = insDuration - instance.endDelay;
-        var insTime = adjustTime(engineTime);
-        instance.progress = minMax(insTime / insDuration * 100, 0, 100);
-        instance.reversePlayback = insTime < instance.currentTime;
-        if (children) syncInstanceChildren(insTime);
-        if (!instance.began && instance.currentTime > 0) {
-            instance.began = true;
-            setCallback('begin');
-        }
-        if (!instance.loopBegan && instance.currentTime > 0) {
-            instance.loopBegan = true;
-            setCallback('loopBegin');
-        }
-        if (insTime <= insDelay && instance.currentTime !== 0) setAnimationsProgress(0);
-        if (insTime >= insEndDelay && instance.currentTime !== insDuration || !insDuration) setAnimationsProgress(insDuration);
-        if (insTime > insDelay && insTime < insEndDelay) {
-            if (!instance.changeBegan) {
-                instance.changeBegan = true;
-                instance.changeCompleted = false;
-                setCallback('changeBegin');
-            }
-            setCallback('change');
-            setAnimationsProgress(insTime);
-        } else if (instance.changeBegan) {
-            instance.changeCompleted = true;
-            instance.changeBegan = false;
-            setCallback('changeComplete');
-        }
-        instance.currentTime = minMax(insTime, 0, insDuration);
-        if (instance.began) setCallback('update');
-        if (engineTime >= insDuration) {
-            lastTime = 0;
-            countIteration();
-            if (!instance.remaining) {
-                instance.paused = true;
-                if (!instance.completed) {
-                    instance.completed = true;
-                    setCallback('loopComplete');
-                    setCallback('complete');
-                    if (!instance.passThrough && 'Promise' in window) {
-                        resolve();
-                        promise = makePromise(instance);
-                    }
-                }
-            } else {
-                startTime = now;
-                setCallback('loopComplete');
-                instance.loopBegan = false;
-                if (instance.direction === 'alternate') toggleInstanceDirection();
-            }
-        }
-    }
-    instance.reset = function() {
-        var direction = instance.direction;
-        instance.passThrough = false;
-        instance.currentTime = 0;
-        instance.progress = 0;
-        instance.paused = true;
-        instance.began = false;
-        instance.loopBegan = false;
-        instance.changeBegan = false;
-        instance.completed = false;
-        instance.changeCompleted = false;
-        instance.reversePlayback = false;
-        instance.reversed = direction === 'reverse';
-        instance.remaining = instance.loop;
-        children = instance.children;
-        childrenLength = children.length;
-        for(var i = childrenLength; i--;)instance.children[i].reset();
-        if (instance.reversed && instance.loop !== true || direction === 'alternate' && instance.loop === 1) instance.remaining++;
-        setAnimationsProgress(instance.reversed ? instance.duration : 0);
-    };
-    // internal method (for engine) to adjust animation timings before restoring engine ticks (rAF)
-    instance._onDocumentVisibility = resetTime;
-    // Set Value helper
-    instance.set = function(targets, properties) {
-        setTargetsValue(targets, properties);
-        return instance;
-    };
-    instance.tick = function(t) {
-        now = t;
-        if (!startTime) startTime = now;
-        setInstanceProgress((now + (lastTime - startTime)) * anime.speed);
-    };
-    instance.seek = function(time) {
-        setInstanceProgress(adjustTime(time));
-    };
-    instance.pause = function() {
-        instance.paused = true;
-        resetTime();
-    };
-    instance.play = function() {
-        if (!instance.paused) return;
-        if (instance.completed) instance.reset();
-        instance.paused = false;
-        activeInstances.push(instance);
-        resetTime();
-        engine();
-    };
-    instance.reverse = function() {
-        toggleInstanceDirection();
-        instance.completed = instance.reversed ? false : true;
-        resetTime();
-    };
-    instance.restart = function() {
-        instance.reset();
-        instance.play();
-    };
-    instance.remove = function(targets) {
-        var targetsArray = parseTargets(targets);
-        removeTargetsFromInstance(targetsArray, instance);
-    };
-    instance.reset();
-    if (instance.autoplay) instance.play();
-    return instance;
-}
-// Remove targets from animation
-function removeTargetsFromAnimations(targetsArray, animations) {
-    for(var a = animations.length; a--;)if (arrayContains(targetsArray, animations[a].animatable.target)) animations.splice(a, 1);
-}
-function removeTargetsFromInstance(targetsArray, instance) {
-    var animations = instance.animations;
-    var children = instance.children;
-    removeTargetsFromAnimations(targetsArray, animations);
-    for(var c = children.length; c--;){
-        var child = children[c];
-        var childAnimations = child.animations;
-        removeTargetsFromAnimations(targetsArray, childAnimations);
-        if (!childAnimations.length && !child.children.length) children.splice(c, 1);
-    }
-    if (!animations.length && !children.length) instance.pause();
-}
-function removeTargetsFromActiveInstances(targets) {
-    var targetsArray = parseTargets(targets);
-    for(var i = activeInstances.length; i--;){
-        var instance = activeInstances[i];
-        removeTargetsFromInstance(targetsArray, instance);
-    }
-}
-// Stagger helpers
-function stagger(val, params) {
-    if (params === void 0) params = {
-    };
-    var direction = params.direction || 'normal';
-    var easing = params.easing ? parseEasings(params.easing) : null;
-    var grid = params.grid;
-    var axis = params.axis;
-    var fromIndex = params.from || 0;
-    var fromFirst = fromIndex === 'first';
-    var fromCenter = fromIndex === 'center';
-    var fromLast = fromIndex === 'last';
-    var isRange = is.arr(val);
-    var val1 = isRange ? parseFloat(val[0]) : parseFloat(val);
-    var val2 = isRange ? parseFloat(val[1]) : 0;
-    var unit = getUnit(isRange ? val[1] : val) || 0;
-    var start = params.start || 0 + (isRange ? val1 : 0);
-    var values = [];
-    var maxValue = 0;
-    return function(el, i, t) {
-        if (fromFirst) fromIndex = 0;
-        if (fromCenter) fromIndex = (t - 1) / 2;
-        if (fromLast) fromIndex = t - 1;
-        if (!values.length) {
-            for(var index = 0; index < t; index++){
-                if (!grid) values.push(Math.abs(fromIndex - index));
-                else {
-                    var fromX = !fromCenter ? fromIndex % grid[0] : (grid[0] - 1) / 2;
-                    var fromY = !fromCenter ? Math.floor(fromIndex / grid[0]) : (grid[1] - 1) / 2;
-                    var toX = index % grid[0];
-                    var toY = Math.floor(index / grid[0]);
-                    var distanceX = fromX - toX;
-                    var distanceY = fromY - toY;
-                    var value = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-                    if (axis === 'x') value = -distanceX;
-                    if (axis === 'y') value = -distanceY;
-                    values.push(value);
-                }
-                maxValue = Math.max.apply(Math, values);
-            }
-            if (easing) values = values.map(function(val) {
-                return easing(val / maxValue) * maxValue;
-            });
-            if (direction === 'reverse') values = values.map(function(val) {
-                return axis ? val < 0 ? val * -1 : -val : Math.abs(maxValue - val);
-            });
-        }
-        var spacing = isRange ? (val2 - val1) / maxValue : val1;
-        return start + spacing * (Math.round(values[i] * 100) / 100) + unit;
-    };
-}
-// Timeline
-function timeline(params) {
-    if (params === void 0) params = {
-    };
-    var tl = anime(params);
-    tl.duration = 0;
-    tl.add = function(instanceParams, timelineOffset) {
-        var tlIndex = activeInstances.indexOf(tl);
-        var children = tl.children;
-        if (tlIndex > -1) activeInstances.splice(tlIndex, 1);
-        function passThrough(ins) {
-            ins.passThrough = true;
-        }
-        for(var i = 0; i < children.length; i++)passThrough(children[i]);
-        var insParams = mergeObjects(instanceParams, replaceObjectProps(defaultTweenSettings, params));
-        insParams.targets = insParams.targets || params.targets;
-        var tlDuration = tl.duration;
-        insParams.autoplay = false;
-        insParams.direction = tl.direction;
-        insParams.timelineOffset = is.und(timelineOffset) ? tlDuration : getRelativeValue(timelineOffset, tlDuration);
-        passThrough(tl);
-        tl.seek(insParams.timelineOffset);
-        var ins = anime(insParams);
-        passThrough(ins);
-        children.push(ins);
-        var timings = getInstanceTimings(children, params);
-        tl.delay = timings.delay;
-        tl.endDelay = timings.endDelay;
-        tl.duration = timings.duration;
-        tl.seek(0);
-        tl.reset();
-        if (tl.autoplay) tl.play();
-        return tl;
-    };
-    return tl;
-}
-anime.version = '3.2.1';
-anime.speed = 1;
-// TODO:#review: naming, documentation
-anime.suspendWhenDocumentHidden = true;
-anime.running = activeInstances;
-anime.remove = removeTargetsFromActiveInstances;
-anime.get = getOriginalTargetValue;
-anime.set = setTargetsValue;
-anime.convertPx = convertPxToUnit;
-anime.path = getPath;
-anime.setDashoffset = setDashoffset;
-anime.stagger = stagger;
-anime.timeline = timeline;
-anime.easing = parseEasings;
-anime.penner = penner;
-anime.random = function(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-exports.default = anime;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"aKONg":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _mithril = require("mithril");
-var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _nav = require("./Nav");
-var _navDefault = parcelHelpers.interopDefault(_nav);
-var _cursor = require("./cursor");
-var _cursorDefault = parcelHelpers.interopDefault(_cursor);
-var _footer = require("./Footer");
-var _footerDefault = parcelHelpers.interopDefault(_footer);
-var _loader = require("./Loader");
-var _loaderDefault = parcelHelpers.interopDefault(_loader);
-var _appJs = require("../../app.js");
-var _mypicJpg = require("../assets/mypic.jpg");
-var _mypicJpgDefault = parcelHelpers.interopDefault(_mypicJpg);
-var _aboutToml = require("../assets/text/about.toml");
-var _commonToml = require("../locales/common.toml");
-var _commonTomlDefault = parcelHelpers.interopDefault(_commonToml);
-let scroll;
-// const title = about.title
-const paragraphs = _aboutToml.about.paragraphs;
-module.exports = {
-    oninit (vnode) {
-        vnode.state.lang = localStorage.lang;
-    },
-    async oncreate (vnode) {
-        // select correct language
-        if (vnode.state.lang) {
-            const opt = document.querySelector(`option[value=${vnode.state.lang}]`);
-            opt.selected = true;
-        }
-        // initialize smoothscroll
-        //
-        const loader = await _loaderDefault.default(vnode, scroll);
-        scroll = loader.scroll;
-        document.querySelector(".footer-nav .btt").onclick = ()=>{
-            scroll.scrollTo("top");
-        };
-        if (!_appJs.cursor) new _cursorDefault.default(document.querySelector("svg.cursor"));
-    },
-    onremove () {
-        scroll.destroy();
-    },
-    view (vnode) {
-        vnode.state.title = _commonTomlDefault.default[localStorage.lang].about.title;
-        // check width > 768px to apply sticky to picture
-        vnode.state.width = window.innerWidth;
-        let sticky = vnode.state.width > 768 ? "" : "";
-        const lang = vnode.state.lang;
-        return _mithrilDefault.default(".about-page-wrapper[data-scroll-container]", _mithrilDefault.default("#main", _mithrilDefault.default(_navDefault.default), _mithrilDefault.default(".content#content[data-scroll]", [
-            _mithrilDefault.default(`.picture-wrapper[data-scroll]${sticky}[data-scroll-target=#content]`, _mithrilDefault.default(`img[src=${_mypicJpgDefault.default}]`)),
-            _mithrilDefault.default("p.text-wrapper[data-scroll]", _mithrilDefault.default(".title-wrapper[data-scroll]", _mithrilDefault.default("section.content__item.content__item--home.content__item--current[data-scroll][data-scroll-speed=0]", _mithrilDefault.default(".paragraph-wrapper", _mithrilDefault.default(".content__paragraph[data-scroll]", vnode.state.title)))), _mithrilDefault.default(".paragraph-wrapper", paragraphs.map((p)=>{
-                return _mithrilDefault.default(".text[data-scroll][data-scroll-speed=3]", _mithrilDefault.default("p", p));
-            }))), 
-        ])), _mithrilDefault.default(_footerDefault.default));
-    }
-};
-
-},{"mithril":"a7UJj","./Nav":"teRhW","../../app.js":"lzYRN","../assets/text/about.toml":"fwl0y","./cursor":"gc278","./Footer":"5Grlo","./Loader":"7UblQ","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","../assets/mypic.jpg":"8736H","../locales/common.toml":"gpEUq"}],"teRhW":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _mithril = require("mithril");
-var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _commonToml = require("../locales/common.toml");
-var _commonTomlDefault = parcelHelpers.interopDefault(_commonToml);
-var _appJs = require("../../app.js");
-function handleLang(lang) {
-    let preferredLang = null;
-    if (lang) preferredLang = lang;
-    else if (localStorage.lang && lang) preferredLang = lang;
-    else {
-        let language = window.navigator.languages.filter((l)=>{
-            l.slice(2);
-            if (l === "en") return true;
-            else if (l === "ru") return true;
-        })[0];
-        if (language.length === 0) language = "en";
-        preferredLang = language;
-    }
-    if (localStorage.lang != preferredLang) localStorage.lang = preferredLang;
-}
-module.exports = {
-    oncreate () {
-        if (!localStorage.lang) handleLang(null);
-    },
-    view (vnode) {
-        vnode.state.lang = localStorage.lang;
-        handleLang(localStorage.lang);
-        const { me , works , about  } = _commonTomlDefault.default[vnode.state.lang].nav;
-        return _mithrilDefault.default('.nav.space-between#nav[data-scroll][data-scroll-sticky][data-scroll-target=#main]', [
-            _mithrilDefault.default('.link-wrapper', _mithrilDefault.default('a.home-link.underlined', {
-                onclick () {
-                    if (location.hash != '#!/') {
-                        _appJs.transition();
-                        setTimeout(()=>{
-                            _mithrilDefault.default.route.set('/');
-                        }, 1000);
-                    }
-                }
-            }, me)),
-            _mithrilDefault.default('.link-wrapper', _mithrilDefault.default('a.works-link.underlined', {
-                onclick () {
-                    if (location.hash != '#!/works') {
-                        _appJs.transition();
-                        setTimeout(()=>{
-                            _mithrilDefault.default.route.set('/works');
-                        }, 1000);
-                    }
-                }
-            }, works)),
-            _mithrilDefault.default('.link-wrapper', _mithrilDefault.default('a.about-link.underlined', {
-                onclick () {
-                    if (location.hash != '#!/about') {
-                        _appJs.transition();
-                        setTimeout(()=>{
-                            _mithrilDefault.default.route.set('/about');
-                        }, 1000);
-                    }
-                }
-            }, about)),
-            _mithrilDefault.default('.link-wrapper', [
-                _mithrilDefault.default("label[for='lang']", "lang: "),
-                _mithrilDefault.default("select[name='lang'][id='lang'][form='carform']", {
-                    onchange (e) {
-                        handleLang(e.target.value);
-                        vnode.state.lang = e.target.value;
-                        document.location.reload();
-                    }
-                }, [
-                    _mithrilDefault.default("option[value='en']", "en"),
-                    _mithrilDefault.default("option[value='ru']", "ru")
-                ])
-            ]), 
-        ]);
-    }
-};
-
-},{"mithril":"a7UJj","../../app.js":"lzYRN","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","../locales/common.toml":"gpEUq"}],"gpEUq":[function(require,module,exports) {
-module.exports = {
-    "en": {
-        "about": {
-            "title": "About Me",
-            "paragraphs": [
-                "Welcome to my website! My name is Elena, a Russian Girl who loves to capture love through pictures",
-                "I love to eat, sleep and pet my cats!"
-            ]
-        },
-        "nav": {
-            "me": "Elena Kustova",
-            "works": "works",
-            "about": "about"
-        }
-    },
-    "ru": {
-        "about": {
-            "title": "Pro Menya",
-            "paragraphs": [
-                "Welcome to my website! My name is Elena, a Russian Girl who loves to capture love through pictures",
-                "I love to eat, sleep and pet my cats!"
-            ]
-        },
-        "nav": {
-            "me": "Elena Kustova",
-            "works": "raboty",
-            "about": "pro menya"
-        }
-    }
-};
-
-},{}],"fwl0y":[function(require,module,exports) {
-module.exports = {
-    "about": {
-        "title": "About Me",
-        "paragraphs": [
-            "Welcome to my website! My name is Elena, a Russian Girl who loves to capture love through pictures",
-            "I love to eat, sleep and pet my cats!"
-        ]
-    }
-};
-
-},{}],"5Grlo":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _mithril = require("mithril");
-var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _app = require("../../app");
-let vkSvg = {
-    view () {
-        return _mithrilDefault.default("svg[version='1.1'][id='Layer_1'][xmlns='http://www.w3.org/2000/svg'][xmlns:xlink='http://www.w3.org/1999/xlink'][x='0px'][y='0px'][viewBox='0 0 304.36 304.36'][xml:space='preserve']", {
-            "style": {
-                "enable-background": "new 0 0 304.36 304.36"
-            }
-        }, [
-            _mithrilDefault.default("g[id='XMLID_1_']", _mithrilDefault.default("path[id='XMLID_807_'][d='M261.945,175.576c10.096,9.857,20.752,19.131,29.807,29.982 c4,4.822,7.787,9.798,10.684,15.394c4.105,7.955,0.387,16.709-6.746,17.184l-44.34-0.02c-11.436,0.949-20.559-3.655-28.23-11.474 c-6.139-6.253-11.824-12.908-17.727-19.372c-2.42-2.642-4.953-5.128-7.979-7.093c-6.053-3.929-11.307-2.726-14.766,3.587 c-3.523,6.421-4.322,13.531-4.668,20.687c-0.475,10.441-3.631,13.186-14.119,13.664c-22.414,1.057-43.686-2.334-63.447-13.641 c-17.422-9.968-30.932-24.04-42.691-39.971C34.828,153.482,17.295,119.395,1.537,84.353C-2.01,76.458,0.584,72.22,9.295,72.07 c14.465-0.281,28.928-0.261,43.41-0.02c5.879,0.086,9.771,3.458,12.041,9.012c7.826,19.243,17.402,37.551,29.422,54.521 c3.201,4.518,6.465,9.036,11.113,12.216c5.142,3.521,9.057,2.354,11.476-3.374c1.535-3.632,2.207-7.544,2.553-11.434 c1.146-13.383,1.297-26.743-0.713-40.079c-1.234-8.323-5.922-13.711-14.227-15.286c-4.238-0.803-3.607-2.38-1.555-4.799 c3.564-4.172,6.916-6.769,13.598-6.769h50.111c7.889,1.557,9.641,5.101,10.721,13.039l0.043,55.663 c-0.086,3.073,1.535,12.192,7.07,14.226c4.43,1.448,7.35-2.096,10.008-4.905c11.998-12.734,20.561-27.783,28.211-43.366 c3.395-6.852,6.314-13.968,9.143-21.078c2.096-5.276,5.385-7.872,11.328-7.757l48.229,0.043c1.43,0,2.877,0.021,4.262,0.258 c8.127,1.385,10.354,4.881,7.844,12.817c-3.955,12.451-11.65,22.827-19.174,33.251c-8.043,11.129-16.645,21.877-24.621,33.072 C252.26,161.544,252.842,166.697,261.945,175.576L261.945,175.576z M261.945,175.576']", {
-                "style": {
-                    "fill-rule": "evenodd",
-                    "clip-rule": "evenodd"
-                }
-            })),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("g"),
-            _mithrilDefault.default("style[xmlns='http://www.w3.org/1999/xhtml'][type='text/css']")
-        ]);
-    }
-};
-module.exports = {
-    routes: [
-        'home',
-        'works',
-        'about'
-    ],
-    oncreate () {
-        let links = document.querySelectorAll('.footer-nav a');
-    // links.forEach(a => {
-    // a.addEventListener('mouseenter', () => {
-    // if (a.classList.contains('is-inview')) {
-    // links.forEach(link => {
-    // if (link != a) {
-    // link.style.opacity = 0.3
-    // }
-    // })
-    // }
-    // })
-    // a.addEventListener('mouseleave', () => {
-    // links.forEach(link => {
-    // link.style.opacity = ''
-    // })
-    // })
-    // })
-    },
-    view (vnode) {
-        return _mithrilDefault.default('.footer[data-scroll]', _mithrilDefault.default('.location.flex-column[data-scroll][data-scroll-speed=2]', _mithrilDefault.default('.name', 'Elena Kustova'), _mithrilDefault.default('.place', 'Perugia - Italy')), _mithrilDefault.default('.contacts.flex[data-scroll][data-scroll-speed=1]', _mithrilDefault.default('.link-mail', _mithrilDefault.default('.link-mail-text', 'Contact me at: '), _mithrilDefault.default('a.mail[href=mailto:kuslena@rambler.ru]', 'kuslena@rambler.ru')), _mithrilDefault.default('.socials', _mithrilDefault.default('.socials-title', 'find me also on:'), _mithrilDefault.default('.links', _mithrilDefault.default('a.insta-link.flex[href=https://instagram.com/misskustova][target=_blank]', _mithrilDefault.default("svg.css-i6dzq1[viewBox='0 0 24 24'][width='24'][height='24'][stroke='currentColor'][stroke-width='2'][fill='none'][stroke-linecap='round'][stroke-linejoin='round']", [
-            _mithrilDefault.default("rect[x='2'][y='2'][width='20'][height='20'][rx='5'][ry='5']"),
-            _mithrilDefault.default("path[d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z']"),
-            _mithrilDefault.default("line[x1='17.5'][y1='6.5'][x2='17.51'][y2='6.5']")
-        ]), _mithrilDefault.default('.link-text.insta-link-text', ' @misskustova')), _mithrilDefault.default('a.vk-link.flex[href=https://vk.com/id17282149][target=_blank]', _mithrilDefault.default(vkSvg), _mithrilDefault.default('.link-text.vk-link-text', ' Lena Kustova'))))), _mithrilDefault.default(`.footer-nav.flex-column[data-scroll][data-scroll-speed=1][data-scroll-call=hide]`, {
-            oncreate (vnode) {
-                vnode.dom.addEventListener('hide', ()=>{
-                    console.log('hiding nav');
-                });
-            }
-        }, _mithrilDefault.default('a.btt[data-scroll]', _mithrilDefault.default('span', {
-            onclick () {
-                _mithrilDefault.default.redraw();
-            }
-        }, 'back to top')), vnode.state.routes.map((route)=>{
-            if (location.hash != `#!/${route}`) return _mithrilDefault.default(`a.${route}[data-scroll]`, {
-                onclick () {
-                    if (location.hash != `#!/${route}`) {
-                        _app.transition();
-                        setTimeout(()=>{
-                            _mithrilDefault.default.route.set(`/${route}`);
-                        }, 1000);
-                    }
-                }
-            }, _mithrilDefault.default('span', route));
-        })), _mithrilDefault.default('.credits[data-scroll][data-scroll-speed=2]', _mithrilDefault.default('span', 'website credits: '), _mithrilDefault.default('span', 'Nasir Taov')));
-    }
-};
-
-},{"mithril":"a7UJj","../../app":"lzYRN","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"7UblQ":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _imagesloaded = require("imagesloaded");
-var _imagesloadedDefault = parcelHelpers.interopDefault(_imagesloaded);
-var _locomotiveScroll = require("locomotive-scroll");
-var _locomotiveScrollDefault = parcelHelpers.interopDefault(_locomotiveScroll);
-var _jpg = require("../assets/img/*/*.jpg");
-var _jpgDefault = parcelHelpers.interopDefault(_jpg);
-let allSources = [], scroll;
-for(const key in _jpgDefault.default)//array of images
-allSources = allSources.concat(Object.values(_jpgDefault.default[key]));
-let allImages = allSources.map((src)=>{
-    let img = document.createElement("img");
-    img.src = src;
-    return img;
-});
-function Loader(vnode, scroll, mult) {
-    let imagesPromise = new Promise((resolve)=>{
-        let images = _imagesloadedDefault.default(allImages);
-        if (scroll) scroll.destroy();
-        images.on("progress", (instance)=>{
-            const len = instance.elements.length;
-            const count = instance.progressedCount;
-            const perc = Math.round(count * 100 / len);
-            document.querySelector(".loader__text").textContent = `${perc}%`;
-        });
-        images.on("done", ()=>{
-            const loader = document.querySelector(".loader");
-            loader.classList.add("loaded");
-            scroll = new _locomotiveScrollDefault.default({
-                el: document.querySelector("main > div"),
-                multiplier: mult ? mult : 1,
-                smooth: true,
-                smartphone: {
-                    smooth: true
-                }
-            });
-            scroll.on("scroll", (args)=>{
-                const { limit  } = args;
-                vnode.state.scrolled = Math.round(args.scroll.y * 100 / limit.y);
-            // if (vnode.state.scrolled > 50) {
-            // scroll.update();
-            // }
-            });
-            scroll.update();
-            return resolve({
-                images,
-                scroll
-            });
-        });
-    });
-    return imagesPromise;
-}
-exports.default = Loader;
-
-},{"imagesloaded":"uXwLn","locomotive-scroll":"aJY2w","../assets/img/*/*.jpg":"adFF7","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"8736H":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('8wTHq') + "mypic.afb71688.jpg" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"chiK4"}],"i3rOK":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _mithril = require("mithril");
-var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _locomotiveScroll = require("locomotive-scroll");
-var _locomotiveScrollDefault = parcelHelpers.interopDefault(_locomotiveScroll);
-var _animejs = require("animejs");
-var _animejsDefault = parcelHelpers.interopDefault(_animejs);
-var _cursor = require("./cursor");
-var _cursorDefault = parcelHelpers.interopDefault(_cursor);
-var _appJs = require("../../app.js");
-var _utils = require("./utils");
-var _jpg = require("../assets/img/*/*.jpg");
-var _jpgDefault = parcelHelpers.interopDefault(_jpg);
-var _nav = require("./Nav");
-var _navDefault = parcelHelpers.interopDefault(_nav);
-var _loader = require("./Loader");
-var _loaderDefault = parcelHelpers.interopDefault(_loader);
-var _menuItem = require("./menuItem");
-var _menuItemDefault = parcelHelpers.interopDefault(_menuItem);
-let projects = {
-};
-for(const key in _jpgDefault.default)projects[key] = Object.values(_jpgDefault.default[key]);
-let scroll;
-class Works {
-    constructor(){
-        this.menuItems = Object.keys(projects);
-        // menu item properties that will animate as we move the mouse around the menu
-        // we will be using interpolation to achieve smooth animations.
-        // the “previous” and “current” values are the values to interpolate.
-        // the value applied to the element, this case the image element (this.DOM.reveal) will be a value between these two values at a specific increment.
-        // the amt is the amount to interpolate.
-        this.animatableProperties = {
-            // translationX
-            tx: {
-                previous: 0,
-                current: 0,
-                amt: 0.08
-            },
-            // translationY
-            ty: {
-                previous: 0,
-                current: 0,
-                amt: 0.08
-            },
-            // Rotation angle
-            rotation: {
-                previous: 0,
-                current: 0,
-                amt: 0.08
-            },
-            // CSS filter (blur) value
-            blur: {
-                previous: 0,
-                current: 0,
-                amt: 0.08
-            }
-        };
-    // show the menu items (initial animation where each menu item gets revealed)
-    }
-    // initial animation for revealing the menu items
-    showMenuItems() {
-        _animejsDefault.default({
-            targets: ".menu__item-textinner",
-            translateY: [
-                "100%",
-                "0%"
-            ],
-            easing: "easeInOutQuad",
-            duration: 500,
-            delay: _animejsDefault.default.stagger(70)
-        });
-    }
-    async oncreate(vnode) {
-        if (!_appJs.cursor) new _cursorDefault.default(document.querySelector("svg.cursor"));
-        //show menu items
-        const loader = await _loaderDefault.default(vnode);
-        scroll = loader.scroll;
-        this.showMenuItems();
-    }
-    onbeforeremove() {
-        scroll.destroy();
-        _animejsDefault.default({
-            targets: ".menu__item-textinner",
-            translateY: [
-                0,
-                100
-            ],
-            easing: "easeInOutQuad",
-            duration: 300,
-            delay: _animejsDefault.default.stagger(30)
-        });
-    }
-    view() {
-        return _mithrilDefault.default(".works-page-wrapper[data-scroll-container]", _mithrilDefault.default("#main", _mithrilDefault.default(_navDefault.default), _mithrilDefault.default(".menu-items-wrapper", this.menuItems.map((item, index)=>{
-            return _mithrilDefault.default(_menuItemDefault.default, {
-                item,
-                index,
-                animProps: this.animatableProperties,
-                url: projects[item][0]
-            });
-        })), _mithrilDefault.default(".divider[data-scroll][data-scroll-repeat][style=padding-bottom: 4rem;]", _mithrilDefault.default("span.divider-text", "and more to come!"))));
-    }
-}
-exports.default = Works;
-
-},{"mithril":"a7UJj","locomotive-scroll":"aJY2w","animejs":"bfYip","./cursor":"gc278","../../app.js":"lzYRN","./utils":"fIYUT","../assets/img/*/*.jpg":"2Q4PR","./Nav":"teRhW","./Loader":"7UblQ","./menuItem":"dsA8U","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"2Q4PR":[function(require,module,exports) {
-const _temp0 = require("../Andrea/DSC01328.jpg");
-const _temp1 = require("../Andrea/DSC01521.jpg");
-const _temp2 = require("../Andrea/DSC01530.jpg");
-const _temp3 = require("../Andrea/pic_10.jpg");
-const _temp4 = require("../Andrea/pic_11.jpg");
-const _temp5 = require("../Andrea/pic_12.jpg");
-const _temp6 = require("../Andrea/pic_13.jpg");
-const _temp7 = require("../Andrea/pic_14.jpg");
-const _temp8 = require("../Andrea/pic_15.jpg");
-const _temp9 = require("../Andrea/pic_9.jpg");
-const _temp10 = require("../Anastasia/DSC01812.jpg");
-const _temp11 = require("../Anastasia/DSC01910.jpg");
-const _temp12 = require("../Anastasia/DSC02013.jpg");
-const _temp13 = require("../Anastasia/DSC02154.jpg");
-const _temp14 = require("../Anastasia/DSC02205.jpg");
-const _temp15 = require("../Anastasia/DSC02276.jpg");
-const _temp16 = require("../Anastasia/DSC02278.jpg");
-const _temp17 = require("../Anastasia/NastiaDavletshina1.jpg");
-const _temp18 = require("../Arianna/pic_0.jpg");
-const _temp19 = require("../Arianna/pic_1.jpg");
-const _temp20 = require("../Arianna/pic_10.jpg");
-const _temp21 = require("../Arianna/pic_11.jpg");
-const _temp22 = require("../Arianna/pic_2.jpg");
-const _temp23 = require("../Arianna/pic_3.jpg");
-const _temp24 = require("../Arianna/pic_4.jpg");
-const _temp25 = require("../Arianna/pic_5.jpg");
-const _temp26 = require("../Arianna/pic_6.jpg");
-const _temp27 = require("../Arianna/pic_7.jpg");
-const _temp28 = require("../Arianna/pic_8.jpg");
-const _temp29 = require("../Arianna/pic_9.jpg");
-const _temp30 = require("../Inganno/1.jpg");
-const _temp31 = require("../Inganno/2.jpg");
-const _temp32 = require("../Inganno/3.jpg");
-const _temp33 = require("../Inganno/4.jpg");
-const _temp34 = require("../Inganno/5.jpg");
-const _temp35 = require("../Inganno/6.jpg");
-const _temp36 = require("../Inganno/7.jpg");
-const _temp37 = require("../Inganno/8.jpg");
-const _temp38 = require("../Inganno/9.jpg");
-const _temp39 = require("../Inganno/10.jpg");
-const _temp40 = require("../Katia/pic_0.jpg");
-const _temp41 = require("../Katia/pic_1.jpg");
-const _temp42 = require("../Katia/pic_2.jpg");
-const _temp43 = require("../Katia/pic_3.jpg");
-const _temp44 = require("../Katia/pic_4.jpg");
-const _temp45 = require("../Katia/pic_5.jpg");
-const _temp46 = require("../Katia/pic_6.jpg");
-const _temp47 = require("../Katia/pic_7.jpg");
-const _temp48 = require("../Matteo/pic_0.jpg");
-const _temp49 = require("../Matteo/pic_1.jpg");
-const _temp50 = require("../Matteo/pic_2.jpg");
-const _temp51 = require("../Matteo/pic_3.jpg");
-const _temp52 = require("../Matteo/pic_4.jpg");
-const _temp53 = require("../Matteo/pic_5.jpg");
-const _temp54 = require("../Matteo/pic_6.jpg");
-const _temp55 = require("../Matteo/pic_7.jpg");
-const _temp56 = require("../Matteo/pic_8.jpg");
-const _temp57 = require("../Matteo/pic_9.jpg");
-const _temp58 = require("../Nastia/DSC07826.jpg");
-const _temp59 = require("../Nastia/DSC07836.jpg");
-const _temp60 = require("../Nastia/DSC08026.jpg");
-const _temp61 = require("../Nastia/DSC08077.jpg");
-const _temp62 = require("../Nastia/DSC08167.jpg");
-const _temp63 = require("../Nastia/DSC08191.jpg");
-const _temp64 = require("../Nastia/DSC08386.jpg");
-const _temp65 = require("../Roberta/pic_0.jpg");
-const _temp66 = require("../Roberta/pic_1.jpg");
-const _temp67 = require("../Roberta/pic_10.jpg");
-const _temp68 = require("../Roberta/pic_11.jpg");
-const _temp69 = require("../Roberta/pic_12.jpg");
-const _temp70 = require("../Roberta/pic_13.jpg");
-const _temp71 = require("../Roberta/pic_14.jpg");
-const _temp72 = require("../Roberta/pic_2.jpg");
-const _temp73 = require("../Roberta/pic_3.jpg");
-const _temp74 = require("../Roberta/pic_4.jpg");
-const _temp75 = require("../Roberta/pic_5.jpg");
-const _temp76 = require("../Roberta/pic_6.jpg");
-const _temp77 = require("../Roberta/pic_7.jpg");
-const _temp78 = require("../Roberta/pic_8.jpg");
-const _temp79 = require("../Roberta/pic_9.jpg");
-const _temp80 = require("../Valeria/239645708_913348032586675_3526176268626277941_n.jpg");
-const _temp81 = require("../Valeria/239858938_422969359157922_8304902028896030195_n.jpg");
-const _temp82 = require("../Valeria/240108310_221163499954226_6077238410015003289_n.jpg");
-const _temp83 = require("../Valeria/240108522_986136085294928_4307106541389037811_n.jpg");
-const _temp84 = require("../Valeria/240110620_4776111199083747_2956117918730996962_n.jpg");
-const _temp85 = require("../Valeria/240453595_245641064230822_139858117910837704_n.jpg");
-module.exports = {
-    "Andrea": {
-        "DSC01328": _temp0,
-        "DSC01521": _temp1,
-        "DSC01530": _temp2,
-        "pic_10": _temp3,
-        "pic_11": _temp4,
-        "pic_12": _temp5,
-        "pic_13": _temp6,
-        "pic_14": _temp7,
-        "pic_15": _temp8,
-        "pic_9": _temp9
-    },
-    "Anastasia": {
-        "DSC01812": _temp10,
-        "DSC01910": _temp11,
-        "DSC02013": _temp12,
-        "DSC02154": _temp13,
-        "DSC02205": _temp14,
-        "DSC02276": _temp15,
-        "DSC02278": _temp16,
-        "NastiaDavletshina1": _temp17
-    },
-    "Arianna": {
-        "pic_0": _temp18,
-        "pic_1": _temp19,
-        "pic_10": _temp20,
-        "pic_11": _temp21,
-        "pic_2": _temp22,
-        "pic_3": _temp23,
-        "pic_4": _temp24,
-        "pic_5": _temp25,
-        "pic_6": _temp26,
-        "pic_7": _temp27,
-        "pic_8": _temp28,
-        "pic_9": _temp29
-    },
-    "Inganno": {
-        "1": _temp30,
-        "2": _temp31,
-        "3": _temp32,
-        "4": _temp33,
-        "5": _temp34,
-        "6": _temp35,
-        "7": _temp36,
-        "8": _temp37,
-        "9": _temp38,
-        "10": _temp39
-    },
-    "Katia": {
-        "pic_0": _temp40,
-        "pic_1": _temp41,
-        "pic_2": _temp42,
-        "pic_3": _temp43,
-        "pic_4": _temp44,
-        "pic_5": _temp45,
-        "pic_6": _temp46,
-        "pic_7": _temp47
-    },
-    "Matteo": {
-        "pic_0": _temp48,
-        "pic_1": _temp49,
-        "pic_2": _temp50,
-        "pic_3": _temp51,
-        "pic_4": _temp52,
-        "pic_5": _temp53,
-        "pic_6": _temp54,
-        "pic_7": _temp55,
-        "pic_8": _temp56,
-        "pic_9": _temp57
-    },
-    "Nastia": {
-        "DSC07826": _temp58,
-        "DSC07836": _temp59,
-        "DSC08026": _temp60,
-        "DSC08077": _temp61,
-        "DSC08167": _temp62,
-        "DSC08191": _temp63,
-        "DSC08386": _temp64
-    },
-    "Roberta": {
-        "pic_0": _temp65,
-        "pic_1": _temp66,
-        "pic_10": _temp67,
-        "pic_11": _temp68,
-        "pic_12": _temp69,
-        "pic_13": _temp70,
-        "pic_14": _temp71,
-        "pic_2": _temp72,
-        "pic_3": _temp73,
-        "pic_4": _temp74,
-        "pic_5": _temp75,
-        "pic_6": _temp76,
-        "pic_7": _temp77,
-        "pic_8": _temp78,
-        "pic_9": _temp79
-    },
-    "Valeria": {
-        "239645708_913348032586675_3526176268626277941_n": _temp80,
-        "239858938_422969359157922_8304902028896030195_n": _temp81,
-        "240108310_221163499954226_6077238410015003289_n": _temp82,
-        "240108522_986136085294928_4307106541389037811_n": _temp83,
-        "240110620_4776111199083747_2956117918730996962_n": _temp84,
-        "240453595_245641064230822_139858117910837704_n": _temp85
-    }
-};
-
-},{"../Andrea/DSC01328.jpg":"hRoJD","../Andrea/DSC01521.jpg":"kDciS","../Andrea/DSC01530.jpg":"kPZ4W","../Andrea/pic_10.jpg":"cHmim","../Andrea/pic_11.jpg":"hVcrc","../Andrea/pic_12.jpg":"jKlhJ","../Andrea/pic_13.jpg":"jtYtg","../Andrea/pic_14.jpg":"2UESJ","../Andrea/pic_15.jpg":"922HP","../Andrea/pic_9.jpg":"jSfp4","../Anastasia/DSC01812.jpg":"27hhp","../Anastasia/DSC01910.jpg":"kL9Y3","../Anastasia/DSC02013.jpg":"kRGo3","../Anastasia/DSC02154.jpg":"lONke","../Anastasia/DSC02205.jpg":"dnibK","../Anastasia/DSC02276.jpg":"kYH8c","../Anastasia/DSC02278.jpg":"iDyhP","../Anastasia/NastiaDavletshina1.jpg":"9XNPE","../Arianna/pic_0.jpg":"auLbh","../Arianna/pic_1.jpg":"iAfPt","../Arianna/pic_10.jpg":"aQDpZ","../Arianna/pic_11.jpg":"R6BUR","../Arianna/pic_2.jpg":"3frM6","../Arianna/pic_3.jpg":"efIZZ","../Arianna/pic_4.jpg":"bFr8T","../Arianna/pic_5.jpg":"kk6oK","../Arianna/pic_6.jpg":"jOlOW","../Arianna/pic_7.jpg":"jRqb2","../Arianna/pic_8.jpg":"3ASMb","../Arianna/pic_9.jpg":"9xrLx","../Inganno/1.jpg":"cXFMX","../Inganno/2.jpg":"eYjAi","../Inganno/3.jpg":"dzvRw","../Inganno/4.jpg":"25uYQ","../Inganno/5.jpg":"6xnJd","../Inganno/6.jpg":"4i2K2","../Inganno/7.jpg":"8KeWv","../Inganno/8.jpg":"8BTVQ","../Inganno/9.jpg":"75YVs","../Inganno/10.jpg":"hH93w","../Katia/pic_0.jpg":"brCd4","../Katia/pic_1.jpg":"5k64l","../Katia/pic_2.jpg":"efIsy","../Katia/pic_3.jpg":"8GdmZ","../Katia/pic_4.jpg":"fJf2z","../Katia/pic_5.jpg":"6h9cv","../Katia/pic_6.jpg":"alue5","../Katia/pic_7.jpg":"e6M8v","../Matteo/pic_0.jpg":"gZNPp","../Matteo/pic_1.jpg":"8tQWi","../Matteo/pic_2.jpg":"cDanF","../Matteo/pic_3.jpg":"6knsV","../Matteo/pic_4.jpg":"gwu8n","../Matteo/pic_5.jpg":"fVWwX","../Matteo/pic_6.jpg":"9plNI","../Matteo/pic_7.jpg":"aLqGh","../Matteo/pic_8.jpg":"031sh","../Matteo/pic_9.jpg":"8gMYd","../Nastia/DSC07826.jpg":"9AVLD","../Nastia/DSC07836.jpg":"4gDqK","../Nastia/DSC08026.jpg":"97xVA","../Nastia/DSC08077.jpg":"dT3AH","../Nastia/DSC08167.jpg":"disvw","../Nastia/DSC08191.jpg":"82WXc","../Nastia/DSC08386.jpg":"4xBCp","../Roberta/pic_0.jpg":"7Tv3D","../Roberta/pic_1.jpg":"gZjDs","../Roberta/pic_10.jpg":"8enkX","../Roberta/pic_11.jpg":"bRQEo","../Roberta/pic_12.jpg":"cyTn7","../Roberta/pic_13.jpg":"65oxB","../Roberta/pic_14.jpg":"fTWSL","../Roberta/pic_2.jpg":"e0eqk","../Roberta/pic_3.jpg":"iQ3Fq","../Roberta/pic_4.jpg":"leutP","../Roberta/pic_5.jpg":"eFIuM","../Roberta/pic_6.jpg":"CX81U","../Roberta/pic_7.jpg":"8hJhl","../Roberta/pic_8.jpg":"8oINI","../Roberta/pic_9.jpg":"kmSx4","../Valeria/239645708_913348032586675_3526176268626277941_n.jpg":"kndmW","../Valeria/239858938_422969359157922_8304902028896030195_n.jpg":"4sU58","../Valeria/240108310_221163499954226_6077238410015003289_n.jpg":"etHor","../Valeria/240108522_986136085294928_4307106541389037811_n.jpg":"eMAQg","../Valeria/240110620_4776111199083747_2956117918730996962_n.jpg":"8Vxw5","../Valeria/240453595_245641064230822_139858117910837704_n.jpg":"5mveD"}],"dsA8U":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _mithril = require("mithril");
-var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _animejs = require("animejs");
-var _animejsDefault = parcelHelpers.interopDefault(_animejs);
-var _utils = require("./utils");
-var _appJs = require("../../app.js");
-var _jpg = require("../assets/img/*/*.jpg");
-var _jpgDefault = parcelHelpers.interopDefault(_jpg);
-// track the mouse position
-let mousepos = {
-    x: 0,
-    y: 0
-};
-// cache the mouse position
-let mousePosCache = mousepos;
-let direction = {
-    x: mousePosCache.x - mousepos.x,
-    y: mousePosCache.y - mousepos.y
-};
-// update mouse position when moving the mouse
-window.addEventListener('mousemove', (ev)=>mousepos = _utils.getMousePos(ev)
-);
-class MenuItem {
-    constructor(vnode){
-        this.vnode = vnode;
-        this.menuItem = vnode.attrs.item;
-        this.index = vnode.attrs.index;
-        this.url = vnode.attrs.url;
-        this.animProps = vnode.attrs.animProps;
-        this.showing = undefined;
-        this.hiding = undefined;
-    }
-    oncreate() {
-        this.reveal = this.vnode.dom.querySelector('.hover-reveal');
-        this.revealInner = this.vnode.dom.querySelector('.hover-reveal__inner');
-        this.revealImage = this.vnode.dom.querySelector('.hover-reveal__img');
-        this.initEvents();
-    }
-    initEvents() {
-        this.mouseenterFn = (ev)=>{
-            // show the image element
-            this.showImage();
-            this.firstRAFCycle = true;
-            // start the render loop animation (rAF)
-            this.loopRender();
-        };
-        this.mouseleaveFn = ()=>{
-            // stop the render loop animation (rAF)
-            this.stopRendering();
-            // hide the image element
-            this.hideImage();
-        };
-        this.vnode.dom.addEventListener('mouseenter', this.mouseenterFn);
-        this.vnode.dom.addEventListener('mouseleave', this.mouseleaveFn);
-    }
-    showImage() {
-        let menuItem = this.vnode.dom;
-        let reveal = this.reveal;
-        // document.body.style.backgroundColor = 'black';
-        this.showing = _animejsDefault.default({
-            targets: [
-                this.revealInner,
-                this.revealImage
-            ],
-            easing: 'easeOutSine',
-            // opacity: 1,
-            duration: 250,
-            translateX: [
-                direction.x < 0 ? '-100%' : '100%',
-                '0%'
-            ],
-            begin (anim) {
-                anim.animatables.forEach((item)=>item.target.style.opacity = '1'
-                );
-                // menuItem.style.zIndex = '10'
-                reveal.style.opacity = '1';
-            }
-        });
-    }
-    hideImage() {
-        let menuItem = this.vnode.dom;
-        // menuItem.style.zIndex = '1'
-        this.hiding = _animejsDefault.default({
-            targets: [
-                this.revealInner,
-                this.revealImage
-            ],
-            complete (anim) {
-                let reveal = anim.animatables[0].target.parentElement;
-                if (this.showing) // document.body.style.backgroundColor = '#d7cca1';
-                reveal.style.opacity = '0';
-            },
-            // opacity: 0,
-            duration: 250,
-            easing: 'easeOutSine',
-            // zIndex: 1,
-            translateX: [
-                '0%',
-                direction.x < 0 ? '100%' : '-100%'
-            ]
-        });
-    }
-    // calculate the position/size of both the menu item and reveal element
-    calcBounds() {
-        this.bounds = {
-            el: this.vnode.dom.getBoundingClientRect(),
-            reveal: this.reveal.getBoundingClientRect()
-        };
-    }
-    loopRender() {
-        if (!this.requestId) this.requestId = requestAnimationFrame(()=>this.render()
-        );
-    }
-    // stop the render loop animation (rAF)
-    stopRendering() {
-        if (this.requestId) {
-            window.cancelAnimationFrame(this.requestId);
-            this.requestId = undefined;
-        }
-    }
-    render() {
-        this.requestId = undefined;
-        if (this.firstRAFCycle) this.calcBounds();
-        const mouseDistanceX = _utils.clamp(Math.abs(mousePosCache.x - mousepos.x), 0, 100);
-        direction = {
-            x: mousePosCache.x - mousepos.x,
-            y: mousePosCache.y - mousepos.y
-        };
-        mousePosCache = {
-            x: mousepos.x,
-            y: mousepos.y
-        };
-        this.animProps.tx.current = Math.abs(mousepos.x - this.bounds.el.left) - this.bounds.reveal.width / 2;
-        this.animProps.ty.current = Math.abs(mousepos.y - this.bounds.el.top) - this.bounds.reveal.height / 2;
-        this.animProps.rotation.current = this.firstRAFCycle ? 0 : _utils.map(mouseDistanceX, 0, 100, 0, direction.x < 0 ? 60 : -60);
-        this.animProps.blur.current = this.firstRAFCycle ? 1 : _utils.map(mouseDistanceX, 0, 100, 0, 4);
-        this.animProps.tx.previous = this.firstRAFCycle ? this.animProps.tx.current : _utils.lerp(this.animProps.tx.previous, this.animProps.tx.current, this.animProps.tx.amt);
-        this.animProps.ty.previous = this.firstRAFCycle ? this.animProps.ty.current : _utils.lerp(this.animProps.ty.previous, this.animProps.ty.current, this.animProps.ty.amt);
-        this.animProps.rotation.previous = this.firstRAFCycle ? this.animProps.rotation.current : _utils.lerp(this.animProps.rotation.previous, this.animProps.rotation.current, this.animProps.rotation.amt);
-        this.animProps.blur.previous = this.firstRAFCycle ? this.animProps.blur.current : _utils.lerp(this.animProps.blur.previous, this.animProps.blur.current, this.animProps.blur.amt);
-        _animejsDefault.default({
-            targets: this.reveal,
-            translateY: this.animProps.ty.previous - document.querySelector('html').scrollTop,
-            translateX: this.animProps.tx.previous,
-            rotate: this.animProps.rotation.previous,
-            // filter: `blur(${this.animProps.blur.previous}px)`,
-            easing: 'easeInOutQuad',
-            duration: 0
-        });
-        this.firstRAFCycle = false;
-        this.loopRender();
-    }
-    view() {
-        return _mithrilDefault.default('.link[data-scroll]', {
-            href: `project/${this.index}`,
-            class: 'menu__item',
-            onclick (e) {
-                e.preventDefault();
-                _appJs.transition();
-                setTimeout(()=>{
-                    _mithrilDefault.default.route.set(`/${this.getAttribute('href')}`);
-                }, 1000);
-            }
-        }, _mithrilDefault.default('span.menu__item-text', _mithrilDefault.default('span.menu__item-textinner', this.menuItem)), _mithrilDefault.default('span.menu__item-sub', ''), _mithrilDefault.default('.hover-reveal[style=opacity: 0]', _mithrilDefault.default('.hover-reveal__inner[style=overflow:hidden]', _mithrilDefault.default('.hover-reveal__img', {
-            style: `background-image: url(${this.url})`
-        }))));
-    }
-}
-exports.default = MenuItem;
-function cancelAnimation(animation) {
-    let activeInstances = _animejsDefault.default.running;
-    let index = activeInstances.indexOf(animation);
-    activeInstances.splice(index, 1);
-}
-
-},{"mithril":"a7UJj","animejs":"bfYip","./utils":"fIYUT","../../app.js":"lzYRN","../assets/img/*/*.jpg":"esZG3","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"esZG3":[function(require,module,exports) {
-const _temp0 = require("../Anastasia/DSC01812.jpg");
-const _temp1 = require("../Anastasia/DSC01910.jpg");
-const _temp2 = require("../Anastasia/DSC02013.jpg");
-const _temp3 = require("../Anastasia/DSC02154.jpg");
-const _temp4 = require("../Anastasia/DSC02205.jpg");
-const _temp5 = require("../Anastasia/DSC02276.jpg");
-const _temp6 = require("../Anastasia/DSC02278.jpg");
-const _temp7 = require("../Anastasia/NastiaDavletshina1.jpg");
-const _temp8 = require("../Arianna/pic_0.jpg");
-const _temp9 = require("../Arianna/pic_1.jpg");
-const _temp10 = require("../Arianna/pic_10.jpg");
-const _temp11 = require("../Arianna/pic_11.jpg");
-const _temp12 = require("../Arianna/pic_2.jpg");
-const _temp13 = require("../Arianna/pic_3.jpg");
-const _temp14 = require("../Arianna/pic_4.jpg");
-const _temp15 = require("../Arianna/pic_5.jpg");
-const _temp16 = require("../Arianna/pic_6.jpg");
-const _temp17 = require("../Arianna/pic_7.jpg");
-const _temp18 = require("../Arianna/pic_8.jpg");
-const _temp19 = require("../Arianna/pic_9.jpg");
-const _temp20 = require("../Andrea/DSC01328.jpg");
-const _temp21 = require("../Andrea/DSC01521.jpg");
-const _temp22 = require("../Andrea/DSC01530.jpg");
-const _temp23 = require("../Andrea/pic_10.jpg");
-const _temp24 = require("../Andrea/pic_11.jpg");
-const _temp25 = require("../Andrea/pic_12.jpg");
-const _temp26 = require("../Andrea/pic_13.jpg");
-const _temp27 = require("../Andrea/pic_14.jpg");
-const _temp28 = require("../Andrea/pic_15.jpg");
-const _temp29 = require("../Andrea/pic_9.jpg");
-const _temp30 = require("../Inganno/1.jpg");
-const _temp31 = require("../Inganno/2.jpg");
-const _temp32 = require("../Inganno/3.jpg");
-const _temp33 = require("../Inganno/4.jpg");
-const _temp34 = require("../Inganno/5.jpg");
-const _temp35 = require("../Inganno/6.jpg");
-const _temp36 = require("../Inganno/7.jpg");
-const _temp37 = require("../Inganno/8.jpg");
-const _temp38 = require("../Inganno/9.jpg");
-const _temp39 = require("../Inganno/10.jpg");
-const _temp40 = require("../Katia/pic_0.jpg");
-const _temp41 = require("../Katia/pic_1.jpg");
-const _temp42 = require("../Katia/pic_2.jpg");
-const _temp43 = require("../Katia/pic_3.jpg");
-const _temp44 = require("../Katia/pic_4.jpg");
-const _temp45 = require("../Katia/pic_5.jpg");
-const _temp46 = require("../Katia/pic_6.jpg");
-const _temp47 = require("../Katia/pic_7.jpg");
-const _temp48 = require("../Matteo/pic_0.jpg");
-const _temp49 = require("../Matteo/pic_1.jpg");
-const _temp50 = require("../Matteo/pic_2.jpg");
-const _temp51 = require("../Matteo/pic_3.jpg");
-const _temp52 = require("../Matteo/pic_4.jpg");
-const _temp53 = require("../Matteo/pic_5.jpg");
-const _temp54 = require("../Matteo/pic_6.jpg");
-const _temp55 = require("../Matteo/pic_7.jpg");
-const _temp56 = require("../Matteo/pic_8.jpg");
-const _temp57 = require("../Matteo/pic_9.jpg");
-const _temp58 = require("../Nastia/DSC07826.jpg");
-const _temp59 = require("../Nastia/DSC07836.jpg");
-const _temp60 = require("../Nastia/DSC08026.jpg");
-const _temp61 = require("../Nastia/DSC08077.jpg");
-const _temp62 = require("../Nastia/DSC08167.jpg");
-const _temp63 = require("../Nastia/DSC08191.jpg");
-const _temp64 = require("../Nastia/DSC08386.jpg");
-const _temp65 = require("../Roberta/pic_0.jpg");
-const _temp66 = require("../Roberta/pic_1.jpg");
-const _temp67 = require("../Roberta/pic_10.jpg");
-const _temp68 = require("../Roberta/pic_11.jpg");
-const _temp69 = require("../Roberta/pic_12.jpg");
-const _temp70 = require("../Roberta/pic_13.jpg");
-const _temp71 = require("../Roberta/pic_14.jpg");
-const _temp72 = require("../Roberta/pic_2.jpg");
-const _temp73 = require("../Roberta/pic_3.jpg");
-const _temp74 = require("../Roberta/pic_4.jpg");
-const _temp75 = require("../Roberta/pic_5.jpg");
-const _temp76 = require("../Roberta/pic_6.jpg");
-const _temp77 = require("../Roberta/pic_7.jpg");
-const _temp78 = require("../Roberta/pic_8.jpg");
-const _temp79 = require("../Roberta/pic_9.jpg");
-const _temp80 = require("../Valeria/239645708_913348032586675_3526176268626277941_n.jpg");
-const _temp81 = require("../Valeria/239858938_422969359157922_8304902028896030195_n.jpg");
-const _temp82 = require("../Valeria/240108310_221163499954226_6077238410015003289_n.jpg");
-const _temp83 = require("../Valeria/240108522_986136085294928_4307106541389037811_n.jpg");
-const _temp84 = require("../Valeria/240110620_4776111199083747_2956117918730996962_n.jpg");
-const _temp85 = require("../Valeria/240453595_245641064230822_139858117910837704_n.jpg");
-module.exports = {
-    "Anastasia": {
-        "DSC01812": _temp0,
-        "DSC01910": _temp1,
-        "DSC02013": _temp2,
-        "DSC02154": _temp3,
-        "DSC02205": _temp4,
-        "DSC02276": _temp5,
-        "DSC02278": _temp6,
-        "NastiaDavletshina1": _temp7
-    },
-    "Arianna": {
-        "pic_0": _temp8,
-        "pic_1": _temp9,
-        "pic_10": _temp10,
-        "pic_11": _temp11,
-        "pic_2": _temp12,
-        "pic_3": _temp13,
-        "pic_4": _temp14,
-        "pic_5": _temp15,
-        "pic_6": _temp16,
-        "pic_7": _temp17,
-        "pic_8": _temp18,
-        "pic_9": _temp19
-    },
-    "Andrea": {
-        "DSC01328": _temp20,
-        "DSC01521": _temp21,
-        "DSC01530": _temp22,
-        "pic_10": _temp23,
-        "pic_11": _temp24,
-        "pic_12": _temp25,
-        "pic_13": _temp26,
-        "pic_14": _temp27,
-        "pic_15": _temp28,
-        "pic_9": _temp29
-    },
-    "Inganno": {
-        "1": _temp30,
-        "2": _temp31,
-        "3": _temp32,
-        "4": _temp33,
-        "5": _temp34,
-        "6": _temp35,
-        "7": _temp36,
-        "8": _temp37,
-        "9": _temp38,
-        "10": _temp39
-    },
-    "Katia": {
-        "pic_0": _temp40,
-        "pic_1": _temp41,
-        "pic_2": _temp42,
-        "pic_3": _temp43,
-        "pic_4": _temp44,
-        "pic_5": _temp45,
-        "pic_6": _temp46,
-        "pic_7": _temp47
-    },
-    "Matteo": {
-        "pic_0": _temp48,
-        "pic_1": _temp49,
-        "pic_2": _temp50,
-        "pic_3": _temp51,
-        "pic_4": _temp52,
-        "pic_5": _temp53,
-        "pic_6": _temp54,
-        "pic_7": _temp55,
-        "pic_8": _temp56,
-        "pic_9": _temp57
-    },
-    "Nastia": {
-        "DSC07826": _temp58,
-        "DSC07836": _temp59,
-        "DSC08026": _temp60,
-        "DSC08077": _temp61,
-        "DSC08167": _temp62,
-        "DSC08191": _temp63,
-        "DSC08386": _temp64
-    },
-    "Roberta": {
-        "pic_0": _temp65,
-        "pic_1": _temp66,
-        "pic_10": _temp67,
-        "pic_11": _temp68,
-        "pic_12": _temp69,
-        "pic_13": _temp70,
-        "pic_14": _temp71,
-        "pic_2": _temp72,
-        "pic_3": _temp73,
-        "pic_4": _temp74,
-        "pic_5": _temp75,
-        "pic_6": _temp76,
-        "pic_7": _temp77,
-        "pic_8": _temp78,
-        "pic_9": _temp79
-    },
-    "Valeria": {
-        "239645708_913348032586675_3526176268626277941_n": _temp80,
-        "239858938_422969359157922_8304902028896030195_n": _temp81,
-        "240108310_221163499954226_6077238410015003289_n": _temp82,
-        "240108522_986136085294928_4307106541389037811_n": _temp83,
-        "240110620_4776111199083747_2956117918730996962_n": _temp84,
-        "240453595_245641064230822_139858117910837704_n": _temp85
-    }
-};
-
-},{"../Anastasia/DSC01812.jpg":"27hhp","../Anastasia/DSC01910.jpg":"kL9Y3","../Anastasia/DSC02013.jpg":"kRGo3","../Anastasia/DSC02154.jpg":"lONke","../Anastasia/DSC02205.jpg":"dnibK","../Anastasia/DSC02276.jpg":"kYH8c","../Anastasia/DSC02278.jpg":"iDyhP","../Anastasia/NastiaDavletshina1.jpg":"9XNPE","../Arianna/pic_0.jpg":"auLbh","../Arianna/pic_1.jpg":"iAfPt","../Arianna/pic_10.jpg":"aQDpZ","../Arianna/pic_11.jpg":"R6BUR","../Arianna/pic_2.jpg":"3frM6","../Arianna/pic_3.jpg":"efIZZ","../Arianna/pic_4.jpg":"bFr8T","../Arianna/pic_5.jpg":"kk6oK","../Arianna/pic_6.jpg":"jOlOW","../Arianna/pic_7.jpg":"jRqb2","../Arianna/pic_8.jpg":"3ASMb","../Arianna/pic_9.jpg":"9xrLx","../Andrea/DSC01328.jpg":"hRoJD","../Andrea/DSC01521.jpg":"kDciS","../Andrea/DSC01530.jpg":"kPZ4W","../Andrea/pic_10.jpg":"cHmim","../Andrea/pic_11.jpg":"hVcrc","../Andrea/pic_12.jpg":"jKlhJ","../Andrea/pic_13.jpg":"jtYtg","../Andrea/pic_14.jpg":"2UESJ","../Andrea/pic_15.jpg":"922HP","../Andrea/pic_9.jpg":"jSfp4","../Inganno/1.jpg":"cXFMX","../Inganno/2.jpg":"eYjAi","../Inganno/3.jpg":"dzvRw","../Inganno/4.jpg":"25uYQ","../Inganno/5.jpg":"6xnJd","../Inganno/6.jpg":"4i2K2","../Inganno/7.jpg":"8KeWv","../Inganno/8.jpg":"8BTVQ","../Inganno/9.jpg":"75YVs","../Inganno/10.jpg":"hH93w","../Katia/pic_0.jpg":"brCd4","../Katia/pic_1.jpg":"5k64l","../Katia/pic_2.jpg":"efIsy","../Katia/pic_3.jpg":"8GdmZ","../Katia/pic_4.jpg":"fJf2z","../Katia/pic_5.jpg":"6h9cv","../Katia/pic_6.jpg":"alue5","../Katia/pic_7.jpg":"e6M8v","../Matteo/pic_0.jpg":"gZNPp","../Matteo/pic_1.jpg":"8tQWi","../Matteo/pic_2.jpg":"cDanF","../Matteo/pic_3.jpg":"6knsV","../Matteo/pic_4.jpg":"gwu8n","../Matteo/pic_5.jpg":"fVWwX","../Matteo/pic_6.jpg":"9plNI","../Matteo/pic_7.jpg":"aLqGh","../Matteo/pic_8.jpg":"031sh","../Matteo/pic_9.jpg":"8gMYd","../Nastia/DSC07826.jpg":"9AVLD","../Nastia/DSC07836.jpg":"4gDqK","../Nastia/DSC08026.jpg":"97xVA","../Nastia/DSC08077.jpg":"dT3AH","../Nastia/DSC08167.jpg":"disvw","../Nastia/DSC08191.jpg":"82WXc","../Nastia/DSC08386.jpg":"4xBCp","../Roberta/pic_0.jpg":"7Tv3D","../Roberta/pic_1.jpg":"gZjDs","../Roberta/pic_10.jpg":"8enkX","../Roberta/pic_11.jpg":"bRQEo","../Roberta/pic_12.jpg":"cyTn7","../Roberta/pic_13.jpg":"65oxB","../Roberta/pic_14.jpg":"fTWSL","../Roberta/pic_2.jpg":"e0eqk","../Roberta/pic_3.jpg":"iQ3Fq","../Roberta/pic_4.jpg":"leutP","../Roberta/pic_5.jpg":"eFIuM","../Roberta/pic_6.jpg":"CX81U","../Roberta/pic_7.jpg":"8hJhl","../Roberta/pic_8.jpg":"8oINI","../Roberta/pic_9.jpg":"kmSx4","../Valeria/239645708_913348032586675_3526176268626277941_n.jpg":"kndmW","../Valeria/239858938_422969359157922_8304902028896030195_n.jpg":"4sU58","../Valeria/240108310_221163499954226_6077238410015003289_n.jpg":"etHor","../Valeria/240108522_986136085294928_4307106541389037811_n.jpg":"eMAQg","../Valeria/240110620_4776111199083747_2956117918730996962_n.jpg":"8Vxw5","../Valeria/240453595_245641064230822_139858117910837704_n.jpg":"5mveD"}],"9dd82":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _mithril = require("mithril");
-var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _animejs = require("animejs");
-var _animejsDefault = parcelHelpers.interopDefault(_animejs);
-var _imagesloaded = require("imagesloaded");
-var _imagesloadedDefault = parcelHelpers.interopDefault(_imagesloaded);
-var _nav = require("./Nav");
-var _navDefault = parcelHelpers.interopDefault(_nav);
-var _appJs = require("../../app.js");
-var _locomotiveScroll = require("locomotive-scroll");
-var _locomotiveScrollDefault = parcelHelpers.interopDefault(_locomotiveScroll);
-var _cursor = require("./cursor");
-var _cursorDefault = parcelHelpers.interopDefault(_cursor);
-var _roller = require("./Roller");
-var _rollerDefault = parcelHelpers.interopDefault(_roller);
-var _loader = require("./Loader");
-var _loaderDefault = parcelHelpers.interopDefault(_loader);
-var _jpg = require("../assets/img/*/*.jpg");
-var _jpgDefault = parcelHelpers.interopDefault(_jpg);
-let projectNames = [];
-for(let key in _jpgDefault.default)projectNames.push(key);
-let scroll;
-function handleScroll(scroll) {
-    const body = document.querySelector("body");
-    const nav = document.querySelector("#nav");
-    // const shards = document.querySelectorAll(".shard-spacer");
-    const bgDark = "#1e1e1e";
-    const bgLight = "#d7cca1";
-    if (scroll > 85) body.classList.add('dark');
-    else body.classList.remove('dark');
-}
-class Project {
-    constructor(){
-    }
-    oninit(vnode) {
-        vnode.state.pictures = Object.values(_jpgDefault.default[projectNames[vnode.attrs.key]]);
-        vnode.state.titleArr = projectNames[vnode.attrs.key].split(" ");
-        vnode.state.scrolled = 0;
-    }
-    onremove() {
-        scroll.destroy();
-    }
-    async oncreate(vnode) {
-        // initialize smoothscroll
-        const loader = await _loaderDefault.default(vnode, scroll, 2);
-        scroll = loader.scroll;
-        // uncover the shards found in Roller.js
-        loader.scroll.on("call", (func)=>{
-            if (func === "uncover") document.querySelectorAll(".bg-shard").forEach((e)=>e.classList.add("uncover")
-            );
-        });
-        loader.scroll.on("scroll", (args)=>{
-            const { limit , scroll  } = args;
-            vnode.state.scrolled = Math.round(scroll.y * 100 / limit.y);
-            handleScroll(vnode.state.scrolled);
-        });
-        setTimeout(()=>{
-            loader.scroll.update();
-        }, 1000);
-        if (!_appJs.cursor) new _cursorDefault.default(document.querySelector("svg.cursor"));
-    }
-    view(vnode) {
-        let next;
-        if (parseInt(vnode.attrs.key) + 1 == projectNames.length) next = projectNames[0];
-        else next = projectNames[parseInt(vnode.attrs.key) + 1];
-        return _mithrilDefault.default(".project-page-wrapper[data-scroll-container]", [
-            _mithrilDefault.default("#main", _mithrilDefault.default(_navDefault.default), _mithrilDefault.default(".title-wrapper[data-scroll][data-scroll-repeat]", _mithrilDefault.default("section.content__item.content__item--project.content__item--current[data-scroll][data-scroll-speed=1]", vnode.state.titleArr.map((line)=>{
-                return _mithrilDefault.default(".paragraph-wrapper", _mithrilDefault.default(".content__paragraph[data-scroll]", line));
-            }))), _mithrilDefault.default(".divider[data-scroll][data-scroll-repeat]", _mithrilDefault.default("span.divider-text", "scroll down")), _mithrilDefault.default(".gallery.grid", vnode.state.pictures.map((pic, i)=>{
-                let speed = i % 2 === 0 ? 1 : 4;
-                // instead of ${speed} will put 1
-                return _mithrilDefault.default(`.img-wrapper[data-scroll][data-scroll-speed=${speed}]`, _mithrilDefault.default(`img[src=${pic}]`));
-            })), _mithrilDefault.default(_rollerDefault.default, {
-                id: parseInt(vnode.attrs.key),
-                nextId: parseInt(vnode.attrs.key) + 1 == projectNames.length ? 0 : parseInt(vnode.attrs.key) + 1,
-                next: next,
-                nextSrc: Object.values(_jpgDefault.default[next])[0],
-                projectNames,
-                pics: _jpgDefault.default
-            })), 
-        ]);
-    }
-}
-exports.default = Project;
-
-},{"mithril":"a7UJj","animejs":"bfYip","imagesloaded":"uXwLn","./Nav":"teRhW","../../app.js":"lzYRN","locomotive-scroll":"aJY2w","./cursor":"gc278","./Roller":"5S4kq","./Loader":"7UblQ","../assets/img/*/*.jpg":"bUf6y","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"5S4kq":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _mithril = require("mithril");
-var _mithrilDefault = parcelHelpers.interopDefault(_mithril);
-var _animejs = require("animejs");
-var _animejsDefault = parcelHelpers.interopDefault(_animejs);
-var _app = require("../../app");
-function applyToArray(arr, func) {
-    arr.forEach((elem)=>{
-        func(elem);
-    });
-}
-async function wait(ms) {
-    await new Promise((resolve)=>setTimeout(resolve, ms)
-    );
-}
-async function revealer(vnode, projectNames, operator) {
-    const shards = document.querySelectorAll(".bg-shard");
-    const text = document.querySelector(".next-section__project-text");
-    const options = {
-        duration: 500,
-        easing: "easeInOutQuad",
-        delay: _animejsDefault.default.stagger(150)
-    };
-    let anim = _animejsDefault.default({
-        targets: text,
-        duration: options.duration * 2,
-        // easing: options.easing,
-        begin () {
-            text.style.opacity = 0;
-            shards.forEach((e)=>{
-                e.classList.remove("uncover");
-            });
-        },
-        complete () {
-            text.style.opacity = 1;
-            shards.forEach((e)=>{
-                e.classList.add("uncover");
-            });
-            _mithrilDefault.default.redraw();
-        }
-    });
-    if (operator === "-") {
-        vnode.state.id -= 1;
-        if (vnode.state.id < 0) vnode.state.id = projectNames.length - 1;
-    } else if (operator === "+") {
-        vnode.state.id += 1;
-        if (vnode.state.id > projectNames.length - 1) vnode.state.id = 0;
-    }
-    const pr = projectNames[vnode.state.id];
-    await wait(options.duration);
-    return pr;
-}
-// async function cardFlip(vnode, projectNames, operator) {
-// const fronts = document.querySelectorAll(".bg-shard__front");
-// const backs = document.querySelectorAll(".bg-shard__back");
-// const text = document.querySelector(".next-section__project-text");
-//
-// const options = {
-// duration: 500,
-// easing: "easeInOutQuad",
-// delay: anime.stagger(150),
-// };
-//
-// anime({
-// targets: text,
-// opacity: 0,
-// duration: options.duration,
-// easing: options.easing,
-// });
-//
-// anime({
-// targets: fronts,
-// rotateY: 180,
-// opacity: 0,
-// duration: options.duration,
-// easing: options.easing,
-// delay: options.delay,
-// });
-//
-// anime({
-// targets: backs,
-// rotateY: [-180, 0],
-// complete: flipCards,
-// duration: options.duration,
-// easing: options.easing,
-// delay: options.delay,
-// });
-//
-// function flipCards() {
-// anime({
-// targets: text,
-// opacity: 1,
-// });
-//
-// anime({
-// targets: fronts,
-// rotateY: [-180, 0],
-// opacity: 1,
-// begin: m.redraw,
-// duration: options.duration,
-// easing: options.easing,
-// delay: options.delay,
-// });
-//
-// anime({
-// targets: backs,
-// rotateY: 180,
-// duration: options.duration,
-// easing: options.easing,
-// delay: options.delay,
-// });
-// }
-//
-// if (operator === "-") {
-// vnode.state.id -= 1;
-// if (vnode.state.id < 0) {
-// vnode.state.id = projectNames.length - 1;
-// }
-// } else if (operator === "+") {
-// vnode.state.id += 1;
-// if (vnode.state.id > projectNames.length - 1) {
-// vnode.state.id = 0;
-// }
-// }
-// const pr = projectNames[vnode.state.id];
-// await wait(options.duration);
-// return pr;
-// }
-module.exports = {
-    id: null,
-    next: null,
-    nextPic: null,
-    pics: [],
-    oninit (vnode) {
-    },
-    oncreate () {
-    },
-    view (vnode) {
-        let { nextId , next , nextSrc , projectNames , pics  } = JSON.parse(JSON.stringify(vnode.attrs));
-        if (!vnode.state.next) vnode.state.next = next;
-        if (!vnode.state.id && vnode.state.id != 0) vnode.state.id = nextId;
-        const nextPics = Object.values(pics[vnode.state.next]);
-        vnode.state.nextPic = nextPics[0];
-        return _mithrilDefault.default(".roller[data-scroll][data-scroll-call=uncover]", [
-            _mithrilDefault.default(".next-container.grid", _mithrilDefault.default(".next-section.grid", {
-                onclick () {
-                    _app.transition();
-                    setTimeout(()=>{
-                        _mithrilDefault.default.route.set(`/project/${vnode.state.id}`);
-                    }, 1000);
-                }
-            }, _mithrilDefault.default(".next-section__img-wrapper", {
-            }, _mithrilDefault.default(".bg-shard[data-scroll]", _mithrilDefault.default(".bg-shard-sides", _mithrilDefault.default(".bg-shard__front", {
-                style: `background-image: url(${nextPics[0]})`
-            }), _mithrilDefault.default(".bg-shard__back"))), // m(".shard-spacer"),
-            _mithrilDefault.default(".bg-shard[data-scroll]", _mithrilDefault.default(".bg-shard-sides", _mithrilDefault.default(".bg-shard__front", {
-                style: `background-image: url(${nextPics[1]})`
-            }), _mithrilDefault.default(".bg-shard__back"))), // m(".shard-spacer"),
-            _mithrilDefault.default(".bg-shard[data-scroll]", _mithrilDefault.default(".bg-shard-sides", _mithrilDefault.default(".bg-shard__front", {
-                style: `background-image: url(${nextPics[2]})`
-            }), _mithrilDefault.default(".bg-shard__back")))), _mithrilDefault.default(".next-section__project-text", vnode.state.next)), _mithrilDefault.default(".low-text.flex", _mithrilDefault.default(".prev", {
-                async onclick () {
-                    // vnode.state.next = await cardFlip(vnode, projectNames, "-");
-                    vnode.state.next = await revealer(vnode, projectNames, "-");
-                }
-            }, _mithrilDefault.default(".prev__text", "prev")), _mithrilDefault.default(".next", {
-                async onclick () {
-                    // vnode.state.next = await cardFlip(vnode, projectNames, "+");
-                    vnode.state.next = await revealer(vnode, projectNames, '+');
-                }
-            }, _mithrilDefault.default(".next__text", "next")))), 
-        ]);
-    }
-};
-
-},{"mithril":"a7UJj","animejs":"bfYip","../../app":"lzYRN","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"bUf6y":[function(require,module,exports) {
-const _temp0 = require("../Anastasia/DSC01812.jpg");
-const _temp1 = require("../Anastasia/DSC01910.jpg");
-const _temp2 = require("../Anastasia/DSC02013.jpg");
-const _temp3 = require("../Anastasia/DSC02154.jpg");
-const _temp4 = require("../Anastasia/DSC02205.jpg");
-const _temp5 = require("../Anastasia/DSC02276.jpg");
-const _temp6 = require("../Anastasia/DSC02278.jpg");
-const _temp7 = require("../Anastasia/NastiaDavletshina1.jpg");
-const _temp8 = require("../Andrea/DSC01328.jpg");
-const _temp9 = require("../Andrea/DSC01521.jpg");
-const _temp10 = require("../Andrea/DSC01530.jpg");
-const _temp11 = require("../Andrea/pic_10.jpg");
-const _temp12 = require("../Andrea/pic_11.jpg");
-const _temp13 = require("../Andrea/pic_12.jpg");
-const _temp14 = require("../Andrea/pic_13.jpg");
-const _temp15 = require("../Andrea/pic_14.jpg");
-const _temp16 = require("../Andrea/pic_15.jpg");
-const _temp17 = require("../Andrea/pic_9.jpg");
-const _temp18 = require("../Arianna/pic_0.jpg");
-const _temp19 = require("../Arianna/pic_1.jpg");
-const _temp20 = require("../Arianna/pic_10.jpg");
-const _temp21 = require("../Arianna/pic_11.jpg");
-const _temp22 = require("../Arianna/pic_2.jpg");
-const _temp23 = require("../Arianna/pic_3.jpg");
-const _temp24 = require("../Arianna/pic_4.jpg");
-const _temp25 = require("../Arianna/pic_5.jpg");
-const _temp26 = require("../Arianna/pic_6.jpg");
-const _temp27 = require("../Arianna/pic_7.jpg");
-const _temp28 = require("../Arianna/pic_8.jpg");
-const _temp29 = require("../Arianna/pic_9.jpg");
-const _temp30 = require("../Inganno/1.jpg");
-const _temp31 = require("../Inganno/2.jpg");
-const _temp32 = require("../Inganno/3.jpg");
-const _temp33 = require("../Inganno/4.jpg");
-const _temp34 = require("../Inganno/5.jpg");
-const _temp35 = require("../Inganno/6.jpg");
-const _temp36 = require("../Inganno/7.jpg");
-const _temp37 = require("../Inganno/8.jpg");
-const _temp38 = require("../Inganno/9.jpg");
-const _temp39 = require("../Inganno/10.jpg");
-const _temp40 = require("../Katia/pic_0.jpg");
-const _temp41 = require("../Katia/pic_1.jpg");
-const _temp42 = require("../Katia/pic_2.jpg");
-const _temp43 = require("../Katia/pic_3.jpg");
-const _temp44 = require("../Katia/pic_4.jpg");
-const _temp45 = require("../Katia/pic_5.jpg");
-const _temp46 = require("../Katia/pic_6.jpg");
-const _temp47 = require("../Katia/pic_7.jpg");
-const _temp48 = require("../Nastia/DSC07826.jpg");
-const _temp49 = require("../Nastia/DSC07836.jpg");
-const _temp50 = require("../Nastia/DSC08026.jpg");
-const _temp51 = require("../Nastia/DSC08077.jpg");
-const _temp52 = require("../Nastia/DSC08167.jpg");
-const _temp53 = require("../Nastia/DSC08191.jpg");
-const _temp54 = require("../Nastia/DSC08386.jpg");
-const _temp55 = require("../Matteo/pic_0.jpg");
-const _temp56 = require("../Matteo/pic_1.jpg");
-const _temp57 = require("../Matteo/pic_2.jpg");
-const _temp58 = require("../Matteo/pic_3.jpg");
-const _temp59 = require("../Matteo/pic_4.jpg");
-const _temp60 = require("../Matteo/pic_5.jpg");
-const _temp61 = require("../Matteo/pic_6.jpg");
-const _temp62 = require("../Matteo/pic_7.jpg");
-const _temp63 = require("../Matteo/pic_8.jpg");
-const _temp64 = require("../Matteo/pic_9.jpg");
-const _temp65 = require("../Roberta/pic_0.jpg");
-const _temp66 = require("../Roberta/pic_1.jpg");
-const _temp67 = require("../Roberta/pic_10.jpg");
-const _temp68 = require("../Roberta/pic_11.jpg");
-const _temp69 = require("../Roberta/pic_12.jpg");
-const _temp70 = require("../Roberta/pic_13.jpg");
-const _temp71 = require("../Roberta/pic_14.jpg");
-const _temp72 = require("../Roberta/pic_2.jpg");
-const _temp73 = require("../Roberta/pic_3.jpg");
-const _temp74 = require("../Roberta/pic_4.jpg");
-const _temp75 = require("../Roberta/pic_5.jpg");
-const _temp76 = require("../Roberta/pic_6.jpg");
-const _temp77 = require("../Roberta/pic_7.jpg");
-const _temp78 = require("../Roberta/pic_8.jpg");
-const _temp79 = require("../Roberta/pic_9.jpg");
-const _temp80 = require("../Valeria/239645708_913348032586675_3526176268626277941_n.jpg");
-const _temp81 = require("../Valeria/239858938_422969359157922_8304902028896030195_n.jpg");
-const _temp82 = require("../Valeria/240108310_221163499954226_6077238410015003289_n.jpg");
-const _temp83 = require("../Valeria/240108522_986136085294928_4307106541389037811_n.jpg");
-const _temp84 = require("../Valeria/240110620_4776111199083747_2956117918730996962_n.jpg");
-const _temp85 = require("../Valeria/240453595_245641064230822_139858117910837704_n.jpg");
-module.exports = {
-    "Anastasia": {
-        "DSC01812": _temp0,
-        "DSC01910": _temp1,
-        "DSC02013": _temp2,
-        "DSC02154": _temp3,
-        "DSC02205": _temp4,
-        "DSC02276": _temp5,
-        "DSC02278": _temp6,
-        "NastiaDavletshina1": _temp7
-    },
-    "Andrea": {
-        "DSC01328": _temp8,
-        "DSC01521": _temp9,
-        "DSC01530": _temp10,
-        "pic_10": _temp11,
-        "pic_11": _temp12,
-        "pic_12": _temp13,
-        "pic_13": _temp14,
-        "pic_14": _temp15,
-        "pic_15": _temp16,
-        "pic_9": _temp17
-    },
-    "Arianna": {
-        "pic_0": _temp18,
-        "pic_1": _temp19,
-        "pic_10": _temp20,
-        "pic_11": _temp21,
-        "pic_2": _temp22,
-        "pic_3": _temp23,
-        "pic_4": _temp24,
-        "pic_5": _temp25,
-        "pic_6": _temp26,
-        "pic_7": _temp27,
-        "pic_8": _temp28,
-        "pic_9": _temp29
-    },
-    "Inganno": {
-        "1": _temp30,
-        "2": _temp31,
-        "3": _temp32,
-        "4": _temp33,
-        "5": _temp34,
-        "6": _temp35,
-        "7": _temp36,
-        "8": _temp37,
-        "9": _temp38,
-        "10": _temp39
-    },
-    "Katia": {
-        "pic_0": _temp40,
-        "pic_1": _temp41,
-        "pic_2": _temp42,
-        "pic_3": _temp43,
-        "pic_4": _temp44,
-        "pic_5": _temp45,
-        "pic_6": _temp46,
-        "pic_7": _temp47
-    },
-    "Nastia": {
-        "DSC07826": _temp48,
-        "DSC07836": _temp49,
-        "DSC08026": _temp50,
-        "DSC08077": _temp51,
-        "DSC08167": _temp52,
-        "DSC08191": _temp53,
-        "DSC08386": _temp54
-    },
-    "Matteo": {
-        "pic_0": _temp55,
-        "pic_1": _temp56,
-        "pic_2": _temp57,
-        "pic_3": _temp58,
-        "pic_4": _temp59,
-        "pic_5": _temp60,
-        "pic_6": _temp61,
-        "pic_7": _temp62,
-        "pic_8": _temp63,
-        "pic_9": _temp64
-    },
-    "Roberta": {
-        "pic_0": _temp65,
-        "pic_1": _temp66,
-        "pic_10": _temp67,
-        "pic_11": _temp68,
-        "pic_12": _temp69,
-        "pic_13": _temp70,
-        "pic_14": _temp71,
-        "pic_2": _temp72,
-        "pic_3": _temp73,
-        "pic_4": _temp74,
-        "pic_5": _temp75,
-        "pic_6": _temp76,
-        "pic_7": _temp77,
-        "pic_8": _temp78,
-        "pic_9": _temp79
-    },
-    "Valeria": {
-        "239645708_913348032586675_3526176268626277941_n": _temp80,
-        "239858938_422969359157922_8304902028896030195_n": _temp81,
-        "240108310_221163499954226_6077238410015003289_n": _temp82,
-        "240108522_986136085294928_4307106541389037811_n": _temp83,
-        "240110620_4776111199083747_2956117918730996962_n": _temp84,
-        "240453595_245641064230822_139858117910837704_n": _temp85
-    }
-};
-
-},{"../Anastasia/DSC01812.jpg":"27hhp","../Anastasia/DSC01910.jpg":"kL9Y3","../Anastasia/DSC02013.jpg":"kRGo3","../Anastasia/DSC02154.jpg":"lONke","../Anastasia/DSC02205.jpg":"dnibK","../Anastasia/DSC02276.jpg":"kYH8c","../Anastasia/DSC02278.jpg":"iDyhP","../Anastasia/NastiaDavletshina1.jpg":"9XNPE","../Andrea/DSC01328.jpg":"hRoJD","../Andrea/DSC01521.jpg":"kDciS","../Andrea/DSC01530.jpg":"kPZ4W","../Andrea/pic_10.jpg":"cHmim","../Andrea/pic_11.jpg":"hVcrc","../Andrea/pic_12.jpg":"jKlhJ","../Andrea/pic_13.jpg":"jtYtg","../Andrea/pic_14.jpg":"2UESJ","../Andrea/pic_15.jpg":"922HP","../Andrea/pic_9.jpg":"jSfp4","../Arianna/pic_0.jpg":"auLbh","../Arianna/pic_1.jpg":"iAfPt","../Arianna/pic_10.jpg":"aQDpZ","../Arianna/pic_11.jpg":"R6BUR","../Arianna/pic_2.jpg":"3frM6","../Arianna/pic_3.jpg":"efIZZ","../Arianna/pic_4.jpg":"bFr8T","../Arianna/pic_5.jpg":"kk6oK","../Arianna/pic_6.jpg":"jOlOW","../Arianna/pic_7.jpg":"jRqb2","../Arianna/pic_8.jpg":"3ASMb","../Arianna/pic_9.jpg":"9xrLx","../Inganno/1.jpg":"cXFMX","../Inganno/2.jpg":"eYjAi","../Inganno/3.jpg":"dzvRw","../Inganno/4.jpg":"25uYQ","../Inganno/5.jpg":"6xnJd","../Inganno/6.jpg":"4i2K2","../Inganno/7.jpg":"8KeWv","../Inganno/8.jpg":"8BTVQ","../Inganno/9.jpg":"75YVs","../Inganno/10.jpg":"hH93w","../Katia/pic_0.jpg":"brCd4","../Katia/pic_1.jpg":"5k64l","../Katia/pic_2.jpg":"efIsy","../Katia/pic_3.jpg":"8GdmZ","../Katia/pic_4.jpg":"fJf2z","../Katia/pic_5.jpg":"6h9cv","../Katia/pic_6.jpg":"alue5","../Katia/pic_7.jpg":"e6M8v","../Nastia/DSC07826.jpg":"9AVLD","../Nastia/DSC07836.jpg":"4gDqK","../Nastia/DSC08026.jpg":"97xVA","../Nastia/DSC08077.jpg":"dT3AH","../Nastia/DSC08167.jpg":"disvw","../Nastia/DSC08191.jpg":"82WXc","../Nastia/DSC08386.jpg":"4xBCp","../Matteo/pic_0.jpg":"gZNPp","../Matteo/pic_1.jpg":"8tQWi","../Matteo/pic_2.jpg":"cDanF","../Matteo/pic_3.jpg":"6knsV","../Matteo/pic_4.jpg":"gwu8n","../Matteo/pic_5.jpg":"fVWwX","../Matteo/pic_6.jpg":"9plNI","../Matteo/pic_7.jpg":"aLqGh","../Matteo/pic_8.jpg":"031sh","../Matteo/pic_9.jpg":"8gMYd","../Roberta/pic_0.jpg":"7Tv3D","../Roberta/pic_1.jpg":"gZjDs","../Roberta/pic_10.jpg":"8enkX","../Roberta/pic_11.jpg":"bRQEo","../Roberta/pic_12.jpg":"cyTn7","../Roberta/pic_13.jpg":"65oxB","../Roberta/pic_14.jpg":"fTWSL","../Roberta/pic_2.jpg":"e0eqk","../Roberta/pic_3.jpg":"iQ3Fq","../Roberta/pic_4.jpg":"leutP","../Roberta/pic_5.jpg":"eFIuM","../Roberta/pic_6.jpg":"CX81U","../Roberta/pic_7.jpg":"8hJhl","../Roberta/pic_8.jpg":"8oINI","../Roberta/pic_9.jpg":"kmSx4","../Valeria/239645708_913348032586675_3526176268626277941_n.jpg":"kndmW","../Valeria/239858938_422969359157922_8304902028896030195_n.jpg":"4sU58","../Valeria/240108310_221163499954226_6077238410015003289_n.jpg":"etHor","../Valeria/240108522_986136085294928_4307106541389037811_n.jpg":"eMAQg","../Valeria/240110620_4776111199083747_2956117918730996962_n.jpg":"8Vxw5","../Valeria/240453595_245641064230822_139858117910837704_n.jpg":"5mveD"}]},["1bEO8","lzYRN"], "lzYRN", "parcelRequirebcab")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}]},["1bEO8","lzYRN"], "lzYRN", "parcelRequirebcab")
 
 //# sourceMappingURL=index.833266ea.js.map

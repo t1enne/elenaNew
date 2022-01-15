@@ -3,21 +3,41 @@
     [en.about]
     title = "About Me"
     paragraphs = [
-    "Welcome to my website! My name is Elena, a Russian Girl who loves to capture love through pictures",
-    "I love to eat, sleep and pet my cats!"
+    "My name is Elena, and I'm a photographer working in Italy",
+    "My love for photography flourished in me as passion does in young hearts, and now I can't imagine my life without it",
+    "In my shoots I try to express each person's uniqueness and beauty, lightly and naturally. My favourite shoots are love-stories, catching real feelings between people and imprinting them on my shots",
+    "I base my style on three ideas - lightness, naturalness and a movie-like atmosphere. The colors in my pictures resemble old film, and that's a timeless classic. Such pictures will never go out of style and you will keep falling in love them long after the shoot ✨"
     ]
     [en.nav]
     me = "Elena Kustova"
     works = "works"
     about = "about"
+    [en.footer]
+    me = "I shoot in:"
+    contact = "Book your shoot:"
+    alsoOn = "Or DM me:"
+    btt = 'back to top'
+    home = 'home'
+    about = 'about'
+    creds = 'website made by: '
+    places = ['- rome', '- florence', '- perugia']
 [ru]
     [ru.about]
-    title = "Pro Menya"
-    paragraphs = [
-    "Welcome to my website! My name is Elena, a Russian Girl who loves to capture love through pictures",
-    "I love to eat, sleep and pet my cats!"
-    ]
+    title = "Про меня"
+    paragraphs = ["Меня зовут Лена и я фотограф в Италии ❤️",
+"Любовь к фотографии проснулась во мне с такой же силой, как вспыхивает огонь страсти в юных сердцах, и сейчас я не представляю свою жизнь без этого.",
+"В своих работах я стараюсь передавать уникальную красоту человека в своей естественности и легкости. Больше всего я люблю снимать lovestory, ловить неподдельные чувства между людьми и оставлять их на фотографии.",
+"Лёгкость, естественность и кинематографичность - то, на чем базируется мое творчество. Цвет моих снимков напоминает старую пленку, а это вечная классика, которая всегда будет актуальна и такие фотографии будут нравиться вам и через десять лет ✨"]
     [ru.nav]
-    me = "Elena Kustova"
-    works = "raboty"
-    about = "pro menya"
+    me = "Елена Кустова"
+    works = "работы"
+    about = "про меня"
+    [ru.footer]
+    me = "Я фотографирую тут:"
+    contact = "Бронируете съемку:"
+    alsoOn = "Или пишите тут:"
+    btt = 'На верх'
+    home = 'Главная'
+    about = 'Про меня'
+    creds = 'Сайт от: '
+    places = ['- рим', '- флоренция', '- перуджа']

@@ -1,57 +1,117 @@
+import anime from "animejs";
+import m from 'mithril';
 import imagesLoaded from "imagesloaded";
 import LocomotiveScroll from "locomotive-scroll";
 import pics from "../assets/img/*/*.jpg";
-let allSources = [],
-    scroll;
+import { beginLoadingAnim, completeLoadingAnim } from "./Title";
+import { cl } from "./utils";
+let allSources = []
 
 for (const key in pics) {
-    //array of images
-    allSources = allSources.concat(Object.values(pics[key]));
+  //array of images
+  allSources.push(Object.values(pics[key])[0]);
 }
 
-let allImages = allSources.map((src) => {
-    let img = document.createElement("img");
-    img.src = src;
-    return img;
+let firstImages = allSources.map((src) => {
+  let img = document.createElement("img");
+  img.src = src;
+  return img;
 });
 
-export default function Loader(vnode, scroll, mult) {
+function handleDone(route) {
+  cl('.loader', 'add', 'loaded')
+
+  anime({
+    targets: '.language-picker button',
+    opacity: [1, 0],
+    easing: 'easeInOutQuad',
+    delay: anime.stagger(100),
+    translateY: 150,
+    duration: 1000,
+    complete() { cl('.language-picker', 'add', 'v-hidden') }
+  })
+
+  anime({
+    targets: '.loader',
+    opacity: 0,
+    duration: 1000,
+    easing: 'easeOutQuad',
+    complete() {
+      cl('.nav', 'remove', 'hidden')
+      if (route == 'about') cl('.content', 'remove', 'hidden')
+      m.redraw()
+    }
+  })
+
+  if (route == 'about') {
+    setTimeout(() => completeLoadingAnim({ animateColumns: false }).play(), 500)
+  } else {
+    setTimeout(() => completeLoadingAnim({ animateColumns: true }).play(), 500)
+  }
+}
+
+export default function Loader({ scroll, stop, route }) {
+  let langPicked = false, imagesDone = false
+
+  if (!scroll) {
+    beginLoadingAnim().play()
+
     let imagesPromise = new Promise((resolve) => {
-        let images = imagesLoaded(allImages);
+      let images = imagesLoaded(firstImages);
 
-        if (scroll) {
-            scroll.destroy();
-        }
+      images.on("progress", (instance) => {
+        const len = instance.elements.length;
+        const count = instance.progressedCount;
+        const perc = Math.round((count * 100) / len);
+        document.querySelector(".loader__text").textContent = `${perc}%`;
+        document.querySelector(".loader__bar").style.transform = `scaleX(${perc / 100})`
+      });
 
-        images.on("progress", (instance) => {
-            const len = instance.elements.length;
-            const count = instance.progressedCount;
-            const perc = Math.round((count * 100) / len);
-            document.querySelector(".loader__text").textContent = `${perc}%`;
+
+      cl('.language-picker button').forEach(b => {
+        b.addEventListener('click', async (e) => {
+          document.documentElement.lang = e.target.textContent
+          cl('.language-picker button', 'remove', 'selected')
+          cl(e.target, 'add', 'selected')
+          langPicked = true
+          if (imagesDone) handleDone(route)
+        })
+      })
+
+      images.on("done", () => {
+        imagesDone = true
+        cl('.loader', 'add', 'v-hidden')
+        if (langPicked) handleDone(route)
+      });
+
+
+
+
+      if (!window.scroller | scroll != false) {
+        window.scroller = new LocomotiveScroll({
+          el: document.querySelector(".main"),
+          lerp: 0.13,
+          smooth: true,
+          smartphone: {
+            smooth: true
+          },
+          tablet: {
+            smooth: true
+          },
+          reloadOnContextChange: true,
         });
 
-        images.on("done", () => {
-            const loader = document.querySelector(".loader");
-            loader.classList.add("loaded");
+        window.addEventListener('resize', () => window.scroller.update())
 
-            scroll = new LocomotiveScroll({
-                el: document.querySelector("main > div"),
-                multiplier: mult ? mult : 1,
-                smooth: true,
-                smartphone: {
-                    smooth: true,
-                },
-            });
-            scroll.on("scroll", (args) => {
-                const { limit } = args;
-                vnode.state.scrolled = Math.round((args.scroll.y * 100) / limit.y);
-                // if (vnode.state.scrolled > 50) {
-                // scroll.update();
-                // }
-            });
-            scroll.update();
-            return resolve({ images, scroll });
-        });
+        window.scroller.on('call', (args) => {
+          console.log(args, window.scroller)
+          args === 'hide' && cl('.nav', 'toggle', 'hidden')
+        })
+
+        if (stop) window.scroller.stop()
+      }
+      return resolve({ images });
     });
     return imagesPromise;
+  }
 }

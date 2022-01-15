@@ -11,7 +11,7 @@ import {
 import {
   transition
 } from '../../app.js'
-import pics from '../assets/img/*/*.jpg'
+// import pics from '../assets/img/*/*.jpg'
 
 // track the mouse position
 let mousepos = {
@@ -160,16 +160,16 @@ export default class MenuItem {
   }
   view() {
     return m('.link[data-scroll]', {
-        href: `project/${this.index}`,
-        class: 'menu__item',
-        onclick(e) {
-          e.preventDefault()
-          transition()
-          setTimeout(() => {
-            m.route.set(`/${this.getAttribute('href')}`)
-          }, 1000)
-        }
-      },
+      href: `project/${this.index}`,
+      class: 'menu__item',
+      onclick(e) {
+        e.preventDefault()
+        transition()
+        setTimeout(() => {
+          m.route.set(`/${this.getAttribute('href')}`)
+        }, 1000)
+      }
+    },
       m('span.menu__item-text',
         m('span.menu__item-textinner', this.menuItem),
       ),
