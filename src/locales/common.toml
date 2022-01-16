@@ -5,7 +5,7 @@
     paragraphs = [
     "My name is Elena, and I'm a photographer working in Italy",
     "My love for photography flourished in me as passion does in young hearts, and now I can't imagine my life without it",
-    "In my shoots I try to express each person's uniqueness and beauty, lightly and naturally. My favourite shoots are love-stories, catching real feelings between people and imprinting them on my shots",
+    "In my shoots I try to express each person's unique beauty, effortlessly and naturally. My favourite shoots are love-stories, catching real feelings between people and imprinting them on my shots",
     "I base my style on three ideas - lightness, naturalness and a movie-like atmosphere. The colors in my pictures resemble old film, and that's a timeless classic. Such pictures will never go out of style and you will keep falling in love them long after the shoot ✨"
     ]
     [en.nav]
@@ -33,9 +33,9 @@
     works = "работы"
     about = "про меня"
     [ru.footer]
-    me = "Я фотографирую тут:"
+    me = "Я фотографирую в:"
     contact = "Бронируете съемку:"
-    alsoOn = "Или пишите тут:"
+    alsoOn = "Или пишите cюда:"
     btt = 'На верх'
     home = 'Главная'
     about = 'Про меня'

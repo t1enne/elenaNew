@@ -22,10 +22,6 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
     transform: translateX(50px) rotate(10deg);
 
   }
-  //
-  // & > * > *:nth-child(3n) {
-  //   transition-delay: .6s;
-  // }
   & > *.is-inview * {
     opacity: 1;
     transform: translateY(0%);
@@ -45,7 +41,8 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
         text-decoration: none;
         color: #530202;
         position: relative;
-        font-family: 'Josefine';
+        font-family: 'Josefin', sans-serif;
+        font-weight: 400;
         &:after {
           content: '';
           position: absolute;
@@ -117,7 +114,8 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
        width: 1px;
        height: 70%;
        background-color: black;
-       transition: transform .3s $easeQuintic;
+       transition: transform .5s $easeQuintic;
+       transition-delay: .3s;
        transform: rotate(22.5deg) scale(1, 0);
      }
      &.is-inview:hover {
@@ -131,9 +129,8 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
   .credits {
     text-align: right;
     opacity: .8;
-    font-family: Cantarell;
     font-size: .9rem;
-    font-weight: bold;
+    font-weight: 400;
     letter-spacing: -.8px;
     a {
       text-decoration: none;

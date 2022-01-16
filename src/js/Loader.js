@@ -50,6 +50,13 @@ function handleDone(route) {
   }
 }
 
+function handleLang(e) {
+  document.documentElement.lang = e.target.textContent
+  cl('.language-picker button', 'remove', 'selected')
+  cl('.language-picker button').forEach(b => b.setAttribute('disabled', 'true'))
+  cl(e.target, 'add', 'selected')
+}
+
 export default function Loader({ scroll, stop, route }) {
   let langPicked = false, imagesDone = false
 
@@ -69,10 +76,8 @@ export default function Loader({ scroll, stop, route }) {
 
 
       cl('.language-picker button').forEach(b => {
-        b.addEventListener('click', async (e) => {
-          document.documentElement.lang = e.target.textContent
-          cl('.language-picker button', 'remove', 'selected')
-          cl(e.target, 'add', 'selected')
+        b.addEventListener('click', (e) => {
+          handleLang(e)
           langPicked = true
           if (imagesDone) handleDone(route)
         })
@@ -101,12 +106,13 @@ export default function Loader({ scroll, stop, route }) {
           reloadOnContextChange: true,
         });
 
-        window.addEventListener('resize', () => window.scroller.update())
-
-        window.scroller.on('call', (args) => {
-          console.log(args, window.scroller)
-          args === 'hide' && cl('.nav', 'toggle', 'hidden')
+        window.addEventListener('resize', () => {
+          window.scroller.update()
+          m.redraw()
         })
+
+
+
 
         if (stop) window.scroller.stop()
       }

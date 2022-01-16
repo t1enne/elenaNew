@@ -89,6 +89,7 @@ html.has-scroll-dragging {
 .content {
   display: grid;
   grid-template-columns: repeat(2, 50%);
+  margin-top: 5rem;
   transition: 0.6s cubic-bezier(0.65, 0.05, 0.36, 1);
   transition-property: transform, opacity;
 }
@@ -99,7 +100,7 @@ html.has-scroll-dragging {
 
 .content .text {
   overflow: hidden;
-  transition-delay: 0.5s;
+  transition-delay: 0.1s;
 }
 
 .content.is-inview > * > * {
@@ -194,7 +195,6 @@ html.has-scroll-dragging {
 
 .modal {
   position: absolute;
-  top: 0px;
   left: 0px;
   width: 100vw;
   height: 100vh;
@@ -392,7 +392,7 @@ html.has-scroll-dragging {
   display: flex;
   position: relative;
   height: 100vh;
-  padding: 5vh 0 15vh;
+  padding: 5vh 0 25vh;
 }
 
 .columns .column-wrap:nth-child(3) {
@@ -491,7 +491,8 @@ html.has-scroll-dragging {
   text-decoration: none;
   color: #530202;
   position: relative;
-  font-family: "Josefine";
+  font-family: "Josefin", sans-serif;
+  font-weight: 400;
 }
 
 .footer .contacts .link-mail a:after {
@@ -570,7 +571,8 @@ html.has-scroll-dragging {
   width: 1px;
   height: 70%;
   background-color: black;
-  transition: transform 0.3s cubic-bezier(0.65, 0.05, 0.36, 1);
+  transition: transform 0.5s cubic-bezier(0.65, 0.05, 0.36, 1);
+  transition-delay: 0.3s;
   transform: rotate(22.5deg) scale(1, 0);
 }
 
@@ -585,9 +587,8 @@ html.has-scroll-dragging {
 .footer .credits {
   text-align: right;
   opacity: 0.8;
-  font-family: Cantarell;
   font-size: 0.9rem;
-  font-weight: bold;
+  font-weight: 400;
   letter-spacing: -0.8px;
 }
 
@@ -819,20 +820,8 @@ html.has-scroll-dragging {
 }
 
 @font-face {
-  font-family: "Josefine";
-  src: url("JosefinSans-Light.b06beb4b.ttf") format("truetype");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "JosefineBold";
-  src: url("JosefinSans-Bold.22830597.ttf") format("truetype");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Goldenbook";
-  src: url("GoldenbookRegular.75c176d2.otf") format("truetype");
+  font-family: "Josefin";
+  src: url("JosefinSans.17f0f3a8.ttf") format("truetype");
   font-display: swap;
 }
 
@@ -890,7 +879,8 @@ body {
   margin: 0;
   color: #282828 !important;
   background-color: #d7cca1;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Josefin", sans-serif;
+  font-weight: 400;
   transition: background-color 0.4s linear;
   overflow-x: hidden;
   overflow-y: hidden;
@@ -912,7 +902,7 @@ body .greeter {
 }
 
 body .loader {
-  font-family: "Josefine", sans-serif;
+  font-family: "Josefin", sans-serif;
   text-align: center;
   font-size: 3rem;
   width: 50vw;
@@ -950,7 +940,8 @@ body .language-picker button {
   width: max-content;
   height: max-content;
   text-transform: uppercase;
-  font-family: Josefine, sans-serif;
+  font-family: "Josefin", sans-serif;
+  font-weight: 200;
   cursor: pointer;
   z-index: 20;
   position: relative;
@@ -984,7 +975,7 @@ body .nav {
   font-weight: 700;
   padding: 1rem;
   z-index: 10;
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 10rem;
   transition: opacity 0.5s ease-in-out;
@@ -1002,9 +993,9 @@ body .nav a, body .nav select {
   padding: 0;
   background: none;
   border: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Josefin", sans-serif;
   font-size: inherit;
-  font-weight: 700;
+  font-weight: 400;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
@@ -1039,7 +1030,6 @@ body .nav .link-wrapper:hover select::after {
 
 body .divider {
   margin: 3rem 0;
-  font-family: Goldenbook;
   text-transform: uppercase;
   text-align: center;
 }
@@ -1187,7 +1177,7 @@ svg.cursor.cursor__inner {
 
 .slides-wrapper .preview .buttons .button {
   cursor: pointer;
-  font-family: Josefine;
+  font-family: "Josefin", sans-serif;
   background: none;
   border: none;
   font-variant: all-petite-caps;
@@ -1205,7 +1195,6 @@ svg.cursor.cursor__inner {
   align-items: center;
   height: 35px;
   margin-top: 3rem;
-  font-family: Goldenbook;
 }
 
 .slides-wrapper .preview .project-title {
@@ -1236,7 +1225,7 @@ svg.cursor.cursor__inner {
 
 .slides-wrapper .slides .work-title-wrapper {
   position: absolute;
-  font-family: Josefine;
+  font-family: "Josefin", sans-serif;
   overflow: hidden;
   width: 30px;
   left: -30px;
@@ -1329,7 +1318,6 @@ svg.cursor.cursor__inner {
   text-transform: uppercase;
   position: absolute;
   overflow: hidden;
-  font-family: Goldenbook;
   text-align: center;
   bottom: 0;
   font-size: 2.7vw;
@@ -1453,8 +1441,8 @@ a.skip-link {
   opacity: 0;
 }
 
-.golden-book {
-  font-family: "Goldenbook", serif;
+a {
+  color: inherit;
 }
 
 .saol {
@@ -1462,11 +1450,7 @@ a.skip-link {
 }
 
 .jos {
-  font-family: "Josefine", sans-serif;
-}
-
-.jos-b {
-  font-family: "JosefineBold", sans-serif;
+  font-family: "Josefin", sans-serif;
 }
 
 .cormorant {

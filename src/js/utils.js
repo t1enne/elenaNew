@@ -32,10 +32,12 @@ const cl = (items, action, classname) => {
   } else if (items instanceof HTMLElement) {
     nodeArray.push(items)
   } else {
-    nodeArray = [...items]
+    nodeArray = Array.from(items)
   }
   if (action && classname) {
-    return nodeArray.map(n => n && n.classList[action](classname))
+    const newArray = nodeArray.map(n => n && n.classList[action](classname))
+    if (newArray.length == 1) return newArray[0]
+    return newArray
   } else {
     if (nodeArray.length == 0) return null
     else if (nodeArray.length == 1) return nodeArray[0]

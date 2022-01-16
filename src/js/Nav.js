@@ -14,7 +14,11 @@ module.exports = {
 
     const { me, about } = locales[docLang].nav
 
-    return m('#nav.space-between', [
+    return m('#nav.space-between[data-scroll]', {
+      style: {
+        top: document.body.getAttribute('scrolled') + 'px'
+      }
+    }, [
       m('.link-wrapper',
         m('a.home-link.underlined', {
           onclick() {

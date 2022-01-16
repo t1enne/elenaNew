@@ -47,8 +47,15 @@ document.body.addEventListener('mithril-loaded', async (le) => {
   if (!loader) {
     console.log('loader = null')
     loader = await Loader({ stop, route })
+
   }
 
+  window.scroller.on('scroll', (pos) => {
+    document.body.setAttribute('scrolled', pos.scroll.y)
+  })
+  window.scroller.on('call', (e) => {
+    e === 'hide' && cl('.nav', 'toggle', 'hidden')
+  })
 
 })
 

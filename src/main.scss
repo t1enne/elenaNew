@@ -33,22 +33,12 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Josefin";
+  src: url("fonts/JosefinSans.ttf") format("truetype");
+  font-display: swap;
+}
 
-@font-face {
-  font-family: "Josefine";
-  src: url("fonts/JosefinSans-Light.ttf") format("truetype");
-  font-display: swap;
-}
-@font-face {
-  font-family: "JosefineBold";
-  src: url("fonts/JosefinSans-Bold.ttf") format("truetype");
-  font-display: swap;
-}
-@font-face {
-  font-family: "Goldenbook";
-  src: url("fonts/GoldenbookRegular.otf") format("truetype");
-  font-display: swap;
-}
 
 *,
   *::after,
@@ -98,7 +88,8 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
     color: $text-color !important;
     // background-color: transparent;
     background-color: $bg-color;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Josefin', sans-serif;
+    font-weight: 400;
     transition: background-color 0.4s linear;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -115,7 +106,7 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
     }
 
     .loader {
-      font-family: 'Josefine', sans-serif;
+      font-family: 'Josefin', sans-serif;
       text-align: center;
       font-size: 3rem;
       width: 50vw;
@@ -149,7 +140,8 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
         width: max-content;
         height: max-content;
         text-transform: uppercase;
-        font-family: Josefine, sans-serif;
+        font-family: 'Josefin', sans-serif;
+        font-weight: 200;
         cursor:pointer;
         z-index: 20;
         position: relative;
@@ -180,7 +172,7 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
       font-weight: 700;
       padding: 1rem;
       z-index: 10;
-      position: relative;
+      position: absolute;
       width: 100%;
       height: 10rem;
       transition: opacity .5s ease-in-out;
@@ -195,9 +187,9 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
         padding: 0;
         background: none;
         border: none;
-        font-family: 'Montserrat', sans-serif;
+        font-family: 'Josefin', sans-serif;
         font-size: inherit;
-        font-weight: 700;
+        font-weight: 400;
         text-transform: uppercase;
         text-decoration: none;
         cursor: pointer;
@@ -233,7 +225,6 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
 
     .divider {
       margin: 3rem 0;
-      font-family: Goldenbook;
       text-transform: uppercase;
       text-align: center;
       &:hover .divider-text::after {
@@ -376,7 +367,7 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
       // font-weight: bold;
       .buttons .button {
         cursor: pointer;
-        font-family: Josefine;
+        font-family: 'Josefin', sans-serif;
         background: none;
         border: none;
         font-variant: all-petite-caps;
@@ -395,7 +386,6 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
         align-items: center;
         height: 35px;
         margin-top: 3rem;
-        font-family: Goldenbook;
       }
 
       .project-title {
@@ -426,7 +416,7 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
       .work-title-wrapper {
         position: absolute;
         // font-size: 1.3rem;
-        font-family: Josefine;
+        font-family: 'Josefin', sans-serif;
         overflow: hidden;
         width: 30px;
         // height: 100%;
@@ -522,7 +512,6 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
         text-transform: uppercase;
         position: absolute;
         overflow: hidden;
-        font-family: Goldenbook;
         text-align: center;
         bottom: 0;
         font-size: 2.7vw;
@@ -633,18 +622,14 @@ $easeQuintic: cubic-bezier(0.65, 0.05, 0.36, 1);
       opacity: 0;
     }
   }
-
-  .golden-book {
-    font-family: 'Goldenbook', serif;
+  a {
+    color: inherit;
   }
   .saol {
     font-family: 'Saol', serif;
   }
   .jos {
-    font-family: 'Josefine', sans-serif;
-  }
-  .jos-b {
-    font-family: 'JosefineBold', sans-serif;
+    font-family: 'Josefin', sans-serif;
   }
   .cormorant {
     font-family: 'Cormorant Light', sans-serif;
