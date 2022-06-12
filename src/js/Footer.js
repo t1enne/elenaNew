@@ -52,7 +52,7 @@ const instaSvg = () => {
 }
 
 module.exports = {
-  routes: ['home', 'about'],
+  routes: ['', 'about'],
   view(vnode) {
     let lang = document.documentElement.lang || 'eng'
 
@@ -93,7 +93,7 @@ module.exports = {
             return m(`a.${route}[data-scroll][href=/${route}]`, {
               onclick(e) {
                 e.preventDefault()
-                if (location.pathname != `/${route}`) {
+                if (location.pathname != `/${route != "" ? route : "home"}`) {
                   transition()
                   // cl('.nav', 'remove', 'hidden')
                   setTimeout(() => {

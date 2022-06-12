@@ -1,6 +1,6 @@
 [[redirects]]
-  from = "/home"
+  from = "/"
   to = "/"
 [[redirects]]
   from = "/about"
-  to = "/"
+  to = "/about"

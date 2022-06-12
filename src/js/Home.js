@@ -9,7 +9,7 @@ import { columnsAnim } from "./Title";
 const Home = {
   oncreate() {
     if (!window.scroller) {
-      document.body.dispatchEvent(loadEvent({ stop: true, route: 'home' }))
+      document.body.dispatchEvent(loadEvent({ stop: true, route: '' }))
       cl('.c-scrollbar', 'add', 'hidden')
 
     } else {
