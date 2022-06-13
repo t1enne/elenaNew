@@ -26,8 +26,8 @@ function handleDone(route) {
     opacity: [1, 0],
     easing: 'easeInOutQuad',
     delay: anime.stagger(100),
-    translateY: 150,
-    duration: 1000,
+    translateY: 100,
+    duration: 850,
     complete() { cl('.language-picker', 'add', 'v-hidden') }
   })
 

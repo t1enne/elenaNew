@@ -2,7 +2,7 @@ import m from 'mithril';
 import Home from "./src/js/Home";
 import Nav from "./src/js/Nav"
 import About from "./src/js/About";
-import Project from "./src/js/Project";
+// import Project from "./src/js/Project";
 import Loader from "./src/js/Loader";
 import Cursor from "./src/js/cursor";
 import { Title } from "./src/js/Title";
@@ -35,28 +35,18 @@ document.body.addEventListener('mithril-loaded', async (le) => {
   console.log('load event')
 
   const { stop, route } = le.detail
-  if (window.scroller) {
+  if ('scroller' in window) {
     window.scroller.destroy()
     window.scroller.init()
     window.scroller.update()
-    if (stop) {
-      window.scroller.stop()
-    }
+    if (stop) window.scroller.stop()
   }
 
-  if (!loader) {
-    console.log('loader = null')
-    loader = await Loader({ stop, route })
+  if (!loader) loader = await Loader({ stop, route })
+  
 
-  }
-
-  window.scroller.on('scroll', (pos) => {
-    document.body.setAttribute('scrolled', pos.scroll.y)
-  })
-  window.scroller.on('call', (e) => {
-    e === 'hide' && cl('.nav', 'toggle', 'hidden')
-  })
-
+  window.scroller.on('scroll', (pos) => document.body.setAttribute('scrolled', pos.scroll.y))
+  window.scroller.on('call', (e) =>  e === 'hide' && cl('.nav', 'toggle', 'hidden'))
 })
 
 

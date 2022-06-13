@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { transition } from '../../app'
-import { cl } from './utils';
+// import { cl } from './utils';
 import locales from "../locales/common.toml"
 
 
@@ -81,7 +81,7 @@ module.exports = {
         )
       ),
       m(`.footer-nav.flex-column[data-scroll][data-scroll-speed=1][data-scroll-call=hide][data-scroll-repeat]`, {
-        oncreate(v) {
+        oncreate(_v) {
 
         }
       },
@@ -95,7 +95,8 @@ module.exports = {
                 e.preventDefault()
                 if (location.pathname != `/${route}`) {
                   transition()
-                  // cl('.nav', 'remove', 'hidden')
+                  cl('.nav', 'remove', 'hidden')
+
                   setTimeout(() => {
                     m.route.set(`/${route}`)
                   }, 1000);

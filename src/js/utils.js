@@ -25,15 +25,12 @@ const getMousePos = (e) => {
 
 const cl = (items, action, classname) => {
   let nodeArray = []
-  if (typeof items === 'string') {
-    nodeArray = [...document.querySelectorAll(items)]
-  } else if (items.__proto__ === [].__proto__) {
-    nodeArray = items
-  } else if (items instanceof HTMLElement) {
-    nodeArray.push(items)
-  } else {
-    nodeArray = Array.from(items)
-  }
+
+  if (typeof items === 'string') nodeArray = [...document.querySelectorAll(items)]
+  else if (items.__proto__ === [].__proto__) nodeArray = items
+  else if (items instanceof HTMLElement) nodeArray.push(items)
+  else nodeArray = Array.from(items)
+  
   if (action && classname) {
     const newArray = nodeArray.map(n => n && n.classList[action](classname))
     if (newArray.length == 1) return newArray[0]
