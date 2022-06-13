@@ -1,6 +1,6 @@
 import m from 'mithril';
 import { transition } from '../../app'
-import { cl } from './utils';
+// import { cl } from './utils';
 import locales from "../locales/common.toml"
 
 
@@ -52,7 +52,7 @@ const instaSvg = () => {
 }
 
 module.exports = {
-  routes: ['', 'about'],
+  routes: ['home', 'about'],
   view(vnode) {
     let lang = document.documentElement.lang || 'eng'
 
@@ -81,7 +81,7 @@ module.exports = {
         )
       ),
       m(`.footer-nav.flex-column[data-scroll][data-scroll-speed=1][data-scroll-call=hide][data-scroll-repeat]`, {
-        oncreate(v) {
+        oncreate(_v) {
 
         }
       },
@@ -93,9 +93,10 @@ module.exports = {
             return m(`a.${route}[data-scroll][href=/${route}]`, {
               onclick(e) {
                 e.preventDefault()
-                if (location.pathname != `/${route != "" ? route : "home"}`) {
+                if (location.pathname != `/${route}`) {
                   transition()
-                  // cl('.nav', 'remove', 'hidden')
+                  cl('.nav', 'remove', 'hidden')
+
                   setTimeout(() => {
                     m.route.set(`/${route}`)
                   }, 1000);

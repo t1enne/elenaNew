@@ -3,4 +3,4 @@
   to = "/"
 [[redirects]]
   from = "/about"
-  to = "/about"
+  to = "/"

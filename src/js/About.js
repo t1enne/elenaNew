@@ -7,7 +7,7 @@ import Footer from "./Footer";
 import { cl } from "./utils";
 
 module.exports = {
-  oncreate(v) {
+  oncreate(_v) {
     if (window.scroller) {
       document.body.dispatchEvent(loadEvent({ stop: false, route: 'about' }))
       cl('.content', 'remove', 'hidden')
@@ -15,7 +15,7 @@ module.exports = {
       document.body.dispatchEvent(loadEvent({ stop: true, route: 'about' }))
     }
   },
-  view(v) {
+  view(_v) {
     let docLang = document.documentElement.lang
     let { title, paragraphs } = locales[docLang].about
 

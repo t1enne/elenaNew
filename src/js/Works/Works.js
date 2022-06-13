@@ -86,7 +86,7 @@ function PicStrip(v) {
               m('button.btn', {
                 onclick(e) { handleClick(e, v) }
               },
-                m(`img[height=400][width=300][alt=project photo].item__img[src=${url}]`),
+                m(`img[height=400][width=300][alt=project photo].item__img[src=${url}][alt='Film-like picture in Rome']`),
               ))
           })
         ))
