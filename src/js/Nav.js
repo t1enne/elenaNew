@@ -21,8 +21,10 @@ module.exports = {
     }, [
       m('.link-wrapper',
         m('a.home-link.underlined', {
-          onclick() {
-            if (location.pathname != '/home') {
+          href: '/',
+          onclick(e) {
+            e.preventDefault()
+            if (location.pathname != '#!/') {
               transition()
               // columnsExitAnim.direction = 'normal'
               // columnsExitAnim.play()
@@ -34,8 +36,10 @@ module.exports = {
         }, me)),
       m('.link-wrapper',
         m('a.about-link.underlined', {
-          onclick() {
-            if (location.pathname != '/about') {
+          href: '/about',
+          onclick(e) {
+            e.preventDefault()
+            if (location.hash != '#!/about') {
               transition()
               columnsExitAnim.direction = 'normal'
               columnsExitAnim.play()

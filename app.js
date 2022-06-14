@@ -53,9 +53,9 @@ document.body.addEventListener('mithril-loaded', async (le) => {
 m.mount(cl('.nav'), Nav)
 m.mount(cl('.title_root'), Title)
 
-m.route.prefix = ''
-m.route(root, "/home", {
-  "/home": Home,
+// m.route.prefix = '#'
+m.route(root, "/", {
+  "/": Home,
   "/about": About,
 });
 

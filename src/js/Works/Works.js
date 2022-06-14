@@ -84,7 +84,8 @@ function PicStrip(v) {
             const url = projects[title][0]
             return m(`.column-item.h-50[data-scroll][data-scroll-repeat][data-title=${title}]`,
               m('button.btn', {
-                onclick(e) { handleClick(e, v) }
+                type: 'button',
+                onclick: (e) => handleClick(e, v)
               },
                 m(`img[height=400][width=300][alt=project photo].item__img[src=${url}][alt='Film-like picture in Rome']`),
               ))
