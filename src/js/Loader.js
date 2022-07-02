@@ -32,7 +32,7 @@ function handleDone(route) {
     translateY: 50,
     duration: 850,
     complete() {
-      cl(".language-picker", "add", "v-hidden");
+      cl(".language-picker", "add", "hidden");
     },
   });
 
@@ -70,7 +70,8 @@ function handleLang(e) {
 export default function Loader({ scroll, stop, route }) {
   console.log({route})
   let langPicked = false,
-    imagesDone = false;
+    imagesDone = false,
+    timer
 
   if (!scroll) {
     beginLoadingAnim().play();
@@ -106,7 +107,10 @@ export default function Loader({ scroll, stop, route }) {
           easing: "easeOutQuad",
           complete() {
             cl(".language-picker", "remove", "hidden");
-
+            timer = setTimeout(() => {
+              const button = cl('.buttons-wrap button')[0]
+              if (button) button.click()
+            }, 5000)
             // if (route == "about") cl(".content", "remove", "hidden");
             m.redraw();
           },
