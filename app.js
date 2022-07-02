@@ -54,7 +54,7 @@ m.mount(cl('.nav'), Nav)
 m.mount(cl('.title_root'), Title)
 
 // m.route.prefix = '#'
-m.route(root, "/", {
+m.route(root, "/#!", {
   "/": Home,
   "/about": About,
 });

@@ -5,7 +5,7 @@
   "scripts": {
     "build": "parcel build index.html",
     "clean": "rm -r .parcel-cache",
-    "serve": "parcel index.html",
+    "dev": "parcel index.html",
     "deploy": "gh-pages -d dist"
   },
   "keywords": [],

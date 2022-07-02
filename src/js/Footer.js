@@ -122,7 +122,7 @@ module.exports = {
           )
         ),
         vnode.state.routes
-          .filter((route) => location.hash != `#!/${route}`)
+          .filter((route) => location.hash != `#!/${route}` && location.hash != route)
           .map((route) => {
             return m(
               `a.${route}[data-scroll][href=#!/${route}]`,
