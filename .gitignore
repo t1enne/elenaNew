@@ -1,8 +1,4 @@
 node_modules
 .cache
 .parcel-cache
-package-lock.json
-yarn.lock
-dist/
-*~
-src/assets/img/RAW
+dist
