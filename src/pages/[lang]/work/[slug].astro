@@ -1,0 +1,74 @@
+---
+import { Picture } from "@astrojs/image/components";
+import Layout from "@layouts/Layout.astro";
+import { languages } from "@src/i18n/ui";
+import { parseIntoMap } from "@src/scripts/utils";
+import { sizes } from "@src/scripts/consts";
+
+export async function getStaticPaths() {
+  const pages = [];
+  const lovePics = import.meta.glob("../../../../assets/img/love-story/*/*");
+  const soloPics = import.meta.glob("../../../../assets/img/solo/*/*");
+  const weddingPics = import.meta.glob("../../../../assets/img/wedding/*/*");
+
+  const categories = {
+    love: parseIntoMap(lovePics),
+    solo: parseIntoMap(soloPics),
+    wedding: parseIntoMap(weddingPics),
+  };
+  const titles = [
+    ...categories.love.titles,
+    ...categories.solo.titles,
+    ...categories.wedding.titles,
+  ];
+
+  for (const title of titles) {
+    for (const lang in languages) {
+      const imgSrcs =
+        categories.love.projects.get(title) ||
+        categories.solo.projects.get(title) ||
+        categories.wedding.projects.get(title);
+
+      pages.push({
+        slug: title,
+        lang,
+        title: title,
+        imgSrcs,
+      });
+    }
+  }
+
+  return pages.map(({ slug, lang, title, imgSrcs }) => {
+    return {
+      params: { slug, lang },
+      props: { title, imgSrcs },
+    };
+  });
+}
+
+const { title, imgSrcs } = Astro.props;
+---
+
+<Layout title={`Elena Kustova - Portfolio - Work`}>
+  <div>
+    <h1 class="text-2xl font-serif font-bold text-center">{title}</h1>
+    <div class="pics-wrap">
+      {
+        imgSrcs.map((src: string) => (
+          <div class="w-fit mx-auto p-2">
+            <Picture
+              formats={["jpg", "webp"]}
+              alt=""
+              src={src}
+              widths={[200, 400, 800, 1200]}
+              quality={50}
+              sizes={sizes}
+              aspectRatio={"4:5"}
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+  <style></style>
+</Layout>

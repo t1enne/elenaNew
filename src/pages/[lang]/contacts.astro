@@ -7,7 +7,66 @@ export function getStaticPaths() {
 ---
 
 <Layout title="Elena Kustova - Portfolio - About Me">
-  <main>Contacts</main>
+  <form id="contact-form" name="contact" method="POST" data-netlify="true">
+    <div>
+      <label for="name">Your Name:</label>
+      <input
+        class="user-input"
+        type="text"
+        name="name"
+        minlength="2"
+        maxlength="12"
+      />
+    </div>
+    <div>
+      <label for="email">Your Email:</label>
+      <input class="user-input" type="email" name="email" />
+    </div>
+    <div>
+      <label for="location">Shoot location:</label>
+      <input class="user-input" type="text" name="location" minlength="2" />
+    </div>
+    <div>
+      <label>Message:</label>
+      <textarea class="user-input" name="message" minlength="10"></textarea>
+    </div>
+    <div>
+      <button id="contact-btn" type="submit">Send</button>
+    </div>
+  </form>
 </Layout>
 
-<style></style>
+<style lang="scss">
+  form#contact-form {
+    > div {
+      @apply my-4;
+
+      label {
+        @apply block my-2;
+      }
+    }
+
+    textarea {
+      height: 10rem;
+      resize: none;
+    }
+
+    .user-input {
+      @apply w-full border border-gray-600 p-2 bg-transparent;
+    }
+
+    button {
+      @apply w-full border border-gray-600 p-4;
+      @apply font-bold uppercase;
+    }
+  }
+</style>
+<script>
+  const form: HTMLFormElement = document.querySelector("form#contact-form")!;
+
+  form.addEventListener("submit", (e) => {
+    console.log(e);
+    e.preventDefault();
+    return false;
+  });
+</script>

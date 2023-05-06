@@ -1,10 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import { Picture } from "@astrojs/image/components";
-
-const sizes = `((min-width: 50em) and (max-width: 60em)) 30em,
-              ((min-width: 30em) and (max-width: 50em)) 20em,
-              (max-width: 30em) 10em`;
+import { sizes } from "@src/scripts/consts";
 
 export function getStaticPaths() {
 	return [{ params: { lang: "en" } }, { params: { lang: "ru" } }];
@@ -12,7 +9,7 @@ export function getStaticPaths() {
 ---
 
 <Layout title="Elena Kustova - Portfolio">
-	<main>
+	<div class="w-1/2 m-auto">
 		<h1>ELENA</h1>
 		<h1>KUSTOVA</h1>
 		<h1>PHOTOGRAPHER</h1>
@@ -26,7 +23,7 @@ export function getStaticPaths() {
 			aspectRatio={"4:5"}
 		/>
 		<div class="py-2"></div>
-	</main>
+	</div>
 </Layout>
 
 <style>

@@ -1,0 +1,141 @@
+---
+import { Image } from "@astrojs/image/components";
+import Layout from "@layouts/Layout.astro";
+import { parseIntoMap } from "@src/scripts/utils";
+const lovePics = import.meta.glob("../../../../assets/img/love-story/*/*");
+const soloPics = import.meta.glob("../../../../assets/img/solo/*/*");
+const weddingPics = import.meta.glob("../../../../assets/img/wedding/*/*");
+
+const categories = {
+  love: parseIntoMap(lovePics),
+  solo: parseIntoMap(soloPics),
+  wedding: parseIntoMap(weddingPics),
+} as const;
+
+const keys = Object.keys(categories);
+
+type TCategory = keyof typeof categories;
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "ru" } }];
+}
+---
+
+<Layout title="Elena Kustova - Portfolio - Work">
+  <div
+    id="work-index"
+    x-data="{ idx: 0, key: 'love' }"
+    x-effect={`key = ${JSON.stringify(keys)}[idx]`}
+  >
+    <div class="flex flex-col overflow-x-hidden">
+      <div class="flex justify-between">
+        {
+          Object.keys(categories).map((cat, idx) => (
+            <button @click={`idx = '${idx}'`}>{cat}</button>
+          ))
+        }
+      </div>
+
+      <div class="mt-auto"></div>
+      <div
+        class="carousel relative flex grow"
+        :style="{ transform: `translate(-${idx*100}%, 0)` }"
+      >
+        {
+          Object.keys(categories).map((category, i) => (
+            <div class="cards-wrap relative w-full text-center" :class={`${i} == idx && 'current'`}>
+              <div class="text-2xl font-bold">
+                <h3>{category}</h3>
+              </div>
+              <div class="">
+                {categories[category as TCategory].titles
+                  .slice(0, 5)
+                  .map((title: string) => (
+                    <div class="img-wrap absolute w-1/2">
+                      <Image
+                        src={
+                          categories[category as TCategory].projects.get(
+                            title
+                          )[0]
+                        }
+                        width={500}
+                        height={650}
+                        alt=""
+                      />
+                    </div>
+                  ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <div class="mb-auto"></div>
+      <div class="buttons flex justify-between pb-6">
+        <button class="prev" :disabled="idx == 0" @click={`idx--`}>prev</button>
+        <button class="next" :disabled="idx == 2" @click={`idx++`}>next</button>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style lang="scss">
+
+  #work-index {
+    h2 {
+      @apply font-serif;
+      margin-bottom: 0.5rem;
+    }
+
+    .picture-wrap {
+      flex-basis: 25%;
+    }
+
+    .carousel {
+      transition: transform 450ms cubic-bezier(0.86, 0, 0.07, 1);
+      > .cards-wrap  {
+        flex: 1 0 100%;
+
+        .img-wrap {
+          left: 50%;
+          top: 50%;
+          translate: -50% -50%;
+          z-index: 1;
+          transform-origin: bottom;
+          transition:  transform 450ms ease-in-out 150ms;
+        }
+        
+        &.current {
+          .img-wrap {
+            &:first-child {
+              transform: rotate(-15deg) translate(-3rem, 6rem);
+              transition-delay: 150ms;
+            }
+            &:nth-child(2) {
+              transform: rotate(5deg) translate(-5rem, -6rem);
+              transition-delay: 200ms;
+            }
+            &:nth-child(3) {
+              transform: rotate(8deg) translate(3rem, -3rem);
+              transition-delay: 250ms;
+            }
+            &:nth-child(4) {
+              transform: rotate(8deg) translate(4rem, 6rem);
+              transition-delay: 300ms;
+            } 
+            &:last-child {
+              transform: rotate(0) translate(0);
+            }
+          }
+        }
+      }
+    }
+
+    button {
+      @apply font-bold uppercase;
+
+      &:disabled {
+        @apply text-gray-400;
+      }
+    }
+  }
+</style>
