@@ -1,0 +1,72 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { languages } from "../i18n/ui";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const links = [
+  { href: `/${lang}`, label: t("nav.home") },
+  { href: `/${lang}/work`, label: t("nav.works") },
+  { href: `/${lang}/about`, label: t("nav.about") },
+  { href: `/${lang}/contacts`, label: t("nav.contact") },
+];
+---
+
+<div class="header" x-data="{ open: false }">
+  <div class="nav-wrap p-4">
+    <div class="flex justify-between">
+      <button @click="open = !open">Menu</button>
+      <div>
+        <h4 class="text-xl font-serif">Elena Kustova</h4>
+      </div>
+      <div>
+        <button
+          id="theme-toggle"
+          type="button"
+          @click="$store.darkMode.toggle()">light/dark</button
+        >
+      </div>
+    </div>
+  </div>
+  <nav class="nav" :aria-expanded="open ? true : false">
+    <ul>
+      {
+        links.map((link) => (
+          <li @click="open = false">
+            <a href={link.href}>{link.label}</a>
+          </li>
+        ))
+      }
+    </ul>
+    <select>
+      {
+        Object.keys(languages).map((lang) => {
+          return <option value={lang}>{lang}</option>;
+        })
+      }
+    </select>
+  </nav>
+  <style lang="scss">
+    .header {
+      @apply sticky top-0;
+      height: var(--header-h);
+
+      .nav {
+        @apply fixed;
+        top: var(--header-h);
+        display: none;
+        width: 100vw;
+        height: 100%;
+        background-color: var(--bg-color);
+        &[aria-expanded="true"] {
+          display: block;
+          transform: translateY(0%);
+        }
+      }
+    }
+    a {
+      @apply p-2 font-medium uppercase;
+    }
+  </style>
+</div>

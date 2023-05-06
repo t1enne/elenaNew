@@ -1,0 +1,43 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { Picture } from "@astrojs/image/components";
+
+const sizes = `((min-width: 50em) and (max-width: 60em)) 30em,
+              ((min-width: 30em) and (max-width: 50em)) 20em,
+              (max-width: 30em) 10em`;
+
+export function getStaticPaths() {
+	return [{ params: { lang: "en" } }, { params: { lang: "ru" } }];
+}
+---
+
+<Layout title="Elena Kustova - Portfolio">
+	<main>
+		<h1>ELENA</h1>
+		<h1>KUSTOVA</h1>
+		<h1>PHOTOGRAPHER</h1>
+		<Picture
+			formats={["jpg", "webp"]}
+			alt="Picture of Elena Kustova"
+			src="../../assets/mypic.jpg"
+			widths={[200, 400, 800, 1200]}
+			quality={50}
+			sizes={sizes}
+			aspectRatio={"4:5"}
+		/>
+		<div class="py-2"></div>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1.5rem;
+		max-width: 60ch;
+	}
+	h1 {
+		font-size: 3rem;
+		font-weight: 800;
+		margin: 0;
+	}
+</style>

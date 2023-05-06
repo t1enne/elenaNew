@@ -1,0 +1,13 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "ru" } }];
+}
+---
+
+<Layout title="Elena Kustova - Portfolio - About Me">
+  <main>Contacts</main>
+</Layout>
+
+<style></style>
