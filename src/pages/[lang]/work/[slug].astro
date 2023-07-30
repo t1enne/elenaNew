@@ -2,20 +2,11 @@
 import { Picture } from "@astrojs/image/components";
 import Layout from "@layouts/Layout.astro";
 import { languages } from "@src/i18n/ui";
-import { parseIntoMap } from "@src/scripts/utils";
 import { sizes } from "@src/scripts/consts";
+import { categories } from "@src/scripts/categories";
 
 export async function getStaticPaths() {
   const pages = [];
-  const lovePics = import.meta.glob("../../../../assets/img/love-story/*/*");
-  const soloPics = import.meta.glob("../../../../assets/img/solo/*/*");
-  const weddingPics = import.meta.glob("../../../../assets/img/wedding/*/*");
-
-  const categories = {
-    love: parseIntoMap(lovePics),
-    solo: parseIntoMap(soloPics),
-    wedding: parseIntoMap(weddingPics),
-  };
   const titles = [
     ...categories.love.titles,
     ...categories.solo.titles,
@@ -51,7 +42,9 @@ const { title, imgSrcs } = Astro.props;
 
 <Layout title={`Elena Kustova - Portfolio - Work`}>
   <div>
-    <h1 class="text-2xl font-serif font-bold text-center">{title}</h1>
+    <h1 class="text-2xl font-serif font-bold text-center">
+      {title}
+    </h1>
     <div class="pics-wrap">
       {
         imgSrcs.map((src: string) => (

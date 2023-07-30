@@ -1,7 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { Picture } from "@astrojs/image/components";
-import { sizes } from "@src/scripts/consts";
+// import { sizes } from "@src/scripts/consts";
 
 export function getStaticPaths() {
 	return [{ params: { lang: "en" } }, { params: { lang: "ru" } }];
@@ -10,23 +9,18 @@ export function getStaticPaths() {
 
 <Layout title="Elena Kustova - Portfolio">
 	<div class="w-1/2 m-auto">
-		<h1>ELENA</h1>
-		<h1>KUSTOVA</h1>
-		<h1>PHOTOGRAPHER</h1>
-		<Picture
-			formats={["jpg", "webp"]}
+		<h1>Elena</h1>
+		<h1>Kustova</h1>
+		<h1>Photographer</h1>
+		<img
 			alt="Picture of Elena Kustova"
 			src="../../assets/mypic.jpg"
-			widths={[200, 400, 800, 1200]}
-			quality={50}
-			sizes={sizes}
-			aspectRatio={"4:5"}
 		/>
 		<div class="py-2"></div>
 	</div>
 </Layout>
 
-<style>
+<style lang="scss">
 	main {
 		margin: auto;
 		padding: 1.5rem;

@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         primary: "var(--text-color)",
+        inverted: "var(--bg-color)",
         secondary: "var(--bg-color)",
       },
     },

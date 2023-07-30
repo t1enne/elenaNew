@@ -1,42 +1,59 @@
 ---
-import { Image } from "@astrojs/image/components";
-import Layout from "@layouts/Layout.astro";
+// import { Image } from "@astrojs/image/components";
 ---
 
-<Layout title="Elena Kustova - Portfolio - Welcome Page">
-  <div
-    class="welcome-screen m-auto relative h-screen w-screen flex items-center"
+<!DOCTYPE html>
+<html lang="en" x-data :class="$store.darkMode.on && 'dark'">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>welcome</title>
+  </head>
+  <body
+    data-barba="wrapper"
+    :class="navOpen && 'overflow-hidden'"
+    x-data="{ navOpen: false }"
   >
-    <div class="fixed top-0 left-0 w-screen h-screen">
-      <Image
-        format={"webp"}
-        alt="Picture of Elena Kustova"
-        src="../assets/mypic.jpg"
-        aspectRatio="4:5"
-        width={600}
-        height={650}
-      />
+    <div data-barba="container" data-barba-namespace={Astro.url}>
+      <main :class="navOpen ? 'translate-y-screen' : ''">
+        <div
+          class="welcome-screen m-auto relative h-screen w-screen flex items-center"
+        >
+          <div class="fixed top-0 left-0 w-screen h-screen">
+            <img alt="Picture of Elena Kustova" src="../assets/mypic.jpg"
+            />
+          </div>
+          <div
+            class="relative title w-full text-gray-300 text-6xl text-center font-serif font-bold"
+          >
+            <h1>
+              <p>Elena Kustova</p>
+              <p>Russian</p>
+              <p>Photographer</p>
+              <p>Based in Italy</p>
+            </h1>
+            <div class="py-8"></div>
+            <div class="flex text-center px-8">
+              <a type="button" href="/en/home" id="eng-btn"><button>en</button></a>
+              <a type="button" href="/ru/home" id="ru-btn"><button>ru</button></a>
+              <a type="button" href="/en/home" id="it-btn"><button>it</button></a>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
-    <div
-      class="relative title w-full text-gray-300 text-6xl text-center font-serif font-bold"
-    >
-      <h1>
-        <p>Elena Kustova</p>
-        <p>Russian</p>
-        <p>Photographer</p>
-        <p>Based in Italy</p>
-      </h1>
-      <div class="py-8"></div>
-      <div class="flex text-center px-8">
-        <a type="button" href="/en" id="eng-btn"><button>en</button></a>
-        <a type="button" href="/ru" id="ru-btn"><button>ru</button></a>
-        <a type="button" href="/en" id="it-btn"><button>it</button></a>
-      </div>
-    </div>
-  </div>
-</Layout>
+  </body>
+</html>
 
 <style lang="scss">
+  main {
+    padding: 0;
+  }
+  .header {
+    display: none;
+  }
   .welcome-screen {
     img {
       width: 100%;

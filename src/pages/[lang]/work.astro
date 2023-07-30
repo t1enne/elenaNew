@@ -1,79 +1,51 @@
 ---
 import Layout from "@layouts/Layout.astro";
-const lovePics = import.meta.glob("../../../assets/img/love-story/*/*");
-const soloPics = import.meta.glob("../../../assets/img/solo/*/*");
-
-const categories = {
-  love: parseIntoMap(lovePics),
-  solo: parseIntoMap(soloPics),
-} as const;
+import { categories } from "@src/scripts/categories";
 
 type TCategory = keyof typeof categories;
-
-function parseIntoMap(glob: Record<string, any>) {
-  const urls = Object.keys(glob);
-  const projects = new Map();
-  const titles = [];
-
-  for (const url of urls) {
-    const name = url.split("/")[6];
-    if (!projects.has(name)) {
-      projects.set(name, [url]);
-      titles.push(name);
-      continue;
-    }
-    projects.get(name).push(url);
-  }
-  return { projects, titles };
-}
+const types = Object.keys(categories) as TCategory[] 
 
 export function getStaticPaths() {
   return [{ params: { lang: "en" } }, { params: { lang: "ru" } }];
 }
-
-// const { lang } = Astro.params;
 ---
 
 <Layout title="Elena Kustova - Portfolio - Work">
-  <main x-data="{ category: 'love' }" }>
+  <main x-data="{ selCategory: 'love' }" }>
     <div>
-      <h1 class="text-3xl font-serif font-bold">My Work</h1>
-      <div class="py-2"></div>
-      <div class="flex justify-between">
+      <div class="-category-button flex justify-between">
         {
-          Object.keys(categories).map((cat) => (
-            <button @click={`category = '${cat}'`}>{cat}</button>
+          types.map((cat) => (
+            <button @click={`selCategory = '${cat}'`}>{cat}</button>
           ))
         }
       </div>
     </div>
     {
-      Object.keys(categories).map((category) => (
-        <div class="text-center" x-show={`category === "${category}"`}>
-          <div class="py-4">
-            <h2 class="text-2xl font-bold">{category}</h2>
-          </div>
-          {categories[category as TCategory].titles.map((title: string) => (
-            <div>
-              <h3>{title}</h3>
-            </div>
-            //             {
-            // categories[category as TCategory].projects.get(title).map(url => (
-            // <img src={url} />
-            // ))
-            //               }
-          ))}
+      types.map((category) => (
+        <div class="text-center invisible" :class={`{ invisible: selCategory != '${category}' }`} x-show={`selCategory == '${category}'`} >
+          <div class="py-4" />
+          {categories[category].titles.map((title: string) => {
+            const src= categories[category].projects.get(title)[0];
+            return (
+              <div>
+                <h3>{title}</h3>
+                <img src={src} alt={title} />
+              </div>
+            )})}
         </div>
       ))
-    }
+      }
   </main>
 </Layout>
 
 <style lang="scss">
-  h2 {
-    @apply font-serif;
-    margin-bottom: 0.5rem;
+  .-category-button {
+    button {
+      width: 33%;
+    }
   }
+
   .picture-wrap {
     flex-basis: 25%;
   }

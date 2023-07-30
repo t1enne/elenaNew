@@ -16,19 +16,27 @@ export function getStaticPaths() {
         name="name"
         minlength="2"
         maxlength="12"
+        required
       />
     </div>
     <div>
       <label for="email">Your Email:</label>
-      <input class="user-input" type="email" name="email" />
+      <input class="user-input" type="email" name="email" required />
     </div>
     <div>
       <label for="location">Shoot location:</label>
-      <input class="user-input" type="text" name="location" minlength="2" />
+      <input
+        class="user-input"
+        type="text"
+        name="location"
+        minlength="2"
+        required
+      />
     </div>
     <div>
       <label>Message:</label>
-      <textarea class="user-input" name="message" minlength="10"></textarea>
+      <textarea class="user-input" name="message" minlength="10" required
+      ></textarea>
     </div>
     <div>
       <button id="contact-btn" type="submit">Send</button>

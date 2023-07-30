@@ -13,14 +13,13 @@
     "@astrojs/alpinejs": "^0.2.1",
     "@astrojs/image": "^0.16.7",
     "@astrojs/tailwind": "^3.1.2",
-    "@barba/core": "^2.9.7",
-    "@types/alpinejs": "^3.7.1",
     "alpinejs": "^3.12.0",
     "animejs": "^3.2.1",
-    "astro": "^2.4.2",
+    "astro": "^2.9.1",
     "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
+    "@types/alpinejs": "^3.7.1",
     "@types/animejs": "^3.1.7",
     "sass": "^1.62.1",
     "sharp": "^0.32.1"
