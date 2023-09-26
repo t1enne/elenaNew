@@ -23,14 +23,15 @@ const links = [
       </li>
     ))
     }
-    <li>
+    <li class="mt-6">
       <button
-        class="flex gap-4"
         id="theme-toggle"
         type="button"
         @click="$store.darkMode.toggle()">
-        <span> theme </span>
-        <SunAndMoonIcon />
+        <div class="flex gap-4">
+          <span> theme </span>
+          <span> <SunAndMoonIcon /> </span>
+        </div>
       </button>
     </li>
   </ul>
@@ -52,7 +53,7 @@ const links = [
 <div class="header w-screen fixed bottom-0 z-10">
   <div class="nav-wrap flex justify-between items-center relative h-full z-50 px-12">
     <div>
-      <h4 class="text-xl font-serif font-bold">EK</h4>
+      <h4 class="text-xl font-serif font-bold">Logo</h4>
     </div>
     <button id="open-menu" class="flex items-center gap-4 py-2 px-6 rounded-full shadow-xl bg-accent border border-accent_2" @click="navOpen = !navOpen">
       <div class="text-sm">MENU</div>

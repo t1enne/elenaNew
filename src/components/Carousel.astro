@@ -1,10 +1,13 @@
 ---
+import type { languages } from "@src/i18n/ui";
 import { categories } from "@src/scripts/categories";
 
 type TCategory = keyof typeof categories;
 const types = Object.keys(categories) as TCategory[] 
 const firstTitles = types.map((ctgr) => categories[ctgr].titles[0])
-console.log({firstTitles})
+
+const lang = (Astro.params.lang as keyof typeof languages)
+
 const firstPics = types.map((ctgr, i) => {
   const urls = categories[ctgr].projects.get(firstTitles[i])
   return urls[0]
@@ -15,7 +18,7 @@ const firstPics = types.map((ctgr, i) => {
     {
       types.map((type, i) => (
         <li class="w-fit h-fit cursor-pointer transition" x-data :class={`{ 'active': hovered == ${i} }`}>
-          <a x-data @mouseover={`clearInterval(interval); hovered = ${i};`}>{type}</a>
+          <a x-data href={`/${lang}/work/${type}`} @mouseover={`clearInterval(interval); hovered = ${i};`}>{type}</a>
         </li>
       ))
     }
