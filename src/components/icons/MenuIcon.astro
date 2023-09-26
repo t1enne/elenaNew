@@ -1,0 +1,40 @@
+---
+---
+<div class="menu-icon" x-data :class="navOpen && 'open'">
+  <div class="menu-line"></div>
+  <div class="menu-line"></div>
+</div>
+<style lang="scss">
+.menu-icon {
+  --box-side: 1.5rem;
+  --bar-h: 1px;
+  width: var(--box-side);
+  height: var(--box-side);
+
+
+  & > .menu-line {
+    @apply bg-current rounded-full;
+    height: var(--bar-h);
+    width: var(--box-side);
+    transition: 300ms ease-out;
+  }
+
+  $bar-indexes: 0, 1;
+  @each $i in $bar-indexes {
+    & > .menu-line:nth-child(#{$i + 1}) { 
+      transform: translate(0, calc(var(--box-side) / 3 * ($i + 1) - var(--bar-h)));
+      transform-origin: calc(#{$i} * var(--bar-h) + .625rem) 0;
+    }
+  }
+
+  &.open {
+    --bar-h: 1.5px;
+    $bar-indexes: 0, 1;
+    @each $i in $bar-indexes {
+      & > .menu-line:nth-child(#{$i + 1}) { 
+        transform: translate(0, calc(var(--box-side)/2 - var(--bar-h))) rotate($i * 90deg + 45deg);
+      }
+    }
+  }
+}
+</style>

@@ -1,12 +1,11 @@
 ---
-// import { Image } from "@astrojs/image/components";
 import Layout from "@layouts/Layout.astro";
 import { categories } from "@src/scripts/categories";
 
 
-const keys = Object.keys(categories);
-
 type TCategory = keyof typeof categories;
+const types = Object.keys(categories) as TCategory[];
+
 
 export function getStaticPaths() {
   return [{ params: { lang: "en" } }, { params: { lang: "ru" } }];
@@ -17,12 +16,12 @@ export function getStaticPaths() {
   <div
     id="work-index"
     x-data="{ idx: 0, key: 'love' }"
-    x-effect={`key = ${JSON.stringify(keys)}[idx]`}
+    x-effect={`key = ${JSON.stringify(types)}[idx]`}
   >
     <div class="flex flex-col overflow-x-hidden">
       <div class="flex justify-between gap-x-4">
         {
-          Object.keys(categories).map((cat, idx) => (
+          types.map((cat, idx) => (
             <button class="w-1/2 border border-primary" @click={`idx = '${idx}'`}>{cat}</button>
           ))
         }
@@ -34,22 +33,19 @@ export function getStaticPaths() {
         :style="{ transform: `translate(-${idx*100}%, 0)` }"
       >
         {
-          Object.keys(categories).map((category, i) => (
+          types.map((category, i) => (
             <div class="cards-wrap relative w-full text-center" :class={`${i} == idx && 'current'`}>
               <div class="category-title text-2xl font-bold text-inverted capitalize">
                 <button> <h3>{category}</h3> </button>
               </div>
               <div class="border border-red-50">
-                {categories[category as TCategory].titles
+                {categories[category].titles
                   // .slice(0, 1)
                   .map((title: string) => (
-                    <div class="img-wrap absolute w-1/2" id={`work-${title}`}>
+                    <div class="img-wrap" id={`work-${title}`}>
                       <img
-                        src={
-                          categories[category as TCategory].projects.get(
-                            title
-                          )[0]
-                        }
+                        class="m-auto"
+                        src={categories[category].projects.get(title)[0]}
                         width={500}
                         height={650}
                         alt=""

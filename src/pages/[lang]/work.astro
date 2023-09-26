@@ -11,42 +11,47 @@ export function getStaticPaths() {
 ---
 
 <Layout title="Elena Kustova - Portfolio - Work">
-  <main x-data="{ selCategory: 'love' }" }>
-    <div>
-      <div class="-category-button flex justify-between">
-        {
-          types.map((cat) => (
-            <button @click={`selCategory = '${cat}'`}>{cat}</button>
-          ))
-        }
-      </div>
+  <div class="flex">
+  {
+  types.map((category) => (
+    <label class="w-1/3 text-center text-lg font-serif" for={`${category}-radio`}> {category} </label> 
+  ))}
     </div>
     {
-      types.map((category) => (
-        <div class="text-center invisible" :class={`{ invisible: selCategory != '${category}' }`} x-show={`selCategory == '${category}'`} >
+    types.map((category, i) => (
+      <section>
+        <input class="hidden" type="radio" name="selected-category" id={`${category}-radio`} value={category} checked={i === 0}/>
+        <div class="-gallery-category text-center">
           <div class="py-4" />
           {categories[category].titles.map((title: string) => {
-            const src= categories[category].projects.get(title)[0];
+            const url = categories[category].projects.get(title)[0]
             return (
-              <div>
-                <h3>{title}</h3>
-                <img src={src} alt={title} />
+              <div class="img-wrap w-fit mx-auto my-4 rounded-lg overflow-hidden" id={`work-${title}`}>
+                <img
+                  src={url}
+                  width={500}
+                  height={650}
+                  alt=""
+                  loading="lazy"
+                />
               </div>
-            )})}
+            )
+          })}
         </div>
-      ))
-      }
-  </main>
-</Layout>
-
-<style lang="scss">
-  .-category-button {
-    button {
-      width: 33%;
+      </section>    ))
     }
+</Layout>
+<script> </script>
+<style lang="scss">
+.-gallery-category {
+  display: none;
+}
+input[type=radio]:checked {
+  & + .-gallery-category {
+    display: block;
   }
-
-  .picture-wrap {
-    flex-basis: 25%;
-  }
+}
+.picture-wrap {
+  flex-basis: 25%;
+}
 </style>

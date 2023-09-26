@@ -1,5 +1,4 @@
 ---
-import { Picture } from "@astrojs/image/components";
 import Layout from "@layouts/Layout.astro";
 import { languages } from "@src/i18n/ui";
 import { sizes } from "@src/scripts/consts";
@@ -49,15 +48,11 @@ const { title, imgSrcs } = Astro.props;
       {
         imgSrcs.map((src: string) => (
           <div class="w-fit mx-auto p-2">
-            <Picture
-              formats={["jpg", "webp"]}
-              alt=""
-              src={src}
-              widths={[200, 400, 800, 1200]}
-              quality={50}
-              sizes={sizes}
-              aspectRatio={"4:5"}
-            />
+            <picture class="pic">
+              <source media="(max-width: 799px)" srcset={src} />
+              <source media="(min-width: 799px)" srcset={src} />
+              <img src={src} alt="" />
+            </picture>
           </div>
         ))
       }

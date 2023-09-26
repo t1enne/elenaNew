@@ -1,29 +1,72 @@
 ---
-import { Picture } from "@astrojs/image/components";
+import { categories } from "@src/scripts/categories";
 
-export interface Props {
-  title: string;
-  urls: string[];
-}
-
-const { title, urls } = Astro.props;
+type TCategory = keyof typeof categories;
+const types = Object.keys(categories) as TCategory[] 
+const firstTitles = types.map((ctgr) => categories[ctgr].titles[0])
+console.log({firstTitles})
+const firstPics = types.map((ctgr, i) => {
+  const urls = categories[ctgr].projects.get(firstTitles[i])
+  return urls[0]
+}).reverse();
 ---
-
-<h1>{title}</h1>
-<ul>
-  {
-    urls.map((src: string) => (
-      <li class="picture-wrap">
-        <Picture
-          class="pic"
-          formats={["jpg", "webp"]}
-          alt=""
-          src={src}
-          widths={[200, 400, 800, 1200]}
-          aspectRatio={"2:3"}
-        />
-      </li>
-    ))
+<section class="relative h-contentH flex items-center" x-data="{ hovered: 0, interval: null }" x-effect="interval = setInterval(() => { hovered = (hovered + 1) % 3 }, 2000)"> 
+  <ul id="carousel-links" class="relative w-full flex flex-wrap uppercase font-bold text-6xl z-10">
+    {
+      types.map((type, i) => (
+        <li class="w-fit h-fit cursor-pointer transition" x-data :class={`{ 'active': hovered == ${i} }`}>
+          <a x-data @mouseover={`clearInterval(interval); hovered = ${i};`}>{type}</a>
+        </li>
+      ))
+    }
+  </ul>
+  <ul 
+      id="carousel-pics" 
+      class="absolute top-0 left-0 overflow-hidden" 
+      x-effect={`$refs['pic-' + hovered].scrollIntoView({ behavior: "smooth"});`}>
+    {
+      firstPics.map((src, i) => (
+        <li class="picture-wrap transition" :class={`{ 'active': hovered == ${i} }`} x-ref={`pic-${i}`}>
+          <picture class="pic">
+            <source media="(max-width: 799px)" srcset={src} />
+            <source media="(min-width: 799px)" srcset={src} />
+            <img src={src} alt="picture" />
+          </picture>
+        </li>
+      ))
+    }
+  </ul>
+<section>
+<style lang="scss">
+section {
+  width: 100%;
+  
+  #carousel-links {
+    align-items:center;
+    > li {
+      opacity: .5;
+      color: var(--accent_3);
+      &.active {
+        opacity: 1;
+        color: var(--text-color);
+      }
+    }
   }
-</ul>
-<style lang="scss"></style>
+  #carousel-pics {
+    width: 100%;
+    display: flex;
+    li {
+      width: 100%;
+      flex: 1 0 100%;
+      img {
+        height: 100vh;
+        width: 100%;
+        object-fit: contain;
+      }
+      &.active { }
+    }
+  }
+}
+</style>
+<script>
+</script>

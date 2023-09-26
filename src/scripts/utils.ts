@@ -4,7 +4,7 @@ export function parseIntoMap(picturesGlob: Record<string, any>) {
   const titles = [];
 
   for (const url of urls) {
-    const name = url.split("/")[7];
+    const name = url.split("/")[5];
     if (!projects.has(name)) {
       projects.set(name, [url]);
       titles.push(name);

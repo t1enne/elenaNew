@@ -1,101 +1,102 @@
 ---
 import { useTranslations } from "../i18n/utils";
 import { defaultLang, languages } from "../i18n/ui";
-import CloseIcon from "./icons/CloseIcon.astro";
+import MenuIcon from "./icons/MenuIcon.astro";
+import SunAndMoonIcon from "./icons/SunAndMoonIcon.astro";
 
 const lang = (Astro.params.lang as keyof typeof languages) || defaultLang;
 const t = useTranslations(lang);
 
 const links = [
   { href: `/${lang}/home`, label: t("nav.home") },
-  { href: `/${lang}/work`, label: t("nav.works") },
+  // { href: `/${lang}/work`, label: t("nav.works") },
   { href: `/${lang}/about`, label: t("nav.about") },
   { href: `/${lang}/contacts`, label: t("nav.contact") },
 ];
 ---
-
-<div class="header sticky top-0 z-10 bg-secondary">
-  <nav class="nav" :aria-expanded="navOpen ? true : false">
-    <ul>
-      {
-        links.map((link) => (
-          <li @click="navOpen = false">
-            <a href={link.href}>{link.label}</a>
-          </li>
-        ))
-      }
-      <li>
-        <button
-          id="theme-toggle"
-          type="button"
-          @click="$store.darkMode.toggle()">light/dark</button
-        >
+<nav class="-main-nav z-10 flex flex-col justify-end bg-secondary" :aria-expanded="navOpen ? true : false">
+  <ul>
+    {
+    links.map((link) => (
+      <li @click="navOpen = false">
+        <a class="w-full font-bold text-4xl" x-data :class={`window.location.pathname == '${link.href}' && 'disabled'`} href={link.href}>{link.label}</a>
       </li>
-    </ul>
-    <select id="lang-selector" value={lang}>
-      {
-        Object.keys(languages).map((langKey) => {
-          return (
-            <option
-              value={langKey}
-              selected={langKey === lang ? "selected" : null}
-            >
-              {langKey}
-            </option>
-          );
-        })
-      }
-    </select>
-  </nav>
-  <div class="nav-wrap relative p-4 z-50">
-    <div class="flex justify-between">
-      <div>
-        <h4 class="text-xl font-serif font-bold">Elena Kustova</h4>
-      </div>
-      <button id="open-menu" @click="navOpen = !navOpen">
-        <span>MENU</span>
+    ))
+    }
+    <li>
+      <button
+        class="flex gap-4"
+        id="theme-toggle"
+        type="button"
+        @click="$store.darkMode.toggle()">
+        <span> theme </span>
+        <SunAndMoonIcon />
       </button>
+    </li>
+  </ul>
+  <select id="lang-selector" value={lang}>
+    {
+    Object.keys(languages).map((langKey) => {
+      return (
+        <option
+          value={langKey}
+          selected={langKey === lang ? "selected" : null}
+        >
+          {langKey}
+        </option>
+      );
+    })
+    }
+  </select>
+</nav>
+<div class="header w-screen fixed bottom-0 z-10">
+  <div class="nav-wrap flex justify-between items-center relative h-full z-50 px-12">
+    <div>
+      <h4 class="text-xl font-serif font-bold">EK</h4>
     </div>
+    <button id="open-menu" class="flex items-center gap-4 py-2 px-6 rounded-full shadow-xl bg-accent border border-accent_2" @click="navOpen = !navOpen">
+      <div class="text-sm">MENU</div>
+      <MenuIcon />
+    </button>
   </div>
 </div>
 
 <style lang="scss">
   .header {
     height: var(--header-h);
-    &:has(> nav[aria-expanded="false"]) {
-      background-color: transparent;
+  }
+  nav.-main-nav {
+    @apply fixed;
+    width: 100dvw;
+    height: 100dvh;
+    transform: translateY(-100%);
+    transition: transform var(--nav-anim-dur) ease;
+
+    a.disabled {
+      pointer-events: none;
+      text-decoration-line: line-through;
+    }
+    &[aria-expanded="true"] {
+      transform: translateY(0%);
+      li {
+        opacity: 0;
+        animation: fadeIn var(--nav-anim-dur) cubic-bezier(0.17, 0.84, 0.44, 1) forwards;
+      }
     }
 
-    .nav {
-      @apply fixed bg-secondary;
-      top: 0;
-      width: 100vw;
-      height: fit-content;
-      min-height: 50vh;
-      transform: translateY(-100%);
-      transition: transform var(--nav-anim-dur) ease;
-
-      &[aria-expanded="true"] {
-        transform: translateY(calc(0% + var(--header-h)));
-        li {
-          opacity: 0;
-          animation: fadeIn var(--nav-anim-dur) cubic-bezier(0.17, 0.84, 0.44, 1) forwards;
+    ul {
+      @apply w-fit px-4 pt-2;
+      padding-bottom: calc(var(--header-h) * 1.5);
+      &:hover {
+        > li {
+          @apply text-gray-500;
         }
       }
-
-      ul {
-        @apply w-fit px-4;
-        &:hover {
-          > li {
-            @apply text-gray-500;
-          }
-        }
-        > li { 
-          > a, button {
-            @apply inline-block font-medium uppercase py-2;
-            &:hover {
-              color: var(--text-color);
-            }
+      > li { 
+        > a, button {
+          @apply inline-block font-medium uppercase py-2;
+          &:hover {
+            color: var(--text-color);
           }
         }
       }

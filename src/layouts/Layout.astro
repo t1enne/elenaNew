@@ -1,5 +1,7 @@
 ---
 import Nav from "@components/Nav.astro";
+import StylesG from "@components/StylesG.astro"
+import { ViewTransitions } from "astro:transitions";
 import { defaultLang } from "@src/i18n/ui";
 
 export interface Props {
@@ -11,59 +13,26 @@ const lang = Astro.params.lang || defaultLang;
 ---
 
 <!DOCTYPE html>
-<html lang={lang}>
+<html lang={lang} x-data :class="$store.darkMode?.on && 'dark'">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<ViewTransitions />
+		<StylesG />
 	</head>
 	<body
 		:class="navOpen && 'overflow-hidden'"
 		x-data="{ navOpen: false }"
 		>
 		<Nav />
-		<main :class="navOpen ? 'translate-y-screen' : ''">
+		<main :class="navOpen && 'nav-open'">
 			<slot />
 		</main>
 	</body>
 </html>
-
-<style is:global lang="scss">
-:root {
-	--header-h: 60px;
-	--bg-color: white;
-	--text-color: #232323;
-	--nav-anim-dur: 250ms;
-	--nav-h: 50vh; // set at runtime
-	--ease-io-quintic: cubic-bezier(0.86, 0, 0.07, 1);
-
-	&.dark {
-		--bg-color: #232323;
-		--text-color: white;
-	}
-}
-
-body {
-	@apply bg-secondary text-primary min-h-screen;
-}
-
-main {
-	@apply px-4;
-	transform: translateY(0%);
-	filter: grayscale(0);
-	opacity: 1;
-	transition: all var(--nav-anim-dur) ease;
-	min-height: calc(100vh - var(--header-h));
-
-	&.translate-y-screen {
-		filter: grayscale(1);
-		opacity: 0.6;
-		transform: translateY(var(--nav-h));
-	}
-}
-</style>
 
 <script>
 import "@src/scripts/store";
