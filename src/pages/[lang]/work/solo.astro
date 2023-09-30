@@ -1,0 +1,112 @@
+---
+import { Image } from "astro:assets";
+import Layout from "@layouts/Layout.astro";
+import type { ImageMetadata } from "astro";
+const picsGlob = await Astro.glob("../../../../assets/img/solo/*/*");
+const first: Record<string, ImageMetadata> = {}
+picsGlob.forEach(pic => {
+  const title = pic.default.src.split('solo').slice(1)[0].split('/')[1]
+  if (!first[title]) first[title] = pic.default 
+})
+
+export function getStaticPaths() {
+  return [{ params: { lang: "en" } }, { params: { lang: "ru" } }];
+}
+---
+
+<Layout title="Solo shoots">
+  <section id="gallery-root">
+    <div id="gallery-scroller" class="grid grid-cols-1 md:grid-cols-2">
+      {
+      Object.values(first).map(( img ) => 
+        <figure class="py-8 px-2 grid">
+          <Image 
+            class="rounded-md place-self-center"
+            format="webp"
+            src={img} 
+            width={400} 
+            height={600} 
+            quality={85}
+            alt=""/>
+        </figure>
+      )
+      }
+    </div>
+  </section>
+</Layout>
+
+<style lang="scss">
+
+section {
+  height: 100vh;
+  width: 100%;
+}
+#work-index {
+  h2 {
+    @apply font-serif;
+    margin-bottom: 0.5rem;
+  }
+
+  .picture-wrap {
+    flex-basis: 25%;
+  }
+
+  .category-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+  }
+
+  .carousel {
+    transition: transform 450ms cubic-bezier(0.86, 0, 0.07, 1);
+    .cards-wrap  {
+      flex: 1 0 100%;
+
+      .img-wrap {
+        left: 50%;
+        top: 50%;
+        translate: -50% -50%;
+        z-index: 1;
+        transform-origin: bottom;
+        transition:  transform 450ms ease-in-out 150ms;
+      }
+
+      &.current {
+        .img-wrap {
+          &:first-child {
+            transform: rotate(-15deg) translate(-3rem, 6rem);
+            transition-delay: 150ms;
+          }
+          &:nth-child(2) {
+            transform: rotate(5deg) translate(-5rem, -6rem);
+            transition-delay: 200ms;
+          }
+          &:nth-child(3) {
+            transform: rotate(8deg) translate(3rem, -3rem);
+            transition-delay: 250ms;
+          }
+          &:nth-child(4) {
+            transform: rotate(8deg) translate(4rem, 6rem);
+            transition-delay: 300ms;
+          } 
+          &:last-child {
+            transform: rotate(0) translate(0);
+          }
+        }
+      }
+    }
+  }
+
+  button {
+    @apply font-bold uppercase;
+
+    &:disabled {
+      @apply text-gray-400;
+    }
+  }
+}
+
+
+</style>

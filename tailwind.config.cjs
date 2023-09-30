@@ -9,9 +9,11 @@ module.exports = {
         primary: "var(--text-color)",
         inverted: "var(--bg-color)",
         secondary: "var(--bg-color)",
-        accent: "var(--accent)",
-        accent_2: "var(--accent_2)",
-        accent_3: "var(--accent_3)",
+        accent: {
+          100: "var(--accent-100)",
+          200: "var(--accent-200)",
+          300: "var(--accent-300)",
+        },
       },
       spacing: {
         contentH: "calc(100vh - var(--header-h))",

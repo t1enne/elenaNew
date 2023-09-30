@@ -1,50 +1,114 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import type { languages } from "@src/i18n/ui";
+import { useTranslations } from "@src/i18n/utils";
+
+const lang = (Astro.params.lang as keyof typeof languages)
+const t = useTranslations(lang);
 
 export function getStaticPaths() {
   return [{ params: { lang: "en" } }, { params: { lang: "ru" } }];
 }
+
 ---
 
 <Layout title="Elena Kustova - Portfolio - About Me">
-  <form id="contact-form" name="contact" method="POST" data-netlify="true">
-    <div>
-      <label for="name">Your Name:</label>
-      <input
-        class="user-input"
-        type="text"
-        name="name"
-        minlength="2"
-        maxlength="12"
-        required
-      />
+  <div class="py-4" />
+  <p class="text-4xl font-bold text-right">{t('nav.contact')}</p>
+  <div class="py-4" />
+  <p class="text-2xl" set:html={t('c.contact_me')}/>
+  <div class="py-12" />
+  <aside class="links text-right text-lg">
+    <a rel="noopener" href="https://instagram.com/misskustova" target="_blank" class="insta-link w-fit ml-auto flex gap-2"><div class="link-text">@misskustova</div><svg viewBox="0 0 24 24" width="24" height="24" stroke-width="2px"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+    <button class="flex gap-2" @click={`$refs.dialog.showModal()`}>
+      <span>@inbox.ru</span>
+      <svg viewBox="0 0 20 20" stroke-width="1">
+				<path d="M17.388,4.751H2.613c-0.213,0-0.389,0.175-0.389,0.389v9.72c0,0.216,0.175,0.389,0.389,0.389h14.775c0.214,0,0.389-0.173,0.389-0.389v-9.72C17.776,4.926,17.602,4.751,17.388,4.751 M16.448,5.53L10,11.984L3.552,5.53H16.448zM3.002,6.081l3.921,3.925l-3.921,3.925V6.081z M3.56,14.471l3.914-3.916l2.253,2.253c0.153,0.153,0.395,0.153,0.548,0l2.253-2.253l3.913,3.916H3.56z M16.999,13.931l-3.921-3.925l3.921-3.925V13.931z"></path>
+			</svg>
+    </button>
+  </aside>
+  <dialog x-ref="dialog" class="w-96 p-8 rounded-xl">
+    <div class="dialog-header flex justify-end"> 
+      <button @click={`$refs.dialog.close()`} class="font-bold">Close</button>
     </div>
-    <div>
-      <label for="email">Your Email:</label>
-      <input class="user-input" type="email" name="email" required />
-    </div>
-    <div>
-      <label for="location">Shoot location:</label>
-      <input
-        class="user-input"
-        type="text"
-        name="location"
-        minlength="2"
-        required
-      />
-    </div>
-    <div>
-      <label>Message:</label>
-      <textarea class="user-input" name="message" minlength="10" required
-      ></textarea>
-    </div>
-    <div>
-      <button id="contact-btn" type="submit">Send</button>
-    </div>
-  </form>
+    <form id="contact-form" name="contact" method="POST" data-netlify="true">
+      <div>
+        <label for="name">Your Name</label>
+        <input
+          class="user-input"
+          type="text"
+          name="name"
+          minlength="2"
+          maxlength="12"
+          required
+        />
+      </div>
+      <div>
+        <label for="email">Your Email</label>
+        <input class="user-input" type="email" name="email" required />
+      </div>
+      <div>
+        <label for="location">Shoot location</label>
+        <input
+          class="user-input"
+          type="text"
+          name="location"
+          minlength="2"
+          required
+        />
+      </div>
+      <div>
+        <label>Message</label>
+        <textarea class="user-input" name="message" minlength="10" required
+        ></textarea>
+      </div>
+      <div>
+        <button class="w-full border border-gray-600 py-2 px-4 rounded-md font-bold uppercase" id="contact-btn" type="submit">Send</button>
+      </div>
+    </form>
+  </dialog>
 </Layout>
 
 <style lang="scss">
+  aside {
+    text-align: right;
+    a, button {
+      margin-top: 1rem;
+      align-items: center;
+      margin-left: auto;
+    }
+    svg {
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+  
+  dialog[open] {
+    @apply bg-secondary text-primary shadow-xl;
+    animation: fadein 200ms var(--ease-io-quintic);
+    &::backdrop {
+      @apply backdrop-blur-sm;
+    }
+  }
+
+  button#mailer {
+    
+  }
+  
+  @keyframes fadein{
+  0%{
+    opacity:0;
+    transform: translate(0, 5rem);
+  }
+  100%{
+    opacity:1;
+    transform: translate(0, 0rem);
+  }
+  }
   form#contact-form {
     > div {
       @apply my-4;
@@ -59,22 +123,34 @@ export function getStaticPaths() {
       resize: none;
     }
 
+    label:has(+ input[required])  {
+      &:after {
+        content: " *";
+        display: inline;
+      }
+    }
     .user-input {
-      @apply w-full border border-gray-600 p-2 bg-transparent;
+      @apply w-full border border-accent-300 rounded-md px-4 py-2 bg-transparent;
+      &:focus-visible {
+        border-color: transparent;
+        outline: 1px solid var(--accent-100);
+      }
     }
 
     button {
-      @apply w-full border border-gray-600 p-4;
-      @apply font-bold uppercase;
+      @apply border-accent-300;
+      &:focus {
+        outline: 1px solid var(--accent-100);
+      }
     }
   }
+
 </style>
 <script>
-  const form: HTMLFormElement = document.querySelector("form#contact-form")!;
+const form: HTMLFormElement = document.querySelector("form#contact-form")!;
 
-  form.addEventListener("submit", (e) => {
-    console.log(e);
-    e.preventDefault();
-    return false;
-  });
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  return false;
+});
 </script>
