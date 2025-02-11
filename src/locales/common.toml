@@ -19,8 +19,7 @@
     btt = 'back to top'
     home = 'home'
     about = 'about'
-    creds = 'website made by: '
-    places = ['- rome', '- florence', '- perugia']
+    places = ['- venice', '- garda', '- wherever you are']
 [ru]
     [ru.about]
     title = "Про меня"
@@ -39,5 +38,4 @@
     btt = 'Наверх'
     home = 'Главная'
     about = 'Про меня'
-    creds = 'Сайт от: '
-    places = ['- рим', '- флоренция', '- перуджа']
+		places = ['- Венеция', '- Гарда', '- Где бы вы ни были']

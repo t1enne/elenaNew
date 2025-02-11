@@ -22,8 +22,8 @@ let vkSvg = {
                 "fill-rule": "evenodd",
                 "clip-rule": "evenodd",
               },
-            }
-          )
+            },
+          ),
         ),
         m("g"),
         m("g"),
@@ -41,7 +41,7 @@ let vkSvg = {
         m("g"),
         m("g"),
         m("style[xmlns='http://www.w3.org/1999/xhtml'][type='text/css']"),
-      ]
+      ],
     );
   },
 };
@@ -55,7 +55,7 @@ const instaSvg = () => {
           m("rect[x='2'][y='2'][width='20'][height='20'][rx='5'][ry='5']"),
           m("path[d='M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z']"),
           m("line[x1='17.5'][y1='6.5'][x2='17.51'][y2='6.5']"),
-        ]
+        ],
       );
     },
   };
@@ -73,8 +73,8 @@ module.exports = {
         m(".name", locales[lang].footer.me),
         m(
           ".places",
-          locales[lang].footer.places.map((p) => m(".place", p))
-        )
+          locales[lang].footer.places.map((p) => m(".place", p)),
+        ),
       ),
       m(
         ".contacts.flex[data-scroll][data-scroll-speed=1]",
@@ -83,8 +83,8 @@ module.exports = {
           m(".link-mail-text", locales[lang].footer.contact),
           m(
             "a.lowercase.mail[href=mailto:kuslena@rambler.ru]",
-            "kuslena@inbox.ru"
-          )
+            "kuslena@inbox.ru",
+          ),
         ),
         m(
           ".socials",
@@ -94,15 +94,15 @@ module.exports = {
             m(
               "a.insta-link.flex[rel=noopener][href=https://instagram.com/misskustova][target=_blank]",
               m(".link-text.insta-link-text", "@misskustova"),
-              m(instaSvg)
+              m(instaSvg),
             ),
             m(
               "a.vk-link.flex[rel=noopener][href=https://vk.com/id17282149][target=_blank]",
               m(".link-text.vk-link-text", "Lena Kustova"),
-              m(vkSvg)
-            )
-          )
-        )
+              m(vkSvg),
+            ),
+          ),
+        ),
       ),
       m(
         `.footer-nav.flex-column[data-scroll][data-scroll-speed=1][data-scroll-call=hide][data-scroll-repeat]`,
@@ -118,11 +118,13 @@ module.exports = {
                 window.scroller.scrollTo("top");
               },
             },
-            locales[lang].footer.btt
-          )
+            locales[lang].footer.btt,
+          ),
         ),
         vnode.state.routes
-          .filter((route) => location.hash != `#!/${route}` && location.hash != route)
+          .filter(
+            (route) => location.hash != `#!/${route}` && location.hash != route,
+          )
           .map((route) => {
             return m(
               `a.${route}[data-scroll][href=#!/${route}]`,
@@ -139,25 +141,10 @@ module.exports = {
                   }
                 },
               },
-              m("span", locales[lang].footer[route == "" ? "home" : route])
+              m("span", locales[lang].footer[route == "" ? "home" : route]),
             );
-          })
+          }),
       ),
-      m(
-        ".credits[data-scroll][data-scroll-speed=2]",
-        m("span", locales[lang].footer.creds),
-        m(
-          "span",
-          m(
-            "a.creds[rel=noopener]",
-            {
-              href: "https://www.instagram.com/t1enne_/",
-              target: "_blank",
-            },
-            "t1enne_"
-          )
-        )
-      )
     );
   },
 };
